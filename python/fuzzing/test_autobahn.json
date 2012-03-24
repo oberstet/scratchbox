@@ -1,0 +1,48 @@
+{
+   "options": {
+      "rtts": false,
+      "quantile_count": 10,
+      "digits": 0,
+      "sep": "\t",
+      "outfile": "report.txt",
+      "debug": false
+   },
+   "servers":  [
+                  {
+                     "name": "Autobahn/MASKER",
+                     "uri": "ws://192.168.1.120:9000",
+                     "desc": "Virtual machine (2 cores @3.4GHz, 2GB Ram) running FreeBSD 9 i386 Release / gcc 4.2.1, Twisted r33651@trunk, PyPy HEAD@default with kqueue support."
+                  },
+                  {
+                     "name": "Autobahn/master",
+                     "uri": "ws://192.168.1.120:9001",
+                     "desc": "Virtual machine (2 cores @3.4GHz, 2GB Ram) running FreeBSD 9 i386 Release / gcc 4.2.1, Twisted r33651@trunk, PyPy HEAD@default with kqueue support."
+                  },
+                  {
+                     "name": "Autobahn/xor3",
+                     "uri": "ws://192.168.1.120:9002",
+                     "desc": "Virtual machine (2 cores @3.4GHz, 2GB Ram) running FreeBSD 9 i386 Release / gcc 4.2.1, Twisted r33651@trunk, PyPy HEAD@default with kqueue support."
+                  }
+               ],
+   "sizes": [
+               [1000, 0, 100000, true, true, false],
+               [1000, 1, 100000, true, true, false],
+               [1000, 2, 100000, true, true, false],
+               [1000, 4, 100000, true, true, false],
+               [1000, 8, 100000, true, true, false],
+               [1000, 16, 100000, true, true, false],
+               [1000, 32, 100000, true, true, false],
+               [1000, 64, 100000, true, true, false],
+               [1000, 128, 100000, true, true, false],
+               [1000, 256, 100000, true, true, false],
+               [1000, 512, 100000, true, true, false],
+               [1000, 1024, 100000, true, true, false],
+               [1000, 2048, 100000, true, true, false],
+               [1000, 4096, 100000, true, true, false],
+               [1000, 8192, 100000, true, true, false],
+               [1000, 16384, 100000, true, true, false],
+               [1000, 32768, 100000, true, true, false],
+               [1000, 65536, 100000, true, true, false],
+               [1000, 131072, 100000, true, true, false]
+            ]
+}

@@ -1,0 +1,14 @@
+{
+   "options": {"failByDrop": false},
+   "debug": true,
+   "debugCodePaths": false,
+   "enable-ssl": false,
+
+   "servers": [
+               {"agent": "AutobahnServer/0.5-dev", "url": "ws://192.168.1.141:9001", "options": {"version": 18}}
+               ],
+
+   "cases": ["1.1.2"],
+   "exclude-cases": [],
+   "exclude-agent-cases": {}
+}

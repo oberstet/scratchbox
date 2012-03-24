@@ -1,0 +1,167 @@
+Physical Machine 1 (PM1)
+
+Hardware
+  Intel Quad Core i7 920 3.32 GHz
+  12 GB RAM
+  1GbE Marvell Yukon 88E8056 9k Jumbo Frames
+
+Software
+  Windows 7 Professional SP1 64 Bit (fully patched as of 03/15/2012)
+  Oracle VM VirtualBox 4.1.10
+
+
+
+Physical Machine 2 (PM2)
+
+Hardware
+  Intel Quad Core i7 920 3.32 GHz
+  12 GB RAM
+  1GbE Marvell Yukon 88E8056 9k Jumbo Frames
+
+Software
+  Windows 8 Developer Preview (6.2.8102 Build 8102)  (fully patched as of 03/15/2012)
+  various Browsers (see reports)
+
+
+
+Virtual Machine 1 (VM1) running on PM1
+
+Hardware (virtual)
+
+  2 Cores (no throttling, VT-x/AMD-V active, Nested Paging active)
+  2 GB RAM
+  Intel PRO/1000 MT Desktop (82540EM)
+  Network Bridged Mode bound to host adapter
+
+
+Software
+  Ubuntu 10.04.4 LTS 32 Bit  (fully patched as of 03/15/2012)
+  Linux 2.6.32-39-generic #86-Ubuntu SMP
+  PyPy 1.8.0 with GCC 4.4.3
+  OpenJDK Server VM (build 19.0-b09, mixed mode)
+  node.js v0.6.11
+
+
+Virtual Machine 1 (VM2) running on PM1
+
+Hardware (virtual)
+
+  2 Cores (no throttling, VT-x/AMD-V active, Nested Paging active)
+  2 GB RAM
+  Intel PRO/1000 MT Desktop (82540EM)
+  Network Bridged Mode bound to host adapter
+
+
+Software
+  FreeBSD 9.0-RELEASE #0 i386  (32 bit)
+  gcc (GCC) 4.2.1 20070831 patched [FreeBSD]
+
+
+
+
+Networking:
+
+  PM1 and PM2 are connected over fully switched GbE
+  Netgear Prosafe 16-Port GbE GS116
+
+
+Autobahn
+========
+
+http://autobahn.ws
+
+git clone git://github.com/tavendo/AutobahnPython.git
+cd AutobahnPython/autobahn
+pypy setup.py install
+wstest -m testeeserver -w ws://localhost:9001
+
+PORT: 9001
+
+
+WebSocket++
+===========
+
+http://www.zaphoyd.com/websocketpp
+
+git clone git://github.com/zaphoyd/websocketpp.git
+cd websocketpp
+scons
+./build/release/echo_server/echo_server
+
+PORT: 9002
+
+
+Jetty
+=====
+
+https://github.com/jetty-project/jetty-autobahn-websocket-webapp
+
+git clone git://github.com/jetty-project/jetty-autobahn-websocket-webapp.git
+cd jetty-autobahn-websocket-webapp
+mvn clean
+mvn -Dorg.eclipse.jetty.LEVEL=OFF install
+mvn exec:exec
+
+PORT: 8080
+
+
+WebSocketNode
+=============
+
+https://github.com/Worlize/WebSocket-Node
+
+git clone git://github.com/Worlize/WebSocket-Node.git
+cd WebSocket-Node
+make
+node test/echo-server.js --port 8081
+
+PORT: 8081
+
+
+Node WS
+=======
+
+http://einaros.github.com/ws
+
+npm install options
+git clone git://github.com/einaros/ws.git
+cd ws
+make
+node test/autobahn-server.js
+
+PORT: 8181
+
+
+Cowboy
+======
+
+https://github.com/extend/cowboy
+
+git clone git://github.com/klaar/cowboy_examples.git
+cd cowboy
+git checkout remotes/origin/add-echo-handler
+make
+./start.sh
+
+
+ws://192.168.1.141:8080/websocket/echo
+
+
+
+
+
+
+Building Erlang
+===============
+
+wget http://www.erlang.org/download/otp_src_R15B.tar.gz
+tar xvzf otp_src_R15B.tar.gz
+cd otp_src_R15B
+./configure --prefix=$HOME/erlang/r15b
+make install
+
+wget http://cloud.github.com/downloads/basho/rebar/rebar && chmod u+x rebar
+mv rebar $HOME/erlang/r15b/bin/
+
+echo "export PATH=$HOME/erlang/r15b/bin/:$PATH" >> $HOME/.profile
+source $HOME/.profile

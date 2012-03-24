@@ -1,0 +1,13 @@
+{
+   "options": {"failByDrop": false},
+   "enable-ssl": false,
+
+   "servers": [
+               {"agent": "AutobahnServer/0.5-dev", "url": "ws://192.168.43.30:9000", "options": {"version": 17}},
+               {"agent": "AutobahnServer/xor3", "url": "ws://192.168.43.30:9002", "options": {"version": 17}}
+               ],
+
+   "cases": ["1.*"],
+   "exclude-cases": ["9.*"],
+   "exclude-agent-cases": {}
+}

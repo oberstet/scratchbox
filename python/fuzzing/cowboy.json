@@ -1,0 +1,13 @@
+{
+   "options": {"failByDrop": false},
+
+   "servers": [
+               {"agent": "AutobahnServer/0.5-dev", "url": "ws://192.168.1.141:9001", "options": {"version": 18}},
+               {"agent": "WebSocket++/0.2-dev", "url": "ws://192.168.1.141:9002", "options": {"version": 18}},
+               {"agent": "Cowboy/HEAD", "url": "ws://192.168.1.141:8080/websocket/echo", "options": {"version": 18}}
+               ],
+
+   "cases": ["*"],
+   "exclude-cases": [],
+   "exclude-agent-cases": {}
+}
