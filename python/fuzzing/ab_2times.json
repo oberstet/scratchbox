@@ -1,0 +1,10 @@
+{
+   "options": {"failByDrop": false},
+   "servers": [
+               {"agent": "Autobahn-1/0.5.0", "url": "ws://localhost:9000", "options": {"version": 18}},
+               {"agent": "Autobahn-2/0.5.0", "url": "ws://localhost:9001", "options": {"version": 18}}
+               ],
+   "cases": ["1.*"],
+   "exclude-cases": [],
+   "exclude-agent-cases": {}
+}
