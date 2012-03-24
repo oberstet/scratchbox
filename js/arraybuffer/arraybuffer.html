@@ -4,6 +4,9 @@
 
          window.onload = function() {
 
+            // spec: http://www.khronos.org/registry/typedarray/specs/latest/
+            // https://developer.mozilla.org/en/JavaScript_typed_arrays/Uint8Array
+
             // roundtrip normal arrays
             //
             var narr = [1, 2, 3, 4, 5];
@@ -42,6 +45,29 @@
             console.log(JSON.stringify(buf));
             console.log(JSON.stringify(arr));
             console.log(JSON.stringify(arr2));
+
+            // subarrays .. do no copy! .. nifty
+            //
+            var arr3 = new ArrayBuffer(1024);
+            var v1 = Uint8Array(arr3);
+            for (var i = 0; i < v1.length; ++i) v1[i] = i;
+            var v2 = v1.subarray(10, 200);
+            console.log(v1[10]);
+            console.log(v2[0]);
+            v1[10] = 99;
+            console.log(v1[10]);
+            console.log(v2[0]);
+
+            var arr4 = new ArrayBuffer(1024);
+            var v3 = Uint8Array(arr4);
+            for (var i = 0; i < v1.length; ++i) v3[i] = i;
+            var v4 = Uint8Array(arr4, 100, 30);
+            console.log(v4[0]);
+
+            // dont call funs operating on typed arrays
+            // polymorphically (with different types)
+            // http://jsperf.com/fast-typed-arrays
+            // http://blog.n01se.net/?p=248
          }
 
      </script>
