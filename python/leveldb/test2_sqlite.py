@@ -9,7 +9,10 @@ print "running test on SQLite3, ", "records = %d" % N, "commit size = %d" % COMM
 
 from randstr import newid
 
-os.remove(DBPATH)
+try:
+   os.remove(DBPATH)
+except:
+   pass
 conn = sqlite3.connect(DBPATH)
 print "created scratch new DB"
 
