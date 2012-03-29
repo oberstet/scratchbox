@@ -36,13 +36,16 @@ import datetime
 #class HeartbeatClientProtocol(WebSocketClientProtocol):
 class HeartbeatClientProtocol(WampClientProtocol):
 
+   BEAT_SIZE = 100
+   BEATS_PER_SEC = 5
+
    def sendBeat(self):
       id = newid()
-      payload = os.urandom(self.beatsize)
+      payload = os.urandom(HeartbeatClientProtocol.BEAT_SIZE)
       self.beats[id] = datetime.datetime.utcnow()
       self.sendPing(id + payload)
       print "Sent heartbeat: " + id, self.beatsize
-      reactor.callLater(.2, self.sendBeat)
+      reactor.callLater(1./float(HeartbeatClientProtocol.BEATS_PER_SEC), self.sendBeat)
 
    def onOpen(self):
       self.beats = {}
