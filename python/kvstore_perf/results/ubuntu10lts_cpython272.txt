@@ -1,0 +1,49 @@
+Platform linux2
+2.7.2 (default, Mar 25 2012, 13:33:45) 
+[GCC 4.4.3]
+
+running test on Python map,  records = 1000
+ok, inserted 1000 records in 0.0 seconds, 790483 recs/sec
+
+running test on LevelDB,  records = 1000 commit size = 1
+create scratch new DB
+ok, inserted 1000 records in 0.3 seconds, 2991 recs/sec
+
+running test on ZODB (FileStorage),  records = 1000 commit size = 1
+created scratch new DB
+ok, inserted 1000 records in 1.1 seconds, 879 recs/sec
+
+running test on SQLite3,  records = 1000 commit size = 1
+created scratch new DB
+ok, inserted 1000 records in 1.8 seconds, 549 recs/sec
+
+running test on Python map,  records = 100000
+ok, inserted 100000 records in 0.1 seconds, 752876 recs/sec
+
+running test on LevelDB,  records = 100000 commit size = 10000
+create scratch new DB
+ok, inserted 100000 records in 0.6 seconds, 168371 recs/sec
+
+running test on ZODB (FileStorage),  records = 100000 commit size = 10000
+created scratch new DB
+ok, inserted 100000 records in 4.3 seconds, 23309 recs/sec
+
+running test on SQLite3,  records = 100000 commit size = 10000
+created scratch new DB
+ok, inserted 100000 records in 0.9 seconds, 117228 recs/sec
+
+running test on Python map,  records = 1000000
+ok, inserted 1000000 records in 1.4 seconds, 715187 recs/sec
+
+running test on LevelDB,  records = 1000000 commit size = 0
+create scratch new DB
+ok, inserted 1000000 records in 5.5 seconds, 182535 recs/sec
+
+running test on ZODB (FileStorage),  records = 1000000 commit size = 0
+created scratch new DB
+ok, inserted 1000000 records in 9.4 seconds, 106894 recs/sec
+
+running test on SQLite3,  records = 1000000 commit size = 0
+created scratch new DB
+ok, inserted 1000000 records in 8.3 seconds, 121114 recs/sec
+

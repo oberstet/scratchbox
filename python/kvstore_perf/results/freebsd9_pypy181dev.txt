@@ -1,0 +1,43 @@
+Platform freebsd9
+2.7.2 (3301be1ad839, Mar 19 2012, 15:43:13)
+[PyPy 1.8.1-dev0 with GCC 4.2.1]
+
+running test on Python map,  records = 1000
+ok, inserted 1000 records in 0.0 seconds, 364437 recs/sec
+
+running test on LevelDB,  records = 1000 commit size = 1
+create scratch new DB
+ok, inserted 1000 records in 0.4 seconds, 2823 recs/sec
+
+running test on ZODB (FileStorage),  records = 1000 commit size = 1
+created scratch new DB
+running test on SQLite3,  records = 1000 commit size = 1
+created scratch new DB
+ok, inserted 1000 records in 2.5 seconds, 401 recs/sec
+
+running test on Python map,  records = 100000
+ok, inserted 100000 records in 0.1 seconds, 745979 recs/sec
+
+running test on LevelDB,  records = 100000 commit size = 10000
+create scratch new DB
+ok, inserted 100000 records in 1.4 seconds, 69434 recs/sec
+
+running test on ZODB (FileStorage),  records = 100000 commit size = 10000
+created scratch new DB
+running test on SQLite3,  records = 100000 commit size = 10000
+created scratch new DB
+ok, inserted 100000 records in 2.2 seconds, 45638 recs/sec
+
+running test on Python map,  records = 1000000
+ok, inserted 1000000 records in 2.1 seconds, 479445 recs/sec
+
+running test on LevelDB,  records = 1000000 commit size = 0
+create scratch new DB
+ok, inserted 1000000 records in 14.1 seconds, 70935 recs/sec
+
+running test on ZODB (FileStorage),  records = 1000000 commit size = 0
+created scratch new DB
+running test on SQLite3,  records = 1000000 commit size = 0
+created scratch new DB
+ok, inserted 1000000 records in 16.2 seconds, 61547 recs/sec
+
