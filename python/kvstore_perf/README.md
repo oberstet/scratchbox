@@ -25,6 +25,11 @@ Contestants
  * ZODB
 
 
+TODO: Check out https://github.com/shuttler/nessDB
+ - Arbitrarily sizes keys and values?
+ - Iteration by key order, max/min etc?
+
+
 Test Setup
 ----------
 
