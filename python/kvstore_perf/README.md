@@ -8,6 +8,14 @@ Compare the random insert performance of embedded Python databases
 that provide (at least) an ordered mapping from string keys to
 string values.
 
+Minimum requirements:
+
+  * key-value map (associative array)
+  * arbitrary size keys and values
+  * keys/values any bytestring
+  * iteration by key order
+  * max key smaller than given one (min key larger than given one)
+
 
 Caveat
 ------
@@ -25,9 +33,10 @@ Contestants
  * ZODB
 
 
-TODO: Check out https://github.com/shuttler/nessDB
- - Arbitrarily sizes keys and values?
- - Iteration by key order, max/min etc?
+Notes:
+ * https://github.com/shuttler/nessDB looks interesting, but
+   currently doesn't fulfil the above requirements
+   (key size limited to 24 byes, no ordering)
 
 
 Test Setup
