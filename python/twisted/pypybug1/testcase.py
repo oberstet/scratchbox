@@ -15,7 +15,7 @@ class Echo(Protocol):
       print "connection lost"
 
    def dataReceived(self, data):
-      print "received: ", data
+      print "received: ", len(data)
 
    def send(self):
       html = """<!DOCTYPE html><html><body><h1>Foobar</h1></body></html>"""
@@ -28,14 +28,23 @@ class Echo(Protocol):
       self.transport.write(response)
 
 
-
 if __name__ == "__main__":
-   if len(sys.argv) > 1:
+
+   if 'pool' in sys.argv:
       print "creating adbapi.ConnectionPool"
-      p = adbapi.ConnectionPool('sqlite3', 'foobar.dat')
+      p = adbapi.ConnectionPool('sqlite3', 'foobar.dat', cp_noisy = True, cp_max = 1)
    else:
       print "no adbapi.ConnectionPool created"
+
    factory = Factory()
    factory.protocol = Echo
-   reactor.listenSSL(8090, factory, ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt'))
+   port = 8090
+
+   if 'ssl' in sys.argv:
+      print "running SSL on", port
+      reactor.listenSSL(port, factory, ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt'))
+   else:
+      print "running plain TCP on", port
+      reactor.listenTCP(port, factory)
+
    reactor.run()
