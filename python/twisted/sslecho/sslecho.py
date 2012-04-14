@@ -52,8 +52,13 @@ class SslEchoService(MultiService):
 
    def startService(self):
 
-      factory = Factory()
-      factory.protocol = Echo
+      if False:
+         factory = Factory()
+         factory.protocol = Echo
+      else:
+         root = File(".")
+         factory = Site(root)
+
       #hub_websocket_sslcontext = tlsctx.TlsContextFactory(cfg["hub-websocket-tlskey-pem"], cfg["hub-websocket-tlscert-pem"])
       context = ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt')
 
