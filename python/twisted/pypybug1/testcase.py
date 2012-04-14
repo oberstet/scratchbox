@@ -28,16 +28,31 @@ class Echo(Protocol):
       self.transport.write(response)
 
 
+class EchoFactory(Factory):
+
+   protocol = Echo
+
+   def __init__(self, create_pool):
+      self.create_pool = create_pool
+
+   def startFactory(self):
+      print "starting factory"
+      if self.create_pool:
+         print "adbapi.ConnectionPool created"
+         self.pool = adbapi.ConnectionPool('sqlite3', 'foobar.dat')
+      else:
+         print "no adbapi.ConnectionPool created"
+
+
 if __name__ == "__main__":
 
-   if 'pool' in sys.argv:
-      print "creating adbapi.ConnectionPool"
-      p = adbapi.ConnectionPool('sqlite3', 'foobar.dat', cp_noisy = True, cp_max = 1)
+   if 'pool' in sys.argv and not 'defer' in sys.argv:
+      print "adbapi.ConnectionPool created"
+      p = adbapi.ConnectionPool('sqlite3', 'foobar.dat')
    else:
       print "no adbapi.ConnectionPool created"
 
-   factory = Factory()
-   factory.protocol = Echo
+   factory = EchoFactory('pool' in sys.argv and 'defer' in sys.argv)
    port = 8090
 
    if 'ssl' in sys.argv:
