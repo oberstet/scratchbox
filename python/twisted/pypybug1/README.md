@@ -1,6 +1,16 @@
 The bug pops up when threads are used, and PyOpenSSL is used:
 
 
+      [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ python testcase4.py imp
+      importing socket
+      [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ ~/pypy1/bin/pypy testcase4.py imp
+      importing socket
+      Fatal error: pthread_mutex_lock(&mutex_gil)
+      Abort trap: 6
+      [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ ~/pypy1/bin/pypy testcase4.py
+      no socket imported
+
+
       [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ pypy testcase3.py 8090 threads
       starting threads
       Fatal error: pthread_mutex_lock(&mutex_gil)
