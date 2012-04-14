@@ -1,5 +1,11 @@
+from twisted.python import usage
+
 from twisted.internet import ssl, reactor
 from twisted.internet.protocol import Factory, Protocol
+
+from twisted.application import service, internet
+from twisted.application.service import Application, MultiService
+
 
 from twisted.web.server import Site
 from twisted.web.static import File
@@ -37,5 +43,31 @@ else:
    factory = Site(root)
 
 
-reactor.listenSSL(8090, factory, ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt'))
-reactor.run()
+if __name__ == "__main__":
+   reactor.listenSSL(8090, factory, ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt'))
+   reactor.run()
+
+
+class SslEchoService(MultiService):
+
+   def startService(self):
+
+      factory = Factory()
+      factory.protocol = Echo
+      #hub_websocket_sslcontext = tlsctx.TlsContextFactory(cfg["hub-websocket-tlskey-pem"], cfg["hub-websocket-tlscert-pem"])
+      context = ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt')
+
+      service = internet.SSLServer(8090, factory, context)
+      service.setServiceParent(self)
+
+      MultiService.startService(self)
+
+
+class Options(usage.Options):
+   pass
+
+
+def makeService(options):
+   from twisted.internet import reactor
+   reactor.suggestThreadPoolSize(30)
+   return SslEchoService()
