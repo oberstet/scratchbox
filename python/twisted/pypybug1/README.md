@@ -1,3 +1,14 @@
+The bug pops up when threads are used, and PyOpenSSL is used:
+
+
+      [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ pypy testcase3.py 8090 threads
+      starting threads
+      Fatal error: pthread_mutex_lock(&mutex_gil)
+      Abort trap: 6
+
+
+
+
 The bug will only pop up when doing SSL _and_ adbapi.ConnectionPool
 
       [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ pypy testcase.py
