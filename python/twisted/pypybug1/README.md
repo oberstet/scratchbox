@@ -26,3 +26,34 @@ The bug will only pop up when doing SSL _and_ adbapi.ConnectionPool
       Fatal error: pthread_mutex_unlock(&mutex_gil)
       Abort trap: 6
       [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$
+
+
+Here is the output of a patch PyPy
+
+
+      [autobahn@autobahnws ~/scm/scratchbox/python/twisted/pypybug1]$ ~/pypy2/bin/pypy testcase.py ssl pool
+      creating adbapi.ConnectionPool
+      running SSL on 8090
+      connection made
+      Fatal error in RPyGilRelease: 1
+      Abort trap: 6
+
+
+The PyPy was patched to output the error code
+
+
+      void RPyGilRelease(void)
+      {
+         int ret;
+          _debug_print("RPyGilRelease\n");
+      #ifdef RPY_ASSERT
+          assert(pending_acquires >= 0);
+      #endif
+          assert_has_the_gil();
+          ret = pthread_mutex_unlock(&mutex_gil);
+          if (ret != 0) {
+            fprintf(stderr, "Fatal error in RPyGilRelease: %d\n", ret);
+            abort();
+          }
+          ASSERT_STATUS(pthread_cond_signal(&cond_gil));
+      }
