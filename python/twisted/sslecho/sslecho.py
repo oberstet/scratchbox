@@ -1,3 +1,5 @@
+from twisted.enterprise import adbapi
+
 from twisted.python import usage
 
 from twisted.internet import ssl, reactor
@@ -9,6 +11,16 @@ from twisted.application.service import Application, MultiService
 
 from twisted.web.server import Site
 from twisted.web.static import File
+
+
+DBFILE = "foobar.dat"
+
+
+def CreatePool():
+   return adbapi.ConnectionPool('sqlite3',
+                                DBFILE,
+                                check_same_thread = False # http://twistedmatrix.com/trac/ticket/3629
+                                )
 
 
 class Echo(Protocol):
@@ -35,15 +47,17 @@ class Echo(Protocol):
       self.transport.write(response)
 
 
-if False:
-   factory = Factory()
-   factory.protocol = Echo
-else:
-   root = File(".")
-   factory = Site(root)
+
 
 
 if __name__ == "__main__":
+   pool = CreatePool()
+   if True:
+      factory = Factory()
+      factory.protocol = Echo
+   else:
+      root = File(".")
+      factory = Site(root)
    reactor.listenSSL(8090, factory, ssl.DefaultOpenSSLContextFactory('server.key', 'server.crt'))
    reactor.run()
 
@@ -51,6 +65,8 @@ if __name__ == "__main__":
 class SslEchoService(MultiService):
 
    def startService(self):
+
+      pool = CreatePool()
 
       if False:
          factory = Factory()
