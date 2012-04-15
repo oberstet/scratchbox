@@ -1,12 +1,6 @@
 from OpenSSL import SSL
-import sys, thread
-
-if 'imp' in sys.argv:
-   print "importing socket"
-   import socket
-else:
-   print "no socket imported"
-
+import thread
+import socket
 
 def foo():
    return
