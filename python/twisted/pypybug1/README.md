@@ -1,17 +1,14 @@
-1.
-Install the following under PyPy (a regular "pypy setup.py install" will do it)
+1. Install the following under PyPy (a regular "pypy setup.py install" will do it)
 
    * http://pypi.python.org/packages/source/z/zope.interface/zope.interface-3.8.0.tar.gz
 
    * http://pypi.python.org/packages/source/T/Twisted/Twisted-12.1.0.tar.bz2
 
-2.
-Run
+2. Run
 
-   ~/pypy-1.9/bin/pypy testcase.py pool ssl
+   pypy testcase.py pool ssl
 
-3.
-Open a browser
+3. Open a browser
 
    https://192.168.1.141:8090/
 
