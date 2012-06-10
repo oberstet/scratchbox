@@ -1,3 +1,5 @@
+import socket
+
 import sys
 
 from twisted.enterprise import adbapi
@@ -46,13 +48,13 @@ class EchoFactory(Factory):
 
 if __name__ == "__main__":
 
-   if 'pool' in sys.argv and not 'defer' in sys.argv:
+   if 'pool' in sys.argv:
       print "adbapi.ConnectionPool created"
       p = adbapi.ConnectionPool('sqlite3', 'foobar.dat')
    else:
       print "no adbapi.ConnectionPool created"
 
-   factory = EchoFactory('pool' in sys.argv and 'defer' in sys.argv)
+   factory = EchoFactory('pool' in sys.argv)
    port = 8090
 
    if 'ssl' in sys.argv:
