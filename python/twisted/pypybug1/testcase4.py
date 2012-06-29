@@ -1,5 +1,4 @@
 import thread
-import socket
 import time
 
 def foo():
