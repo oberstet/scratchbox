@@ -52,7 +52,7 @@ if dir == '':
 # Initialize context
 ctx = SSL.Context(SSL.SSLv23_METHOD)
 ctx.set_options(SSL.OP_NO_SSLv2)
-ctx.set_verify(SSL.VERIFY_PEER|SSL.VERIFY_FAIL_IF_NO_PEER_CERT, verify_cb) # Demand a certificate
+#ctx.set_verify(SSL.VERIFY_PEER|SSL.VERIFY_FAIL_IF_NO_PEER_CERT, verify_cb) # Demand a certificate
 ctx.use_privatekey_file (os.path.join(dir, 'server.key'))
 ctx.use_certificate_file(os.path.join(dir, 'server.crt'))
 #ctx.load_verify_locations(os.path.join(dir, 'CA.cert'))
