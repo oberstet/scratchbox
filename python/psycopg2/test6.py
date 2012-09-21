@@ -13,6 +13,8 @@ conn = psycopg2.connect(host = "127.0.0.1", port = 5432, database = "test", user
 conn.autocommit = True
 cur = conn.cursor()
 
+psycopg2.extensions.register_adapter(dict, psycopg2.extras.Json)
+
 cur.execute("""DROP TYPE IF EXISTS t_station CASCADE""")
 cur.execute("""DROP TYPE IF EXISTS t_employee CASCADE""")
 cur.execute("""DROP TYPE IF EXISTS t_address CASCADE""")
@@ -24,7 +26,7 @@ cur.execute("""CREATE TYPE t_employee AS (name VARCHAR, age INT, coins INT[], no
 cur.execute("""
 CREATE OR REPLACE FUNCTION test_employee(e t_employee)
   RETURNS t_employee AS
-$BODY$
+$$
 DECLARE
    l_adr t_address;
    l_stations t_station[];
@@ -38,41 +40,61 @@ BEGIN
    e.address := l_adr;
    RETURN e;
 END
-$BODY$
-  LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
+""")
+
+cur.execute("""
+CREATE OR REPLACE FUNCTION test_json(e json)
+  RETURNS json AS
+$$
+BEGIN
+   RETURN e;
+END
+$$ LANGUAGE plpgsql;
 """)
 
 from pgutil import register_composite_as_dict
 
 casters = {}
 
-empCaster = register_composite_as_dict('t_employee', cur)
+empCaster = register_composite_as_dict('t_employee', conn)
 empCaster.casters = casters
 casters[empCaster.oid] = empCaster
 
-adrCaster = register_composite_as_dict('t_address', cur)
+adrCaster = register_composite_as_dict('t_address', conn)
 adrCaster.casters = casters
 casters[adrCaster.oid] = adrCaster
 
 
-e0 = empCaster.totuple({'name': 'foo', 'age': 44, 'ignored': None, 'coins': [1,2,3]})
+e0 = {'name': 'foo', 'age': 44, 'ignored': None, 'coins': [1,2,3]}
 
-e1 = empCaster.totuple({'name': 'foo',
-                        'age': 44,
-                        'address': {'no': 18,
-                                    'city': 'Duckhausen'},
-                         'ignored': None,
-                         'coins': [1,2,3]})
+e1 = {'name': 'foo',
+              'age': 44,
+              'address': {'no': 18,
+                          'city': 'Duckhausen'},
+               'ignored': None,
+               'coins': [1,2,3]}
 
-e2 = empCaster.totuple({'name': 'foo',
-                        'age': 44,
-                        'address': {'no': 18,
-                                    'city': 'Duckhausen',
-                                    'stations': [{'x': 10, 'label': 'blub'},
-                                                 {'y': 5, 'ignored': False}]},
-                         'ignored': None,
-                         'coins': [1,2,3]})
+e2 = {'name': 'foo',
+              'age': 44,
+              'address': {'no': 18,
+                          'city': 'Duckhausen',
+                          'stations': [{'x': 10, 'label': 'blub'},
+                                       {'y': 5, 'ignored': False}]},
+               'ignored': None,
+               'coins': [1,2,3]}
 
-for e in [e0, e1]:
-   cur.execute("SELECT test_employee(%s)", [e])
-   print cur.fetchone()[0]
+for e in [e0, e1, e2]:
+   print "-"*40
+   try:
+      cur.execute("SELECT test_employee(%s)", [empCaster.totuple(e)])
+      print cur.fetchone()
+   except Exception, e:
+      print e
+
+   print "*"*40
+   try:
+      cur.execute("SELECT test_json(%s)", [e])
+      print cur.fetchone()
+   except Exception, e:
+      print e
