@@ -60,9 +60,14 @@ class CompositeDictCaster(object):
 
     def totuple(self, value):
        r = []
-       for k in self.attnames:
+       for i in xrange(len(self.attnames)):
+          k = self.attnames[i]
           if value.has_key(k):
-             r.append(value[k])
+             valoid = self.atttypes[i]
+             if self.casters.has_key(valoid):
+                r.append(self.casters[valoid].totuple(value[k]))
+             else:
+                r.append(value[k])
           else:
              r.append(None)
        return tuple(r)
