@@ -4,6 +4,7 @@ from decimal import Decimal
 import psycopg2
 import psycopg2.extras
 import psycopg2.extensions
+from psycopg2.extensions import adapt
 
 from pprint import pprint
 
@@ -13,7 +14,7 @@ conn = psycopg2.connect(host = "127.0.0.1", port = 5432, database = "test", user
 conn.autocommit = True
 cur = conn.cursor()
 
-psycopg2.extensions.register_adapter(dict, psycopg2.extras.Json)
+#psycopg2.extensions.register_adapter(dict, psycopg2.extras.Json)
 
 cur.execute("""DROP TYPE IF EXISTS t_station CASCADE""")
 cur.execute("""DROP TYPE IF EXISTS t_employee CASCADE""")
@@ -55,6 +56,14 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 """)
+
+v1 = ('foo', 44, [1, 2, 3], None, ('Duckhausen', None, 18, [(10, None, 'blub'), (None, 5, None)]))
+
+cur.execute("SELECT test_employee(%s, %s)", [v1, False])
+print cur.fetchone()
+
+sys.exit(0)
+
 
 from pgutil import register_composite_as_dict
 
@@ -106,14 +115,16 @@ e2 = {'name': 'foo',
 for e in [e0, e1, e2]:
    print "-"*40
    try:
-      cur.execute("SELECT test_employee(%s, %s)", [empCaster.totuple(e), False])
-      print cur.fetchone()
+      mangled = empCaster.totuple(e)
+      print mangled
+      #cur.execute("SELECT test_employee(%s, %s)", [empCaster.totuple(e), False])
+      #print cur.fetchone()
    except Exception, e:
       print e
 
-   print "*"*40
-   try:
-      cur.execute("SELECT test_json(%s)", [e])
-      print cur.fetchone()
-   except Exception, e:
-      print e
+   #print "*"*40
+   #try:
+   #   cur.execute("SELECT test_json(%s)", [e])
+   #   print cur.fetchone()
+   #except Exception, e:
+   #   print e

@@ -66,11 +66,13 @@ class CompositeDictCaster(object):
              valoid = self.atttypes[i]
              if self.casters.has_key(valoid):
                 r.append(self.casters[valoid].totuple(value[k]))
-             #elif self.acasters.has_key(valoid):
-             #   l = []
-             #   for v in value:
-             #       l.append(self.casters[valoid].totuple(v))
-             #   l.append(l)
+             elif self.acasters.has_key(valoid):
+                p1 = self.acasters[valoid]
+                p2 = self.casters[p1.oid]
+                l = []
+                for v in value[k]:
+                    l.append(p2.totuple(v))
+                r.append(l)
              else:
                 r.append(value[k])
           else:
