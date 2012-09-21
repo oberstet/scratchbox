@@ -24,7 +24,7 @@ cur.execute("""CREATE TYPE t_address AS (city VARCHAR, street VARCHAR, no INT, s
 cur.execute("""CREATE TYPE t_employee AS (name VARCHAR, age INT, coins INT[], notes VARCHAR, address t_address)""")
 
 cur.execute("""
-CREATE OR REPLACE FUNCTION test_employee(e t_employee)
+CREATE OR REPLACE FUNCTION test_employee(e t_employee, roundtrip BOOLEAN DEFAULT TRUE)
   RETURNS t_employee AS
 $$
 DECLARE
@@ -32,6 +32,9 @@ DECLARE
    l_stations t_station[];
    l_station  t_station;
 BEGIN
+   IF roundtrip THEN
+      RETURN e;
+   END IF;
    e.notes := 'something';
    l_adr := e.address;
    l_adr.street := 'sdfsd';
@@ -56,14 +59,30 @@ $$ LANGUAGE plpgsql;
 from pgutil import register_composite_as_dict
 
 casters = {}
+acasters = {}
+
+stationCaster = register_composite_as_dict('t_station', conn)
+
+stationCaster.casters = casters
+stationCaster.acasters = acasters
+casters[stationCaster.oid] = stationCaster
+acasters[stationCaster.array_oid] = stationCaster
+
 
 empCaster = register_composite_as_dict('t_employee', conn)
+
 empCaster.casters = casters
+empCaster.acasters = acasters
 casters[empCaster.oid] = empCaster
+acasters[empCaster.array_oid] = empCaster
+
 
 adrCaster = register_composite_as_dict('t_address', conn)
+
 adrCaster.casters = casters
+adrCaster.acasters = acasters
 casters[adrCaster.oid] = adrCaster
+acasters[adrCaster.array_oid] = adrCaster
 
 
 e0 = {'name': 'foo', 'age': 44, 'ignored': None, 'coins': [1,2,3]}
@@ -87,7 +106,7 @@ e2 = {'name': 'foo',
 for e in [e0, e1, e2]:
    print "-"*40
    try:
-      cur.execute("SELECT test_employee(%s)", [empCaster.totuple(e)])
+      cur.execute("SELECT test_employee(%s, %s)", [empCaster.totuple(e), False])
       print cur.fetchone()
    except Exception, e:
       print e
