@@ -57,6 +57,15 @@ from psycopg2.extras import CompositeCaster, \
                             register_hstore
 
 def register_flexmap(conn, types):
+   """
+   Create flexmap type from
+   
+    1) 'schema.typename' str or
+    2) (typename, oid, attrs, array_oid, schema) tuple where attrs = [(attname, atttypid)]
+   
+   For 1), type info will be looked up in database catalog. For 2), type info is
+   taken as specified.
+   """
    
    register_hstore(conn)
    register_json(conn)
@@ -64,6 +73,10 @@ def register_flexmap(conn, types):
    casters = {}
 
    class DictComposite(CompositeCaster):
+      """
+      A type caster returning composite types as Python dicts
+      enriched with a type field containing 'schema.typename'.
+      """
       def make(self, attrs):
          o = {}
          for i in xrange(len(self.attnames)):
@@ -72,14 +85,32 @@ def register_flexmap(conn, types):
          o['type'] = self.schema + '.' + self.name
          return o
 
+   ## create type casters for whole list
+   ##
    for t in types:
-      caster = DictComposite._from_db(t, conn)
+      if type(t) == str:
+         caster = DictComposite._from_db(t, conn)
+      elif type(t) in [tuple, list]:
+         caster = CompositeCaster(*t)
+      else:
+         raise Exception("invalid type %s in flexmap type list" % type(t))
+         
+      ## register item and array casters
+      ##
       register_type(caster.typecaster, conn)     
       if caster.array_typecaster is not None:
          register_type(caster.array_typecaster, conn)
-      casters[t] = caster
+         
+      ## remember caster under 'schema.typename'
+      ##
+      casters['%s.%s' % (caster.schema, caster.name)] = caster
+
 
    class DictAdapter(object):
+      """
+      A dictionary adapter converting Python dicts to PostgreSQL
+      JSON, Hstore or Composite Types depending on the dict field 'type'.      
+      """
       def __init__(self, adapted):
          ## remember value to be adaptated - a Python dict
          self.adapted = adapted
@@ -125,16 +156,16 @@ def register_flexmap(conn, types):
 register_flexmap(conn, ['t_station', 't_address', 't_employee'])
 
 
-p1 = {'type': 't_employee',
+p1 = {'type': 'public.t_employee',
       'name': 'foo',
       'age': 44,
       'coins': [1, 2, 3],
       'ignored': 'unknown attrs get ignored!',
-      'address': {'type': 't_address',
+      'address': {'type': 'public.t_address',
                   'city': 'Duckhausen',
                   'no': 18,
-                  'stations': [{'type': 't_station', 'x': 10},
-                               {'type': 't_station', 'label': 'hello', 'y': 10}]
+                  'stations': [{'type': 'public.t_station', 'x': 10},
+                               {'type': 'public.t_station', 'label': 'hello', 'y': 10}]
       }}
 
 pprint(p1)
