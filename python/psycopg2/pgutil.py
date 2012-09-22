@@ -111,6 +111,7 @@ class CompositeDictCaster(object):
         for i in xrange(len(self.atttypes)):
             if attrs[i] is not None:
                 o[self.attnames[i]] = attrs[i]
+        o['record'] = self.name
         return o
         #return self._ctor(*attrs)
 

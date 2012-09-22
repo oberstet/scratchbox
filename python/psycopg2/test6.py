@@ -57,20 +57,14 @@ END
 $$ LANGUAGE plpgsql;
 """)
 
-v1 = ('foo', 44, [1, 2, 3], None, ('Duckhausen', None, 18, [(10, None, 'blub'), (None, 5, None)]))
-
-cur.execute("SELECT test_employee(%s, %s)", [v1, False])
-print cur.fetchone()
-
-sys.exit(0)
-
-
 from pgutil import register_composite_as_dict
 
+dcasters = {}
 casters = {}
 acasters = {}
 
 stationCaster = register_composite_as_dict('t_station', conn)
+dcasters['t_station'] = stationCaster
 
 stationCaster.casters = casters
 stationCaster.acasters = acasters
@@ -79,6 +73,7 @@ acasters[stationCaster.array_oid] = stationCaster
 
 
 empCaster = register_composite_as_dict('t_employee', conn)
+dcasters['t_employee'] = empCaster
 
 empCaster.casters = casters
 empCaster.acasters = acasters
@@ -87,11 +82,49 @@ acasters[empCaster.array_oid] = empCaster
 
 
 adrCaster = register_composite_as_dict('t_address', conn)
+dcasters['t_address'] = adrCaster
 
 adrCaster.casters = casters
 adrCaster.acasters = acasters
 casters[adrCaster.oid] = adrCaster
 acasters[adrCaster.array_oid] = adrCaster
+
+
+class DictComposite(psycopg2.extras.CompositeCaster):
+   def make(self, attrs):
+      return dict(zip(self.attnames, attrs))
+            
+            
+class DictAdapter(object):
+   def __init__(self, adapted):
+      self.adapted = adapted
+      
+   def prepare(self, conn):
+      self._conn = conn
+      
+   def getquoted(self):
+      if self.adapted.has_key('record') and dcasters.has_key(self.adapted['record']):
+         c = dcasters[self.adapted['record']]
+         v = []
+         for n in c.attnames:
+            v.append(self.adapted.get(n, None))
+         a = psycopg2.extensions.adapt(tuple(v))
+         a.prepare(self._conn)
+         return a.getquoted() + '::' + self.adapted['record']
+      else:
+         return adapt(None).getquoted()
+
+psycopg2.extensions.register_adapter(dict, DictAdapter)
+
+v1 = ('foo', 44, [1, 2, 3], None, ('Duckhausen', None, 18, [(10, None, 'blub'), (None, 5, None)]))
+v1 = ('foo', 44, [1, 2, 3], None, ('Duckhausen', None, 18, [{'record': 't_station', 'x': 10}]))
+
+print cur.mogrify("SELECT test_employee(%s, %s)", [v1, True])
+cur.execute("SELECT test_employee(%s, %s)", [v1, True])
+print cur.fetchone()
+
+sys.exit(0)
+
 
 
 e0 = {'name': 'foo', 'age': 44, 'ignored': None, 'coins': [1,2,3]}
