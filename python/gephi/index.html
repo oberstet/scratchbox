@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+      <script src="autobahn.min.js"></script>
+      <script>
+         var sess = null;
+
+         window.onload = function() {
+            ab.connect("ws://127.0.0.1:9000",
+               function (session) {
+                  sess = session;
+                  console.log("connected");
+                  sess.subscribe("http://informationsecurityanalytics.com/moirai/graph#1",
+                                 function (topic, event) {
+                                    console.log(topic);
+                                    console.log(event);
+                                 });
+               },
+               function (code, reason) {
+                  console.log(code);
+                  console.log(reason);
+               }
+            );
+         };
+     </script>
+   </head>
+   <body>
+      <h1>Gephi client</h1>
+      <p>
+         Open development console (press F12) to watch.
+      </p>
+   </body>
+ </html>
