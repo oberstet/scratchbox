@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+   <head>
+      <script>
+/*      
+         (function() {
+            eval("var foo = 23;");
+            console.log(foo);
+         })();
+
+         function createScripter(tabname) {
+            return function (script) {
+               console.log("eval in " + tabname);
+               eval(script);
+            }
+         }
+
+         //var f1 = createScripter("f1");
+         //var f2 = createScripter("f2");
+
+         //f1("var foo = 23;")
+         //f1("console.log(foo);")
+
+
+         function f3 (script) {
+            console.log("eval in f3");
+            eval(script);
+         }
+*/
+         //f3("var foo = 23;")
+         //f3("console.log(foo);")
+/*
+         eval("var foo = 23;");
+         eval("console.log(foo);");
+
+         // http://perfectionkills.com/global-eval-what-are-the-options/
+         var geval = this.execScript || eval;
+         geval("var foo = 23;");
+         geval("console.log(foo);");
+*/
+/*
+         var f4 = function (context, script) {
+            with (context) {
+               eval(script);
+            }
+         };
+         var f4_c = {window: null, document: null};
+         f4(f4_c, "var foo = 23;");
+         f4(f4_c, "console.log(foo)");
+*/
+
+         // https://github.com/substack/vm-browserify/blob/master/index.js
+         function createContext(context) {
+            var iframe = document.createElement('iframe');
+
+            if (!iframe.style) iframe.style = {};
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            var win = iframe.contentWindow;
+
+            if (!win.eval && win.execScript) {
+               // win.eval() magically appears when this is called in IE:
+               win.execScript('null');
+            }
+
+            for (c in context) {
+               win[c] = context[c];
+            }
+
+            return win;
+         }
+
+         function runInContext(win, script) {
+            var res = win.eval(script);
+            return res;
+         }
+
+         window.onload = function () {
+
+            moo = 66;
+            var foo = 66;
+            var session = {foo: 999};
+            var a = 99;
+
+            var tab1ctx = createContext({session: session, a: a});
+
+            runInContext(tab1ctx, "moo = 23;");
+            runInContext(tab1ctx, "var foo = 23;");
+            runInContext(tab1ctx, "console.log(foo)");
+            runInContext(tab1ctx, "console.log(moo)");
+            runInContext(tab1ctx, "session.foo = 777; a = 77;");
+            runInContext(tab1ctx, "console.log(session); console.log(a)");
+
+            console.log(moo);
+            console.log(foo);
+            console.log(session);
+            console.log(a);
+
+/*
+            var tab2ctx = createContext();
+            
+            runInContext(tab2ctx, "moo = 42;");
+            runInContext(tab2ctx, "var foo = 42;");
+            runInContext(tab2ctx, "console.log(foo)");
+            runInContext(tab2ctx, "console.log(moo)");
+*/
+         }
+
+
+      </script>
+   </head>
+   <body>
+   </body>
+</html>
