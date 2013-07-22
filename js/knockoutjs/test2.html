@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <style>
+         #tabs li {
+            display: block;
+            background-color: #333;
+            color: #fff;
+            height: 24px;
+            width: 100px;
+            font-family: sans-serif;
+            padding: 6px;
+            margin: 2px;
+         }
+
+         #tabs li:hover {
+            background-color: #666;
+         }
+
+         #tabs li.active {
+            background-color: #999;
+         }
+
+         #tabcontainer div {
+            display: none;
+         }
+
+         #tabcontainer div.active {
+            display: block;
+         }
+      </style>
+      <script src="knockout-2.2.1.js"></script>
+      <script>
+         function Tab(id, name) {
+            this.id = ko.observable(id);
+            this.name = ko.observable(name);
+         };
+
+         function ViewModel() {
+            var self = this;
+
+            self.tabs = ko.observableArray([
+               new Tab("tab1", "Overview"),
+               new Tab("tab2", "Project"),
+               new Tab("tab3", "Tasks")
+            ]);
+
+            self.selectedTab = ko.observable("tab2");
+
+            self.tabClicked = function (tab) {
+               self.selectedTab(tab.id());
+            }
+         };
+
+         var vm = new ViewModel();
+
+         window.onload = function () {
+            ko.applyBindings(vm);
+         }
+    </script>
+   </head>
+   <body>
+      <ul id="tabs" data-bind="foreach: tabs">
+         <li data-bind="text: name,
+                        css: { active: $data.id() == $parent.selectedTab() },
+                        click: function() { $parent.tabClicked($data); }"
+         </li>
+      </ul>
+      <div id="tabcontainer">
+         <div data-bind="css: { active: selectedTab() == 'tab1' }">Contents of Tab 1</div>
+         <div data-bind="css: { active: selectedTab() == 'tab2' }">Contents of Tab 2</div>
+         <div data-bind="css: { active: selectedTab() == 'tab3' }">Contents of Tab 3</div>
+      </div>
+   </body>
+</html>

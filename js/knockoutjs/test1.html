@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="jquery-1.9.1.min.js"></script>
+      <script src="knockout-2.2.1.js"></script>
+      <script>
+         ko.bindingHandlers.jqTabs = {
+             init: function(element, valueAccessor) {
+                 var options = valueAccessor() || {};
+                 //$(element).tabs(options);
+             }
+         };
+
+         function Tab(id, name, href) {
+            this.id = ko.observable(id);
+            this.name = ko.observable(name);
+            this.url = ko.observable(href);
+         };
+
+         function ViewModel() {
+            var self = this;
+
+            self.tabs = ko.observableArray([
+               new Tab(1, "Overview", "/overview"),
+               new Tab(2, "Project", "/project"),
+               new Tab(3, "Tasks", "/tasks")
+            ]);
+
+            self.selectedTab = ko.observable();
+
+            self.tabClicked = function (tab) {
+               console.log("tab clicked "+ tab.name());
+               console.log(self.selectedTab());
+               self.selectedTab(tab);
+            }
+         };
+
+         window.onload = function () {
+            var vm = new ViewModel();
+            ko.applyBindings(vm);
+         }
+    </script>
+   </head>
+   <body>
+      <h1>Test 1</h1>
+      <div data-bind="template: 'tabsTemplate'"></div>
+      <script id="tabsTemplate" type="text/html">
+         <div data-bind="jqTabs: { fx: { opacity: 'toggle' } }">
+            <ul data-bind="foreach: tabs">
+               <li>
+                  <a href="#tab-${id}" data-bind="text: name, attr: {href:url}, click: function() { $parent.tabClicked($data); }"></a>
+               </li>
+            </ul>
+         </div>
+      </script>
+   </body>
+</html>
