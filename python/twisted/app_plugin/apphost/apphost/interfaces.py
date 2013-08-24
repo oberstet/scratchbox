@@ -1,3 +1,5 @@
+__all__ = ['IApphostPlugin']
+
 from zope.interface import Interface
 
 
