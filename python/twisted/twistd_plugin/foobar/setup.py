@@ -1,14 +1,12 @@
-from setuptools import setup
-
-PROJECT = 'foobar'
+from setuptools import setup, find_packages
 
 setup(
    name = 'foobar',
    install_requires = ['Twisted>=Twisted-13.0'],
-   packages = ['foobar', 'twisted.plugins'],
+   packages = find_packages() + ['twisted.plugins'],
    version = '0.1',
    include_package_data = True,
-   #zip_safe = True
+   zip_safe = False
 )
 
 # Make Twisted regenerate the dropin.cache, if possible.  This is necessary
