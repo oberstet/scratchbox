@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+	<link rel="stylesheet" href="dijit/themes/claro/claro.css">
+	
+	<script>dojoConfig = {parseOnLoad: true}</script>
+	<script src='dojo/dojo.js'></script>
+	
+	<script>
+require(["dojo/parser", "dijit/form/HorizontalSlider", "dijit/form/HorizontalRule", "dijit/form/HorizontalRuleLabels"]);
+	</script>
+</head>
+<body class="claro">
+    <div id="horizontalSlider"
+    style="width:400px;"
+    name="horizontalSlider"
+    data-dojo-type="dijit/form/HorizontalSlider"
+    data-dojo-props="value:6,
+    minimum: -10,
+    maximum:10,
+    discreteValues:11,
+    intermediateChanges:true,
+    showButtons:false">
+    <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="topDecoration"
+        style="height:1.5em;font-size:75%;color:gray;">
+        <li> </li>
+        <li>20%</li>
+        <li>40%</li>
+        <li>60%</li>
+        <li>80%</li>
+        <li> </li>
+    </ol>
+    <div data-dojo-type="dijit/form/HorizontalRule" container="bottomDecoration"
+        count=11 style="height:5px;"></div>
+    <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration"
+        style="height:1em;font-size:75%;color:gray;">
+        <li>0%</li>
+        <li>50%</li>
+        <li>100%</li>
+    </ol>
+</div>
+</body>
+</html>

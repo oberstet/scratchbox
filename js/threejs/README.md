@@ -1,3 +1,12 @@
+http://stackoverflow.com/questions/11365236/how-can-i-use-reflection-in-three-js
+http://stemkoski.github.io/Three.js/Reflection.html
+
+http://stackoverflow.com/questions/15246598/three-js-exporting-json-models-from-blender-including-textures
+
+http://www.radiatedpixel.com/wordpress/2013/03/27/webgl-3d-model-viewer-using-three-js/
+
+http://dev.opera.com/articles/view/porting-3d-graphics-to-the-web-webgl-intro-part-2/
+
 http://learningthreejs.com/blog/2013/04/30/closing-the-gap-between-html-and-webgl/
 
 http://www.adobe.com/devnet/html5/articles/css-shaders.html

@@ -9,8 +9,8 @@ class Plugin1(object):
     def __init__(self, name):
     	self._name = name
 
-    #def hello(self):
-    #    return "Hello from %s" % self._name
+    def hello(self):
+        return "Hello from %s" % self._name
 
 
 plugin1 = Plugin1("Awesome-Plugin1")

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: Hello Dojo!</title>
+<!--
+<link rel="stylesheet" type="text/css" href="dijit/themes/dijit.css">
+-->
+<link rel="stylesheet" type="text/css" href="dojo/resources/dojo.css"> 
+<link rel="stylesheet" type="text/css" href="dijit/themes/claro/claro.css">
+
+</head>
+<body class="claro">
+    <h1 id="greeting">Hello</h1>
+    <!-- load Dojo -->
+    <script src="dojo/dojo.js" data-dojo-config="parseOnLoad: true, async: true"></script>
+    <script>
+
+// Require the module we just created
+require(["test1"], function(myModule){
+// Use our module to change the text in the greeting
+myModule.setText("greeting", "Hello Dojo!");
+// After a few seconds, restore the text to its original state
+setTimeout(function(){
+myModule.restoreText("greeting");
+}, 1000);
+});
+
+//require(["dojo/parser", "dijit/form/Select"]);
+
+require(["dijit/form/Select",
+  "dojo/data/ObjectStore",
+  "dojo/store/Memory",
+  "dojo/domReady!"
+], function(Select, ObjectStore, Memory){
+
+  var store = new Memory({
+    data: [
+      { id: "foo", label: "Foo Option" },
+      { id: "bar", label: "Bar Option" }
+    ]
+  });
+
+  var os = new ObjectStore({ objectStore: store });
+
+  var s = new Select({
+    store: os
+  }, "target");
+  s.startup();
+
+  s.on("change", function(){
+      console.log("my value: ", this.get("value"))
+  })
+});
+
+require(["dojo/parser", "dijit/form/DropDownButton", "dijit/form/TextBox", "dijit/TooltipDialog", "dijit/form/Button"]);
+
+require(["dojo/parser", "dijit/form/HorizontalSlider", "dijit/form/HorizontalRule", "dijit/form/HorizontalRuleLabels"]);
+
+require(["dojo/parser", "dijit/layout/AccordionContainer", "dijit/layout/ContentPane"]);
+
+require(["dojo/parser", "dijit/form/Form", "dijit/form/Button", "dijit/form/ValidationTextBox", "dijit/form/DateTextBox"]);
+    </script>
+<select name="select1" data-dojo-type="dijit/form/Select">
+    <option value="TN">Tennessee</option>
+    <option value="VA" selected="selected">Virginia</option>
+    <option value="WA">Washington</option>
+    <option value="FL">Florida</option>
+    <option value="CA">California</option>
+</select>
+<div name="select3" value="AK" data-dojo-type="dijit/form/Select">
+    <span value="AL"><b>Alabama</b></span>
+    <span value="AK"><font color="red">A</font><font color="orange">l</font><font color="yellow">a</font><font color="green">s</font><font color="blue">k</font><font color="purple">a</font></span>
+    <span value="AZ"><i>Arizona</i></span>
+    <span value="AR"><span class="ark">Arkansas</span></span>
+    <span value="CA"><span style="font-size:25%">C</span><span style="font-size:50%">a</span><span style="font-size:75%">l</span><span style="font-size:90%">i</span><span style="font-size:100%">f</span><span style="font-size:125%">o</span><span style="font-size:133%">r</span><span style="font-size:150%">n</span><span style="font-size:175%">i</span><span style="font-size:200%">a</span></span>
+    <span value="NM" disabled="disabled">New<br>&nbsp;&nbsp;Mexico</span>
+</div>    
+
+<div id="target"></div>
+
+<div data-dojo-type="dijit/form/DropDownButton">
+  <span>Register</span>
+  <div data-dojo-type="dijit/TooltipDialog">
+     <label for="name">Name:</label> <input data-dojo-type="dijit/form/TextBox" id="name" name="name"><br>
+     <label for="hobby">Hobby:</label> <input data-dojo-type="dijit/form/TextBox" id="hobby" name="hobby"><br>
+     <button data-dojo-type="dijit/form/Button" type="submit">Save</button>
+  </div>
+</div>
+
+<div id="horizontalSlider"
+    style="width:400px;"
+    name="horizontalSlider"
+    data-dojo-type="dijit/form/HorizontalSlider"
+    data-dojo-props="value:6,
+    minimum: -10,
+    maximum:10,
+    discreteValues:11,
+    intermediateChanges:true,
+    showButtons:false">
+    <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="topDecoration"
+        style="height:1.5em;font-size:75%;color:gray;">
+        <li> </li>
+        <li>20%</li>
+        <li>40%</li>
+        <li>60%</li>
+        <li>80%</li>
+        <li> </li>
+    </ol>
+    <div data-dojo-type="dijit/form/HorizontalRule" container="bottomDecoration"
+        count=11 style="height:5px;"></div>
+    <ol data-dojo-type="dijit/form/HorizontalRuleLabels" container="bottomDecoration"
+        style="height:1em;font-size:75%;color:gray;">
+        <li>0%</li>
+        <li>50%</li>
+        <li>100%</li>
+    </ol>
+</div>
+
+
+<div style="width: 300px; height: 300px">
+    <div data-dojo-type="dijit/layout/AccordionContainer" style="height: 300px;">
+        <div data-dojo-type="dijit/layout/ContentPane" title="Heeh, this is a content pane">
+            Hi!
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="This is as well" selected="true">
+            Hi how are you?
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="This too">
+            Hi how are you? .....Great, thx
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
+
+
+</body>
+</html>

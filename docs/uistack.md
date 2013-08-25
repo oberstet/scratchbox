@@ -1,6 +1,8 @@
-# UI Stack Whitelist
+# UI Stack & Tools Whitelist
 
-The following is our handpicked, agreed list of libraries to create rich HTML5-based frontends.
+The following is our handpicked, agreed list of libraries and tools to create rich HTML5-based frontends.
+
+## Libs
 
 1. Utils
  * Base: [HTML5 Boilerplate](http://html5boilerplate.com/)
@@ -24,8 +26,41 @@ The following is our handpicked, agreed list of libraries to create rich HTML5-b
  * Syntax Highlighter: [SyntaxHighlighter](http://alexgorbatchev.com/SyntaxHighlighter/)
  * Code editor: [Ace](http://ace.c9.io/)
 
+## Tools
+
+1. Testing: [BusterJS](http://docs.busterjs.org/en/latest/)
+2. Optimization: [UglifyJS](https://github.com/mishoo/UglifyJS2)
+3. Automation: [Grunt](http://gruntjs.com/)
+4. [Scaffolding](http://en.wikipedia.org/wiki/Scaffold_%28programming%29): [Jo](http://yeoman.io/)
+5. Transpiling: [Less](http://lesscss.org/)
+5. ... tbd 
+
+## Others
+
+* [Chrome DevTools](https://developers.google.com/chrome-developer-tools/)
+* [Z](https://github.com/rupa/z)
 
 # Notes
+
+## Tools
+
+In general, we want our toolchain be based on Node/npm and not requiring "additional" stuff like Java or Ruby.
+
+### CSS Preprocessor
+
+Less provides:
+
+ * familiar CSS-like syntax
+ * runs on Node/npm
+ * widely used
+
+Sass has alien syntax (from CSS POV). Scss requires Ruby.
+
+Less integrates into Grunt:
+
+ * [Here](https://github.com/gruntjs/grunt-contrib-less)
+ * [Here](http://stackoverflow.com/questions/15664628/grunt-less-and-file-watching)
+ * [Here](https://github.com/sindresorhus/grunt-recess)
 
 ## Tables, Grids and Spreadsheets
 
@@ -79,12 +114,29 @@ Another AMD implementation that looks good is [curl](https://github.com/cujojs/c
 
 ## Code Minification and Obfuscation
 
- * Google Closure Compiler
- * UglifyJS
+ * [Google Closure Compiler](https://developers.google.com/closure/compiler/)
+ * [UglifyJS](https://github.com/mishoo/UglifyJS2)
 
+Uglify wins:
+
+ * on-par with Google Closure rgd. results, but ..
+ * written in JS, runs on Node (no need for Java)
+ * fast
 
 ## Unit Tests
 
-Of course there is [QUnit](http://qunitjs.com/) and [Jasmine](http://pivotal.github.io/jasmine/).
+Of course there is [Jasmine](http://pivotal.github.io/jasmine/), [QUnit](http://qunitjs.com/) and [Mocha](http://visionmedia.github.io/mocha/). And there is a new kid on the block: [BusterJS](http://docs.busterjs.org/en/latest/).
+
+### Promises
 
 But we need be able to test cases that involve WAMP RPCs and PubSub events. Hence, see [here](http://stackoverflow.com/questions/18406594/js-test-framework-that-works-with-deferreds-promises).
+
+BusterJS natively [supports](http://docs.busterjs.org/en/latest/modules/buster-test/test-case/#id1) testing functions returning promises.
+
+### Headless
+
+We want to automate testing. Hence we need to run tests in a headless browser environment. This is [supported](http://blog.knuthaugen.no/2012/09/headless-tests-with-buster-and-phantom/) by BusterJS via [PhantomJS](http://phantomjs.org/).
+
+### Node
+
+Probably we want to test JS in non-browser environments like Node or PostgreSQL. BusterJS was built with non-browser environments in mind.
