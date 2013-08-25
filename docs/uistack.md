@@ -40,6 +40,12 @@ The following is our handpicked, agreed list of libraries and tools to create ri
 * [Chrome DevTools](https://developers.google.com/chrome-developer-tools/)
 * [Z](https://github.com/rupa/z)
 
+
+
+https://github.com/jrburke/require-cs
+
+
+
 # Notes
 
 ## Tools
