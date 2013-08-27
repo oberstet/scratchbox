@@ -35,6 +35,13 @@ The following is our handpicked, agreed list of libraries and tools to create ri
 5. Transpiling: [Less](http://lesscss.org/)
 5. ... tbd 
 
+> Terms:
+> 
+>  * *Package Manager*: Fetch scripts from online sources like GitHub, taking dependencies into account.
+>  * *Build Tool*: Combine scripts and other assets together into something usable by browsers.
+>  * *Module System*: A way to programmatically load scripts when they’re needed.
+> 
+
 ## Others
 
 * [Chrome DevTools](https://developers.google.com/chrome-developer-tools/)
