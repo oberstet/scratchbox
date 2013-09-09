@@ -41,6 +41,15 @@ class SrdpFrameHeader:
       self.crc16 = crc16
 
 
+   def reset(self):
+      self.opcode = 0
+      self.device = 0
+      self.register = 0
+      self.position = 0
+      self.length = 0
+      self.crc16 = 0
+
+
    def computeCrc(self, data = None):
       crc = crcmod.predefined.PredefinedCrc("crc-16")
       header = struct.pack("<HHHH",
@@ -51,6 +60,9 @@ class SrdpFrameHeader:
       crc.update(header)
       if data and len(data) > 0:
          crc.update(data)
+         self.length = len(data)
+      else:
+         self.length = 0
       self.crc16 = crc.crcValue
 
 
