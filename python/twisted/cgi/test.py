@@ -4,10 +4,8 @@ from twisted.python import log
 from twisted.internet import reactor
 from twisted.web.server import Site
 from twisted.web.resource import Resource
-
+from twisted.web.static import File
 from twisted.web.twcgi import CGIScript, CGIProcessProtocol
-
-
 from twisted.python import log, filepath
 from twisted.web import resource, server, static
 
@@ -20,9 +18,7 @@ class CgiScript(CGIScript):
 
    def runProcess(self, env, request, qargs = []):
       p = CGIProcessProtocol(request)
-      reactor.spawnProcess(p, self.filter,
-                           [self.filter, self.filename], env,
-                           os.path.dirname(self.filename))
+      reactor.spawnProcess(p, self.filter, [self.filter, self.filename], env, os.path.dirname(self.filename))
 
 
 class CgiDirectory(resource.Resource, filepath.FilePath):
@@ -46,28 +42,22 @@ class CgiDirectory(resource.Resource, filepath.FilePath):
       return resource.NoResource()
 
    def render(self, request):
-      notFound = resource.NoResource(
-         "CGI directories do not support directory listing.")
+      notFound = resource.NoResource("CGI directories do not support directory listing.")
       return notFound.render(request)
 
 
-
-
-
 if __name__ == '__main__':
-
+   
    log.startLogging(sys.stdout)
 
-   root = CgiDirectory(".", r"C:\\php554\\php-cgi.exe")
-   #root.filter = r"C:\\php554\\php-cgi.exe"
+   php = "/Users/oberstet/local/bin/php-cgi"
+   #php = "C:\\php554\\php-cgi.exe"
 
-   #root = Resource()
+   cgi = CgiDirectory("php", php)
 
-   #hello = PhpPage('./hello.php')
-   #hello = FilteredScript('./hello.php')
-   #hello.filter = r"C:\\php554\\php-cgi.exe"
-
-   #root.putChild("hello", hello)
+   root = File(".")
+   root.putChild("cgi", cgi)
+   #root = cgi
 
    factory = Site(root)
    reactor.listenTCP(8880, factory)
