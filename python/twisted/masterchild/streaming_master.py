@@ -6,6 +6,9 @@ from twisted.internet import reactor
 from zope.interface import implements
 from twisted.internet import reactor, interfaces
 
+# http://www.rikkus.info/sysv-ipc-vs-unix-pipes-vs-unix-sockets
+# http://unix.stackexchange.com/questions/1537/measure-pipe-throughput-in-the-shell/1538#1538
+
 class LineStreamProducer:
 
    implements(interfaces.IPushProducer)
@@ -15,7 +18,7 @@ class LineStreamProducer:
       self.sentMsgs = 0
       self.proto = proto
       self.paused = False
-      self.msg = "*" * 1024 * 16
+      self.msg = "*" * 1024 * 32
       #self.msg = "Hello, world!\n"
       self.msgLen = len(self.msg)
 
