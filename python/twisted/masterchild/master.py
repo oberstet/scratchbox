@@ -8,9 +8,11 @@ class MyPP(protocol.ProcessProtocol):
 
     def outReceived(self, data):
         print "outReceived! with %d bytes!" % len(data)
+        print data
 
     def errReceived(self, data):
         print "errReceived! with %d bytes!" % len(data)
+        print data
 
     def inConnectionLost(self):
         print "inConnectionLost! stdin is closed! (we probably did it)"

@@ -6,8 +6,10 @@ import os, sys, time
 # http://stackoverflow.com/questions/1006289/how-to-find-out-the-number-of-cpus-in-python
 # https://pypi.python.org/pypi/affinity
 
+from twisted.internet import kqreactor
+kqreactor.install()
 
-if True:
+def variant1():
 
    from twisted.internet import protocol
    from twisted.internet import reactor
@@ -32,7 +34,8 @@ if True:
    loop()
    reactor.run()
 
-else:
+
+def variant2():
 
    f = open("test.log", 'w')
    fds = [f, sys.stdout]
@@ -49,4 +52,75 @@ else:
    finally:
       f.write("closed")
       f.close()
+
+
+# http://twistedmatrix.com/documents/current/core/examples/stdin.py
+# http://twistedmatrix.com/documents/current/api/twisted.internet.stdio.StandardIO.html
+def variant3():
+   from twisted.internet import reactor
+   from twisted.internet import stdio
+   from twisted.protocols import basic
+   from twisted.internet import reactor, protocol
+   import time
+
+   class Echo(basic.LineReceiver):
+      from os import linesep as delimiter
       
+      def loop(self):
+         self.msg = "%d\n" % self.linesReceived
+         self.transport.write(self.msg)
+         reactor.callLater(1, self.loop)
+
+      def connectionMade(self):
+         #self.transport.write(str(self.res))
+         self.msg = "child: %d parent: %d\n" % (os.getpid(), os.getppid())
+         self.transport.write(self.msg)
+         self.linesReceived = 0
+         self.loop()
+
+      def lineReceived(self, line):
+         #self.sendLine('Echo: ' + line)
+         #self.transport.write('>>> ')
+         self.linesReceived += 1
+         #time.sleep(0.1)
+         x = 0
+         N = 10000
+         N = 0
+         for i in xrange(N):
+            x += .1
+
+
+   class EchoBinary(protocol.Protocol):
+
+      def loop(self):
+         self.msg = "%d %d\n" % (self.octetsReceived, self.octetsReceived - self.octetsReceivedLast)
+         self.octetsReceivedLast = self.octetsReceived
+         self.transport.write(self.msg)
+         reactor.callLater(1, self.loop)
+
+      def connectionMade(self):
+         #self.transport.write(str(self.res))
+         self.msg = "child: %d parent: %d\n" % (os.getpid(), os.getppid())
+         self.transport.write(self.msg)
+         self.octetsReceived = 0
+         self.octetsReceivedLast = 0
+         self.loop()
+
+      def dataReceived(self, data):
+         self.octetsReceived += len(data)
+         #x = 0
+         #N = 10000
+         #N = 0
+         #for i in xrange(N):
+         #   x += .1
+
+   #proto = Echo()
+   proto = EchoBinary()
+   res = stdio.StandardIO(proto)
+   print res
+   
+   reactor.run()
+
+
+if __name__ == '__main__':
+   variant3()
