@@ -1,4 +1,4 @@
-import sys
+import sys, os
 
 import choosereactor
 from twisted.internet import reactor, protocol, interfaces
@@ -47,7 +47,17 @@ class StreamingProducer:
 
 class StreamingMasterProtocol(protocol.ProcessProtocol):
 
+   def loop(self):
+      msg = "%d %d\n" % (self.octetsReceived, self.octetsReceived - self.octetsReceivedLast)
+      self.octetsReceivedLast = self.octetsReceived
+      print msg
+      reactor.callLater(1, self.loop)
+
    def connectionMade(self):
+      self.enableFullDuplex = False
+      self.octetsReceived = 0
+      self.octetsReceivedLast = 0
+
       print "connectionMade!"
       consumer = self.transport
       producer = StreamingProducer(consumer, 1024 * 32, 1000000)
@@ -63,11 +73,20 @@ class StreamingMasterProtocol(protocol.ProcessProtocol):
 
       producer.resumeProducing()
 
+      if self.enableFullDuplex:
+         self.loop()
+
    def outReceived(self, data):
-      print "Received from child on stdout:", data
+      if self.enableFullDuplex:
+         self.octetsReceived += len(data)
+      else:
+         print "Received from child on stdout:", data
 
    def errReceived(self, data):
-      print "Received from child on stderr:", data
+      if self.enableFullDuplex:
+         print "Received from child on stderr:", len(data)
+      else:
+         print "Received from child on stderr:", data
 
    def inConnectionLost(self):
       print "inConnectionLost! stdin is closed! (we probably did it)"
@@ -91,6 +110,10 @@ class StreamingMasterProtocol(protocol.ProcessProtocol):
 if __name__ == '__main__':
    proto = StreamingMasterProtocol()
    pyexe = sys.executable
-   print "Master is using Python from %s and Twisted reactor class %s" % (pyexe, str(reactor.__class__))
-   reactor.spawnProcess(proto, pyexe, [pyexe, "child.py"], {})
+   try:
+      pid = os.getpid()
+   except:
+      pid = None
+   print "Master (PID %s) is using Python from %s and Twisted reactor class %s" % (pid, pyexe, str(reactor.__class__))
+   reactor.spawnProcess(proto, pyexe, [pyexe, "streaming_child.py"], {})
    reactor.run()

@@ -31,16 +31,21 @@ class StreamingClientProtocol(protocol.Protocol):
       except:
          ppid = None
 
-      msg = "Child PID %s, Parent PID %s\n" % (pid, ppid)
-      self.transport.write(msg)
-      self.transport.write("Child is using Twisted reactor class %s" % str(reactor.__class__))
+      self.enableFullDuplex = False
 
       self.octetsReceived = 0
       self.octetsReceivedLast = 0
-      self.loop()
+
+      if not self.enableFullDuplex:
+         msg = "Child PID %s, Parent PID %s\n" % (pid, ppid)
+         self.transport.write(msg)
+         self.transport.write("Child is using Twisted reactor class %s" % str(reactor.__class__))
+         self.loop()
 
    def dataReceived(self, data):
       self.octetsReceived += len(data)
+      if self.enableFullDuplex:
+         self.transport.write(data)
 
    def connectionLost(self, reason):
       reactor.stop()
