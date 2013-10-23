@@ -152,6 +152,21 @@ def variant3():
          #for i in xrange(N):
          #   x += .1
 
+      def connectionLost(self, reason):
+         reactor.stop()
+
+      def inConnectionLost(self):
+         self.transport.write("child: inConnectionLost")
+         #reactor.stop()
+
+      def outConnectionLost(self):
+         self.transport.write("child: outConnectionLost")
+         #reactor.stop()
+
+      def errConnectionLost(self):
+         self.transport.write("child: errConnectionLost")
+         #reactor.stop()
+
    #proto = Echo()
    proto = EchoBinary()
    res = stdio.StandardIO(proto)

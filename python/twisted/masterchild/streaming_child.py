@@ -1,52 +1,53 @@
-import os, sys, time
-
+# http://twistedmatrix.com/documents/current/core/examples/stdin.py
+# http://twistedmatrix.com/documents/current/api/twisted.internet.stdio.StandardIO.html
 # http://twistedmatrix.com/documents/current/core/examples/#auto10
 # http://twistedmatrix.com/trac/ticket/4387
 # http://stackoverflow.com/questions/10077745/twistedweb-on-multicore-multiprocessor
 # http://stackoverflow.com/questions/1006289/how-to-find-out-the-number-of-cpus-in-python
 # https://pypi.python.org/pypi/affinity
 
+import os
 
-if True:
+import choosereactor
+from twisted.internet import reactor, protocol, stdio
 
-   from twisted.internet import protocol
-   from twisted.internet import reactor
-   
-   f = open("test.log", 'w')
-   fds = [f, sys.stdout]
 
-   def loop():
+class StreamingClientProtocol(protocol.Protocol):
+
+   def loop(self):
+      msg = "%d %d\n" % (self.octetsReceived, self.octetsReceived - self.octetsReceivedLast)
+      self.octetsReceivedLast = self.octetsReceived
+      self.transport.write(msg)
+      reactor.callLater(1, self.loop)
+
+   def connectionMade(self):
       try:
-         msg = "loop %d %d\n" % (os.getpid(), os.getppid())
-         for fd in fds:
-            fd.write(msg)
-            fd.flush()
-      except Exception, e:
-         f.write("EXCEPTION" + str(e))
-         f.write("closed")
-         f.close()
-         reactor.stop()
-      else:
-         reactor.callLater(1, loop)
-      
-   loop()
+         pid = os.getpid()
+      except:
+         pid = None
+
+      try:
+         ppid = os.getppid()
+      except:
+         ppid = None
+
+      msg = "Child PID %s, Parent PID %s\n" % (pid, ppid)
+      self.transport.write(msg)
+      self.transport.write("Child is using Twisted reactor class %s" % str(reactor.__class__))
+
+      self.octetsReceived = 0
+      self.octetsReceivedLast = 0
+      self.loop()
+
+   def dataReceived(self, data):
+      self.octetsReceived += len(data)
+
+   def connectionLost(self, reason):
+      reactor.stop()
+
+
+
+if __name__ == '__main__':
+   proto = StreamingClientProtocol()
+   stdio.StandardIO(proto)
    reactor.run()
-
-else:
-
-   f = open("test.log", 'w')
-   fds = [f, sys.stdout]
-   try:
-      while True:
-         msg = "loop %d %d\n" % (os.getpid(), os.getppid())
-         for fd in fds:
-            fd.write(msg)
-            fd.flush()
-         #print "loop %d %d" % (os.getpid(), os.getppid())
-         time.sleep(1)
-   except Exception, e:
-      f.write("EXCEPTION" + str(e))
-   finally:
-      f.write("closed")
-      f.close()
-      
