@@ -1,4 +1,5 @@
 import sys, os
+import cProfile
 
 import choosereactor
 from twisted.internet import reactor, protocol, interfaces
@@ -62,7 +63,7 @@ class StreamingMasterProtocol(protocol.ProcessProtocol):
 
       print "connectionMade!"
       consumer = self.transport
-      producer = StreamingProducer(consumer, 1024 * 32, 1000000)
+      producer = StreamingProducer(consumer, 1024 * 32, 100000)
       consumer.registerProducer(producer, True)
 
       def finish():
@@ -108,8 +109,7 @@ class StreamingMasterProtocol(protocol.ProcessProtocol):
       reactor.stop()
 
 
-
-if __name__ == '__main__':
+def run():
    proto = StreamingMasterProtocol()
    pyexe = sys.executable
    try:
@@ -118,4 +118,37 @@ if __name__ == '__main__':
       pid = None
    print "Master (PID %s) is using Python from %s and Twisted reactor class %s" % (pid, pyexe, str(reactor.__class__))
    reactor.spawnProcess(proto, pyexe, [pyexe, "streaming_child.py"], {})
-   reactor.run()
+   reactor.run()   
+
+if __name__ == '__main__':
+   #cProfile.run("run()")
+   #prof = cProfile.Profile()
+   #prof.runcall(run)
+   #prof.dump_stats("profile")
+   import statprof
+
+   statprof.start()
+
+   try:
+      run()
+   finally:
+      statprof.stop()
+      statprof.display()
+
+# http://www.serpentine.com/blog/2012/04/09/reannouncing-statprof-a-statistical-profiler-for-python/
+# https://bitbucket.org/robertkern/line_profiler
+# http://stackoverflow.com/questions/5616446/is-there-a-statistical-profiler-for-python-if-not-how-could-i-go-about-writing/5616679#5616679
+
+# OSX:
+# http://pastebin.com/0ZjJzgjP
+# http://pastebin.com/GtnQmyyc
+#
+#  %   cumulative      self          
+# time    seconds   seconds  name    
+# 24.54      8.98      8.98  kqreactor.py:239:doKEvent
+# 21.86      8.00      8.00  kqreactor.py:89:_updateRegistration
+# 17.66      6.46      6.46  fdesc.py:111:writeToFD
+# 17.64     12.27      6.46  abstract.py:242:doWrite
+# 15.87      5.81      5.81  abstract.py:31:_concatenate
+#  0.78      0.28      0.28  abstract.py:262:doWrite
+
