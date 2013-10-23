@@ -1,6 +1,10 @@
-from twisted.internet import kqreactor
-kqreactor.install()
+import choosereactor
+from twisted.internet import reactor
+print "Master is using Twisted reactor class %s" % str(reactor.__class__)
+#from twisted.internet import kqreactor
+#kqreactor.install()
 
+import sys
 from twisted.internet import protocol
 from twisted.internet import reactor
 from zope.interface import implements
@@ -77,8 +81,10 @@ class MyPP(protocol.ProcessProtocol):
       reactor.stop()
 
 pp = MyPP()
+exe = sys.executable
+print exe
 #reactor.spawnProcess(pp, "tail", ["tail", "-f", "test.log"], {})
 # usePTY=True
 #reactor.spawnProcess(pp, "/Users/oberstet/python1/bin/python", ["/Users/oberstet/python1/bin/python", "streaming_child.py"], {})
-reactor.spawnProcess(pp, "/Users/oberstet/python1/bin/python", ["/Users/oberstet/python1/bin/python", "child.py"], {})
+reactor.spawnProcess(pp, exe, [exe, "child.py"], {})
 reactor.run()

@@ -6,8 +6,11 @@ import os, sys, time
 # http://stackoverflow.com/questions/1006289/how-to-find-out-the-number-of-cpus-in-python
 # https://pypi.python.org/pypi/affinity
 
-from twisted.internet import kqreactor
-kqreactor.install()
+import choosereactor
+from twisted.internet import reactor
+
+#from twisted.internet import kqreactor
+#kqreactor.install()
 
 def variant1():
 
@@ -41,7 +44,18 @@ def variant2():
    fds = [f, sys.stdout]
    try:
       while True:
-         msg = "loop %d %d\n" % (os.getpid(), os.getppid())
+
+         try:
+            pid = os.getpid()
+         except:
+            pid = None
+
+         try:
+            ppid = os.getppid()
+         except:
+            ppid = None
+
+         msg = "loop %s %s\n" % (pid, ppid)
          for fd in fds:
             fd.write(msg)
             fd.flush()
@@ -73,8 +87,20 @@ def variant3():
 
       def connectionMade(self):
          #self.transport.write(str(self.res))
-         self.msg = "child: %d parent: %d\n" % (os.getpid(), os.getppid())
+         try:
+            pid = os.getpid()
+         except:
+            pid = None
+
+         try:
+            ppid = os.getppid()
+         except:
+            ppid = None
+
+         self.msg = "child: %s parent: %s\n" % (pid, ppid)
          self.transport.write(self.msg)
+         self.transport.write("Child is using Twisted reactor class %s" % str(reactor.__class__))
+
          self.linesReceived = 0
          self.loop()
 
@@ -100,8 +126,20 @@ def variant3():
 
       def connectionMade(self):
          #self.transport.write(str(self.res))
-         self.msg = "child: %d parent: %d\n" % (os.getpid(), os.getppid())
+         try:
+            pid = os.getpid()
+         except:
+            pid = None
+
+         try:
+            ppid = os.getppid()
+         except:
+            ppid = None
+
+         self.msg = "child: %s parent: %s\n" % (pid, ppid)
          self.transport.write(self.msg)
+         self.transport.write("Child is using Twisted reactor class %s" % str(reactor.__class__))
+
          self.octetsReceived = 0
          self.octetsReceivedLast = 0
          self.loop()
