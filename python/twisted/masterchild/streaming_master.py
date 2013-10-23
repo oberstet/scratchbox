@@ -8,6 +8,8 @@ from zope.interface import implements
 # http://unix.stackexchange.com/questions/1537/measure-pipe-throughput-in-the-shell/1538#1538
 # broken link: http://twistedmatrix.com/documents/13.1.0/api/twisted.internet.interfaces.IFinishableConsumer.html
 
+# adjust pipe buffer: http://stackoverflow.com/a/13906354/884770
+
 class StreamingProducer:
 
    implements(interfaces.IPushProducer)
