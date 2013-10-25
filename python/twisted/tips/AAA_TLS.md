@@ -18,6 +18,25 @@ For this, we need to build from source - until required patches land in both Twi
 	export PATH=${HOME}/local/bin:${PATH}
 	export LD_LIBRARY_PATH=${HOME}/local/lib:${LD_LIBRARY_PATH}
 
+Build stuff (this is for Amazon Linux .. should be fine for Fedora/CentOS too):
+
+	sudo yum -y update
+	sudo yum -y install unzip
+	sudo yum -y install gcc
+	sudo yum -y install gcc-c++
+	sudo yum -y install glibc
+	sudo yum -y install make
+	sudo yum -y install binutils
+	sudo yum -y install patch
+	sudo yum -y install libaio
+	sudo yum -y install bc
+	sudo yum -y install zlib-devel
+	sudo yum -y install bzip2-devel
+	sudo yum -y install openssl-devel
+	sudo yum -y install ncurses-devel
+	sudo yum -y install sqlite-devel
+	sudo yum -y install readline-devel
+
 
 ## OpenSSL
 
