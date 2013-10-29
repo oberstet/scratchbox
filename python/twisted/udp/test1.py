@@ -37,7 +37,11 @@ class UdpClient(DatagramProtocol):
       self.sendHello()
 
    def sendHello(self):
-      self.transport.write("Hello!!!", (self._ip, self._port))
+      for i in xrange(1):
+         self.transport.write("Hello!", (self._ip, self._port))
+         print "Hello!", (self._ip, self._port)
+      print
+      reactor.callLater(1, self.sendHello)
 
    def datagramReceived(self, data, (host, port)):
       if self._debug:
@@ -89,7 +93,7 @@ def run():
       port = int(args.client[0][1])
       count = int(args.client[0][2])
       proto = UdpClient(ip, port, count, debug = args.debug)
-      reactor.listenUDP(0, proto)
+      reactor.listenUDP(port, proto)
 
    else:
       raise Exception("logic error")
