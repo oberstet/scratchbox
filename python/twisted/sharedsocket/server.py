@@ -9,31 +9,59 @@
 
 import choosereactor
 
+import sys, os
 from os import environ
 from sys import argv, executable
 from socket import AF_INET
 
+from twisted.python import log
 from twisted.internet import reactor
 from twisted.web.server import Site
 from twisted.web.static import File
+from twisted.web import server, resource
+
+
+class Simple(resource.Resource):
+   isLeaf = True
+   def render_GET(self, request):
+      self.cnt += 1
+      return ""
+      print self.ident
+      return "<html>Hello, world!</html>"
+
 
 def main(fd = None):
+   log.startLogging(sys.stdout)
+   print "Using Twisted reactor class %s" % str(reactor.__class__)
+
    root = File(".")
+   root = Simple()
+   root.cnt = 0
    factory = Site(root)
+   factory.log = lambda _: None # disable any logging
 
    if fd is None:
+      root.ident = "master", os.getpid(), os.getppid()
+      print root.ident, "started"
       # Create a new listening port and several other processes to help out.
-      port = reactor.listenTCP(8080, factory)
-      print port
-      print dir(port)
+      port = reactor.listenTCP(8080, factory, backlog = 5000)
+
       for i in range(3):
          reactor.spawnProcess(
             None, executable, [executable, __file__, str(port.fileno())],
             childFDs = {0: 0, 1: 1, 2: 2, port.fileno(): port.fileno()},
             env = environ)
    else:
+      root.ident = "worker", os.getpid(), os.getppid()
+      print root.ident, "started"
       # Another process created the port, just start listening on it.
       port = reactor.adoptStreamPort(fd, AF_INET, factory)
+
+   def stat():
+      print root.ident, root.cnt
+      reactor.callLater(5, stat)
+
+   stat()
 
    reactor.run()
 
