@@ -6,6 +6,8 @@
 # http://twistedmatrix.com/pipermail/twisted-commits/2012-March/034524.html
 # http://twistedmatrix.com/documents/current/core/howto/endpoints.html
 
+# curl -s "http://192.168.56.101:8080/?[1-100000]" > /dev/null
+
 
 import choosereactor
 
@@ -43,8 +45,13 @@ def main(fd = None):
    if fd is None:
       root.ident = "master", os.getpid(), os.getppid()
       print root.ident, "started"
+
       # Create a new listening port and several other processes to help out.
-      port = reactor.listenTCP(8080, factory, backlog = 5000)
+      port = reactor.listenTCP(8080, factory, backlog = 10000)
+
+      ## we only want to accept on workers, not master:
+      ## http://twistedmatrix.com/documents/current/api/twisted.internet.abstract.FileDescriptor.html#stopReading
+      port.stopReading()
 
       for i in range(3):
          reactor.spawnProcess(
