@@ -2,7 +2,7 @@
 
 **Too long to read? Go directly to the [RESULTS](https://github.com/oberstet/scratchbox/raw/master/python/twisted/sharedsocket/results.pdf).**
 
-This is the first part of a series of experiments in preparation for a system design with [Autobahn](http://autobahn.ws/)/[Twisted](http://twistedmatrix.com/) that allows to:
+This is the first part of a series of experiments in preparation for a system design with [Autobahn](http://autobahn.ws/) / [Twisted](http://twistedmatrix.com/) that allows to:
 
  * scale-up on multicore
  * scale-out on cluster (LAN)
