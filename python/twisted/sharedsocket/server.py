@@ -9,6 +9,16 @@
 # curl -s "http://192.168.56.101:8080/?[1-100000]" > /dev/null
 
 
+# http://www.linuxjournal.com/files/linuxjournal.com/linuxjournal/articles/023/2333/2333s2.html
+
+# http://www.linuxinstruction.com/?q=node/15
+#
+# oberstet@ubuntu1204-1:~$ cat /proc/sys/net/core/somaxconn
+# 128
+# oberstet@ubuntu1204-1:~$ cat /proc/sys/net/ipv4/tcp_max_syn_backlog
+# 2048
+
+
 import choosereactor
 
 import sys, os
