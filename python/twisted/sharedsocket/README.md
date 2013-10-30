@@ -1,3 +1,136 @@
+
+## Results
+
+### Twisted Web 1a
+
+Server:
+
+	$ ~/pypy-2.1/bin/pypy server.py --silence --resource fixed --payload 10000
+
+Load:
+
+	$ weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 1000 concurrent requests, 250000 total requests
+	spawning thread #2: 1000 concurrent requests, 250000 total requests
+	spawning thread #3: 1000 concurrent requests, 250000 total requests
+	spawning thread #4: 1000 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 19 sec, 726 millisec and 699 microsec, 50692 req/s, 501531 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 10131000000 bytes total, 131000000 bytes http, 10000000000 bytes data
+
+
+### Twisted 1b
+
+Load:
+
+	$ weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 1000 concurrent requests, 250000 total requests
+	spawning thread #2: 1000 concurrent requests, 250000 total requests
+	spawning thread #3: 1000 concurrent requests, 250000 total requests
+	spawning thread #4: 1000 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 45 sec, 867 millisec and 552 microsec, 21801 req/s, 5024 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 236000000 bytes total, 196000000 bytes http, 40000000 bytes data
+	oberstet@corei7-ubuntu:~/scm/scratchbox/python/twisted/sharedsocket$ 
+
+
+### Twisted 2a
+
+Server:
+
+	$ ~/pypy-2.1/bin/pypy server.py --silence --resource fixed --payload 40
+
+Load:
+
+	$ weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 1000 concurrent requests, 250000 total requests
+	spawning thread #2: 1000 concurrent requests, 250000 total requests
+	spawning thread #3: 1000 concurrent requests, 250000 total requests
+	spawning thread #4: 1000 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 16 sec, 21 millisec and 887 microsec, 62414 req/s, 10239 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 168000000 bytes total, 128000000 bytes http, 40000000 bytes data
+
+
+### Twisted 2b
+
+Server:
+
+	~/pypy-2.1/bin/pypy server.py --silence --resource file --payload 10000
+
+Load:
+
+	$ weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 1000 concurrent requests, 250000 total requests
+	spawning thread #2: 1000 concurrent requests, 250000 total requests
+	spawning thread #3: 1000 concurrent requests, 250000 total requests
+	spawning thread #4: 1000 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 57 sec, 704 millisec and 696 microsec, 17329 req/s, 172602 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 10199000000 bytes total, 199000000 bytes http, 10000000000 bytes data
+
+
+
 ## Test Setup
 
 The host is a Intel Core i7 (quad core, HT enabled, 3.4GHz) with 12GB RAM running Ubuntu 12.04 LTS 64 bit.
