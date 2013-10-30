@@ -18,18 +18,29 @@
 
 import sys
 
-## make sure we run a capable reactor
+## make sure we run a capable OS/reactor
 ##
-if 'bsd' in sys.platform or sys.platform.startswith('darwin'):
+startupMsgs = []
+if 'bsd' in sys.platform:
    from twisted.internet import kqreactor
    kqreactor.install()
+   startupMsgs.append("Alrighty: you run a capable kqueue platform - good job!")
 elif sys.platform.startswith('linux'):
    from twisted.internet import epollreactor
    epollreactor.install()
+   startupMsgs.append("Alrighty: you run a capable epoll platform - good job!")
+elif sys.platform.startswith('darwin'):
+   from twisted.internet import kqreactor
+   kqreactor.install()
+   startupMsgs.append("Huh, you run OSX and have kqueue, but don't be disappointed when performance sucks;)")
 elif sys.platform == 'win32':
-   raise Exception("sorry, Twisted/Windows select/iocp reactors lack the necessary bits")
+   raise Exception("Sorry dude, Twisted/Windows select/iocp reactors lack the necessary bits.")
 else:
-   raise Exception("hey man, what are you using?")
+   raise Exception("Hey man, what OS are you using?")
+
+import pkg_resources
+from twisted.internet import reactor
+startupMsgs.append("Using Twisted reactor class %s on Twisted %s" % (str(reactor.__class__), pkg_resources.require("Twisted")[0].version))
 
 
 import sys, os
@@ -38,65 +49,133 @@ from sys import argv, executable
 from socket import AF_INET
 
 from twisted.python import log
-from twisted.internet import reactor
+from twisted.internet.protocol import Factory
 from twisted.web.server import Site
+from twisted.web.resource import Resource
 from twisted.web.static import File
-from twisted.web import resource
 
 
-class Simple(resource.Resource):
+PAYLOAD = "<html>Hello, world! [Twisted Web]</html>"
+
+
+class DirectResource(Resource):
+
    isLeaf = True
+
+   def __init__(self):
+      Resource.__init__(self)
+      self.cnt = 0
+
    def render_GET(self, request):
       self.cnt += 1
-      return "<html>Hello, world! [Twisted Web]</html>"
+      return PAYLOAD
 
 
-def main(fd = None):
-   log.startLogging(sys.stdout)
-   print "Using Twisted reactor class %s" % str(reactor.__class__)
+class FileResource(File):
 
-   if True:
-      root = File(".")
-   else:
-      root = Simple()
+   def __init__(self):
+      File.__init__(self, '.')
+      self.cnt = 0
 
-   root.cnt = 0
-   factory = Site(root)
-   factory.log = lambda _: None # disable any logging
+   def render_GET(self, request):
+      self.cnt += 1
+      return File.render_GET(self, request)
 
-   if fd is None:
-      root.ident = "master", os.getpid(), os.getppid()
-      print root.ident, "started"
 
-      # Create a new listening port and several other processes to help out.
-      port = reactor.listenTCP(8080, factory, backlog = 10000)
+def master(options):
+   """
+   Start of the master process.
+   """
+   if not options.silence:
+      print "Master started on PID %s" % os.getpid()
 
-      ## we only want to accept on workers, not master:
-      ## http://twistedmatrix.com/documents/current/api/twisted.internet.abstract.FileDescriptor.html#stopReading
-      port.stopReading()
+   ## we just need some factory like thing .. it won't be used on master anyway
+   ## for actual socket accept
+   ##
+   factory = Factory()
 
-      for i in range(4):
-         reactor.spawnProcess(
-            None, executable, [executable, __file__, str(port.fileno())],
-            childFDs = {0: 0, 1: 1, 2: 2, port.fileno(): port.fileno()},
-            env = environ)
-   else:
-      root.ident = "worker", os.getpid(), os.getppid()
-      print root.ident, "started"
-      # Another process created the port, just start listening on it.
-      port = reactor.adoptStreamPort(fd, AF_INET, factory)
+   ## create socket, bind and listen ..
+   port = reactor.listenTCP(options.port, factory, backlog = options.backlog)
 
-   def stat():
-      print root.ident, root.cnt
-      reactor.callLater(5, stat)
+   ## .. but immediately stop reading: we only want to accept on workers, not master
+   port.stopReading()
 
-   stat()
+   ## fire off background workers
+   ##
+   for i in range(options.workers):
+
+      args = [executable, __file__, "--fd", str(port.fileno())]
+
+      ## pass on cmd line args to worker ..
+      args.extend(sys.argv[1:])
+
+      reactor.spawnProcess(
+         None, executable, args,
+         childFDs = {0: 0, 1: 1, 2: 2, port.fileno(): port.fileno()},
+         env = environ)
 
    reactor.run()
 
 
-if __name__ == '__main__':
-   if len(argv) == 1:
-      main()
+def worker(options):
+   """
+   Start background worker process.
+   """
+   workerPid = os.getpid()
+
+   if options.resource == 'file':
+      root = FileResource()
+   elif options.resource == 'direct':
+      root = DirectResource()
    else:
-      main(int(argv[1]))
+      raise Exception("logic error")
+
+   if not options.silence:
+      print "Worker started on PID %s using resource %s" % (workerPid, root)
+
+   factory = Site(root)
+   factory.log = lambda _: None # disable any logging
+ 
+   ## The master already created the socket, just start listening and accepting
+   ##
+   port = reactor.adoptStreamPort(options.fd, AF_INET, factory)
+
+   if not options.silence:
+      def stat():
+         print "Worker %s processed %d requests"  % (workerPid, root.cnt)
+         reactor.callLater(options.interval, stat)
+
+      stat()
+
+   reactor.run()
+
+
+
+if __name__ == '__main__':
+
+   import argparse
+
+   parser = argparse.ArgumentParser(description = 'Twisted Web Multicore Server')
+   parser.add_argument('--port', dest = 'port', type = int, default = 8080, help = 'TCP port to run on.')
+   parser.add_argument('--workers', dest = 'workers', type = int, default = 4, help = 'Number of workers to spawn - should fit the number of (phyisical) CPU cores.')
+   parser.add_argument('--backlog', dest = 'backlog', type = int, default = 8192, help = 'TCP accept queue depth. You must tune your OS also as this is just advisory!')
+   parser.add_argument('--silence', dest = 'silence', action = "store_true", default = False, help = 'Silence log output.')
+   parser.add_argument('--resource', dest = 'resource', choices = ['file', 'direct'], default = 'direct', help = 'Resource type.')
+   parser.add_argument('--interval', dest = 'interval', type = int, default = 5, help = 'Worker stats update interval.')
+
+   parser.add_argument('--fd', dest = 'fd', type = int, default = None, help = 'If given, this is a worker which will use provided FD and all other options are ignored.')
+
+   options = parser.parse_args()
+
+   if not options.silence:
+      log.startLogging(sys.stdout)
+
+   if options.fd is not None:
+      # run worker
+      worker(options)
+   else:
+      if not options.silence:
+         for m in startupMsgs:
+            print m
+      # run master
+      master(options)
