@@ -1,7 +1,13 @@
 
 ## Results
 
-### Twisted Web 1a
+Notes:
+
+  * for the Twisted/PyPy, make sure you run the load client a couple of times to allow the JITting to warmup on the hotpaths
+  * for Nginx: the examples are run with reduced concurrency versus Twisted/PyPy, since Nginx will bailout giving me connection resets (104). Further tuning is needed here.
+
+
+### Twisted Web 1a (10000 bytes payload, `Fixed` resource)
 
 Server:
 
@@ -34,7 +40,11 @@ Load:
 	traffic: 10131000000 bytes total, 131000000 bytes http, 10000000000 bytes data
 
 
-### Twisted 1b
+### Twisted 1b (10000 bytes payload, `static.File` resource)
+
+Server:
+
+	~/pypy-2.1/bin/pypy server.py --silence --resource file --payload 10000
 
 Load:
 
@@ -57,14 +67,47 @@ Load:
 	progress:  90% done
 	progress: 100% done
 
-	finished in 45 sec, 867 millisec and 552 microsec, 21801 req/s, 5024 kbyte/s
+	finished in 57 sec, 704 millisec and 696 microsec, 17329 req/s, 172602 kbyte/s
 	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
 	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
-	traffic: 236000000 bytes total, 196000000 bytes http, 40000000 bytes data
-	oberstet@corei7-ubuntu:~/scm/scratchbox/python/twisted/sharedsocket$ 
+	traffic: 10199000000 bytes total, 199000000 bytes http, 10000000000 bytes data
 
 
-### Twisted 2a
+### Nginx 1
+
+Server: started from system (see Test Setup), but add payload to `index.html`:
+
+	python -c "import sys; sys.stdout.write('*'*10000)" > /usr/share/nginx/www/index.html > /usr/share/nginx/www/index.html
+	wc -c /usr/share/nginx/www/index.html
+
+Load:
+
+	oberstet@corei7-ubuntu:~/scm/scratchbox/python/twisted/sharedsocket$ weighttp -n 1000000 -c 1000 -t 4 -k "http://127.0.0.1/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 250 concurrent requests, 250000 total requests
+	spawning thread #2: 250 concurrent requests, 250000 total requests
+	spawning thread #3: 250 concurrent requests, 250000 total requests
+	spawning thread #4: 250 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 12 sec, 156 millisec and 126 microsec, 82263 req/s, 820859 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 10217951280 bytes total, 217951280 bytes http, 10000000000 bytes data
+
+
+### Twisted 2a (40 bytes payload, `Fixed` resource)
 
 Server:
 
@@ -97,11 +140,11 @@ Load:
 	traffic: 168000000 bytes total, 128000000 bytes http, 40000000 bytes data
 
 
-### Twisted 2b
+### Twisted 2b (40 bytes payload, `static.File` resource)
 
 Server:
 
-	~/pypy-2.1/bin/pypy server.py --silence --resource file --payload 10000
+	$ ~/pypy-2.1/bin/pypy server.py --silence --payload 40
 
 Load:
 
@@ -124,11 +167,45 @@ Load:
 	progress:  90% done
 	progress: 100% done
 
-	finished in 57 sec, 704 millisec and 696 microsec, 17329 req/s, 172602 kbyte/s
+	finished in 45 sec, 867 millisec and 552 microsec, 21801 req/s, 5024 kbyte/s
 	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
 	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
-	traffic: 10199000000 bytes total, 199000000 bytes http, 10000000000 bytes data
+	traffic: 236000000 bytes total, 196000000 bytes http, 40000000 bytes data
+	oberstet@corei7-ubuntu:~/scm/scratchbox/python/twisted/sharedsocket$ 
 
+
+### Nginx 2 (40 bytes payload)
+
+Server: started from system (see Test Setup), but add payload to `index.html`:
+
+	python -c "import sys; sys.stdout.write('*'*40)" > /usr/share/nginx/www/index.html > /usr/share/nginx/www/index.html
+	wc -c /usr/share/nginx/www/index.html
+
+Load:
+
+	$ weighttp -n 1000000 -c 1000 -t 4 -k "http://127.0.0.1/"
+	weighttp - a lightweight and simple webserver benchmarking tool
+
+	starting benchmark...
+	spawning thread #1: 250 concurrent requests, 250000 total requests
+	spawning thread #2: 250 concurrent requests, 250000 total requests
+	spawning thread #3: 250 concurrent requests, 250000 total requests
+	spawning thread #4: 250 concurrent requests, 250000 total requests
+	progress:  10% done
+	progress:  20% done
+	progress:  30% done
+	progress:  40% done
+	progress:  50% done
+	progress:  60% done
+	progress:  70% done
+	progress:  80% done
+	progress:  90% done
+	progress: 100% done
+
+	finished in 11 sec, 575 millisec and 954 microsec, 86385 req/s, 21508 kbyte/s
+	requests: 1000000 total, 1000000 started, 1000000 done, 1000000 succeeded, 0 failed, 0 errored
+	status codes: 1000000 2xx, 0 3xx, 0 4xx, 0 5xx
+	traffic: 254951105 bytes total, 214951105 bytes http, 40000000 bytes data
 
 
 ## Test Setup
@@ -204,10 +281,7 @@ Nginx is setup and run (on port 80) like this
 
 	sudo apt-get install nginx
 	sudo service nginx start
-	sudo su
-	echo "<html>Hello, world! [Nginx      ]</html>" > /usr/share/nginx/www/index.html
-
-The `index.html` file size is exactly the same for Nginx and Twisted Web.
+	sudo chmod 666 /usr/share/nginx/www/index.html
 
 > I have no clue at all if the default Nginx is already tuned or what. If anybody has any hints on how to make it fly higher, please let me know!
 
