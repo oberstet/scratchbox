@@ -1,27 +1,130 @@
+# Scaling Twisted Web
 
-## Results
+**Too long to read? Go directly to the `results.pdf` is this folder**
+
+This is the first part of a series of experiments in preparation for a system design with Autobahn/Twisted that allows to:
+
+ * scale-up on multicore
+ * scale-out on cluster (LAN)
+ * federate (WAN)
+
+The first part here is about scaling up Twisted Web on multicore.
+
+A Twisted Web based server is demonstrated that consists of a master process that creates a TCP listening socket, and then spawns multiple background worker processes that then *directly* accept incoming TCP connections and process HTTP requests.
+
+The testing was done using PyPy 2.1 and Twisted 13.1, both stock release versions.
+
+We compare the performance to Nginx.
+
+For the results, please see the `results.pdf` in this folder. All testing details are below. I encourage everyone interested to repeat and verify the results. Personally, I find the results quite encouraging.
+
+There is no bottleneck, and this design should in principle scale linearly with the number of available cores. The credits for the approach go to [Jean-Paul Calderone](http://as.ynchrono.us/). Thanks again Jean-Paul for another incredible helpful [answer](http://stackoverflow.com/a/10088578/884770). Any bugs, issues and mistakes here are my own;)
+
+> Note that is neither expected and nor the goal to beat Nginx (at it's own game) here. That would be obviously folly. Though I have ideas to close the gap even further.
+> 
+
+## Test Setup
+
+The host is a Intel Core i7 (quad core, HT enabled, 3.4GHz) with 12GB RAM running Ubuntu 12.04 LTS 64 bit.
+
+Linux is running directly on hardware (no virtualization!).
+
+Linux TCP networking is tuned as in the following.
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+	net.core.somaxconn = 8192
+	net.ipv4.tcp_max_orphans = 8192
+	net.ipv4.tcp_max_syn_backlog = 8192
+	net.core.netdev_max_backlog = 262144
+	
+	net.ipv4.ip_local_port_range = 1024 65535
+	
+	#net.ipv4.tcp_low_latency = 1
+	#net.ipv4.tcp_window_scaling = 0
+	#net.ipv4.tcp_syncookies = 0
+	
+	fs.file-max = 16777216
+	fs.pipe-max-size = 134217728
+
+Further system level tuning:
+
+Modify `/etc/security/limits.conf` for the following
+
+	# wildcard does not work for root, but for all other users
+	*               soft     nofile           1048576
+	*               hard     nofile           1048576
+	# settings should also apply to root
+	root            soft     nofile           1048576
+	root            hard     nofile           1048576
+
+and add the following line
+
+	session required pam_limits.so
+
+to both of these files at the end:
+
+	/etc/pam.d/common-session
+	/etc/pam.d/common-session-noninteractive
+
+Reboot.
+
+Check that you get large (`1048576`) FD limit:
+
+	ulimit -n
+
+Probably also check that above `sysctl` settings actually are in place (`sysctl -a | grep ..` or such).
+
+[PyPy](http://pypy.org/) is from
+
+	cd $HOME/tarballs
+	wget https://bitbucket.org/pypy/pypy/downloads/pypy-2.1-linux64.tar.bz2
+    cd $HOME
+	tar xvjf pypy-2.1-linux64.tar.bz2
+
+and using stock Twisted 13.1 release:
+
+	cd $HOME/tarballs
+	wget https://pypi.python.org/packages/source/T/Twisted/Twisted-13.1.0.tar.bz2
+	cd $HOME/build
+	tar xvjf ../Twisted-13.1.0.tar.bz2
+	cd Twisted-13.1.0
+	$HOME/pypy-2.1/bin/pypy setup.py install
+
+
+Nginx is setup and run (on port 80) like this
+
+	sudo apt-get install nginx
+	sudo service nginx start
+	sudo chmod 666 /usr/share/nginx/www/index.html
+
+> I have no clue at all if the default Nginx is already tuned or what. If anybody has any hints on how to make it fly higher, please let me know!
+
+
+For HTTP load testing, we use [weighttp](http://redmine.lighttpd.net/projects/weighttp/wiki), which uses [libev](http://software.schmorp.de/pkg/libev.html) for scalable processing based on `epoll()` and can generate stable and scalable concurrent load on SMP systems.
+
+Note that a lot of tools suck for the stuff we do here, e.g. HTTPerf uses `select()`, not `epoll` and will fail badly. It also sucks regarding generating concurrent load. Read more [here](http://gwan.com/en_apachebench_httperf.html).
+
+Hence:
+
+	sudo apt-get install libev-dev
+	cd $HOME/build
+	git clone git://git.lighttpd.net/weighttp
+	cd weighttp
+	./waf configure
+	sudo ./waf install
+
+For easy load inspection (broken down by process and thread):
+
+	sudo apt-get install htop
+
+
+## Testing and Result Logs
 
 Notes:
 
   * for the Twisted/PyPy, make sure you run the load client a couple of times to allow the JITting to warmup on the hotpaths
-  * for Nginx: the examples are run with reduced concurrency versus Twisted/PyPy, since Nginx will bailout giving me connection resets (104). Further tuning is needed here.
-
-
-### Pystone
-
-CPython:
-
-	$ python -m test.pystone
-	Pystone(1.1) time for 50000 passes = 0.47
-	This machine benchmarks at 106383 pystones/second
-
-PyPy:
-
-	~/pypy-2.1/bin/pypy -m test.pystone
-	Traceback (most recent call last):
-	  File "app_main.py", line 72, in run_toplevel
-	IOError: [Errno 2] No such file or directory: 'se-m'
-
+  * for Nginx: the examples are run with reduced concurrency (1000) versus Twisted/PyPy (4000), since Nginx will bailout giving me TCP connection resets (104). Further tuning is needed here.
 
 ### Twisted Web 1a (10000 bytes payload, `Fixed` resource)
 
@@ -224,103 +327,26 @@ Load:
 	traffic: 254951105 bytes total, 214951105 bytes http, 40000000 bytes data
 
 
-## Test Setup
-
-The host is a Intel Core i7 (quad core, HT enabled, 3.4GHz) with 12GB RAM running Ubuntu 12.04 LTS 64 bit.
-
-Linux is running directly on hardware (no virtualization!).
-
-Linux TCP networking is tuned as in the following.
-
-Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
-
-	net.core.somaxconn = 8192
-	net.ipv4.tcp_max_orphans = 8192
-	net.ipv4.tcp_max_syn_backlog = 8192
-	net.core.netdev_max_backlog = 262144
-	
-	net.ipv4.ip_local_port_range = 1024 65535
-	
-	#net.ipv4.tcp_low_latency = 1
-	#net.ipv4.tcp_window_scaling = 0
-	#net.ipv4.tcp_syncookies = 0
-	
-	fs.file-max = 16777216
-	fs.pipe-max-size = 134217728
-
-Further system level tuning:
-
-Modify `/etc/security/limits.conf` for the following
-
-	# wildcard does not work for root, but for all other users
-	*               soft     nofile           1048576
-	*               hard     nofile           1048576
-	# settings should also apply to root
-	root            soft     nofile           1048576
-	root            hard     nofile           1048576
-
-and add the following line
-
-	session required pam_limits.so
-
-to both of these files at the end:
-
-	/etc/pam.d/common-session
-	/etc/pam.d/common-session-noninteractive
-
-Reboot.
-
-Check that you get large (`1048576`) FD limit:
-
-	ulimit -n
-
-Probably also check that above `sysctl` settings actually are in place (`sysctl -a | grep ..` or such).
-
-[PyPy](http://pypy.org/) is from
-
-	cd $HOME/tarballs
-	wget https://bitbucket.org/pypy/pypy/downloads/pypy-2.1-linux64.tar.bz2
-    cd $HOME
-	tar xvjf pypy-2.1-linux64.tar.bz2
-
-and using stock Twisted 13.1 release:
-
-	cd $HOME/tarballs
-	wget https://pypi.python.org/packages/source/T/Twisted/Twisted-13.1.0.tar.bz2
-	cd $HOME/build
-	tar xvjf ../Twisted-13.1.0.tar.bz2
-	cd Twisted-13.1.0
-	$HOME/pypy-2.1/bin/pypy setup.py install
-
-
-Nginx is setup and run (on port 80) like this
-
-	sudo apt-get install nginx
-	sudo service nginx start
-	sudo chmod 666 /usr/share/nginx/www/index.html
-
-> I have no clue at all if the default Nginx is already tuned or what. If anybody has any hints on how to make it fly higher, please let me know!
-
-
-For HTTP load testing, we use [weighttp](http://redmine.lighttpd.net/projects/weighttp/wiki), which uses [libev](http://software.schmorp.de/pkg/libev.html) for scalable processing based on `epoll()` and can generate stable and scalable concurrent load on SMP systems.
-
-Note that a lot of tools suck for the stuff we do here, e.g. HTTPerf uses `select()`, not `epoll` and will fail badly. It also sucks regarding generating concurrent load. Read more [here](http://gwan.com/en_apachebench_httperf.html).
-
-Hence:
-
-	sudo apt-get install libev-dev
-	cd $HOME/build
-	git clone git://git.lighttpd.net/weighttp
-	cd weighttp
-	./waf configure
-	sudo ./waf install
-
-For easy load inspection (broken down by process and thread):
-
-	sudo apt-get install htop
-
-
 ## Appendix
+
+### Pystone
+
+For comparison of the host system used for testing to other systems:
+
+CPython:
+
+	$ python -m test.pystone
+	Pystone(1.1) time for 50000 passes = 0.47
+	This machine benchmarks at 106383 pystones/second
+
+PyPy:
+
+	~/pypy-2.1/bin/pypy -m test.pystone
+	Traceback (most recent call last):
+	  File "app_main.py", line 72, in run_toplevel
+	IOError: [Errno 2] No such file or directory: 'se-m'
+
+
 
 ### Linux sysctl vars of interest
 
