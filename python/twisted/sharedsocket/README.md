@@ -22,7 +22,7 @@ I encourage anybody interested to repeat and verify the testing. Personally, I f
 
 There is no bottleneck, and this design should in principle scale linearly with the number of available cores. The credits for the approach go to [Jean-Paul Calderone](http://as.ynchrono.us/). Thanks again Jean-Paul for another incredible helpful [answer](http://stackoverflow.com/a/10088578/884770). Any bugs, issues and mistakes here are my own;)
 
-> Note that is neither expected and nor the goal to beat Nginx (at it's own game) here. That would be obviously folly. Though I have ideas to close the gap even further.
+> Note that is neither expected and nor the goal to beat Nginx at it's own game (serving static stuff). That would be obviously folly. Though I have ideas to close the gap even further.
 > 
 
 ## Test Setup
