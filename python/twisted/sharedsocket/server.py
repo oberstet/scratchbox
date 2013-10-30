@@ -115,8 +115,24 @@ root            hard     nofile           1048576
 # ./waf configure
 # sudo ./waf install
 
+## with keep-alive
+##
 # weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
 
+## without keep-alive
+##
+# weighttp -n 100000 -c 500 -t 4 "http://127.0.0.1:8080/"
+
+
+## wget https://bitbucket.org/pypy/pypy/downloads/pypy-2.1-linux64.tar.bz2
+## tar xvjf pypy-2.1-linux64.tar.bz2
+
+# ~/pypy-2.1/bin/pypy server.py
+
+# sudo apt-get install nginx
+# sudo service nginx start
+# sudo su
+# echo "<html>Hello, world! [Nginx      ]</html>" > /usr/share/nginx/www/index.html
 
 import choosereactor
 
@@ -136,17 +152,18 @@ class Simple(resource.Resource):
    isLeaf = True
    def render_GET(self, request):
       self.cnt += 1
-      return ""
-      print self.ident
-      return "<html>Hello, world!</html>"
+      return "<html>Hello, world! [Twisted Web]</html>"
 
 
 def main(fd = None):
    log.startLogging(sys.stdout)
    print "Using Twisted reactor class %s" % str(reactor.__class__)
 
-   root = File(".")
-   root = Simple()
+   if True:
+      root = File(".")
+   else:
+      root = Simple()
+      
    root.cnt = 0
    factory = Site(root)
    factory.log = lambda _: None # disable any logging
