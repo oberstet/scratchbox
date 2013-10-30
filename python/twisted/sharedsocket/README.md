@@ -6,6 +6,22 @@ Notes:
   * for the Twisted/PyPy, make sure you run the load client a couple of times to allow the JITting to warmup on the hotpaths
   * for Nginx: the examples are run with reduced concurrency versus Twisted/PyPy, since Nginx will bailout giving me connection resets (104). Further tuning is needed here.
 
+### Pystone
+
+CPython:
+
+	$ python -m test.pystone
+	Pystone(1.1) time for 50000 passes = 0.47
+	This machine benchmarks at 106383 pystones/second
+
+PyPy:
+
+	~/pypy-2.1/bin/pypy -m test.pystone
+	Traceback (most recent call last):
+	  File "app_main.py", line 72, in run_toplevel
+	IOError: [Errno 2] No such file or directory: 'se-m'
+
+Does not run
 
 ### Twisted Web 1a (10000 bytes payload, `Fixed` resource)
 
