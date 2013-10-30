@@ -10,9 +10,17 @@
 
 
 # http://www.linuxjournal.com/files/linuxjournal.com/linuxjournal/articles/023/2333/2333s2.html
+# http://fasterdata.es.net/host-tuning/linux/
+# http://www.lognormal.com/blog/2012/09/27/linux-tcpip-tuning/
 
 # http://www.linuxinstruction.com/?q=node/15
-#
+## https://www.varnish-cache.org/lists/pipermail/varnish-misc/2008-April/016139.html
+# https://github.com/rfk/threading2
+
+# https://greenhost.nl/2013/04/10/multi-queue-network-interfaces-with-smp-on-linux/
+# http://software.intel.com/en-us/articles/improved-linux-smp-scaling-user-directed-processor-affinity
+# https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/
+
 # oberstet@ubuntu1204-1:~$ cat /proc/sys/net/core/somaxconn
 # 128
 # oberstet@ubuntu1204-1:~$ cat /proc/sys/net/ipv4/tcp_max_syn_backlog
