@@ -6,6 +6,7 @@ Notes:
   * for the Twisted/PyPy, make sure you run the load client a couple of times to allow the JITting to warmup on the hotpaths
   * for Nginx: the examples are run with reduced concurrency versus Twisted/PyPy, since Nginx will bailout giving me connection resets (104). Further tuning is needed here.
 
+
 ### Pystone
 
 CPython:
@@ -21,7 +22,6 @@ PyPy:
 	  File "app_main.py", line 72, in run_toplevel
 	IOError: [Errno 2] No such file or directory: 'se-m'
 
-Does not run
 
 ### Twisted Web 1a (10000 bytes payload, `Fixed` resource)
 
@@ -93,12 +93,12 @@ Load:
 
 Server: started from system (see Test Setup), but add payload to `index.html`:
 
-	python -c "import sys; sys.stdout.write('*'*10000)" > /usr/share/nginx/www/index.html > /usr/share/nginx/www/index.html
+	python -c "import sys; sys.stdout.write('*'*10000)" > /usr/share/nginx/www/index.html
 	wc -c /usr/share/nginx/www/index.html
 
 Load:
 
-	oberstet@corei7-ubuntu:~/scm/scratchbox/python/twisted/sharedsocket$ weighttp -n 1000000 -c 1000 -t 4 -k "http://127.0.0.1/"
+	$ weighttp -n 1000000 -c 1000 -t 4 -k "http://127.0.0.1/"
 	weighttp - a lightweight and simple webserver benchmarking tool
 
 	starting benchmark...
@@ -194,7 +194,7 @@ Load:
 
 Server: started from system (see Test Setup), but add payload to `index.html`:
 
-	python -c "import sys; sys.stdout.write('*'*40)" > /usr/share/nginx/www/index.html > /usr/share/nginx/www/index.html
+	python -c "import sys; sys.stdout.write('*'*40)" > /usr/share/nginx/www/index.html
 	wc -c /usr/share/nginx/www/index.html
 
 Load:
@@ -320,22 +320,6 @@ For easy load inspection (broken down by process and thread):
 	sudo apt-get install htop
 
 
-## Testing
-
-
-	cd
-	$HOME/pypy-2.1/bin/pypy server.py
-
-With Keep-alive:
-
-	weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1:8080/"
-	weighttp -n 1000000 -c 4000 -t 4 -k "http://127.0.0.1/"
-
-Without Keep-alive.
-
-	weighttp -n 100000 -c 500 -t 4 "http://127.0.0.1:8080/"
-	weighttp -n 100000 -c 500 -t 4 "http://127.0.0.1/"
-
 ## Appendix
 
 ### Linux sysctl vars of interest
@@ -382,4 +366,3 @@ Without Keep-alive.
   * http://software.intel.com/en-us/articles/improved-linux-smp-scaling-user-directed-processor-affinity
   * https://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/
   * http://www.linuxvox.com/2009/11/what-is-the-linux-kernel-parameter-tcp_low_latency/
-
