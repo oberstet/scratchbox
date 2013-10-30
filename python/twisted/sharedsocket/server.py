@@ -52,34 +52,26 @@ from twisted.python import log
 from twisted.internet.protocol import Factory
 from twisted.web.server import Site
 from twisted.web.resource import Resource
-from twisted.web.static import File
+from twisted.web import static
 
 
 PAYLOAD = "<html>Hello, world! [Twisted Web]</html>"
 
 
-class DirectResource(Resource):
+class DirectResource(static.Data):
 
    isLeaf = True
 
-   def __init__(self):
-      Resource.__init__(self)
-      self.cnt = 0
-
-   def render_GET(self, request):
+   def render(self, request):
       self.cnt += 1
-      return PAYLOAD
+      return static.Data.render(self, request)
 
 
-class FileResource(File):
+class FsResource(static.File):
 
-   def __init__(self):
-      File.__init__(self, '.')
-      self.cnt = 0
-
-   def render_GET(self, request):
+   def render(self, request):
       self.cnt += 1
-      return File.render_GET(self, request)
+      return static.File.render(self, request)
 
 
 def master(options):
@@ -124,11 +116,13 @@ def worker(options):
    workerPid = os.getpid()
 
    if options.resource == 'file':
-      root = FileResource()
+      root = FsResource('.')
    elif options.resource == 'direct':
-      root = DirectResource()
+      root = DirectResource(PAYLOAD, 'text/plain')
    else:
       raise Exception("logic error")
+
+   root.cnt = 0
 
    if not options.silence:
       print "Worker started on PID %s using resource %s" % (workerPid, root)
