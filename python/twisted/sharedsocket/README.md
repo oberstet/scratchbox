@@ -1,6 +1,6 @@
 # Scaling Twisted Web
 
-**Too long to read? Go directly to the `results.pdf` is this folder**
+**Too long to read? Go directly to the [RESULTS](https://github.com/oberstet/scratchbox/raw/master/python/twisted/sharedsocket/results.pdf).**
 
 This is the first part of a series of experiments in preparation for a system design with Autobahn/Twisted that allows to:
 
@@ -16,7 +16,9 @@ The testing was done using PyPy 2.1 and Twisted 13.1, both stock release version
 
 We compare the performance to Nginx.
 
-For the results, please see the `results.pdf` in this folder. All testing details are below. I encourage everyone interested to repeat and verify the results. Personally, I find the results quite encouraging.
+Test results are [here](https://github.com/oberstet/scratchbox/raw/master/python/twisted/sharedsocket/results.pdf) with detailed test setup description and test logs further below.
+
+I encourage anybody interested to repeat and verify the testing. Personally, I find the results quite encouraging. But seeing is believing;)
 
 There is no bottleneck, and this design should in principle scale linearly with the number of available cores. The credits for the approach go to [Jean-Paul Calderone](http://as.ynchrono.us/). Thanks again Jean-Paul for another incredible helpful [answer](http://stackoverflow.com/a/10088578/884770). Any bugs, issues and mistakes here are my own;)
 
@@ -25,11 +27,11 @@ There is no bottleneck, and this design should in principle scale linearly with 
 
 ## Test Setup
 
-The host is a Intel Core i7 (quad core, HT enabled, 3.4GHz) with 12GB RAM running Ubuntu 12.04 LTS 64 bit.
+The host is a Intel Core i7 (4 real cores, HT enabled, 3.4GHz) with 12GB RAM running Ubuntu 12.04 LTS 64 bit.
 
 Linux is running directly on hardware (no virtualization!).
 
-Linux TCP networking is tuned as in the following.
+Linux TCP networking is tuned as in the following. This (or similar) is *required*, since we are really pushing the system.
 
 Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
 
@@ -67,13 +69,13 @@ to both of these files at the end:
 	/etc/pam.d/common-session
 	/etc/pam.d/common-session-noninteractive
 
-Reboot.
+Reboot (or at least I don't know how to make it immediate without reboot).
 
-Check that you get large (`1048576`) FD limit:
+Check that you actually got large (`1048576`) FD limit:
 
 	ulimit -n
 
-Probably also check that above `sysctl` settings actually are in place (`sysctl -a | grep ..` or such).
+Probably also check that above `sysctl` settings actually are in place (`sysctl -a | grep ..` or such). I am paranoid.
 
 [PyPy](http://pypy.org/) is from
 
@@ -103,7 +105,7 @@ Nginx is setup and run (on port 80) like this
 
 For HTTP load testing, we use [weighttp](http://redmine.lighttpd.net/projects/weighttp/wiki), which uses [libev](http://software.schmorp.de/pkg/libev.html) for scalable processing based on `epoll()` and can generate stable and scalable concurrent load on SMP systems.
 
-Note that a lot of tools suck for the stuff we do here, e.g. HTTPerf uses `select()`, not `epoll` and will fail badly. It also sucks regarding generating concurrent load. Read more [here](http://gwan.com/en_apachebench_httperf.html).
+Note that a lot of tools suck for the stuff we do here, e.g. HTTPerf uses `select()`, not `epoll` and will fail badly. It also sucks regarding generating (massive) concurrent load. Read more [here](http://gwan.com/en_apachebench_httperf.html).
 
 Hence:
 
