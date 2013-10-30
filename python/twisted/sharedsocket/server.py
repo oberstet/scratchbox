@@ -55,25 +55,6 @@ from twisted.web.resource import Resource
 from twisted.web import static
 
 
-PAYLOAD = "<html>Hello, world! [Twisted Web]</html>"
-
-
-class DirectResource(static.Data):
-
-   isLeaf = True
-
-   def render(self, request):
-      self.cnt += 1
-      return static.Data.render(self, request)
-
-
-class FsResource(static.File):
-
-   def render(self, request):
-      self.cnt += 1
-      return static.File.render(self, request)
-
-
 def master(options):
    """
    Start of the master process.
@@ -109,34 +90,66 @@ def master(options):
    reactor.run()
 
 
+class CountingSite(Site):
+   def __init__(self, root):
+      Site.__init__(self, root)
+      self.cnt = 0
+
+   def getResourceFor(self, request):
+      self.cnt += 1
+      return Site.getResourceFor(self, request)
+
+
+class FixedResource(Resource):
+   isLeaf = True
+
+   def __init__(self, payload):
+      Resource.__init__(self)
+      self.payload = payload
+
+   def render_GET(self, request):
+      return self.payload
+
+
 def worker(options):
    """
    Start background worker process.
    """
    workerPid = os.getpid()
 
+   payload = "*" * options.payload
+
    if options.resource == 'file':
-      root = FsResource('.')
-   elif options.resource == 'direct':
-      root = DirectResource(PAYLOAD, 'text/plain')
+      f = open('index.html', 'wb')
+      f.write(payload)
+      f.close()
+      root = static.File('.')
+
+   elif options.resource == 'data':
+      root = static.Data(payload, 'text/html')
+
+   elif options.resource == 'fixed':
+      root = FixedResource(payload)
+
    else:
       raise Exception("logic error")
-
-   root.cnt = 0
 
    if not options.silence:
       print "Worker started on PID %s using resource %s" % (workerPid, root)
 
-   factory = Site(root)
-   factory.log = lambda _: None # disable any logging
+   if not options.silence:
+      site = CountingSite(root)
+   else:
+      site = Site(root)
+   site.log = lambda _: None # disable any logging
  
    ## The master already created the socket, just start listening and accepting
    ##
-   port = reactor.adoptStreamPort(options.fd, AF_INET, factory)
+   port = reactor.adoptStreamPort(options.fd, AF_INET, site)
 
    if not options.silence:
       def stat():
-         print "Worker %s processed %d requests"  % (workerPid, root.cnt)
+         print "Worker %s processed %d requests"  % (workerPid, site.cnt)
          reactor.callLater(options.interval, stat)
 
       stat()
@@ -154,8 +167,9 @@ if __name__ == '__main__':
    parser.add_argument('--workers', dest = 'workers', type = int, default = 4, help = 'Number of workers to spawn - should fit the number of (phyisical) CPU cores.')
    parser.add_argument('--backlog', dest = 'backlog', type = int, default = 8192, help = 'TCP accept queue depth. You must tune your OS also as this is just advisory!')
    parser.add_argument('--silence', dest = 'silence', action = "store_true", default = False, help = 'Silence log output.')
-   parser.add_argument('--resource', dest = 'resource', choices = ['file', 'direct'], default = 'direct', help = 'Resource type.')
+   parser.add_argument('--resource', dest = 'resource', choices = ['file', 'data', 'fixed'], default = 'file', help = 'Resource type.')
    parser.add_argument('--interval', dest = 'interval', type = int, default = 5, help = 'Worker stats update interval.')
+   parser.add_argument('--payload', dest = 'payload', type = int, default = 40, help = 'Payload length of response.')
 
    parser.add_argument('--fd', dest = 'fd', type = int, default = None, help = 'If given, this is a worker which will use provided FD and all other options are ignored.')
 
