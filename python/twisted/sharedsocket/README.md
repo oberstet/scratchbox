@@ -344,10 +344,8 @@ CPython:
 PyPy:
 
 	~/pypy-2.1/bin/pypy -m test.pystone
-	Traceback (most recent call last):
-	  File "app_main.py", line 72, in run_toplevel
-	IOError: [Errno 2] No such file or directory: 'se-m'
-
+	Pystone(1.1) time for 50000 passes = 0.06
+	This machine benchmarks at 833333 pystones/second
 
 
 ### Linux sysctl vars of interest
