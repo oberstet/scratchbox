@@ -132,7 +132,7 @@ Notes:
 
 Server:
 
-	$ ~/pypy-2.1/bin/pypy server.py --silence --resource fixed --payload 10000
+	$ ~/pypy-2.1/bin/pypy -u server.py --silence --resource fixed --payload 10000
 
 Load:
 
@@ -165,7 +165,7 @@ Load:
 
 Server:
 
-	~/pypy-2.1/bin/pypy server.py --silence --resource file --payload 10000
+	~/pypy-2.1/bin/pypy -u server.py --silence --resource file --payload 10000
 
 Load:
 
@@ -232,7 +232,7 @@ Load:
 
 Server:
 
-	$ ~/pypy-2.1/bin/pypy server.py --silence --resource fixed --payload 40
+	$ ~/pypy-2.1/bin/pypy -u server.py --silence --resource fixed --payload 40
 
 Load:
 
@@ -265,7 +265,7 @@ Load:
 
 Server:
 
-	$ ~/pypy-2.1/bin/pypy server.py --silence --payload 40
+	$ ~/pypy-2.1/bin/pypy -u server.py --silence --payload 40
 
 Load:
 

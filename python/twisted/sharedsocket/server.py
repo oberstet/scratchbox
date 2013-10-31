@@ -42,8 +42,17 @@ import pkg_resources
 from twisted.internet import reactor
 startupMsgs.append("Using Twisted reactor class %s on Twisted %s" % (str(reactor.__class__), pkg_resources.require("Twisted")[0].version))
 
+hasStatprof = False
+try:
+   import statprof
+   startupMsgs.append("statprof found! you may enable statistical profiling") 
+   hasStatprof = True
+except ImportError:
+   startupMsgs.append("statprof not installed - no profiling available")
+
 
 import sys, os
+import StringIO
 from os import environ
 from sys import argv, executable
 from socket import AF_INET
@@ -147,12 +156,38 @@ def worker(options):
    ##
    port = reactor.adoptStreamPort(options.fd, AF_INET, site)
 
+   if options.profile:
+      statprof.start()
+
    if not options.silence:
       def stat():
-         print "Worker %s processed %d requests"  % (workerPid, site.cnt)
+         if options.profile:
+            statprof.stop()
+
+         output = StringIO.StringIO()
+         output.write("-" * 80)
+         output.write("\nWorker with PID %s processed %d requests\n"  % (workerPid, site.cnt))
+
+         if options.profile:
+            output.write("\n")
+            #format = statprof.DisplayFormats.ByLine
+            #format = statprof.DisplayFormats.ByMethod
+            #statprof.display(output, format = format)
+            statprof.display(output)
+
+         output.write("-" * 80)
+         output.write("\n")
+         output.write("\n")
+
+         sys.stdout.write(output.getvalue())
+
+         if options.profile:
+            statprof.reset()
+            statprof.start()
+
          reactor.callLater(options.interval, stat)
 
-      stat()
+      reactor.callLater(options.interval, stat)
 
    reactor.run()
 
@@ -170,13 +205,17 @@ if __name__ == '__main__':
    parser.add_argument('--resource', dest = 'resource', choices = ['file', 'data', 'fixed'], default = 'file', help = 'Resource type.')
    parser.add_argument('--interval', dest = 'interval', type = int, default = 5, help = 'Worker stats update interval.')
    parser.add_argument('--payload', dest = 'payload', type = int, default = 40, help = 'Payload length of response.')
+   parser.add_argument('--profile', dest = 'profile', action = "store_true", default = False, help = 'Enable profiling.')
 
    parser.add_argument('--fd', dest = 'fd', type = int, default = None, help = 'If given, this is a worker which will use provided FD and all other options are ignored.')
 
    options = parser.parse_args()
 
-   if not options.silence:
-      log.startLogging(sys.stdout)
+   if options.profile and not hasStatprof:
+      raise Exception("profiling requested, but statprof not installed")
+
+   #if not options.silence:
+   #   log.startLogging(sys.stdout)
 
    if options.fd is not None:
       # run worker
