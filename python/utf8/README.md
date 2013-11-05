@@ -26,9 +26,10 @@ You can install `wsaccel` from PyPI into your CPy and PyPy.
 
 ## Update Results
 
-      PyPy current / pure                      8.763 s
-      PyPy current / pure with string DFA     10.175 s
-      PyPy current / wsaccel                   3.961 s
+      PyPy current / pure with tuple DFA + copy to local    8.712 s
+      PyPy current / pure with string DFA                  10.219 s
+      PyPy current / pure with string DFA + copy to local   4.353 s
+      PyPy current / wsaccel                                3.968 s
 
 Logs
 
@@ -43,7 +44,7 @@ Logs
 
       testing ..
 
-      runtime 8.76266598701
+      runtime 8.71992993355
 
       ................................................................................
 
@@ -55,7 +56,19 @@ Logs
 
       testing ..
 
-      runtime 10.1747510433
+      runtime 10.2193830013
+
+      ................................................................................
+
+      using UTF8 validator utf8validator_str_dfa_local_state.Utf8Validator
+
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 4.35324215889
 
       ................................................................................
 
@@ -67,7 +80,8 @@ Logs
 
       testing ..
 
-      runtime 3.96064805984
+      runtime 3.9676759243
+
 
 
 ## Results
