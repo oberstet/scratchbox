@@ -74,10 +74,13 @@ if __name__ == '__main__':
    VALIDATORS = []
 
    from utf8validator import Utf8Validator as ValidatorPython
-   #VALIDATORS.append(ValidatorPython)
+   VALIDATORS.append(ValidatorPython)
 
    from utf8validator_str_dfa import Utf8Validator as ValidatorPythonStrDfa
-   #VALIDATORS.append(ValidatorPythonStrDfa)
+   VALIDATORS.append(ValidatorPythonStrDfa)
+
+   from utf8validator_str_dfa_local_state import Utf8Validator as ValidatorPythonStrDfaLocalState
+   VALIDATORS.append(ValidatorPythonStrDfaLocalState)
 
    try:
       from wsaccel.utf8validator import Utf8Validator as ValidatorCython

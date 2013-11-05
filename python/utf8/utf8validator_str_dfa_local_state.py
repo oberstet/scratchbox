@@ -31,7 +31,7 @@ __all__ = ("Utf8Validator",)
 
 
 ## DFA transitions
-UTF8VALIDATOR_DFA = (
+UTF8VALIDATOR_DFA = [
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, # 00..1f
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, # 20..3f
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, # 40..5f
@@ -46,7 +46,9 @@ UTF8VALIDATOR_DFA = (
   1,2,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1, # s3..s4
   1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,3,1,1,1,1,1,1, # s5..s6
   1,3,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1, # s7..s8
-)
+]
+
+UTF8VALIDATOR_DFA_S = ''.join([chr(c) for c in UTF8VALIDATOR_DFA])
 
 UTF8_ACCEPT = 0
 UTF8_REJECT = 1
@@ -74,12 +76,12 @@ class Utf8Validator:
 
       Returns some other positive integer when more octets need to be eaten.
       """
-      type = UTF8VALIDATOR_DFA[b]
+      type = ord(UTF8VALIDATOR_DFA_S[b])
       if self.state != UTF8_ACCEPT:
          self.codepoint = (b & 0x3f) | (self.codepoint << 6)
       else:
          self.codepoint = (0xff >> type) & b
-      self.state = UTF8VALIDATOR_DFA[256 + self.state * 16 + type]
+      self.state = ord(UTF8VALIDATOR_DFA_S[256 + self.state * 16 + type])
       return self.state
 
    def reset(self):
@@ -108,7 +110,7 @@ class Utf8Validator:
       state = self.state
       while i < l:
          ## optimized version of decode(), since we are not interested in actual code points
-         state = UTF8VALIDATOR_DFA[256 + (state << 4) + UTF8VALIDATOR_DFA[ord(ba[i])]]
+         state = ord(UTF8VALIDATOR_DFA_S[256 + (state << 4) + ord(UTF8VALIDATOR_DFA_S[ord(ba[i])])])
          if state == UTF8_REJECT:
             self.state = state
             self.i += i
