@@ -35,9 +35,9 @@ def fake_test_9_1_6(Validator, runs = 1):
    DATALEN = 16 * 2**20
 
    payload = PAYLOAD * (DATALEN /  len(PAYLOAD)) # not exactly, but good enough
-   
+
    for i in range(runs):
-      print "validating payload of length %d in one go" % len(payload)
+      #print "validating payload of length %d in one go" % len(payload)
       validate(Validator, payload)
 
 
@@ -74,7 +74,10 @@ if __name__ == '__main__':
    VALIDATORS = []
 
    from utf8validator import Utf8Validator as ValidatorPython
-   VALIDATORS.append(ValidatorPython)
+   #VALIDATORS.append(ValidatorPython)
+
+   from utf8validator_str_dfa import Utf8Validator as ValidatorPythonStrDfa
+   #VALIDATORS.append(ValidatorPythonStrDfa)
 
    try:
       from wsaccel.utf8validator import Utf8Validator as ValidatorCython
@@ -91,7 +94,7 @@ if __name__ == '__main__':
       ## quick test the validator works (non-exhaustive)
       test_utf8_incremental(V)
 
-      runs = 20
+      runs = 100
 
       print "warming up .."
       fake_test_9_1_6(V, runs)
