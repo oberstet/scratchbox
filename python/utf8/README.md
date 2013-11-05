@@ -30,6 +30,7 @@ You can install `wsaccel` from PyPI into your CPy and PyPy.
       PyPy current / pure with string DFA                  10.219 s
       PyPy current / pure with string DFA + copy to local   4.353 s
       PyPy current / wsaccel                                3.968 s
+      CPy/wsaccel                                           3.649 s
 
 Logs
 
