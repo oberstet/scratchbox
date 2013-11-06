@@ -11,7 +11,8 @@ def variant1(ffi, align, size, init = False, initstr = None):
 
    if initstr:
       ## If len(inits) > size, this throws
-      p[0:size] = initstr
+      #p[0:size] = initstr
+      ffi.xor.xor(p, size)
 
    elif init:
       ## for writing like this, I had to change the signature of C
@@ -72,9 +73,12 @@ if __name__ == '__main__':
 
 
       void free(void *ptr);
+
+      void xor(char* data, size_t len);
    """)
 
    ffi.libc = ffi.dlopen(None)
+   ffi.xor = ffi.dlopen('libxor.so')
 
    variant1(ffi, 16, 1024)
    variant1(ffi, 16, 1024, init = True)

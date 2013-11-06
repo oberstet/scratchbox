@@ -1,0 +1,6 @@
+import os
+
+env = Environment(ENV = os.environ)
+env.Append(CCFLAGS = ['-std=c99'])
+
+xor = env.SharedLibrary('xor', ['xor.c'])
