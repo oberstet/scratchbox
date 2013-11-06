@@ -52,14 +52,33 @@ if __name__ == '__main__':
 
    if 'PyPy' in sys.version:
       from xormasker import XorMaskerSimple as XorMaskerSimplePy
-      MASKERS.append(XorMaskerSimplePy)
+      #MASKERS.append(XorMaskerSimplePy)
 
       from xormasker import XorMaskerShifted1 as XorMaskerShifted1Py
-      MASKERS.append(XorMaskerShifted1Py)
+      #MASKERS.append(XorMaskerShifted1Py)
+
+      from xormasker import XorMaskerShifted2 as XorMaskerShifted2Py
+      #MASKERS.append(XorMaskerShifted2Py)
+
    else:
       print
       print "!!! Skipping pure Python maskers when running CPython [way too slow]"
       print
+
+   #from xormasker import XorMaskerTest as XorMaskerTest
+   #MASKERS.append(XorMaskerTest)
+
+   #from xormasker import XorMaskerTest2 as XorMaskerTest2
+   #MASKERS.append(XorMaskerTest2)
+
+   from xormasker import XorMaskerStringBuilder
+   #MASKERS.append(XorMaskerStringBuilder)
+
+   from xormasker import XorMaskerSimpleStringBuilder
+   #MASKERS.append(XorMaskerSimpleStringBuilder)
+
+   from xormasker import XorMaskerShiftedStringBuilder
+   MASKERS.append(XorMaskerShiftedStringBuilder)
 
    try:
       from wsaccel.xormask import XorMaskerSimple as XorMaskerSimpleWsAccel
@@ -84,6 +103,8 @@ if __name__ == '__main__':
                   (100, 100, 100, 1000),
                   (100, 10, 10000, 100),
                   (10000000, 1, 1, 100)]
+
+   params_sets = [(10, 1, 1, 100000000)]
 
    for params in params_sets:
       for M in MASKERS:

@@ -16,7 +16,7 @@ We will use PyPy for all load testing and performance benchmarking, and we will 
 *Notes.*
 
 > 1. **Comparing Python implementations**: In general, you neither can nor should expect the results obtained with PyPy to be reproducable with those obtained using a different Python implementation.
->  
+>
 > 2. **JIT Warmup**: Since PyPy is using a JIT compilation model, it is very important to do a couple of "dry" test runs with *representative load* against a testee running under PyPy *before* actually recording test results - and *without* restarting the testee in between. This allows the JIT compiler generate machine code on hot code paths.
 >The same applies to Java HotSpot. It does not apply to C++ (using a ahead-of-time compiler).
 >
@@ -44,11 +44,14 @@ Unpack the thing:
 	cd ~
 	tar xvjf tarballs/pypy-c-jit-latest-linux64.tar.bz2
 
-Now modify your `PATH`:
+Now modify your `PATH` (replacing the hash value with what you got):
 
 	vi ~/.bashrc
-    export PATH=${HOME}/pypy-c-jit-< SOME HASH >-linux64/bin:${PATH}
-    source ~/.bashrc
+
+      export PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/bin:${PATH}
+      export LD_LIBRARY_PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/lib:${LD_LIBRARY_PATH}
+
+   source ~/.bashrc
 
 and verify that the correct PyPy binary is found:
 
@@ -76,7 +79,7 @@ Get the repo and build:
 	pypy ../../rpython/bin/rpython -Ojit targetpypystandalone
 
 > Note that we use PyPy - say an old version from your distro - to build a new PyPy. You can use a CPython to build PyPy also, but it will take much, much longer.
-> 
+>
 
 Package up:
 
@@ -106,7 +109,7 @@ Now we can install other packages needed, e.g. the latest [Twisted](http://twist
 
 	easy_install twisted
 
-Or for installing [AutobahnPython](http://autobahn.ws/python/) and [AutobahnTestSuite](http://autobahn.ws/testsuite/) latest release (*however see below!*): 
+Or for installing [AutobahnPython](http://autobahn.ws/python/) and [AutobahnTestSuite](http://autobahn.ws/testsuite/) latest release (*however see below!*):
 
 	easy_install autobahn
 	easy_install autobahntestsuite

@@ -1,2 +1,7 @@
 *.pyc
 *.sublime-workspace
+.sconsign.dblite
+*.os
+*.o
+*.so
+*.a
