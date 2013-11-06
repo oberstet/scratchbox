@@ -2,7 +2,7 @@
 
 ## Array fromstring/tostring
 
-  1. The (patch)[https://bitbucket.org/pypy/pypy/commits/d592e1e60494eef43c4ebce9b69095e6bbc2eb7b] by Alex Gaynor has *drastically* improved PyPy `array.fromstring` and `array.tostring` performance
+  1. The [patch](https://bitbucket.org/pypy/pypy/commits/d592e1e60494eef43c4ebce9b69095e6bbc2eb7b) by Alex Gaynor has *drastically* improved PyPy `array.fromstring` and `array.tostring` performance
   2. The performance is now nearly at CPython's speed
   3. The Linux "perf stat" clearly shows the improvements (branches, stalled cycles)
   4. The improvement applies to both `array('B')` and `array('L')`
