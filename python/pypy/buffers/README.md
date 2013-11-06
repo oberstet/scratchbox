@@ -1,3 +1,21 @@
+# Findings
+
+## Array fromstring/tostring
+
+  1. The (patch)[https://bitbucket.org/pypy/pypy/commits/d592e1e60494eef43c4ebce9b69095e6bbc2eb7b] by Alex Gaynor has *drastically* improved PyPy `array.fromstring` and `array.tostring` performance
+  2. The performance is now nearly at CPython's speed
+  3. The Linux "perf stat" clearly shows the improvements (branches, stalled cycles)
+  4. The improvement applies to both `array('B')` and `array('L')`
+
+## bytearray
+
+  1. The performance of `bytearray` roundtripping from string and to string is roughly 6x lower with PyPy compared to CPython. This is huge.
+  2. Linux "perf stat" shows that there is *massive* branching going on (and also multiple times more stalling and in general executed instructions)
+  3. The patch by Alex did not change that (and that wasn't expected I guess from looking at the patch)
+
+
+# Measurements
+
 ## Array fromstring/tostring
 
 ### array 'B'
@@ -139,3 +157,74 @@
              6,027330571 seconds time elapsed
 
       oberstet@corei7-ubuntu:~/scm/scratchbox/python/pypy/buffers$
+
+
+## bytearray string roundtripping
+
+### CPython
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/pypy/buffers$ make test_bytearray
+      perf stat /home/oberstet/local/bin/python    -m timeit -c "str(bytearray('*'*100000000))"
+      10 loops, best of 3: 127 msec per loop
+
+       Performance counter stats for '/home/oberstet/local/bin/python -m timeit -c str(bytearray('*'*100000000))':
+
+             5144,167012 task-clock                #    0,998 CPUs utilized
+                      10 context-switches          #    0,002 K/sec
+                       3 cpu-migrations            #    0,001 K/sec
+               2.955.666 page-faults               #    0,575 M/sec
+          17.065.466.531 cycles                    #    3,317 GHz                     [83,32%]
+          11.895.427.942 stalled-cycles-frontend   #   69,70% frontend cycles idle    [83,32%]
+           8.539.873.832 stalled-cycles-backend    #   50,04% backend  cycles idle    [66,64%]
+          10.598.787.344 instructions              #    0,62  insns per cycle
+                                                   #    1,12  stalled cycles per insn [83,32%]
+           1.508.296.092 branches                  #  293,205 M/sec                   [83,36%]
+              16.559.372 branch-misses             #    1,10% of all branches         [83,39%]
+
+             5,156358959 seconds time elapsed
+
+#### PyPy (before patch by Alex Gaynor)
+
+      perf stat /home/oberstet/pypy-c-jit-67840-934879cb2719-linux64/bin/pypy -m timeit -c "str(bytearray('*'*100000000))"
+      10 loops, best of 3: 730 msec per loop
+
+       Performance counter stats for '/home/oberstet/pypy-c-jit-67840-934879cb2719-linux64/bin/pypy -m timeit -c str(bytearray('*'*100000000))':
+
+            29424,858774 task-clock                #    0,998 CPUs utilized
+                      40 context-switches          #    0,001 K/sec
+                       5 cpu-migrations            #    0,000 K/sec
+               9.181.888 page-faults               #    0,312 M/sec
+          97.635.610.018 cycles                    #    3,318 GHz                     [83,33%]
+          59.541.536.987 stalled-cycles-frontend   #   60,98% frontend cycles idle    [83,33%]
+          37.396.420.623 stalled-cycles-backend    #   38,30% backend  cycles idle    [66,66%]
+          90.774.049.672 instructions              #    0,93  insns per cycle
+                                                   #    0,66  stalled cycles per insn [83,33%]
+          14.082.731.539 branches                  #  478,600 M/sec                   [83,34%]
+              80.866.332 branch-misses             #    0,57% of all branches         [83,33%]
+
+            29,493195748 seconds time elapsed
+
+#### PyPy (after patch by Alex Gaynor)
+
+      perf stat /home/oberstet/pypy-c-jit-67861-20b7b762dbed-linux64/bin/pypy -m timeit -c "str(bytearray('*'*100000000))"
+      10 loops, best of 3: 723 msec per loop
+
+       Performance counter stats for '/home/oberstet/pypy-c-jit-67861-20b7b762dbed-linux64/bin/pypy -m timeit -c str(bytearray('*'*100000000))':
+
+            29086,466902 task-clock                #    0,998 CPUs utilized
+                      53 context-switches          #    0,002 K/sec
+                       2 cpu-migrations            #    0,000 K/sec
+               9.183.035 page-faults               #    0,316 M/sec
+          96.514.023.051 cycles                    #    3,318 GHz                     [83,33%]
+          58.438.305.852 stalled-cycles-frontend   #   60,55% frontend cycles idle    [83,33%]
+          34.414.785.167 stalled-cycles-backend    #   35,66% backend  cycles idle    [66,66%]
+          90.912.947.097 instructions              #    0,94  insns per cycle
+                                                   #    0,64  stalled cycles per insn [83,33%]
+          14.042.364.355 branches                  #  482,780 M/sec                   [83,34%]
+              79.749.439 branch-misses             #    0,57% of all branches         [83,34%]
+
+            29,154173576 seconds time elapsed
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/pypy/buffers$
+
+

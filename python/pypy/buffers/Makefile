@@ -15,3 +15,8 @@ test_array_l:
 	perf stat $(CPY)    -m timeit -c "from array import array; array('L', '*'*8*12500000).tostring()"
 	perf stat $(PYPY_1) -m timeit -c "from array import array; array('L', '*'*8*12500000).tostring()"
 	perf stat $(PYPY_2) -m timeit -c "from array import array; array('L', '*'*8*12500000).tostring()"
+
+test_bytearray:
+	perf stat $(CPY)    -m timeit -c "str(bytearray('*'*100000000))"
+	perf stat $(PYPY_1) -m timeit -c "str(bytearray('*'*100000000))"
+	perf stat $(PYPY_2) -m timeit -c "str(bytearray('*'*100000000))"
