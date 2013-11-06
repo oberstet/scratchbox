@@ -36,3 +36,25 @@ test_sb1:
 	perf stat $(PYPY_2) -m timeit "from test_stringbuilder1 import test" "test(100, 1000000)"
 	perf stat $(PYPY_2) -m timeit "from test_stringbuilder1 import test" "test(10, 10000000)"
 	perf stat $(PYPY_2) -m timeit "from test_stringbuilder1 import test" "test(1, 100000000)"
+
+test_sj1_pypy:
+	#perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(100000000, 1)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(10000000, 10)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(1000000, 100)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(100000, 1000)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(10000, 10000)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(1000, 100000)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(100, 1000000)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(10, 10000000)"
+	perf stat $(PYPY_2) -m timeit "from test_stringjoin1 import test" "test(1, 100000000)"
+
+test_aa1_pypy:
+	#perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(100000000, 1)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(10000000, 10)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(1000000, 100)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(100000, 1000)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(10000, 10000)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(1000, 100000)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(100, 1000000)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(10, 10000000)"
+	perf stat $(PYPY_2) -m timeit "from test_arrayappend1 import test" "test(1, 100000000)"

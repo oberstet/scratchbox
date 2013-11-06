@@ -17,6 +17,10 @@
 # Pointers
 
   * code is in  `pypy/pypy/module/array/interp_array.py`
+  *  pypy / pypy / objspace / std / stringobject.py
+  *  pypy / rpython / rtyper / lltypesystem / rstr.py
+  *  pypy / pypy / module / __pypy__ / interp_builders.py
+  * https://bitbucket.org/pypy/pypy/commits/872dfd7f78705cf1bdba25d1d1b80f414790fee6?at=default
 
 
 # Measurements
