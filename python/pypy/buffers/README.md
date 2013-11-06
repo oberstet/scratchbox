@@ -14,6 +14,11 @@
   3. The patch by Alex did not change that (and that wasn't expected I guess from looking at the patch)
 
 
+# Pointers
+
+  * code is in  `pypy/pypy/module/array/interp_array.py`
+
+
 # Measurements
 
 ## Array fromstring/tostring
