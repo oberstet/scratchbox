@@ -3,9 +3,9 @@ from cffi import FFI
 ffi = FFI()
 
 ## I got a Py string, want to process in C, and get back
-## a Py string. Roundtrip over C.
+## a Py string. Roundtrip over C. This will incur 2 copies.
 
-s_in = "*" * 1000
+s_in = "\x00" * 1000
 buf = ffi.new("char[]", s_in)
 
 ## => Do something in C with buf
