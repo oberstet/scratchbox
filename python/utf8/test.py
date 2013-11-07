@@ -73,14 +73,24 @@ def test_utf8_incremental(Validator):
 if __name__ == '__main__':
    VALIDATORS = []
 
-   from utf8validator import Utf8Validator as ValidatorPython
-   VALIDATORS.append(ValidatorPython)
+   if 'PyPy' in sys.version:
 
-   from utf8validator_str_dfa import Utf8Validator as ValidatorPythonStrDfa
-   VALIDATORS.append(ValidatorPythonStrDfa)
+      from utf8validator import Utf8Validator as ValidatorPython
+      VALIDATORS.append(ValidatorPython)
 
-   from utf8validator_str_dfa_local_state import Utf8Validator as ValidatorPythonStrDfaLocalState
-   VALIDATORS.append(ValidatorPythonStrDfaLocalState)
+      from utf8validator_str_dfa import Utf8Validator as ValidatorPythonStrDfa
+      VALIDATORS.append(ValidatorPythonStrDfa)
+
+      from utf8validator_str_dfa_local_state import Utf8Validator as ValidatorPythonStrDfaLocalState
+      VALIDATORS.append(ValidatorPythonStrDfaLocalState)
+
+      from utf8validator_bytearray_dfa_local_state import Utf8Validator as ValidatorPythonBytearrayDfaLocalState
+      VALIDATORS.append(ValidatorPythonBytearrayDfaLocalState)
+
+   else:
+      print
+      print "!!! Skipping pure Python validators when running CPython [way too slow]"
+      print
 
    try:
       from wsaccel.utf8validator import Utf8Validator as ValidatorCython
