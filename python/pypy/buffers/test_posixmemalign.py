@@ -11,7 +11,7 @@ def variant1(ffi, align, size, init = False, initstr = None):
 
    if initstr:
       ## If len(inits) > size, this throws
-      #p[0:size] = initstr
+      p[0:size] = initstr
       ffi.xor.xor(p, size)
 
    elif init:
@@ -82,7 +82,10 @@ if __name__ == '__main__':
 
    variant1(ffi, 16, 1024)
    variant1(ffi, 16, 1024, init = True)
-   variant1(ffi, 16, 1024, initstr = '*' * 1024)
+
+   s = ''.join([chr(i) for i in xrange(16)])
+   #variant1(ffi, 16, 1024, initstr = '*' * 1024)
+   variant1(ffi, 16, 1024, initstr = s * (1024 / 16))
 
    ## The next variant will only work on _newest_ libc.
    ##

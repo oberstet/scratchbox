@@ -1,6 +1,19 @@
 import os
 
 env = Environment(ENV = os.environ)
-env.Append(CCFLAGS = ['-std=c99'])
+
+env.Append(CCFLAGS = ['-std=c99', '-O3', '-march=native'])
+#env.Append(CCFLAGS = ['-std=c99', '-g', '-O2'])
+#env.Append(CCFLAGS = ['-std=c99', '-O2', '-march=pentium', '-g'])
+#env.Append(CCFLAGS = ['-std=c99', '-O3', '-g', '-msse4.2', '-march=native'])
+#env.Append(CCFLAGS = ['-std=c99', '-O3', '-g', '-msse3', '-march=native'])
+#env.Append(CCFLAGS = ['-std=c99', '-msse4.2', '-march=native'])
+#env.Append(CCFLAGS = ['-std=c99', '-msse2'])
 
 xor = env.SharedLibrary('xor', ['xor.c'])
+
+# http://stackoverflow.com/questions/1289881/using-gcc-to-produce-readable-assembly
+# objdump -d -M intel -S xor.os
+
+# http://timelessname.com/elfbin/
+# readelf -h libxor.so
