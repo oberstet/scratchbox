@@ -2,7 +2,14 @@ import os
 
 env = Environment(ENV = os.environ)
 
+#-faggressive-loop-optimizations
+#-funsafe-loop-optimizations
+#-funroll-loops
+#-funroll-all-loops
+
 env.Append(CCFLAGS = ['-std=c99', '-Wall', '-O3', '-march=native'])
+#env.Append(CCFLAGS = ['-std=c99', '-Wall', '-O2'])
+#env.Append(CCFLAGS = ['-std=c99', '-Wall', '-O3', '-march=native'])
 #env.Append(CCFLAGS = ['-std=c99', '-g', '-O2'])
 #env.Append(CCFLAGS = ['-std=c99', '-O2', '-march=pentium', '-g'])
 #env.Append(CCFLAGS = ['-std=c99', '-O3', '-g', '-msse4.2', '-march=native'])

@@ -1,6 +1,14 @@
 #include "utf8validator.h"
 
-static const uint8_t UTF8VALIDATOR_DFA[] = {
+//#define USE_GCC_OPTS
+
+#ifdef USE_GCC_OPTS
+// cat /proc/cpuinfo | grep cache_alignment
+static const uint8_t UTF8VALIDATOR_DFA[] __attribute__((aligned(64))) =
+#else
+static const uint8_t UTF8VALIDATOR_DFA[] =
+#endif
+{
    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, // 00..1f
    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, // 20..3f
    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, // 40..5f
@@ -28,25 +36,42 @@ void utf8vld_reset (utf8_validator_t* validator) {
    validator->ends_on_codepoint = 1;
 }
 
-void utf8vld_validate (utf8_validator_t* validator, const char* data, size_t offset, size_t length) {
+void utf8vld_validate (utf8_validator_t* validator, const uint8_t* data, size_t offset, size_t length) {
 
-   for (size_t i = 0; i < length; ++i) {
+   int state = validator->state;
 
-      int type = UTF8VALIDATOR_DFA[(uint8_t) (data[i + offset])];
+#ifdef USE_GCC_OPTS
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[0],   0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[64],  0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[128], 0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[192], 0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[256], 0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[320], 0, 3);
+   __builtin_prefetch(&UTF8VALIDATOR_DFA[384], 0, 3);
+#endif
 
-      validator->state = UTF8VALIDATOR_DFA[256 + (validator->state << 4) + type];
+   for (size_t i = offset; i < length + offset; ++i) {
 
-      if (validator->state == UTF8_REJECT) {
-         validator->current_index = i;
-         validator->total_index += i;
+      state = UTF8VALIDATOR_DFA[256 + (state << 4) + UTF8VALIDATOR_DFA[data[i]]];
+
+#ifdef USE_GCC_OPTS
+      if (__builtin_expect(state == UTF8_REJECT, 0))
+#else
+      if (state == UTF8_REJECT)
+#endif
+      {
+         validator->state = state;
+         validator->current_index = i - offset;
+         validator->total_index += i - offset;
          validator->is_valid = 0;
          validator->ends_on_codepoint = 0;
          return;
       }
    }
+
+   validator->state = state;
    validator->current_index = length;
    validator->total_index += length;
-
    validator->is_valid = 1;
    validator->ends_on_codepoint = validator->state == UTF8_ACCEPT;
 }

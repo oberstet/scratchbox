@@ -17,7 +17,148 @@ In WebSocket, the UTF8 validation can often become _the_ bottleneck of overall p
 Hence: this stuff _is_ important for WS performance.
 
 
-## Testing
+## Results (new)
+
+                                                slower than ref
+
+      Python/wsaccel_cffi           444.4 MB/s   ref
+      Python/wsaccel                439.6 MB/s   1.1 %
+
+      PyPy2.1/pure                  369.2 MB/s  16.8 %
+      PyPy2.1/wsaccel_cffi          396.9 MB/s  10.7 %
+      PyPy2.1/wsaccel               304.9 MB/s  31.4 %
+
+      PyPy-current/pure             373.5 MB/s  16.0 %
+      PyPy-current/wsaccel_cffi     399.0 MB/s  10.2 %
+      PyPy-current/wsaccel          408.1 MB/s   8.2 %
+
+
+
+Logs
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/utf8$ scons
+      scons: Reading SConscript files ...
+      scons: done reading SConscript files.
+      scons: Building targets ...
+      gcc -o utf8validator.os -c -std=c99 -Wall -O3 -march=native -fPIC utf8validator.c
+      gcc -o libutf8validator.so -shared utf8validator.os
+      scons: done building targets.
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/utf8$ ~/local/bin/python test.py
+
+      !!! Skipping pure Python validators when running CPython [way too slow]
+
+      ................................................................................
+
+      using UTF8 validator test_cffi_validator.Utf8ValidatorCFFI
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 7.2013 s [444.4 MB/s]
+
+      ................................................................................
+
+      using UTF8 validator <type 'wsaccel.utf8validator.Utf8Validator'>
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 7.2794 s [439.6 MB/s]
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/utf8$ ~/pypy-2.1/bin/pypy test.py
+      ................................................................................
+
+      using UTF8 validator utf8validator_str_dfa_local_state.Utf8Validator
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 8.6671 s [369.2 MB/s]
+
+      ................................................................................
+
+      using UTF8 validator test_cffi_validator.Utf8ValidatorCFFI
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 8.0634 s [396.9 MB/s]
+
+      ................................................................................
+
+      using UTF8 validator <type 'wsaccel.utf8validator.Utf8Validator'>
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 10.4952 s [304.9 MB/s]
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/utf8$ ~/pypy-c-jit-67866-08b6eb67086a-linux64/bin/pypy test.py
+      ................................................................................
+
+      using UTF8 validator utf8validator_str_dfa_local_state.Utf8Validator
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 8.5675 s [373.5 MB/s]
+
+      ................................................................................
+
+      using UTF8 validator test_cffi_validator.Utf8ValidatorCFFI
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 8.0197 s [399.0 MB/s]
+
+      ................................................................................
+
+      using UTF8 validator <type 'wsaccel.utf8validator.Utf8Validator'>
+
+      OK, validator works.
+      warming up ..
+
+      cooling down ..
+
+      testing ..
+
+      runtime 7.8403 s [408.1 MB/s]
+
+      oberstet@corei7-ubuntu:~/scm/scratchbox/python/utf8$
+
+
+
+
+## Testing (old)
 
 We compare the performance of Utf8Validator, either Python pure code running on CPython or PyPy (which is the attached `utf8validator.py`) or a [Cython port of that code](https://github.com/methane/wsaccel/blob/master/wsaccel/utf8validator.pyx) (the code is really a straight forward rewrite .. no algo change or such):
 

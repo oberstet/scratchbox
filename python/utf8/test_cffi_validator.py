@@ -1,15 +1,13 @@
-import binascii, sys
 from cffi import FFI
 
 def test_utf8_incremental(v):
    """
    These tests verify that the UTF-8 decoder/validator can operate incrementally.
    """
-
-   #v = Validator()
-
    v.reset()
-   assert (True, True, 15, 15) == v.validate("\xc2\xb5@\xc3\x9f\xc3\xb6\xc3\xa4\xc3\xbc\xc3\xa0\xc3\xa1")
+   res = v.validate("\xc2\xb5@\xc3\x9f\xc3\xb6\xc3\xa4\xc3\xbc\xc3\xa0\xc3\xa1")
+   print res
+   assert (True, True, 15, 15) == res
 
    v.reset()
    assert (False, False, 0, 0) == v.validate("\xF5")
@@ -31,20 +29,23 @@ def test_utf8_incremental(v):
 
 class Utf8ValidatorCFFI:
    def __init__(self, ffi):
+      #print "INIT"
       self._ffi = ffi
-      self._vld = ffi.new("utf8_validator_t[]", 1)[0]
-      self._vld_addr = ffi.addressof(self._vld)
+      self._vld = ffi.new("utf8_validator_t[1]")
       self.reset()
 
    def reset(self):
-      self._ffi.validator.utf8vld_reset(self._vld_addr)
+      #print "RESET"
+      self._ffi.validator.utf8vld_reset(self._ffi.addressof(self._vld[0]))
 
    def validate(self, ba):
-      self._ffi.validator.utf8vld_validate(self._vld_addr, ba, 0, len(ba))
-      return self._vld.is_valid != 0, \
-             self._vld.ends_on_codepoint != 0, \
-             self._vld.current_index, \
-             self._vld.total_index
+      #print "VALIDATE"
+      self._ffi.validator.utf8vld_validate(self._ffi.addressof(self._vld[0]), ba, 0, len(ba))
+      return self._vld[0].is_valid != 0, \
+             self._vld[0].ends_on_codepoint != 0, \
+             self._vld[0].current_index, \
+             self._vld[0].total_index
+
 
 
 if __name__ == '__main__':
@@ -53,20 +54,22 @@ if __name__ == '__main__':
 
    ffi.cdef("""
       typedef struct {
+         size_t current_index;
+         size_t total_index;
          int state;
-         int current_index;
-         int total_index;
          int is_valid;
          int ends_on_codepoint;
       } utf8_validator_t;
 
       void utf8vld_reset (utf8_validator_t* validator);
 
-      void utf8vld_validate (utf8_validator_t* validator, const char* data, size_t offset, size_t length);
+      void utf8vld_validate (utf8_validator_t* validator, const uint8_t* data, size_t offset, size_t length);
    """)
 
    ffi.validator = ffi.dlopen('libutf8validator.so')
 
-   vld = Utf8ValidatorCFFI(ffi)
+   validator = Utf8ValidatorCFFI(ffi)
 
-   test_utf8_incremental(vld)
+   test_utf8_incremental(validator)
+
+   print "ok, validator %s works" % validator
