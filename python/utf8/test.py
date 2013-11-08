@@ -10,6 +10,8 @@ def validate(validator, payload):
    validator.reset()
    lastResult = validator.validate(payload)
 
+   return
+
    if not lastResult[0]:
       raise Exception("encountered invalid UTF-8 while processing text message at payload octet index %d" % lastResult[3])
 
@@ -71,7 +73,7 @@ if __name__ == '__main__':
       #VALIDATORS.append(ValidatorPythonStrDfa())
 
       from utf8validator_str_dfa_local_state import Utf8Validator as ValidatorPythonStrDfaLocalState
-      VALIDATORS.append(ValidatorPythonStrDfaLocalState())
+      #VALIDATORS.append(ValidatorPythonStrDfaLocalState())
 
       from utf8validator_bytearray_dfa_local_state import Utf8Validator as ValidatorPythonBytearrayDfaLocalState
       #VALIDATORS.append(ValidatorPythonBytearrayDfaLocalState())
@@ -113,7 +115,7 @@ if __name__ == '__main__':
    try:
       if True or not 'PyPy' in sys.version:
          from wsaccel.utf8validator import Utf8Validator as ValidatorCython
-         VALIDATORS.append(ValidatorCython())
+         #VALIDATORS.append(ValidatorCython())
       else:
          print "skipping installed wsaccel on PyPy"
    except:
@@ -136,8 +138,8 @@ if __name__ == '__main__':
       print
 
       ## quick test the validator works (non-exhaustive)
-      test_utf8_incremental(validator)
-      print "OK, validator works."
+      #test_utf8_incremental(validator)
+      #print "OK, validator works."
 
       runs = 200
 

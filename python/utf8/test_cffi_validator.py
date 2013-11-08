@@ -4,6 +4,16 @@ def test_utf8_incremental(v):
    """
    These tests verify that the UTF-8 decoder/validator can operate incrementally.
    """
+#   s = "0123456701234567" * 4 + "*"
+   s = "0123456701234567" * 4
+   v.reset()
+   print v.validate(s)
+   return
+
+   v.reset()
+   s = "*" * 1000
+   assert (True, True, 1000, 1000) == v.validate(s)
+
    v.reset()
    res = v.validate("\xc2\xb5@\xc3\x9f\xc3\xb6\xc3\xa4\xc3\xbc\xc3\xa0\xc3\xa1")
    print res
