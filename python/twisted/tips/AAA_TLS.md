@@ -8,6 +8,79 @@ For this, we need to build from source - until required patches land in both Twi
  * [DH Param Generation](https://github.com/crossbario/crossbar/blob/master/crossbar/crossbar/main.py#L139)
  * [Starting](https://github.com/crossbario/crossbar/blob/master/crossbar/crossbar/netservice/hubwebsocket.py#L499)
 
+## Checking servers
+
+	https://www.ssllabs.com/ssltest/analyze.html?d=crossbardemo.tavendo.de
+	openssl s_client -host crossbardemo.tavendo.de -port 443
+
+http://wiki.openssl.org/index.php/Command_Line_Utilities#s_client
+
+
+	"C:\OpenSSL-Win32\bin\openssl.exe" ciphers -v "ALL"
+
+
+http://pastebin.com/xcUu7uEc
+ECDHE-RSA-AES256-GCM-SHA384
+what curve is in use?
+
+
+http://safecurves.cr.yp.to/
+
+http://pastebin.com/7nUaZRMn
+
+
+http://safecurves.cr.yp.to/refs.html#1999/ansi-x962
+
+
+Why is there no AES-CTR-HMAC-SHA256 in TLS?
+
+
+
+http://www.openssl.org/news/secadv_20110208.txt
+
+
+https://news.ycombinator.com/item?id=1184126
+
+http://en.wikipedia.org/wiki/OCSP_stapling
+http://blog.cloudflare.com/ocsp-stapling-how-cloudflare-just-made-ssl-30
+http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_stapling
+http://unmitigatedrisk.com/?p=100
+http://unmitigatedrisk.com/?p=241
+
+https://www.rapid7.com/db/vulnerabilities/http-openssl-cve-2011-0014
+http://www.openssl.org/news/secadv_20110208.txt
+
+https://www.imperialviolet.org/2009/12/20/setting-up-ocsp.html
+
+http://wiki.nikhef.nl/grid/How_to_handle_OpenSSL_and_not_get_hurt_and_what_does_that_library_call_really_do%3F#OCSP
+
+http://trac.nginx.org/nginx/browser/nginx/src/event/ngx_event_openssl_stapling.c
+
+
+http://tools.ietf.org/html/rfc6066#section-8
+
+
+https://github.com/openssl/openssl/blob/master/apps/s_server.c#L2261
+https://github.com/openssl/openssl/blob/master/apps/s_server.c#L832
+
+
+
+
+"The server will always generate a new DH key during the negotiation, when the DH parameters are supplied via callback and/or when the SSL_OP_SINGLE_DH_USE option of SSL_CTX_set_options(3) is set."
+
+http://www.openssl.org/docs/ssl/SSL_CTX_set_tmp_dh_callback.html
+https://www.openssl.org/docs/ssl/SSL_CTX_set_options.html
+
+https://github.com/openssl/openssl/blob/master/ssl/s3_lib.c#L3713
+
+
+
+https://github.com/openssl/openssl/blob/master/ssl/s3_srvr.c#L1694
+https://github.com/openssl/openssl/blob/master/ssl/s3_srvr.c#L1769
+
+
+https://github.com/openssl/openssl/blob/master/ssl/s3_lib.c#L3713
+
 
 ## Prep
 
