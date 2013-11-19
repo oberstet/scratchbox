@@ -2,6 +2,38 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+## Create a Twisted Patch
+
+Create issue/feature branch:
+
+	git checkout -b fix_9999
+
+Do stuff, add, commit .. lets say `615d4a` is last commit before patch
+
+	git log -n 2
+
+then
+
+	git diff 615d4a > fix_9999.patch
+
+To check that the patch applies
+
+	git checkout trunk
+	patch -p1 < fix_9999.patch
+
+	
+## Changing Repo Origin
+
+	git remote remove goeddea
+	
+	git config remote.origin.url git@bitbucket.org:oberstet/sixtdemo.git
+	git push -u origin --all
+	git push -u origin --tags
+	
+	git remote add goeddea git@bitbucket.org:goeddea/sixtdemo.git
+	git fetch --all
+	git merge goeddea
+
 
 ## Freshing up submodules - recursively
 

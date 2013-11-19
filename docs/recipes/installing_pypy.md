@@ -64,12 +64,27 @@ This is for advanced users - you can read more [here](http://pypy.org/download.h
 
 The short version follows.
 
-Get the deps:
+Get the deps (Ubuntu/Debian):
 
 	sudo apt-get install \
 		hg gcc make python-dev libffi-dev libsqlite3-dev pkg-config \
 		libz-dev libbz2-dev libncurses-dev libexpat1-dev \
 		libssl-dev libgc-dev python-sphinx python-greenlet
+
+Get the deps (FreeBSD):
+
+	write me
+
+Tweak your env (FreeBSD):
+
+	export PATH=${HOME}/local/bin:/usr/local/bin:${PATH}
+	export LD_LIBRARY_PATH=${HOME}/local/lib:/usr/local/lib:${LD_LIBRARY_PATH}
+	export CC=/usr/bin/clang
+	export CXX=/usr/bin/clang++
+	export CPP=/usr/bin/clang-cpp
+	export MAKEFLAGS=-j8
+	export CFLAGS="-O3 -march=native"
+	export LDFLAGS="-L${HOME}/local/lib -L/usr/local/lib"
 
 Get the repo and build:
 
@@ -99,7 +114,7 @@ For installation follow the instructions as in the binary install (just unpack t
 
 To install Python packages from the [Python package repository (PyPI)](https://pypi.python.org/pypi), we first do:
 
-	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | pypy
+	wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | pypy
 
 You should now verify that a `easy_install` script is found *that resides under your PyPy* installation (in the `bin` directory next to the `pypy` executable):
 
