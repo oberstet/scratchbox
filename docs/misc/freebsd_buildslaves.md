@@ -54,6 +54,20 @@ The PyPy used is built with Clang (not GCC).
 	buildslave start
 	tail -f twistd.log
 
+## Python Packages
+
+The following Python packages are installed
+
+	zope.interface
+	pyopenssl
+	pycrypto
+	pyasn1
+	gmpy
+	SOAPpy
+	ctypes
+	python-subunit
+	pyserial
+
 
 ## Resources
 

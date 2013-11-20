@@ -102,6 +102,10 @@ Package up:
 	cd pypy/pypy/tool/release/
 	python package.py ../../.. pypy-my-own-package-name
 
+e.g. on FreeBSD 9.2 AMD64 Clang (skipping Tk bindings):
+
+	python package.py --without-tk ../../.. pypy-2.2-freebsd92-x64-clang
+
 Now your package will reside somewhere
 
 	/tmp/..
