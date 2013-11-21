@@ -120,6 +120,9 @@ For easy load inspection (broken down by process and thread):
 
 	sudo apt-get install htop
 
+Performance Tuning:
+
+  * http://blog.martinfjordvald.com/2011/04/optimizing-nginx-for-high-traffic-loads/
 
 ## Testing and Result Logs
 
