@@ -28,9 +28,22 @@ http://download.linino.org/dogstick/all-in-one/latest/packages/
 2. Download and install stuff
 
 		cd /tmp
+		curl --insecure https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.1.tar.gz -o setuptools-1.4.1.tar.gz 
+		tar xvzf setuptools-1.4.1.tar.gz
+		cd setuptools-1.4.1
+		python setup.py install
+
+		cd /tmp
+		curl --insecure https://pypi.python.org/packages/source/v/virtualenv/virtualenv-1.10.1.tar.gz -o virtualenv-1.10.1.tar.gz
+		tar xvzf virtualenv-1.10.1.tar.gz
+		cd virtualenv-1.10.1
+		 
+
+		virtualenv -p /usr/bin/python --always-copy /mnt/sda1/python1
+
+
 		curl --insecure https://pypi.python.org/packages/source/T/Twisted/Twisted-13.2.0.tar.bz2 -o Twisted-13.2.0.tar.bz2
 		curl --insecure https://pypi.python.org/packages/source/z/zope.interface/zope.interface-4.0.5.zip -o zope.interface-4.0.5.zip
-		curl --insecure https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.1.tar.gz -o setuptools-1.4.1.tar.gz 
 
 3. Install stuff
 
@@ -42,6 +55,3 @@ http://download.linino.org/dogstick/all-in-one/latest/packages/
 		cd Twisted-13.2.0
 		python setup.py install
 		cd ..
-		tar xvzf setuptools-1.4.1.tar.gz
-		cd setuptools-1.4.1
-		cd 
