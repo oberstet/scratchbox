@@ -16,6 +16,22 @@ The base system already includes a Python 2.7.3:
 	Type "help", "copyright", "credits" or "license" for more information.
 	>>>
 
+When the Yun is started for first time (or after factory reset), it runs Wifi in AP mode. The Yun will create a local network and can be reached via HTTP Web at
+
+	192.168.240.1
+
+The default password is `arduino`.
+
+You can then configure the Yun to connect to another Wifi in client mode. When you do that, it'll reboot, and the Wifi AP mode of Yun will be deactivated.
+
+The Yun can be reset to factory state by pressing the little RST button on the board for at least 30s.
+
+The Yun seems to have 64MB of internal Flash. Half of memory seems to be reserved for factory recovery. That leaves 32MB. Further, the `/` mountpoint only is allocated 8MB, and most of the other memory is mounted at `/tmp`.
+
+Taking into account that `/` is used for everything in the Linux base system, the rest seems not enough for installing all Python packages required to run Autobahn.
+
+Maybe we cram Autobahn and dependencies into `/`, but we first try a different approach: setting up a Python [virtualenv](http://www.virtualenv.org) into `/mnt/sda1`.   
+
 ## Installing Autobahn on the Yun
 
 1. Install some packages
