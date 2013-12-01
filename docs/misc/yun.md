@@ -1,5 +1,16 @@
 # Arduino Yun - Random Notes
 
+## YunBridge
+
+The `/dev/ttyATH0` device is attached at boot to a console (via `/etc/inittab` line `ttyATH0::askfirst:/bin/ash --login`).
+
+When the MCU calls `Bridge.begin()`, this will send a command to the console on the Linux side which starts a Python script (the "YunBridge") which talks then over `stdio` over serial. 
+
+ * https://github.com/arduino/linino/blob/master/trunk/target/linux/ar71xx/base-files/etc/uci-defaults/00_inittab-console-fixup
+ * https://github.com/arduino/linino/tree/master/trunk/package/linino/yun-scripts/files/usr/bin
+ * https://github.com/arduino/linino/blob/master/trunk/package/linino/yun-scripts/files/usr/bin/run-bridge
+ * https://github.com/arduino/YunBridge
+
 ## Building Packages
 
  * http://wiki.openwrt.org/doc/devel/crosscompile
