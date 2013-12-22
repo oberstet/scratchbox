@@ -2,7 +2,17 @@ import math
 import asyncio
 from asyncio import coroutine
 
-# decorator required
+
+# a plain function
+def fast_sqrt_plain(x):
+   if x >= 0:
+      return math.sqrt(x)
+   else:
+      raise Exception("negative number")
+
+
+# a coroutine:
+# decorator required - otherwise this would be a plain function
 @coroutine
 def fast_sqrt_coroutine(x):
    if x >= 0:
@@ -11,6 +21,7 @@ def fast_sqrt_coroutine(x):
       raise Exception("negative number")
 
 
+# a coroutine:
 # decorator no stricly necessary, the "yield from asyncio.sleep"
 # will make the function a coroutine automatically
 @coroutine
@@ -22,6 +33,7 @@ def slow_sqrt_coroutine(x):
       raise Exception("negative number")
 
 
+# function returning a future
 def fast_sqrt_future(x):
    future = asyncio.Future()
    if x >= 0:
@@ -31,7 +43,12 @@ def fast_sqrt_future(x):
    return future
 
 
+# function returning a future
 def slow_sqrt_future(x):
+   # do not use "yield from" inside here, since that will
+   # make the function a coroutine that yields a future, which
+   # is something different than a function returning a future
+   #
    loop = asyncio.get_event_loop()
    future = asyncio.Future()
    def doit():
@@ -43,15 +60,38 @@ def slow_sqrt_future(x):
    return future
 
 
+
+##
+## trying to implement something like Twisted defer.maybeDeferred
+## http://twistedmatrix.com/documents/current/api/twisted.internet.defer.maybeDeferred.html
+##
+import types
+types.GeneratorType
+
+def maybe_async(value):
+   if isinstance(value, types.GeneratorType) or isinstance(value, asyncio.futures.Future):
+      return value
+   else:
+      future = asyncio.Future()
+      future.set_result(value)
+      return future
+
+
 @coroutine
 def run_test():
    for x in [2, -2]:
-      for f in [fast_sqrt_coroutine,
+      for f in [fast_sqrt_plain,
+                fast_sqrt_coroutine,
                 slow_sqrt_coroutine,
                 fast_sqrt_future,
                 slow_sqrt_future]:
          try:
-            res = yield from f(x)
+            #res = f(x)
+            #if isinstance(res, types.GeneratorType) or isinstance(res, asyncio.futures.Future):
+            #   res = yield from res
+
+            res = yield from maybe_async(f(x))
+
             print("{} result: {}".format(f, res))
          except Exception as e:
             print("{} exception: {}".format(f, e))
