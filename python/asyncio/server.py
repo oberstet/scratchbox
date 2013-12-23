@@ -15,11 +15,12 @@ class MathServer(asyncio.Protocol):
    def connection_made(self, transport):
       self.transport = transport
 
+   #@asyncio.coroutine
    def data_received(self, data):
       print('data received: {}'.format(data.decode()))
       x = json.loads(data.decode())
-      #res = self.fast_sqrt(x)
-      res = yield from self.slow_sqrt(x)
+      res = self.fast_sqrt(x)
+      #res = yield from self.slow_sqrt(x)
       self.transport.write(json.dumps(res).encode('utf8'))
       self.transport.close()
 
