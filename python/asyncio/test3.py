@@ -86,11 +86,16 @@ def run_test():
                 fast_sqrt_future,
                 slow_sqrt_future]:
          try:
+            # Variant 1
             #res = f(x)
             #if isinstance(res, types.GeneratorType) or isinstance(res, asyncio.futures.Future):
             #   res = yield from res
 
-            res = yield from maybe_async(f(x))
+            # Variant 2
+            #res = yield from maybe_async(f(x))
+
+            # Variant 3
+            res = yield from asyncio.coroutine(f)(x)
 
             print("{} result: {}".format(f, res))
          except Exception as e:
