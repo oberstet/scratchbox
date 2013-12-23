@@ -1,10 +1,19 @@
 import asyncio
 import json
+import random
 
 class MathClient(asyncio.Protocol):
 
    def connection_made(self, transport):
-      transport.write(json.dumps(2.).encode('utf8'))
+
+      loop = asyncio.get_event_loop()
+      
+      def ask():
+         value = random.random()
+         transport.write(json.dumps(value).encode('utf8'))
+         loop.call_later(1, ask)
+
+      ask()
 
    def data_received(self, data):
       print('data received: {}'.format(data.decode()))
