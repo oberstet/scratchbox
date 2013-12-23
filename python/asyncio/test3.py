@@ -61,12 +61,13 @@ def slow_sqrt_future(x):
 
 
 
+
 ##
 ## trying to implement something like Twisted defer.maybeDeferred
 ## http://twistedmatrix.com/documents/current/api/twisted.internet.defer.maybeDeferred.html
 ##
-import types
-types.GeneratorType
+import types, inspect, functools
+
 
 def maybe_async(value):
    if isinstance(value, types.GeneratorType) or isinstance(value, asyncio.futures.Future):
@@ -75,6 +76,33 @@ def maybe_async(value):
       future = asyncio.Future()
       future.set_result(value)
       return future
+
+
+# adapted from:
+# http://hg.python.org/cpython/file/dfe327390cc2/Lib/asyncio/tasks.py#l70
+def maybe_async2(func):
+   if inspect.isgeneratorfunction(func):
+      coro = func
+   else:
+      @functools.wraps(func)
+      def coro(*args, **kw):
+         res = func(*args, **kw)
+         if isinstance(res, asyncio.futures.Future) or inspect.isgenerator(res):
+            res = yield from res
+         return res
+   return coro
+
+
+def maybe_async3(func, *args, **kw):
+   res = func(*args, **kw)
+   if isinstance(res, asyncio.futures.Future) or inspect.isgenerator(res):
+      res = yield from res
+   return res
+
+
+def yields(value):
+   return isinstance(value, asyncio.futures.Future) or inspect.isgenerator(value)
+#   return isinstance(value, asyncio.futures.Future) or isinstance(value, types.GeneratorType)
 
 
 @coroutine
@@ -91,11 +119,22 @@ def run_test():
             #if isinstance(res, types.GeneratorType) or isinstance(res, asyncio.futures.Future):
             #   res = yield from res
 
+            # Variant 1b
+            res = f(x)
+            if yields(res):
+               res = yield from res
+
             # Variant 2
             #res = yield from maybe_async(f(x))
 
             # Variant 3
-            res = yield from asyncio.coroutine(f)(x)
+            #res = yield from asyncio.coroutine(f)(x)
+
+            # Variant 4
+            #res = yield from maybe_async2(f)(x)
+
+            # Variant 5
+            #res = yield from maybe_async3(f, x)
 
             print("{} result: {}".format(f, res))
          except Exception as e:
