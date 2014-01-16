@@ -1,0 +1,205 @@
+.pl 10.0i
+.po 0
+.ll 7.2i
+.lt 7.2i
+.nr LL 7.2i
+.nr LT 7.2i
+.ds LF <Author> 
+.ds RF FORMFEED[Page %]
+.ds LH INTERNET DRAFT
+.ds RH <Issue Date>
+.ds CH <Document Title>
+.ds CF Expires <Expiry Date>
+.hy 0
+.nh
+.ad l
+.in 0
+
+.nf
+.tl 'INTERNET-DRAFT''<Author>'
+.tl 'Intended Status: <Status, e.g.Proposed Standard>''(<Author Org>)'
+.tl 'Expires: <Expiry Date>''<Issue Date>'
+.fi
+
+.\" Note. The ".tl" directive is used to generate the leading header 
+.\" in Internet drafts. The information specified after ".tl" provides
+.\" left, center and right components of a line separated by the ' character
+.\" in the following manner:
+.\" 
+.\"  .tl '<left component>'<center component>'<right component>'
+.\"
+.\" Only the left and right components are used in Internet-draft headers
+.\" This and other comments in this template can safely be deleted.
+
+.ce 2
+<Standard Name> 
+draft-ietf-groupOrSubmitter-name-00
+.fi
+.in 3
+
+
+.ti 0
+Abstract
+
+<Abstract Text>
+
+
+.ti 0
+Status of this Memo
+
+This Internet-Draft is submitted to IETF in full conformance with the provisions of BCP\078 and BCP\079.
+
+Internet-Drafts are working documents of the Internet Engineering Task Force (IETF), its areas, and its working groups.  Note that other groups may also distribute working documents as \%Internet-Drafts.
+
+Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."
+
+The list of current Internet-Drafts can be accessed at \%http://www.ietf.org/1id-abstracts.html
+
+The list of Internet-Draft Shadow Directories can be accessed at http://www.ietf.org/shadow.html
+
+
+.ti 0
+Copyright and License Notice\" Boilerplate from December 2009
+
+.\" NOTE: Insert current <year> in the following paragraph
+Copyright (c) <year> IETF Trust and the persons identified as the document authors. All rights reserved.
+
+This document is subject to BCP\078 and the IETF Trust's Legal Provisions Relating to IETF Documents \%(http://trustee.ietf.org/license-info) in effect on the date of publication of this document. Please review these documents carefully, as they describe your rights and restrictions with respect to this document. Code Components extracted from this document must include Simplified BSD License text as described in Section\04.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.
+
+
+
+.\" \# TD4  -- Set TOC depth by altering this value (TD5 = depth 5)
+.\" \# TOC  -- Beginning of auto updated Table of Contents
+.in 0
+Table of Contents
+
+.nf
+   1  Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+      1.1  Terminology . . . . . . . . . . . . . . . . . . . . . . . . 3
+   2.  Title . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+   3  Security Considerations  . . . . . . . . . . . . . . . . . . . . 4
+   4  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . . 4
+   5  References . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+      5.1  Normative References  . . . . . . . . . . . . . . . . . . . 4
+      5.2  Informative References  . . . . . . . . . . . . . . . . . . 4
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 4
+.fi
+.in 3
+
+.\" \# ETC -- End of auto updated Table of Contents
+
+.bp
+.ti 0
+1  Introduction
+
+<Introduction Text>
+
+.ti 0
+1.1  Terminology
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 [RFC2119].
+
+
+.ti 0
+2.  Title
+
+.\" Comment line providing info for the Authors or the RFC Editor
+<Document text>
+
+.in 6
+.nf
+Definitions and code {
+  line 1
+  line 2
+}
+.fi
+.in 3
+
+.\" Directives (e.g .ti and .in) and escape sequences (\, \&, \%, \" and \0) are used to control
+.\" Formatting and are not displayed in the text document.
+
+Special characters examples:
+ 
+The characters \0, \&, \%, \" are not shown in text.
+.\"
+.\" You can display these character sequences in the text document by
+.\" inserting the escape character '\'.
+However, the characters \\0, \\&, \\%, \\" are displayed.
+
+\&.ti 0  is displayed in text instead of used as a directive. 
+.br
+\&.\\"  is displayed in document instead of being treated as a comment
+
+C:\\dir\\subdir\\file.ext  Shows inclusion of backslash "\\".
+
+
+.bp
+.ti 0
+3  Security Considerations
+
+<Security considerations text>
+
+
+.ti 0
+4  IANA Considerations
+
+<IANA considerations text>
+
+
+.ti 0
+5  References
+
+.ti 0 
+5.1  Normative References
+
+.in 14
+.\" \# REF  -- Managed reference list. Syntax: [RFC]nnnn[;Label], ... ,[RFC]nnnn[;Label]
+.\" \# 2119;KEYWORDS, 1776, RFC1925;TRUTHS
+.ti 3
+[KEYWORDS] Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+.ti 3
+[RFC1776]  Crocker, S., "The Address is the Message", RFC 1776, April 1 1995.
+
+.ti 3
+[TRUTHS]   Callon, R., "The Twelve Networking Truths", RFC 1925, April 1 1996.
+
+.\" \# ERF -- End of managed reference list
+.\" ----------------------------------------
+.\" The reference list can be changed at any time by altering the RFC list in the line below the .\" \# REF directive
+.\" In order to execute any change, click on the 'Update All' button or select "Update 'Table of Contents' and References"
+.\" from the "Edit" menu or press <F3>.
+.\" NOTE: Managed reference list requires NroffEdit version 1.40 or later.
+
+.ti 0
+5.2  Informative References
+
+.in 14
+.\" \# REF  -- Managed reference list. Syntax: [RFC]nnnn[;Label], ... ,[RFC]nnnn[;Label]
+.\" \# 3514;EVILBIT, 5513, 5514
+.ti 3
+[EVILBIT]  Bellovin, S., "The Security Flag in the IPv4 Header", RFC 3514, April 1 2003.
+
+.ti 3
+[RFC5513]  Farrel, A., "IANA Considerations for Three Letter Acronyms", RFC 5513, April 1 2009.
+
+.ti 3
+[RFC5514]  Vyncke, E., "IPv6 over Social Networks", RFC 5514, April 1 2009.
+
+.\" \# ERF -- End of managed reference list
+.in 3
+
+
+.ti 0
+Authors' Addresses
+
+.sp
+.nf
+Name
+and
+Address
+
+EMail: name@example.com
+.sp
+.fi
+
