@@ -1,0 +1,357 @@
+.\" 11/10/08 Template updated to align with Copyright Notice as
+.\" defined in RFC 5378 (BCP 78).
+.pl 10.0i
+.po 0
+.ll 7.2i
+.lt 7.2i
+.nr LL 7.2i
+.nr LT 7.2i
+.ds RF FORMFEED[Page %]
+.ds LH Internet Draft
+.\"   --> Header/footers: Set short title, author(s), and dates:
+.ds CH 2-nroff.template                  \" <Short title>
+.ds LF Postel, Braden                    \" <Authors>
+.ds RH October 25, 2006                  \" <Submission date>
+.ds CF Expires April 2007                \" <Expiration date>
+.hy 0
+.ad l
+.nf
+.\" 5678901234567 check 72 column width 12345678901234567890123456789012
+Internet Draft                                                 J. Postel
+<draft-rfc-editor-nroff-template-00.txt>                      RFC Editor
+Category: Informational                                          USC ISI
+Expires April 2007                                      October 25, 2006
+
+.ce
+Nroff Template for Internet Drafts and RFCs
+.ce
+<draft-rfc-editor-nroff.template-00.txt>
+
+.in 3              \"  Basic indent for text is 3 spaces
+.ti 0              \"  "Temporary indent" for next line: 0 spaces
+Status of this Memo
+
+Distribution of this memo is unlimited.
+
+This Internet-Draft is submitted to IETF pursuant to, and in full
+conformance with, the provisions of BCP 78 and BCP 79.
+
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF), its areas, and its working groups.  Note that
+other groups may also distribute working documents as Internet-
+Drafts.
+
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any
+time.  It is inappropriate to use Internet-Drafts as reference
+material or to cite them other than as "work in progress."
+
+The list of current Internet-Drafts can be accessed at
+http://www.ietf.org/ietf/1id-abstracts.txt.
+
+The list of Internet-Draft Shadow Directories can be accessed at
+http://www.ietf.org/shadow.html.
+
+This Internet-Draft will expire on date.
+
+.ti 0
+Copyright Notice
+
+Copyright (c) YYYY IETF Trust and the persons identified as
+the document authors.  All rights reserved.   
+
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document.
+ 
+.ti 0
+Abstract          \"  See: "Instructions to RFC Authors [RFC2223BIS]"
+
+This file is a template for preparing an nroff source file for an
+Internet Draft or an RFC.  It contains instructions for applying nroff
+to this file to create a correct Internet Draft.  It also describes the
+simple nroff subset used for markup by the RFC Editor, as well as some
+style tips.
+
+.bp
+.in 0
+Table of Contents
+
+.nf
+   1. Introduction ....................................................2
+   2. Using Nroff .....................................................2
+      2.1. Features Used by RFC Editor ................................2
+      2.2. Formatting End of Page .....................................4
+   3. Security Considerations .........................................4
+   4. IANA Considerations .............................................4
+   5. Appendix A: "C" Program for Pagination ..........................5
+   6. References ......................................................6
+
+.fi
+.in 3 
+.ti 0
+1. Introduction
+
+This document is a template for preparing an nroff source file for an
+Internet Draft or an RFC.  It contains instructions for applying nroff
+to this file to create a correct Internet Draft.
+
+This document summarizes and embodies the simple nroff subset that is
+used for markup by the RFC Editor, and it provides guidelines for
+authors who are able to submit nroff source to the RFC Editor.  This
+document also includes some RFC style guidelines [2223BIS] in addition
+to those listed in http://www.ietf.org/ietf/1id-guidelines.html.
+
+With very rare exceptions, an RFC should begin with an Introduction
+section that is numbered 1.  The introduction should provide enough
+background so that any reasonably informed Internet person can quickly
+and clearly understand the purpose, scope, and assumptions behind the
+document.  This may require some *brief* background beyond that
+required by a person working directly on this particular technical
+topic.
+
+.ti 0
+2. Using Nroff
+.\"     The RFC Editor puts .ti 0 before each section and subsection title.
+
+.ti 0
+2.1.  Features Used by RFC Editor
+
+The RFC Editor generally uses the simplest nroff features, basically
+the "-ms" macro package and the following few basic nroff directives:
+
+.nf
+DIRECTIVE        FUNCTION
+
+\&.ce              Center following line.
+
+\&.ti #            'temporary indent' -- # is number of spaces.
+                 Indents only the line immediately following.
+
+\&.in #            Change indentation to # spaces
+
+\&.nf              'No fill': begin block of text to be displayed.
+
+\&.fi              Fill (i.e., left-justify, line wrap)
+
+\&.ne #            'need' -- Keep following # lines on same page
+
+\&.bp              Break page
+
+\&.br              Break line
+
+\&.KS		 'Keep Start' -- lines up to .KE on same page
+
+\&.KE		 'Keep End' -- end of 'keep' block
+.\"   ((The \& hides the '.' from nroff))
+.\"  For a larger/more complex table, it might be useful to indent
+.\"  to the FUNCTION column alignment and use .ti before each entry.
+.fi
+
+.\"  Authors should not worry about precise pagination.  At the final
+.\"  editorial stage, the RFC Editor may insert commands like this
+.ne 3                            \" don't split short paragraph
+.\"  to make the document easier to read.  Sometimes the RFC Editor
+.\"  inserts an explicit .bp to force a new page.
+.\"
+Nroff also has a '.sp' (space) directive to insert a blank line.
+However, it is far easier (and more readable) to use the fact that each
+blank line in the nroff source creates a blank line in the output.
+
+Nroff includes many variations on the trivial commands shown
+above.  For example, indentation can be specified relative to the current
+indentation, using '.in +#' or '.in -#'.  Authors are welcome to use
+such features, but for simplicity this template uses only the simplest
+set of commands.
+
+Some authors who are proficient in nroff will wish to use more advanced
+features, including perhaps their own macros.  This is a private matter
+for the author, unless and until the document is submitted to the RFC
+Editor for publication as an RFC.  Upon document submission, the RFC
+Editor will request the nroff source, if any.  If the source is
+sufficiently straightforward, it will be used by the RFC Editor to
+speed the publication process.  If not, the RFC Editor will generate a
+new nroff source, generally using the simple subset above.
+
+The considerations here are as follows:
+
+.in 9
+.ti 6
+o  Defined macros (beyond the -ms package) must be in-line at the front
+of the source.  The RFC Editor is currently prepared to maintain only
+one source file for each published RFC.
+
+.ti 6
+o  Some of the editors are not nroff experts, and even those who may be
+do not have the time to figure out some complex/obscure macro.  If
+any special knowledge about these macros is needed to modify the text
+for editorial purposes, the RFC Editor will find it more expedient to
+generate a new .nroff source for the document.
+
+.ti 6
+o  The RFC Editor does not keep a distinct Make file for each RFC, so
+it is not helpful to send us a tar file or shar script that magically
+makes a directory and builds an RFC.  Our primary input is a .txt file,
+with a .nroff file as a possible secondary input.  When the RFC is
+published, the RFC Editor will archive a .txt file and a corresponding
+\&.nroff file.
+
+.in 3
+In other words, keep it simple and you can help us a lot; don't show
+off your programming prowess and waste our time.
+
+.ti 0
+2.2.  Formatting End of Page
+
+The Unix command to create a formatted Internet Draft is:
+
+.ti 9
+"nroff -ms input-file.nroff > output-file.txt"
+
+However, nroff will not follow the RFC standard format for a page: a
+Form feed (FF or Control-L)) after the last visible line on the page
+and no extra line feeds before the first visible line of the next
+page.  We want:
+
+.KS                       \" 'Keep Start': don't split across page
+.nf                       \" 'No Fill': begin displayed text
+	last visible line on page i
+	^L
+	first visible line on page i+1
+.fi                       \" 'Fill': restore normal formatting
+.KE                       \" 'Keep End'
+
+We invented hacks to fix this.  The original hack was a "sed"
+script that called a "C" program called "pg".  More recently,
+we have been using a simple Perl script (see Appendix A).
+Then the command to process the nroff source file becomes:
+
+.ti 9
+nroff -ms input-file.nroff | fix.pl > output-file.txt
+
+For example:
+
+.ti 9
+nroff -ms 2-nroff.template | fix.pl > 2-nroff.template.txt
+
+.ti 0
+3.  Security Considerations
+
+There are no security considerations relevant to this document.
+
+.ti 0
+4.  IANA Considerations
+
+No actions are required from IANA as result of the publication of
+this document.
+
+.bp
+.ti 0
+5.  Appendix A: "Perl" Script for Pagination
+
+.in 0
+.nf
+#! /local/bin/perl
+
+# fix.pl  17-Nov-93  Craig Milo Rogers at USC/ISI
+#
+#       The style guide for RFCs calls for pages to be delimited by the
+# sequence <last-non-blank-line><formfeed-line><first-non-blank-line>.
+# Unfortunately, NROFF is reluctant to produce output that conforms to
+# this convention.  This script fixes RFC-style documents by searching
+# for the token "FORMFEED[Page", replacing "FORMFEED" with spaces,
+# appending a formfeed line, and deleting white space up to the next
+# non-white space character.
+#
+#       There is one difference between this script's output and that of
+# the "fix.sh" and "pg" programs it replaces: this script includes a
+# newline after the formfeed after the last page in a file, whereas the
+# earlier programs left a bare formfeed as the last character in the
+# file.  To obtain bare formfeeds, uncomment the second substitution
+# command below.  To strip the final formfeed, uncomment the third
+# substitution command below.
+#
+#       This script is intended to run as a filter, as in:
+#
+# nroff -ms input-file | fix.pl > output-file
+#
+#       When porting this script, please observe the following points:
+#
+# 1)    ISI keeps perl in "/local/bin/perl";  your system may keep it
+#       elsewhere.
+# 2)    On systems with a CRLF end-of-line convention, the "\\n"s below
+#       may have to be replaced with "\\r\\n"s.
+
+$* = 1;                                 # Enable multiline patterns.
+undef $/;                               # Read whole files in a single
+                                        # gulp.
+
+while (<>) {                            # Read the entire input file.
+    s/FORMFEED(\\[Page\\s+\\d+\\])\\s+/        \\1\\n\\f\\n/g;
+                                        # Rewrite the end-of-pages.
+#    s/\\f\\n$/\\f/;                       # Want bare formfeed at end?
+#    s/\\f\\n$//;                         # Want no formfeed at end?
+    print;                              # Print the resultant file.
+}
+
+.ne 10                                \" Keep the next 10 lines together
+.fi
+.in 3                                 \" Restore normal indent
+.ti 0
+6.  References
+
+.ti 0
+6.1.  Normative References
+
+.in 14
+.ti 3
+[RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+Requirement Levels", BCP 14, RFC 2119, March 1997.
+.\" If you used the keywords, please include RFC 2119 as a normative 
+.\" reference.
+
+.ti 3
+[RFC4234]  Crocker, D. and P. Overell, "Augmented BNF for Syntax
+Specifications: ABNF", RFC 4234, October 2005.
+.\" This is just an example. The reference entries for all RFCs,
+.\" formatted in the style of the RFC Editor are available here:
+.\" ftp://ftp.rfc-editor.org/in-notes/rfc-ref.txt
+
+.ti 0
+6.2.  Informative References
+
+.ti 3
+[2223BIS]  Reynolds, J. and R. Braden, "Instructions to Request for
+Comments (RFC) Authors", draft-rfc-editor-rfc2223bis-08.txt, August 2004.  
+.\" Please include the draft string when referencing drafts.
+.\" Although it will be removed prior to publication, it is helpful
+.\" to the editor for consistency checking.
+
+.in 3
+.ti 0
+Authors' Addresses
+
+.\"  The RFC Editor has always treated the Authors' Addresses section
+.\"  of an RFC as essentially boilerplate: it is required to be
+.\"  the last section before the legal boilerplate and is normally
+.\"  unnumbered.
+.nf
+Jon Postel
+Former Address:
+   USC Information Sciences Institute
+Current Address:
+   Unknown (but we are hopeful)
+EMail: postel@isi.edu (known to be a black hole)
+
+
+RFC Editor
+USC Information Sciences Institute
+4676 Admiralty Way
+Marina del Rey, CA 90292-6695
+
+Tel: 310 448 9369 (Sandy Ginoza)
+Tel: 310 448 9173 (Bob Braden)
+EMail: rfc-editor@rfc-editor.org

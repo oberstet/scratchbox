@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+   <body>
+      <h1>PeerJS Test</h1>
+
+      <p id="myid">unassigned</p>
+      <input id="peerid" type="text" value=""></input>
+      <button onclick="connect()">Connect</button>
+      <button onclick="send()">Send</button>
+
+      <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+      <script>
+         console.log("sdfgsdf");
+         var peer = new Peer({key: 'lwjd5qra8257b9'});
+         var conn = null;
+
+         peer.on('open', function (id) {
+            console.log('My peer ID is: ' + id);
+            document.getElementById('myid').innerHTML = id;
+         });
+
+         peer.on('connection',
+            function (pconn) {
+               console.log("connected", pconn);
+               conn = pconn;
+
+               // Receive messages
+               conn.on('data', function (data) {
+                  console.log('Received', data);
+               });
+            }
+         );
+
+         function connect() {
+            var peerid = document.getElementById('peerid').value;
+            console.log(peerid);
+
+            conn = peer.connect(peerid, {reliable: true});
+
+            conn.on('open', function() {
+               console.log("open!");
+
+               // Receive messages
+               conn.on('data', function (data) {
+                  console.log('Received', data);
+               });
+            });
+         }
+
+         function send() {
+            console.log("sending ..");
+            if (conn) {
+              // Send messages
+              conn.send('Hello!');               
+              console.log("sent!");
+            } else {
+               console.log("not sent!");
+            }
+
+         }
+      </script>
+
+   </body>
+</html>
