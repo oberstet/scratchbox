@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>Test Frontend</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script src="wampy.min.js"></script>
+
+      <script>
+         var ws = new Wampy('ws://127.0.0.1:8080/ws', { realm: 'realm1' });
+
+         ws.call('com.mathservice.add2', [2, 3], {
+            onSuccess: function (res) {
+               console.log(res);
+            },
+            onError: function (err) {
+               console.log(err);
+            }
+         });
+      </script>
+   </body>
+</html>
