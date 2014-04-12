@@ -14,7 +14,7 @@
 
          connection.onopen = function (session) {
 
-            session.call('com.mathservice.add2', [2, 3]).then(session.log, session.log);
+            session.call('com.mathservice.square', [9]).then(session.log, session.log);
          };
 
          connection.open();

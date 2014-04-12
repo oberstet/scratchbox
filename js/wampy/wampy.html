@@ -3,14 +3,21 @@
    <body>
       <h1>Test Frontend</h1>
       <p>Open JavaScript console to watch output.</p>
+
+      <script src="msgpack.min.js"></script>
       <script src="wampy.min.js"></script>
 
       <script>
-         var ws = new Wampy('ws://127.0.0.1:8080/ws', { realm: 'realm1' });
+         var ws = new Wampy('ws://127.0.0.1:8080/ws',
+            {
+               realm: 'realm1',
+               //transportEncoding: 'msgpack'
+            }
+         );
 
-         ws.call('com.mathservice.add2', [2, 3], {
+         ws.call('com.mathservice.square', [9], {
             onSuccess: function (res) {
-               console.log(res);
+               console.log(res[0]);
             },
             onError: function (err) {
                console.log(err);
