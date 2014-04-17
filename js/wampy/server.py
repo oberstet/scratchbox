@@ -63,8 +63,8 @@ if __name__ == '__main__':
    session_factory.add(MyBackendComponent(config))
 
    from autobahn.wamp.serializer import MsgPackSerializer, JsonSerializer
-   serializers = [MsgPackSerializer()]
-   #serializers = [MsgPackSerializer(), JsonSerializer()]
+   #serializers = [MsgPackSerializer()]
+   serializers = [MsgPackSerializer(), JsonSerializer()]
 
    ## 4) create a WAMP-over-WebSocket transport server factory
    transport_factory = websocket.WampWebSocketServerFactory(session_factory, \
