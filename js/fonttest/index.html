@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+   <head>
+      <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+      <style>
+         body {
+            background-color: #FCFCFC;
+            color: #444;
+            width: 800px;
+            margin: auto;
+            font-family: 'Source Sans Pro', 'sans-serif';
+         }
+
+         h1 {
+            font-weight: 300;
+            color: #ff6600;
+         }
+
+         h2 {
+            font-weight: 300;
+            color: #666;
+         }
+
+         h3 {
+            font-weight: 300;
+            color: #666;
+         }
+
+         h4 {
+            font-weight: 600;
+            color: #666;
+/*            
+            padding-left: 0.3em;
+            border-bottom: solid 1px #aaa;
+*/            
+         }
+
+         p, ul, ol {
+            line-height: 1.5;
+         }
+
+         b {
+            font-weight: 600;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Dissecting WebSocket Overhead</h1>
+      <h2>Background</h2>
+      <p>The <b>WebSocket protocol</b> itself has very low overhead. The following table lists the overhead in octets per <i>(unfragmented)</i> WebSocket message.</p>
+      <h3>Polling Approach</h3>
+      <p>This optimization can be done without any change to existing WebSocket implementations. The only requirement is that applications need an application message serialization format that allows for batching of multiple application level messages into one WebSocket message.</p>
+      <h3>Long-poll Workarounds</h3>
+      <p>This optimization can be done without any change to existing WebSocket implementations. The only requirement is that applications need an application message serialization format that allows for batching of multiple application level messages into one WebSocket message.</p>
+      <h4>1999-2005</h4>
+      <p>The WebSocket protocol itself has very low overhead.</p>
+      <h4>2005-2010</h4>
+      <p>The WebSocket protocol itself has very low overhead.</p>
+      <h4>2010-now</h4>
+      <p>The WebSocket protocol itself has very low overhead.</p>
+      <ul>
+         <li>&lt;126 octets</li>
+         <li>1k - 128k octets</li>
+         <li>excessive payloads</li>
+      </ul>
+      
+      <h1>Font Weights</h1>
+      <ol>
+         <li style="font-weight: 200;">font-weight 200</li>
+         <li style="font-weight: 300;">font-weight 300</li>
+         <li style="font-weight: 400;">font-weight 400</li>
+         <li style="font-weight: 500;">font-weight 500</li>
+         <li style="font-weight: 600;">font-weight 600</li>
+         <li style="font-weight: 700;">font-weight 700</li>
+         <li style="font-weight: 800;">font-weight 800</li>
+         <li style="font-weight: 900;">font-weight 900</li>
+      </ol>
+
+      <h1>Dissecting WebSocket Overhead</h1>
+      <h2>Background</h2>
+      <h3>Header H3</h3>
+      <h3>Header H3</h3>
+      <h4>Header H4</h4>
+      <h5>Header H5</h5>
+      <h6>Header H6</h6>
+   </body>
+</html>

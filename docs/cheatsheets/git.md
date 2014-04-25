@@ -2,6 +2,19 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Delete remote branch
+
+	git push origin :mybranch
+
+### Replace `master` branch with something else
+
+	git branch -m master oldmaster
+	git branch -m mybranch master
+	git checkout master
+	git push -f origin master
+	git branch --set-upstream-to origin/master
+
+
 ## Create a Twisted Patch
 
 Create issue/feature branch:
