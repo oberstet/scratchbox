@@ -4,7 +4,8 @@
       <h1>Test Frontend</h1>
       <p>Open JavaScript console to watch output.</p>
       <script>AUTOBAHN_DEBUG = true;</script>
-      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz"></script>
+      <script src="autobahn.min.js"></script>
+      <script src="test.js"></script>
 
       <script>
          var connection = new autobahn.Connection({
@@ -14,7 +15,27 @@
 
          connection.onopen = function (session) {
 
-            session.call('com.mathservice.square', [9]).then(session.log, session.log);
+            var pl1 = [];
+
+            for (var uri in endpoints) {
+               pl1.push(session.register(uri, endpoints[uri]));
+            }
+
+            autobahn.when.all(pl1).then(
+               function () {
+                  console.log("All registered.");
+
+                  var pl2 = test1(session);
+
+                  autobahn.when.all(pl2).then(function () {
+                     console.log("All finished.");
+                     connection.close();
+                  });
+               },
+               function () {
+                  console.log("Registration failed!", arguments);
+               }
+            );  
          };
 
          connection.open();
