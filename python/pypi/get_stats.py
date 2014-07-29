@@ -1,3 +1,6 @@
+
+## JSON API: https://pypi.python.org/PyPI/autobahn/json
+
 import xmlrpclib
 from pprint import pprint
 
