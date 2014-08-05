@@ -2,6 +2,21 @@ var store1size = 10000;
 var readsize = 100000;
 
 window.onload = function () {
+
+window.webkitStorageInfo.queryUsageAndQuota(webkitStorageInfo.TEMPORARY, //the type can be either TEMPORARY or PERSISTENT
+function(used, remaining) {
+  console.log("Used quota: " + used + ", remaining quota: " + remaining);
+}, function(e) {
+  console.log('Error 1', e); 
+} );
+
+navigator.webkitPersistentStorage.requestQuota(1024*1024*280, 
+  function(grantedBytes){
+  window.requestFileSystem(PERSISTENT, grantedBytes, onInitFs, errorHandler);
+}, function(e){
+  console.log('Error 2', e);
+})
+
    var db;
    var dbname = "testdb";
    var store1name = "store1";
