@@ -1,7 +1,3 @@
-#from twisted.application.reactors import installReactor
-#installReactor("iocp")
-#installReactor("select")
-
 from txpostgres import txpostgres
 
 from twisted.internet.defer import inlineCallbacks, returnValue
@@ -11,7 +7,7 @@ from autobahn.twisted.wamp import ApplicationSession
 
 
 
-class AppSession(ApplicationSession):
+class MyDatabaseComponent(ApplicationSession):
 
    @inlineCallbacks
    def onJoin(self, details):
@@ -67,14 +63,35 @@ class AppSession(ApplicationSession):
 
    @wamp.register(u'com.example.now.v3')
    def get_dbnow_interaction(self):
-      def run(txn):
-         ## this variant runs the query inside a transaction (which might do more,
-         ## and still be atomically committed/rolled back)
+      ## this variant runs the query inside a transaction (which might do more,
+      ## and still be atomically committed/rolled back)
 
-         txn.execute("SELECT now()")
-         rows = txn.fetchall()
+      def run(txn):
+         d = txn.execute("SELECT now()")
+
+         def on_cursor_ready(cur):
+            rows = cur.fetchall()
+            res = "{0}".format(rows[0][0])
+            return res
+         d.addCallback(on_cursor_ready)
+
+         return d
+
+      return self.db.runInteraction(run)
+
+
+   @wamp.register(u'com.example.now.v4')
+   def get_dbnow_interaction_coroutine(self):
+      ## this variant runs the query inside a transaction (which might do more,
+      ## and still be atomically committed/rolled back). Further, we are using
+      ## a co-routine based coding style here.
+
+      @inlineCallbacks
+      def run(txn):
+         cur = yield txn.execute("SELECT now()")
+         rows = cur.fetchall()
          res = "{0}".format(rows[0][0])
-         return res
+         returnValue(res)
 
       return self.db.runInteraction(run)
 
@@ -84,4 +101,4 @@ if __name__ == '__main__':
    from autobahn.twisted.wamp import ApplicationRunner
 
    runner = ApplicationRunner(url = "ws://127.0.0.1:8080/ws", realm = "realm1")
-   runner.run(AppSession)
+   runner.run(MyDatabaseComponent)
