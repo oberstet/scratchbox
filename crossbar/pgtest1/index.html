@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <script src="https://autobahn.s3.amazonaws.com/autobahnjs/latest/autobahn.min.jgz">
+      </script>
+      <script>
+         var connection = new autobahn.Connection({
+            url: "ws://127.0.0.1:8080/ws",
+            realm: "realm1"
+         });
+
+         connection.onopen = function (session, details) {
+            console.log("Connected");
+
+            for (var i = 1; i < 4; ++i) {
+               (function (_i) {                  
+                  session.call("com.example.now.v" + _i).then(
+                     function (res) {
+                        console.log("result " + _i, res);
+                     },
+                     function (err) {
+                        console.log("error " + _i, err);
+                     }
+                  );
+               })(i);
+            }
+         };
+
+         connection.onclose = function (reason, details) {
+            console.log("Connection lost: " + reason);
+         }
+
+         connection.open();
+      </script>
+   </body>
+</html>
