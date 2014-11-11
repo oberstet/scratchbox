@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+   </head>
+   <body>
+      <h1>Using the browser Gamepad API with WAMP and Crossbar.io</h1>
+      <p>
+         This demo shows how to use the new <a href="https://dvcs.w3.org/hg/gamepad/raw-file/default/gamepad.html">W3C Gamepad API</a> to connect your gamepad to the cloud and devices via real-time messaging using 
+         <a href="http://wamp.ws">WAMP</a> (which runs over WebSocket) and <a href="http://crossbar.io">Crossbar.io</a>.
+      </p>
+      <p>
+         This demo works best with Firefox, also Chrome, but no other browser currently (2014/11). To test support
+         and basic operation of your gamepad (without any real-time messaging), you can checkout <a href="http://luser.github.io/gamepadtest/">this demo</a>.
+      </p>
+      <p>
+         Tested with Microsoft Xbox 360 wireless controller and PC wireless receiver.
+         See <a href="http://support.xbox.com/en-US/xbox-on-other-devices/connections/xbox-360-wireless-gaming-receiver-windows">here</a>.
+      </p>
+      <p>
+         To test, open the <a href="monitor.html">Gamepad Monitor</a> in a first browser (on any PC).
+      </p>
+      <p>
+         Then, on a second PC (where you gamepad is connected), open the <a href="gamepad.html">Gamepad Connector</a>.
+      </p>
+      <p>
+         You should see button presses and joystick movements being received in real-time in the first browser (and any
+         other instances connected).
+      </p>
+      <br>
+
+      <center>
+         <img src="screenshot.png" width="1200"></img>
+      </center>
+   </body>
+</html>
