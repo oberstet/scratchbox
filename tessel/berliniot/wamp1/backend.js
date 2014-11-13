@@ -28,10 +28,33 @@ connection.onopen = function (session, details) {
       }
    );
 
-   function set_alarm_active (active) {
+   function set_alarm_active (args) {
+      var active = args[0];
+
+      console.log("set_alarm_active", alarm_active, active);
+
       if (alarm_active != active) {
          alarm_active = active;
          session.publish("io.crossbar.iotberlin.alarmapp.on_alarm_active", [alarm_active])
+
+         if (alarm_active) {
+            session.call("io.crossbar.iotberlin.alarmapp.set_blinking", [500]);
+
+            session.call("io.crossbar.hack.take_picture").then(
+               function (res) {
+                  console.log("got picture");
+                  session.publish("io.crossbar.iotberlin.on_picture_taken", [res]);
+               },
+               function (e) {
+                  console.log(e);
+               }
+            );
+
+            console.log("ALARM triggered!!!");
+         } else {
+            session.call("io.crossbar.iotberlin.alarmapp.set_blinking", [0]);
+            console.log("ALARM cleared");
+         }
       }
       return alarm_active;
    }
@@ -63,19 +86,32 @@ connection.onopen = function (session, details) {
       }
    );
 
+   var th = 0.1;
+
    function on_accelerometer (args) {
       var data = args[0];
       console.log(data);
-      if (data.x > .5) {
+
+      var trigger =
+         (Math.abs(0 - data.x) > th) ||
+         (Math.abs(0 - data.y) > th) ||
+         (Math.abs(1 - data.z) > th);
+
+      if (trigger) {
          if (alarm_armed) {
-            set_alarm_active(true);
+            set_alarm_active([true]);
          }
       }
    }
 
    var accel_subscription = null;
 
-   function set_alarm_armed (active) {
+   function set_alarm_armed (args) {
+
+      var active = args[0];
+
+      console.log("set_alarm_armed", alarm_armed, active);
+
       if (alarm_armed != active) {
 
          alarm_armed = active;
@@ -107,6 +143,7 @@ connection.onopen = function (session, details) {
          }
          session.publish("io.crossbar.iotberlin.alarmapp.on_alarm_armed", [alarm_armed])
       }
+
       return alarm_armed;
    }
 
@@ -119,7 +156,7 @@ connection.onopen = function (session, details) {
       }
    );
 
-   //console.log(set_alarm_armed(true));
+   //console.log(set_alarm_armed(false));
 };
 
 connection.onclose = function (reason, details) {
