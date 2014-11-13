@@ -1,53 +1,63 @@
 var tessel = require('tessel');
+var accel = require('accel-mma84').use(tessel.port['B']);
 var autobahn = require('wamp-tessel');
 
 var leds = [tessel.led[0], tessel.led[1]];
 
-// the WAMP connection to the Router
-//
-var connection = new autobahn.Connection({
-   url: "ws://crossbar-test.cloudapp.net/ws",
-   realm: "ms_iot_hack_01"
-//   url: "ws://crossbar-test.cloudapp.net:8080/ws",
-//   realm: "realm1"
+accel.on('ready', function () {
+   var rates = accel.availableOutputRates();
+   console.log("accelerometer initialized (output rates: " + rates + ")");
+   accel.setOutputRate(12.5, function rateSet () {
+      main();
+   });
 });
 
-// fired when connection is established and session attached
-//
-connection.onopen = function (session, details) {
+accel.on('error', function (err) {
+   console.log('Error:', err);
+});
 
-   function toggleLed(args) {
-      var ledNo = args[0];
-      console.log("toggling LED " + ledNo);
-      leds[ledNo].toggle();
-   }
+function main () {
 
-   session.register("io.crossbar.iot.hack.test.toggleLed", toggleLed).then(
-      function () {
-         console.log("toggleLed registered");
-      },
-      function (e) {
-         console.log("could not register toggleLed", e);
+   var connection = new autobahn.Connection({
+      url: "ws://crossbar-test.cloudapp.net/ws",
+      realm: "ms_iot_hack_01"
+   //   url: "ws://crossbar-test.cloudapp.net:8080/ws",
+   //   realm: "realm1"
+   });
+
+   var accel_threshold = .5;
+
+   connection.onopen = function (session, details) {
+
+      function toggle_lights (args) {
+         var led = args[0];
+         console.log("toggling light " + led);
+         leds[led].toggle();
       }
-   );
 
-   session.subscribe("io.crossbar.iot.hack.test",
-      function(args) {
-         console.log(args[0]);
+      session.register("io.crossbar.iotberlin.alarmapp.toggle_lights", toggle_lights).then(
+         function () {
+            console.log("toggle_lights registered");
+         },
+         function (e) {
+            console.log(e);
+         }
+      );
+
+      accel.on('data', function (xyz) {
+         var data = {
+            x: xyz[0].toFixed(2),
+            y: xyz[1].toFixed(2),
+            z: xyz[2].toFixed(2)
+         };
+         console.log("accelerometer", data);
+         session.publish("io.crossbar.iotberlin.alarmapp.on_accelerometer", [data]);
       });
+   };
 
-   setInterval(function() {
-      session.publish("io.crossbar.iot.hack.test", ["IoT hacked"])
-   }, 2000)
+   connection.onclose = function (reason, details) {
+      console.log("Connection lost: " + reason, details);
+   };
 
-};
-
-// fired when connection was lost (or could not be established)
-//
-connection.onclose = function (reason, details) {
-   console.log("Connection lost: " + reason, details);
+   connection.open();
 }
-
-// now actually open the connection
-//
-connection.open();
