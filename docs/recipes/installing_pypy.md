@@ -73,44 +73,73 @@ Get the deps (Ubuntu/Debian):
 
 Get the deps (FreeBSD):
 
-	write me
+   freebsd-update fetch
+   freebsd-update install
 
-Tweak your env (FreeBSD):
+   env ASSUME_ALWAYS_YES=YES pkg bootstrap
 
-	export PATH=${HOME}/local/bin:/usr/local/bin:${PATH}
-	export LD_LIBRARY_PATH=${HOME}/local/lib:/usr/local/lib:${LD_LIBRARY_PATH}
-	export CC=/usr/bin/clang
-	export CXX=/usr/bin/clang++
-	export CPP=/usr/bin/clang-cpp
-	export MAKEFLAGS=-j8
-	export CFLAGS="-O3 -march=native"
-	export LDFLAGS="-L${HOME}/local/lib -L/usr/local/lib"
+   pkg install -y sudo
+   pkg install -y bash-static
+   pkg install -y ncurses
+   pkg install -y wget
+   pkg install -y curl
+   pkg install -y bzip2
+   pkg install -y zip
+   pkg install -y gtar
+   pkg install -y openssl
+   pkg install -y expat
+   pkg install -y sqlite3
+   pkg install -y libffi
+   pkg install -y pkg-config
+   pkg install -y readline
+   pkg install -y libxml
+   pkg install -y libxslt
+   pkg install -y gmake
+   pkg install -y gettext
+   pkg install -y libiconv
+   pkg install -y libexecinfo
+   pkg install -y vim-lite
 
-Get the repo and build:
+Tweak your env (FreeBSD 10+):
+
+   MAKEFLAGS=-j8; export MAKEFLAGS
+   CFLAGS="-I/usr/local/include -O3 -march=native"; export CFLAGS
+   LDFLAGS="-L/usr/local/lib"; export LDFLAGS
+
+On FreeBSD <10, if you want to use clang:
+
+	CC=/usr/bin/clang; export CC
+	CXX=/usr/bin/clang++; export CXX
+	CPP=/usr/bin/clang-cpp; export CPP
+
+Get the sources from a release tarball
+
+   cd /tmp
+   wget --no-check-certificate https://bitbucket.org/pypy/pypy/downloads/pypy-2.4.0-src.tar.bz2
+   tar xvjf pypy-2.4.0-src.tar.bz2
+   cd pypy-2.4.0-src
+
+or get the sources from a repo:
 
 	cd ~/build
 	hg clone https://bitbucket.org/pypy/pypy
 	cd pypy/pypy/goal
 	pypy ../../rpython/bin/rpython -Ojit targetpypystandalone
 
+Build the baby:
+
+   pypy rpython/bin/rpython --opt=jit pypy/goal/targetpypystandalone.py
+
+
 > Note that we use PyPy - say an old version from your distro - to build a new PyPy. You can use a CPython to build PyPy also, but it will take much, much longer.
 >
 
 Package up:
 
-	cd ~/build
-	cd pypy/pypy/tool/release/
-	python package.py ../../.. pypy-my-own-package-name
-
-e.g. on FreeBSD 9.2 AMD64 Clang (skipping Tk bindings):
-
-	python package.py --without-tk ../../.. pypy-2.2-freebsd92-x64-clang
-
-Now your package will reside somewhere
-
-	/tmp/..
+   pypy pypy/tool/release/package.py --without-tk --override_pypy_c ./pypy-c --archive-name pypy-2.4-freebsd10.1-x64 --targetdir .
 
 For installation follow the instructions as in the binary install (just unpack the `.tar.bz2` somewhere like in your `$HOME`).
+
 
 ## Installing Python packages under PyPy
 
