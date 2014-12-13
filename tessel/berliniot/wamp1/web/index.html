@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+   <head>
+      <style>
+         .accel_bar {
+            height: 20px;
+            width: 400px;
+            margin: 4px;
+            background-color: #00f;
+         }
+      </style>
+   </head>
+   <body>
+      <button onclick="toggleLed1()">Toggle LED 1</button>
+      <button onclick="toggleLed2()">Toggle LED 2</button>
+      <div id="x" class="accel_bar"></div>
+      <div id="y" class="accel_bar"></div>
+      <div id="z" class="accel_bar"></div>
+      <script src="autobahn.min.js"></script>
+      <script src="client.js"></script>
+   </body>
+</html>
