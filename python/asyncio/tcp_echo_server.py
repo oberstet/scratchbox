@@ -10,6 +10,11 @@ try:
 except ImportError:
    signal = None
 
+import psutil
+p = psutil.Process()
+print p.cpu_affinity()
+p.cpu_affinity([0])
+print p.cpu_affinity()
 
 class EchoServer(asyncio.Protocol):
 
@@ -27,7 +32,7 @@ if __name__ == '__main__':
    if signal is not None and sys.platform != 'win32':
       loop.add_signal_handler(signal.SIGINT, loop.stop)
 
-   f = loop.create_server(EchoServer, '127.0.0.1', 9000)
+   f = loop.create_server(EchoServer, port = 9000, backlog = 1024)
    server = loop.run_until_complete(f)
    try:
       loop.run_forever()
