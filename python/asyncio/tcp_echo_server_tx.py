@@ -15,7 +15,7 @@ from twisted.internet import protocol, reactor, endpoints
 
 class Echo(protocol.Protocol):
    def connectionMade(self):
-      self.transport.registerProducer(self.transport, False)
+      self.transport.registerProducer(self.transport, True)
 
    def dataReceived(self, data):
       self.transport.write(data)
