@@ -28,4 +28,16 @@ class EchoFactory(protocol.Factory):
 endpoints.serverFromString(reactor, "tcp:9000:backlog=1024").listen(EchoFactory())
 
 print "running on ", reactor.__class__
+
+import cProfile, pstats, StringIO
+pr = cProfile.Profile()
+pr.enable()
+
 reactor.run()
+
+pr.disable()
+s = StringIO.StringIO()
+sortby = 'cumulative'
+ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+ps.print_stats()
+print s.getvalue()
