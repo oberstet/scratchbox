@@ -4,8 +4,10 @@ print p.cpu_affinity()
 p.cpu_affinity([0])
 print p.cpu_affinity()
 
-from twisted.internet import kqreactor
-kqreactor.install()
+from twisted.internet import epollreactor
+epollreactor.install()
+#from twisted.internet import kqreactor
+#kqreactor.install()
 #from twisted.internet import selectreactor
 #selectreactor.install()
 #from twisted.internet import pollreactor
@@ -27,6 +29,7 @@ class EchoFactory(protocol.Factory):
       return p
 
 endpoints.serverFromString(reactor, "tcp:9000:backlog=1024").listen(EchoFactory())
+#endpoints.serverFromString(reactor, "tcp:9000:backlog=100").listen(EchoFactory())
 
 print "running on ", reactor.__class__
 
