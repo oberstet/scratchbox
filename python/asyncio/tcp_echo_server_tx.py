@@ -14,8 +14,8 @@ kqreactor.install()
 from twisted.internet import protocol, reactor, endpoints
 
 class Echo(protocol.Protocol):
-#   def connectionMade(self):
-#      self.transport.registerProducer(self.transport)
+   def connectionMade(self):
+      self.transport.registerProducer(self.transport, False)
 
    def dataReceived(self, data):
       self.transport.write(data)
