@@ -1,0 +1,205 @@
+[0, 1, 2, 3, 4, 5, 6, 7]
+[0]
+running on  <class 'twisted.internet.kqreactor.KQueueReactor'>
+         1117 function calls (1115 primitive calls) in 19.773 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   19.773   19.773 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:1190(run)
+        1    0.000    0.000   19.773   19.773 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:1195(mainLoop)
+       27    0.000    0.000   19.772    0.732 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:229(doKEvent)
+       37   19.771    0.534   19.771    0.534 {method 'control' of 'select.kqueue' objects}
+       13    0.000    0.000    0.001    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/log.py:75(callWithLogger)
+       13    0.000    0.000    0.001    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/log.py:70(callWithContext)
+       13    0.000    0.000    0.001    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/context.py:117(callWithContext)
+       13    0.000    0.000    0.001    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/context.py:61(callWithContext)
+       12    0.000    0.000    0.001    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:257(_doWriteOrRead)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:634(fireSystemEvent)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:399(fireEvent)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:1011(doRead)
+       27    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:786(runUntilCurrent)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:299(addCallback)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:502(_runCallbacks)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:277(addCallbacks)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:419(_continueFiring)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:198(doRead)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:761(__init__)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:234(doWrite)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:133(_getLogPrefix)
+        1    0.000    0.000    0.000    0.000 {method 'providedBy' of '_interface_coptimizations.SpecificationBase' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/declarations.py:141(implementedByFallback)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:617(disconnectAll)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/declarations.py:64(__init__)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:1160(startRunning)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:187(__init__)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:668(startRunning)
+        4    0.000    0.000    0.000    0.000 {method 'recv' of '_socket.socket' objects}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:204(__setBases)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:242(_disconnectSelectable)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/declarations.py:67(changed)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:217(_dataReceived)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:222(changed)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:282(connectionLost)
+        4    0.000    0.000    0.000    0.000 tcp_echo_server_tx.py:20(dataReceived)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/threadable.py:49(sync)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/_newtls.py:182(write)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:1106(connectionLost)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:339(write)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:28(_concatenate)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:1174(_reallyStartRunning)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:295(_handleSignals)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:599(sigInt)
+        4    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:233(writeSomeData)
+        5    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/util.py:813(untilConcludes)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/declarations.py:585(__init__)
+       29    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/socket.py:223(meth)
+       10    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:81(_updateRegistration)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:118(_closeSocket)
+       17    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/context.py:120(getContext)
+        4    0.000    0.000    0.000    0.000 {method 'send' of '_socket.socket' objects}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/ro.py:19(ro)
+        6    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:152(removeReader)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/log.py:169(msg)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:769(__init__)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:326(_maybePauseProducer)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:179(removeWriter)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:204(__init__)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:134(__init__)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/socket.py:201(accept)
+        3    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:122(addReader)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:191(connectionLost)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/protocol.py:75(doStop)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:415(stopReading)
+       54    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:746(_insertNewDelayedCalls)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/deprecate.py:377(__getattribute__)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:436(startWriting)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/failure.py:172(__init__)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/threadable.py:33(_synchPre)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:1099(_logConnectionLostMsg)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:468(pauseProducing)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:206(removeAll)
+       27    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:756(timeout)
+        3    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:423(stopWriting)
+        7    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:552(__eq__)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/ro.py:24(mergeOrderings)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/kqreactor.py:137(addWriter)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:360(callback)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:431(startReading)
+        4    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/threading.py:147(acquire)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:939(callFromThread)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/socket.py:192(close)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:534(_removeAll)
+       17    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/context.py:86(getContext)
+       10    0.000    0.000    0.000    0.000 {fcntl.fcntl}
+       36    0.000    0.000    0.000    0.000 {isinstance}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:222(doRead)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/ro.py:58(_flatten)
+       69    0.000    0.000    0.000    0.000 {getattr}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:146(doRead)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/threadable.py:43(_synchPost)
+        7    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:514(__cmp)
+       18    0.000    0.000    0.000    0.000 {setattr}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:473(_startRunCallbacks)
+       12    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:545(__hash__)
+       17    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+        3    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/fdesc.py:44(_setCloseOnExec)
+        2    0.000    0.000    0.000    0.000 {method 'accept' of '_socket.socket' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:514(wakeUp)
+       30    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/context.py:110(currentContext)
+        2    0.000    0.000    0.000    0.000 {method 'shutdown' of '_socket.socket' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:208(install)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:1139(_handleSignals)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/fdesc.py:21(setNonBlocking)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/failure.py:347(check)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:174(wakeUp)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:464(resumeProducing)
+        8    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/reflect.py:358(qual)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/_signals.py:40(installHandler)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/fdesc.py:62(readFromFD)
+       22    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+        4    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/threading.py:187(release)
+       53    0.000    0.000    0.000    0.000 {len}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:185(__init__)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:192(subscribe)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/protocol.py:473(makeConnection)
+        1    0.000    0.000    0.000    0.000 {map}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/threadable.py:118(registerAsIOThread)
+       31    0.000    0.000    0.000    0.000 {time.time}
+        1    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/socket.py:185(__init__)
+       12    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/interface.py:218(<lambda>)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/threadable.py:104(getThreadID)
+       17    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:1006(_buildAddr)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:586(crash)
+        3    0.000    0.000    0.000    0.000 {signal.signal}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:471(stopProducing)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:642(addSystemEventTrigger)
+        1    0.000    0.000    0.000    0.000 {posix.write}
+        1    0.000    0.000    0.000    0.000 tcp_echo_server_tx.py:17(connectionMade)
+       21    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        4    0.000    0.000    0.000    0.000 {hasattr}
+        2    0.000    0.000    0.000    0.000 {posix.read}
+        1    0.000    0.000    0.000    0.000 {signal.siginterrupt}
+      4/2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/zope/interface/declarations.py:825(_normalizeargs)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/deprecate.py:310(__init__)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/address.py:62(__init__)
+        6    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/deprecate.py:314(__getattribute__)
+       26    0.000    0.000    0.000    0.000 {method 'fileno' of '_socket.socket' objects}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:1125(logPrefix)
+       33    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/_newtls.py:220(registerProducer)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:312(_isSendBufferFull)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/weakref.py:414(keys)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/process.py:41(reapAllProcesses)
+        1    0.000    0.000    0.000    0.000 {posix.pipe}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:330(addTrigger)
+        1    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/threading.py:1152(currentThread)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/weakref.py:282(__init__)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/inspect.py:59(isclass)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/defer.py:246(__init__)
+        4    0.000    0.000    0.000    0.000 {method 'acquire' of 'thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/_newtls.py:207(loseConnection)
+        5    0.000    0.000    0.000    0.000 {range}
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/weakref.py:342(get)
+        2    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/weakref.py:320(__setitem__)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:178(__init__)
+        1    0.000    0.000    0.000    0.000 tcp_echo_server_tx.py:24(buildProtocol)
+        1    0.000    0.000    0.000    0.000 {method 'setblocking' of '_socket.socket' objects}
+        9    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/tcp.py:303(logPrefix)
+        5    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:143(<lambda>)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/address.py:36(__init__)
+        1    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/inspect.py:340(getmro)
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/deprecate.py:319(__setattr__)
+        4    0.000    0.000    0.000    0.000 {method 'release' of 'thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 {signal.set_wakeup_fd}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/posixbase.py:150(<lambda>)
+        6    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+       12    0.000    0.000    0.000    0.000 {hash}
+        2    0.000    0.000    0.000    0.000 {method 'clear' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 {method 'keys' of 'dict' objects}
+        9    0.000    0.000    0.000    0.000 {thread.get_ident}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:86(registerProducer)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:574(stop)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/base.py:691(_reallyStartRunning)
+        8    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/threading.py:64(_note)
+        1    0.000    0.000    0.000    0.000 /opt/python279/lib/python2.7/threading.py:983(ident)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/protocol.py:539(connectionLost)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/abstract.py:386(loseConnection)
+        2    0.000    0.000    0.000    0.000 {issubclass}
+        6    0.000    0.000    0.000    0.000 {method 'reverse' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 {method 'values' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/protocol.py:101(stopFactory)
+        4    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/log.py:600(_emit)
+        1    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/internet/protocol.py:517(logPrefix)
+        4    0.000    0.000    0.000    0.000 {callable}
+        2    0.000    0.000    0.000    0.000 {iter}
+        3    0.000    0.000    0.000    0.000 {zope.interface._zope_interface_coptimizations.implementedBy}
+        5    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
+        2    0.000    0.000    0.000    0.000 /home/oberstet/python1/lib/python2.7/site-packages/twisted/python/log.py:132(logPrefix)
+        1    0.000    0.000    0.000    0.000 {signal.getsignal}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
