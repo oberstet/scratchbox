@@ -37,6 +37,25 @@ Regarding 1): yes, we need to trust Amazon here. But we will be using our own se
 
 ## Configuration
 
+The following was tested to host this bucket
+
+* [web-tabulator-io](https://web-tabulator-io.s3-eu-west-1.amazonaws.com/)
+
+as a root domain on Cloudfront
+
+* [tabulator-io](https://tabulator.io)
+
+Open issues:
+
+* How to trigger updates when stuff is cached in Cloudfront?
+* Does Cloudfront honor headers like SVG content type or GZ content encodings?
+
+The bucket
+
+* must NOT contain periods (this is definitely required)
+* must NOT be configured as a "S3 Website" (I think this is required)
+* must be PUBLIC (I'm not sure if this is required for Cloudfront to access the bucket as a source) 
+
 The steps are:
 
 1. Create a server key and certificate
