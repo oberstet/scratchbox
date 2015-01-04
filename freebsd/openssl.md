@@ -1,18 +1,22 @@
 # Python 2.7.9+
 
-Python 2.7.9+ activates strict hostname verification for SSL. This breaks stuff. Here is how to fix.
+Python 2.7.9+ [activates](http://legacy.python.org/dev/peps/pep-0476/) strict hostname verification for SSL. This breaks stuff. Here is how to fix.
 
 *Warning: all of the following is a **royal pain in the ass**. But here are the nitty gritty details.*
 
-First off, FreeBSD does not include a certificate database in a base installation. Neither does Python include a certificate database.
+First off, FreeBSD does not include a certificate database in a base installation. [Neither](http://bugs.python.org/issue13655) does Python include a certificate database.
 
-The way to add this to FreeBSD is from the port `security/ca_root_nss` or by adding the package:
+> Sidenote: There is a [Python package](https://github.com/certifi/python-certifi) that bundles the Mozilla certificate database. However, even when this is installed, at least modules like `urllib` will not make use of it (at least automatically).
+
+The way to add a default certificate database to FreeBSD is from the port `security/ca_root_nss` or by adding the package:
 
 ```console
 $ pkg install -y ca_root_nss
 ```
 
-Then, Python uses the default paths configured in OpenSSL for certificates. You can check those paths by doing:
+The package bundles the certificates that are included with Mozilla Firefox.
+
+Python uses the default paths configured in OpenSSL for certificates. You can check those paths by doing:
 
 ```python
 import ssl
@@ -70,7 +74,7 @@ ln -sf /usr/local/etc/ssl/cert.pem /etc/ssl/cert.pem
 Also note that CPython (or PyPy) compiled from vanilla sources is looking in yet a different location. Again, here is a manual fix:
 
 ```console
-ln -s /usr/local/etc/ssl/cert.pem /usr/local/openssl/cert.pem
+ln -sf /usr/local/etc/ssl/cert.pem /usr/local/openssl/cert.pem
 ```
 
 Now verification should work:
