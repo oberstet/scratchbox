@@ -1,0 +1,15 @@
+[random-write]
+rw=randwrite
+size=100GB
+thread=1
+filename=C:\Temp\test.dat
+ioengine=windowsaio
+direct=1
+numjobs=1
+iodepth=32
+group_reporting
+name=random-write-8k
+bs=8k
+runtime=3600
+time_based=1
+ramp_time=600
