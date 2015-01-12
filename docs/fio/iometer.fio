@@ -1,0 +1,24 @@
+[global]
+description=Emulation of Intel IOmeter File Server Access Pattern
+
+[iometer]
+rw=randrw
+rwmixread=75
+rwmixwrite=25
+direct=0
+size=10G
+filename=/test/test.fio
+ioengine=posixaio
+fallocate=none
+runtime=900
+random_distribution=zipf:2.2
+
+# IOMeter defines the server loads as the following:
+# iodepth=1 Linear
+# iodepth=4 Very Light
+# iodepth=8 Light
+# iodepth=64 Moderate
+# iodepth=256 Heavy
+
+iodepth=64
+thread

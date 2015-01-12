@@ -1,0 +1,11 @@
+[sync-log-test]
+rw=write
+filename=/test/logtest.dat
+direct=1
+sync=1
+bs=4k
+numjobs=1
+iodepth=1
+runtime=60
+time_based
+group_reporting
