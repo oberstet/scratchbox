@@ -1,3 +1,9 @@
+
+## Start with:
+##
+## fio.exe --output=multi_test.log multi_test.fio
+##
+
 ## Manual:
 ## http://linux.die.net/man/1/fio
 
@@ -18,77 +24,77 @@ size=1G
 # grosses file
 #size=100G
 
-# kurzes Lauf
+# kurzes Lauf (24 x 70s = 28min)
 runtime=60
 ramp_time=10
 
-# langer Lauf
+# langer Lauf (24 x 35min = 14h)
 #runtime=1800
 #ramp_time=300
 
 
 
 ##
-## Random Write 8KB
+## Random Write 4KB
 ##
 
-[random-write-8k-iodepth-1]
+[random-write-4k-iodepth-1]
 rw=randwrite
-bs=8k
+bs=4k
 iodepth=1
 group_reporting
 
-[random-write-8k-iodepth-8]
+[random-write-4k-iodepth-8]
 stonewall
 rw=randwrite
-bs=8k
+bs=4k
 iodepth=8
 group_reporting
 
-[random-write-8k-iodepth-32]
+[random-write-4k-iodepth-32]
 stonewall
 rw=randwrite
-bs=8k
+bs=4k
 iodepth=32
 group_reporting
 
-[random-write-8k-iodepth-128]
+[random-write-4k-iodepth-128]
 stonewall
 rw=randwrite
-bs=8k
+bs=4k
 iodepth=128
 group_reporting
 
 
 ##
-## Random Read 8KB
+## Random Read 4KB
 ##
 
-[random-read-8k-iodepth-1]
+[random-read-4k-iodepth-1]
 stonewall
 rw=randread
-bs=8k
+bs=4k
 iodepth=1
 group_reporting
 
-[random-read-8k-iodepth-8]
+[random-read-4k-iodepth-8]
 stonewall
 rw=randread
-bs=8k
+bs=4k
 iodepth=8
 group_reporting
 
-[random-read-8k-iodepth-32]
+[random-read-4k-iodepth-32]
 stonewall
 rw=randread
-bs=8k
+bs=4k
 iodepth=32
 group_reporting
 
-[random-read-8k-iodepth-128]
+[random-read-4k-iodepth-128]
 stonewall
 rw=randread
-bs=8k
+bs=4k
 iodepth=128
 group_reporting
 
