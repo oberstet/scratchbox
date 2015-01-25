@@ -1,4 +1,5 @@
 import sys
+import os
 from cffi import FFI
 
 
@@ -169,6 +170,9 @@ extern dtrace_workstatus_t dtrace_work(dtrace_hdl_t *, FILE *,
 
 """
 
+DTRACE_ABI_CDEF = open("dtrace.h").read()
+print len(DTRACE_ABI_CDEF)
+
 DTRACE_API_C = """
 #include "/usr/src/cddl/contrib/opensolaris/lib/libdtrace/common/dtrace.h"
 """
@@ -199,7 +203,7 @@ DTRACE_API_LIBRARIES = [
 ]
 
 
-def get_dtrace(ffi, api_mode = True):
+def get_dtrace(ffi, api_mode = False):
 
    if api_mode:
       dtrace = ffi.verify(DTRACE_API_C,
@@ -229,9 +233,6 @@ def get_dtrace(ffi, api_mode = True):
 
       dtrace = ffi.dlopen("libdtrace.so")
 
-   print dtrace
-   print dir(dtrace)
-
    return dtrace
 
 
@@ -246,7 +247,11 @@ class DTraceProgram:
    def execute(self):
       info = self._dtrace._ffi.new("dtrace_proginfo_t[1]")
       res = self._dtrace._dtrace.dtrace_program_exec(self._dtrace._dtp, self._prog, info)
-      print res
+      if res == -1:
+         err_no, err_msg = self._dtrace.get_error()
+         raise Exception("could not execute instrumentation: {}".format(err_msg))
+      else:
+         print("probe executing")
 
 
 
@@ -262,8 +267,11 @@ class DTrace:
    def __init__(self):
       self._DTRACE_VERSION = 3
       self._ffi = FFI()
+      self._C = self._ffi.dlopen(None)
+      #print "X"*10, self._C.stdout
       self._dtrace = get_dtrace(self._ffi)
       self._dtp = None
+      self._fd = None
 
    def get_error(self):
       if self._dtp:
@@ -298,19 +306,47 @@ class DTrace:
 
       return DTraceProgram(self, prog)
 
-      # info = self._ffi.new("dtrace_proginfo_t[1]")
+   def go(self, fd = None):
+      if self._dtp:
 
-      # res = self._dtrace.dtrace_program_exec(self._dtp, prog, info)
+         fd = fd or sys.stdout
+         self._fd = self._ffi.cast("FILE*", fd)
 
-      # print res
+         self._chew = self._ffi.callback("int (const dtrace_probedata_t*, const dtrace_recdesc_t*, void*)", self.chew) 
 
-      # return prog
+         res = self._dtrace.dtrace_go(self._dtp)
+         if res != 0:
+            err_no, err_msg = self.get_error()
+            raise Exception("could not start instrumentation: {}".format(e))
+         else:
+            print("instrumentation started")
+
+   def work(self):
+      if self._dtp:
+         res = self._dtrace.dtrace_work(self._dtp, self._fd, self._ffi.NULL, self._chew, self._ffi.NULL)
+         print res
+
+   def sleep(self):
+      if self._dtp:
+         res = self._dtrace.dtrace_sleep(self._dtp)
+         print("woke up")
 
 
    def close(self):
       if self._dtp:
          self._dtrace.dtrace_close(self._dtp)
          self._dtp = None
+
+
+   def chew(self, data, rec, arg):
+      print("chew!", data, rec, arg)
+
+      # A NULL rec indicates that we've processed the last record.
+      if rec == self._ffi.NULL:
+         return self._dtrace.DTRACE_CONSUME_NEXT
+
+      return self._dtrace.DTRACE_CONSUME_THIS
+
 
 
 D_PROGRAM = """
@@ -323,7 +359,11 @@ dt.set_option("bufsize", "4m")
 dt.set_option("aggsize", "4m")
 prog = dt.compile(D_PROGRAM)
 print prog
-#prog.execute()
+prog.execute()
+dt.go()
+while True:
+   dt.sleep()
+   dt.work()
 dt.close()
 
 # print dtrace
