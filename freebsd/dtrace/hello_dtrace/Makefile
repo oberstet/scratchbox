@@ -8,3 +8,5 @@ all:
 	 -l dtrace -l proc -l ctf -l elf -l z -l rtld_db -l pthread -l util \
 	 -o hello_dtrace
 
+test: all
+	sudo ./hello_dtrace
