@@ -296,22 +296,31 @@ createlang plpythonu
 
 ## MADlib
 
-[MADlib](http://madlib.net/) is an in-database machine learning library for PostgreSQL.
+[MADlib](http://madlib.net/) is an in-database machine learning library for PostgreSQL. See the build instructions [here](https://github.com/madlib/madlib/wiki/Installation-Guide) and [building from source](https://github.com/madlib/madlib/wiki/Building-MADlib-from-Source).
 
 
 ## PostgreSQL XL
 
-[PostgreSQL XL](http://www.postgres-xl.org/).
+[PostgreSQL XL](http://www.postgres-xl.org/). See the [documentation](http://files.postgres-xl.org/documentation/index.html).
 
 
-# Todo
+## Samba
 
-* PL/R
-* PL/V8
-* MADlib
-* Samba
-* Nginx
-* Crossbar.io
+Write me.
+
+## Web Server
+
+Write me.
+
+
+## GitLab
+
+Write me.
+
+
+## Apache Solr
+
+Write me.
 
 
 # Command hints
