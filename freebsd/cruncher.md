@@ -1,13 +1,13 @@
 # Base host setup
 
-1. Update system
+**Update system**
 
 ```
 freebsd-update fetch
 freebsd-update install
 ```
 
-2. Fetch/update ports collection
+**Fetch/update ports collection**
 
 ```
 portsnap fetch
@@ -15,7 +15,7 @@ portsnap extract
 portsnap update
 ```
 
-3. Configure ports building
+**Configure ports building**
 
 ```
 cat >> /etc/make.conf << EOT
@@ -32,7 +32,7 @@ OPTIONS_UNSET=X11
 EOT
 ```
 
-4. Install some tools
+**Install some tools**
 
 ```
 pkg install -y vim-lite
@@ -56,7 +56,7 @@ pkg install -y gmake
 pkg install -y git
 ```
 
-5. Install `htop`
+**Install `htop`**
 
 ```
 pkg install -y htop
@@ -64,14 +64,14 @@ echo "linproc /compat/linux/proc linprocfs rw,late 0 0" >> /etc/fstab
 mkdir -p /usr/compat/linux/proc; ln -s /usr/compat /compat; mount linproc
 ```
 
-6. Enable DTrace
+**Enable DTrace**
 
 ```
 kldload dtraceall
 echo "dtraceall_load=YES" >> /boot/loader.conf
 ```
 
-7. Install DTrace toolkit
+**Install DTrace toolkit**
 
 ```
 cd /usr/ports/sysutils/DTraceToolkit
@@ -154,11 +154,13 @@ Edit the server configuration
 
 and add the following to `/etc/rc.conf`
 
+```
 cat >> /etc/rc.conf << EOT
 slapd_enable="YES"
 slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap://0.0.0.0/"'
 slapd_sockets="/var/run/openldap/ldapi"
 EOT
+```
 
 To start the server:
 
@@ -189,7 +191,7 @@ Leave all default options and add the following:
 
 > Note: This is a *huge* package and pulls in lots of dependencies including the kitchen sink and X!. It will happily *ignore* our `/etc/make.conf` which is set up to ignore any X stuff. Don't know how to work around.
 
-o build the OpenJDK from the port collection (probably a bad idea .. see the note):
+To build the OpenJDK from the port collection (probably a bad idea .. see the note):
 
 ```
 cd /usr/ports/java/openjdk8
@@ -233,7 +235,7 @@ To automatically start PostgreSQL at server/container start:
 echo 'postgresql_enable="YES"' >> /etc/rc.conf
 ```
 
-The PostgreSQL server will run undder user/group `pgsql/pgsql`.
+The PostgreSQL server will run under user/group `pgsql/pgsql`.
 
 To initialize the database, run
 
