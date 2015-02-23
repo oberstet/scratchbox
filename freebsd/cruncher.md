@@ -282,6 +282,28 @@ To create PL/Python language extension within a PostgreSQL database:
 createlang plpythonu
 ```
 
+## PL/V8
+
+> Note: You will need V8 build before.
+
+[PL/V8](https://code.google.com/p/plv8js/) is a JavaScript procedural language extension for PostgreSQL using the V8 engine under the hood. For build instructions, see [here](https://code.google.com/p/plv8js/wiki/PLV8).
+
+
+## PL/R
+
+[PL/R](http://www.joeconway.com/plr/) is a R procedural language extension for PostgreSQL. For build instructions see [here](https://github.com/jconway/plr) and [here](http://www.joeconway.com/plr/doc/plr-install.html).
+
+
+## MADlib
+
+[MADlib](http://madlib.net/) is an in-database machine learning library for PostgreSQL.
+
+
+## PostgreSQL XL
+
+[PostgreSQL XL](http://www.postgres-xl.org/).
+
+
 # Todo
 
 * PL/R
