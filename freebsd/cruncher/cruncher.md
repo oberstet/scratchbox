@@ -459,6 +459,9 @@ SELECT madlib.array_mean(array[1,2,3]);
 SELECT madlib.normal_cdf(0);
 ```
 
+![](madlib_test.png)
+
+
 ## Cmake
 
 Building R requires Cmake as a dependency, which might trigger the following issue:
