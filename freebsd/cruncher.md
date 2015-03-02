@@ -1,13 +1,38 @@
+# Introduction
+
+The following a setup and administration guide for re-creating the new ADR host from scratch. We will cover the following services:
+
+* [PostgreSQL](http://www.postgresql.org/) + [PL/R](http://www.joeconway.com/plr/) + [MADlib](http://madlib.net/)
+* [R Studio Server](https://support.rstudio.com/hc/en-us/articles/200552306-Getting-Started)
+* [iPython](http://ipython.org/) Notebook Server
+* [GitLab](https://about.gitlab.com/) Source Repository
+* [Samba](https://www.samba.org/) Fileserver
+* [Apache Solr](http://lucene.apache.org/solr/) Indexer
+* [Crossbar.io](http://crossbar.io/) Web Server / App Router
+* [OpenLDAP](http://www.openldap.org/) Directory Service
+
+All of above running on [FreeBSD](https://www.freebsd.org/) 10.1 (x86-64) using [ZFS](http://open-zfs.org/) and [jails](https://www.freebsd.org/doc/en/books/handbook/jails.html) to isolation services in [OS containers](http://en.wikipedia.org/wiki/Operating-system-level_virtualization).
+
+
+
 # Base Setup
 
-**Update system**
+## Update System
+
+After a fresh FreeBSD install, first thing to do is update the system
 
 ```
 freebsd-update fetch
 freebsd-update install
 ```
 
-**Fetch/update ports collection**
+## Update Ports Collection
+
+The FreeBSD [ports collection](https://www.freebsd.org/ports/) contains adapted versions of many standard, open-source packages.
+
+It's generally easy to use, and recommended to use ports instead of building from vanilla upstream.
+
+To update (or get) the ports collection
 
 ```
 portsnap fetch
@@ -15,7 +40,11 @@ portsnap extract
 portsnap update
 ```
 
-**Configure ports building**
+## Configure Ports
+
+Ports are built from (patched) sources. Building ports can be customized using the global `/etc/make.conf` configuration.
+
+We'll be using the following:
 
 ```
 cat >> /etc/make.conf << EOT
@@ -32,7 +61,11 @@ OPTIONS_UNSET=X11
 EOT
 ```
 
-**Install some tools**
+This will disable any X stuff, and enable building using 4 cores in parallel and optimize for the specific machine and CPU architecture being build on.
+
+## Some Tools
+
+We need a couple of standard tools - and we won't bother building those from source, but install from prebuilt binary packages:
 
 ```
 pkg install -y vim-lite
@@ -56,7 +89,9 @@ pkg install -y gmake
 pkg install -y git
 ```
 
-**Install `htop`**
+### htop
+
+Another useful tool is [htop](http://hisham.hm/htop/). This requires a little more pimping:
 
 ```
 pkg install -y htop
@@ -64,15 +99,14 @@ echo "linproc /compat/linux/proc linprocfs rw,late 0 0" >> /etc/fstab
 mkdir -p /usr/compat/linux/proc; ln -s /usr/compat /compat; mount linproc
 ```
 
-This OpenJDK implementation requires fdescfs(5) mounted on /dev/fd and
-procfs(5) mounted on /proc.
+As we are on it, we add the following. OpenJDK requires `fdescfs(5)` mounted on `/dev/fd` and `procfs(5)` mounted on `/proc`.
 
-If you have not done it yet, please do the following:
-
+```
 mount -t fdescfs fdesc /dev/fd
 mount -t procfs proc /proc
+```
 
-To make it permanent, you need the following lines in /etc/fstab:
+To make it permanent, you need the following lines in `/etc/fstab`:
 
 ```
 cat >> /etc/fstab << EOT
@@ -81,28 +115,31 @@ proc    /proc       procfs      rw  0   0
 EOT
 ```
 
-**Enable DTrace**
+### DTrace
+
+To load the DTrace kernel module
 
 ```
 kldload dtraceall
 echo "dtraceall_load=YES" >> /boot/loader.conf
 ```
 
-**Install DTrace toolkit**
+Some handy D scripts ("DTrace Toolkit") can be installed via
 
 ```
 cd /usr/ports/sysutils/DTraceToolkit
 make install clean
 ```
 
-**Command hints**
+### pkg
 
-To list the files installed from a port or package:
+FreeBSD comes with [pkg](https://www.freebsd.org/doc/en/books/handbook/pkgng-intro.html), a tool for package management.
+
+The tool has lots and lots of features. E.g. here is how to list the files installed from a port or package:
 
 ```
 pkg info -l postgresql94-contrib-9.4.1
 ```
-
 
 # Services Setup
 
@@ -557,15 +594,19 @@ SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
 
 ## MADlib
 
-MADlib](http://madlib.net/) is an in-database machine learning library for PostgreSQL. See the build instructions [here](https://github.com/madlib/madlib/wiki/Installation-Guide) and [building from source](https://github.com/madlib/madlib/wiki/Building-MADlib-from-Source).
+[MADlib](http://madlib.net/) is an in-database machine learning library for PostgreSQL.
+
+See the (generic) build instructions [here](https://github.com/madlib/madlib/wiki/Installation-Guide) and [building from source](https://github.com/madlib/madlib/wiki/Building-MADlib-from-Source).
 
 To build MADlib, you will need a Python enabled PostgreSQL already.
 
-For PostgreSQL, at least MADlib 1.7.1 is required. See [here](http://jira.madlib.net/browse/MADLIB-894) and [here](http://comments.gmane.org/gmane.comp.statistics.madlib.devel/298).
+For PostgreSQL 9.4, at least MADlib 1.7.1 is required (currently unreleases, 03/2015). See [here](http://jira.madlib.net/browse/MADLIB-894) and [here](http://comments.gmane.org/gmane.comp.statistics.madlib.devel/298).
 
-Further, for FreeBSD changes required, see [this](https://github.com/madlib/madlib/pull/308) PR.
+Further, for FreeBSD changes are required. See [this](https://github.com/madlib/madlib/pull/308) PR.
 
-The, MADlib has to be built using GCC (and gmake) currently, as Clang has issues.
+Then, MADlib has to be built using GCC (and gmake) currently, as Clang has issues. I will look into this over time (shouldn't be hard, but costs time and PRs will need to get merged).
+
+Activate compilation using GCC:
 
 ```
 export CC=`which gcc48`
@@ -574,14 +615,14 @@ export CFLAGS="-march=native -O2 -pipe -funroll-loops"
 export CXXFLAGS="-march=native -O2 -pipe -funroll-loops"
 ```
 
-The, the build will need bash and Python is these locations
+Further, the build assume bash and Python in specific locations. We symlink those into the right places:
 
 ```
 ln -s /usr/local/bin/python2.7 /usr/local/bin/python
 ln -s /usr/local/bin/bash /bin/bash
 ```
 
-Now clone the repo with above FreeBSD PR and build
+Now clone the repo (with above FreeBSD PR contained) and build the thing
 
 ```
 cd /tmp
@@ -615,7 +656,7 @@ $ ldd /usr/local/madlib/Current/ports/postgres/9.4/lib/libmadlib.so
     libc.so.7 => /lib/libc.so.7 (0x80081f000)
 ```
 
-Install MADlib support into a database `oberstet` on `localhost:5432` using the database superuser `pgsql`:
+Now install MADlib support into a database `oberstet` on `localhost:5432` using the database superuser `pgsql`:
 
 ```console
 $ /usr/local/madlib/Versions/1.7.1/bin/madpack -p postgres -c pgsql@localhost:5432/oberstet install
@@ -665,7 +706,7 @@ madpack.py : INFO : > - validation
 madpack.py : INFO : MADlib 1.7.1 installed successfully in MADLIB schema.
 ```
 
-Enable use of MADlib for anyone in a database
+Enable use of MADlib for anyone in database `oberstet`
 
 ```console
 $ psql --dbname=oberstet
@@ -677,27 +718,27 @@ GRANT
 oberstet=# 
 ```
 
-To test MADlib from within a MADlib enabled database:
+To test MADlib from within a MADlib enabled database
 
 ```sql
-select madlib.array_mean(array[1,2,3]);
+SELECT madlib.array_mean(array[1,2,3]);
 
-select madlib.normal_cdf(0);
+SELECT madlib.normal_cdf(0);
 ```
 
 
 ## PL/V8
 
-> Note: You will need PostgreSQL and V8 built before.
-
 [PL/V8](https://code.google.com/p/plv8js/) is a JavaScript procedural language extension for PostgreSQL using the V8 engine under the hood. For build instructions, see [here](https://code.google.com/p/plv8js/wiki/PLV8).
+
+> Note: You will need PostgreSQL and V8 built before (obviously).
 
 
 # Java JDK
 
 > Note: This is a *huge* package and pulls in lots of dependencies including the kitchen sink and X!. It will happily *ignore* our `/etc/make.conf` which is set up to ignore any X stuff. Don't know how to work around.
 
-To build the OpenJDK from the port collection (probably a bad idea .. see the note):
+To build the OpenJDK from the port collection (probably a bad idea .. see the note above):
 
 ```
 cd /usr/ports/java/openjdk8
@@ -706,7 +747,7 @@ make
 make install clean
 ```
 
-This should have build a Java
+This should have a Java thing now
 
 ```console
 root@crunchertest:/usr/ports/java/openjdk8 # java -version
@@ -715,7 +756,7 @@ OpenJDK Runtime Environment (build 1.7.0_76-b13)
 OpenJDK 64-Bit Server VM (build 24.76-b04, mixed mode)
 ```
 
-Now build Maven:
+Now build [Maven](http://maven.apache.org/):
 
 ```
 cd /usr/ports/devel/maven31
