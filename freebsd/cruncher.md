@@ -250,9 +250,11 @@ The Python interpreter will be created under `/usr/local/bin/python2.7`.
 
 ## PL/Python
 
-> Note: Make sure you have CPython 2.7 build before!
+[PL/Python](http://www.postgresql.org/docs/current/static/plpython.html) is a database procedureal language extension for PostgreSQL.
 
 To build PL/Python (which is a requirement for MADlib) from the ports collection:
+
+> Note: Make sure you have CPython 2.7 build before!
 
 ```
 cd /usr/ports/databases/postgresql94-plpython
@@ -300,6 +302,23 @@ To change the trust status, so all users on a database can create functions in a
 
 ```
 UPDATE pg_language SET lanpltrusted = true WHERE lanname = 'plpythonu';
+```
+
+To test PL/Python, connect to the database and create a Python stored procedure:
+
+```sql
+CREATE FUNCTION pymax (a integer, b integer) RETURNS integer AS
+$$
+   if a > b:
+      return a
+   return b
+$$ LANGUAGE plpythonu;
+```
+
+and test from SQL
+
+```sql
+SELECT pymax(2, 3);
 ```
 
 ## MADlib
@@ -644,12 +663,6 @@ SELECT generate_series(5, 23);
 -- call our R function with a generated series
 SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
 ```
-
-
-----------------
-
-
-
 
 
 ## V8
