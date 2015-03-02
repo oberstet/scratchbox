@@ -97,6 +97,8 @@ echo "linproc /compat/linux/proc linprocfs rw,late 0 0" >> /etc/fstab
 mkdir -p /usr/compat/linux/proc; ln -s /usr/compat /compat; mount linproc
 ```
 
+### fdescfs and procfs
+
 As we are on it, we add the following. OpenJDK requires `fdescfs(5)` mounted on `/dev/fd` and `procfs(5)` mounted on `/proc`.
 
 ```
@@ -114,6 +116,8 @@ EOT
 ```
 
 ### DTrace
+
+[DTrace](http://en.wikipedia.org/wiki/DTrace) is a powerful (actually, unmatched) system and application monitoring and performance analysis tool that **can run in production** with near zero overhead.
 
 To load the DTrace kernel module
 
@@ -664,45 +668,6 @@ SELECT generate_series(5, 23);
 SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
 ```
 
-
-## V8
-
-To build Google V8 JavaScript engine from ports collection:
-
-```
-cd /usr/ports/lang/v8
-make
-make install clean
-```
-
-This will create the V8 dynamic library under `/usr/local/lib/libv8.so.1`.
-
-
-## Node
-
-> Note: Make sure you have V8 build before.
-
-To build Node from ports collection:
-
-```
-cd /usr/ports/www/node
-make
-make install clean
-```
-
-This will create the Node executable under `/usr/local/bin/node`.
-
-You will want the Node package manager (`npm`) as well:
-
-```
-cd /usr/ports/www/npm
-make
-make install clean
-```
-
-The Node package manager exectuable will be created under `/usr/local/bin/npm`.
-
-
 ## OpenLDAP
 
 To build the OpenLDAP server from the ports collection:
@@ -804,6 +769,44 @@ apache-solr-4.10.1:
     /usr/local/share/examples/apache-solr/README.txt
 ...
 ```
+
+## V8
+
+To build Google V8 JavaScript engine from ports collection:
+
+```
+cd /usr/ports/lang/v8
+make
+make install clean
+```
+
+This will create the V8 dynamic library under `/usr/local/lib/libv8.so.1`.
+
+
+## Node
+
+> Note: Make sure you have V8 build before.
+
+To build Node from ports collection:
+
+```
+cd /usr/ports/www/node
+make
+make install clean
+```
+
+This will create the Node executable under `/usr/local/bin/node`.
+
+You will want the Node package manager (`npm`) as well:
+
+```
+cd /usr/ports/www/npm
+make
+make install clean
+```
+
+The Node package manager exectuable will be created under `/usr/local/bin/npm`.
+
 
 ## PL/V8
 
