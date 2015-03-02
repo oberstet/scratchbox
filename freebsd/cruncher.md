@@ -141,98 +141,6 @@ pkg info -l postgresql94-contrib-9.4.1
 
 # Services Setup
 
-## Python
-
-To build CPython 2.7 from ports collection:
-
-```
-cd /usr/ports/lang/python27/
-make install clean
-```
-
-The Python interpreter will be created under `/usr/local/bin/python2.7`.
-
-
-## V8
-
-To build Google V8 JavaScript engine from ports collection:
-
-```
-cd /usr/ports/lang/v8
-make
-make install clean
-```
-
-This will create the V8 dynamic library under `/usr/local/lib/libv8.so.1`.
-
-
-## Node
-
-> Note: Make sure you have V8 build before.
-
-To build Node from ports collection:
-
-```
-cd /usr/ports/www/node
-make
-make install clean
-```
-
-This will create the Node executable under `/usr/local/bin/node`.
-
-You will want the Node package manager (`npm`) as well:
-
-```
-cd /usr/ports/www/npm
-make
-make install clean
-```
-
-The Node package manager exectuable will be created under `/usr/local/bin/npm`.
-
-
-## OpenLDAP
-
-To build the OpenLDAP server from the ports collection:
-
-```
-cd /usr/ports/net/openldap24-server/
-make config
-```
-
-Add the following options to the already selected ones:
-
-* `SHA2`
-* `SMBPWD`
-
-Then
-
-```
-make install clean
-```
-
-Edit the server configuration
-
-* `/usr/local/etc/openldap/slapd.conf`
-
-and add the following to `/etc/rc.conf`
-
-```
-cat >> /etc/rc.conf << EOT
-slapd_enable="YES"
-slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap://0.0.0.0/"'
-slapd_sockets="/var/run/openldap/ldapi"
-EOT
-```
-
-To start the server:
-
-```
-/usr/local/etc/rc.d/slapd start
-```
-
-The server (by default) runs under the non-privileged user `ldap`.
-
 
 ## PostgreSQL
 
@@ -326,6 +234,20 @@ make install clean
 See the README here `/usr/local/share/doc/postgresql/README-contrib`.
 
 
+## Python
+
+Python is required for PL/Python, and the latter is required for MADlib.
+
+To build CPython 2.7 from ports collection:
+
+```
+cd /usr/ports/lang/python27/
+make install clean
+```
+
+The Python interpreter will be created under `/usr/local/bin/python2.7`.
+
+
 ## PL/Python
 
 > Note: Make sure you have CPython 2.7 build before!
@@ -379,216 +301,6 @@ To change the trust status, so all users on a database can create functions in a
 ```
 UPDATE pg_language SET lanpltrusted = true WHERE lanname = 'plpythonu';
 ```
-
-
-## R
-
-The following describes building the [R statistics package](http://www.r-project.org/) from a [FreeBSD port](http://www.freshports.org/math/R), without any X things, and building the R shared library (which is required for PL/R).
-
-> Note: This is a *huge* package: long build time, pulls in lots of dependencies - like GCC!
-
-Configure the port:
-
-```
-cd /usr/ports/math/R
-make config
-```
-
-Select the following options (and only those):
-
-* `ATLAS`
-* `LIBR`
-* `PCRE_PORT`
-* `THREADS`
-
-The build and install R:
-
-```
-make install clean
-``` 
-
-This should have produced the R executable
-
-
-```console
-root@crunchertest:/usr/ports/math/R # which R
-/usr/local/bin/R
-
-root@crunchertest:/usr/ports/math/R # R --version
-R version 3.0.2 Patched (2013-11-12 r64207) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: amd64-portbld-freebsd10.1 (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under the terms of the
-GNU General Public License versions 2 or 3.
-For more information about these matters see
-http://www.gnu.org/licenses/.
-```
-
-and the R shared library
-
-```console
-root@crunchertest:/usr/ports/math/R # ldd /usr/local/lib/R/lib/libR.so
-/usr/local/lib/R/lib/libR.so:
-    libquadmath.so.0 => /usr/local/lib/gcc48/libquadmath.so.0 (0x801969000)
-    libm.so.5 => /lib/libm.so.5 (0x801bb6000)
-    libf77blas.so.2 => /usr/local/lib/libf77blas.so.2 (0x801dde000)
-    libgfortran.so.3 => /usr/local/lib/gcc48/libgfortran.so.3 (0x801ffc000)
-    libintl.so.8 => /usr/local/lib/libintl.so.8 (0x80246c000)
-    libreadline.so.6 => /usr/local/lib/libreadline.so.6 (0x802676000)
-    libpcre.so.1 => /usr/local/lib/libpcre.so.1 (0x8028c0000)
-    liblzma.so.5 => /usr/lib/liblzma.so.5 (0x802b33000)
-    libbz2.so.1 => /usr/local/lib/libbz2.so.1 (0x802d58000)
-    libz.so.6 => /lib/libz.so.6 (0x802f69000)
-    libgomp.so.1 => /usr/local/lib/gcc48/libgomp.so.1 (0x80317f000)
-    libthr.so.3 => /lib/libthr.so.3 (0x80338e000)
-    libc.so.7 => /lib/libc.so.7 (0x80081f000)
-    libatlas.so.2 => /usr/local/lib/libatlas.so.2 (0x8035b3000)
-    libgcc_s.so.1 => /usr/local/lib/gcc48/libgcc_s.so.1 (0x804082000)
-    libncurses.so.8 => /lib/libncurses.so.8 (0x804299000)
-```
-
-We won't use the R executable directly, but PL/R will use the shared library `/usr/local/lib/R/lib/libR.so`.
-
-Make sure the R shared library is found by the dynamic linker:
-
-```console
-$ ldconfig -r | grep libR
-    281:-lR.1 => /usr/local/lib/R/lib/libR.so.1
-```
-
-To reload cache and restart the dynamic linker
-
-```
-/etc/rc.d/ldconfig restart
-```
-
-
-## Cmake
-
-Building R requires Cmake as a dependency, which might trigger the following issue:
-
-```console
-root@crunchertest:/usr/ports/devel/cmake # make
-===>  Staging for cmake-3.1.3
-===>   cmake-3.1.3 depends on file: /usr/local/share/cmake/Modules/CMake.cmake - found
-===>   cmake-3.1.3 depends on shared library: libcurl.so - found (/usr/local/lib/libcurl.so.4.3.0)
-===>   cmake-3.1.3 depends on shared library: libexpat.so - found (/usr/local/lib/libexpat.so.1.6.0)
-===>   Generating temporary packing list
-make[2]: don't know how to make install/strip. Stop
-
-make[2]: stopped in /usr/ports/devel/cmake/work/cmake-3.1.3
-*** Error code 2
-
-Stop.
-make[1]: stopped in /usr/ports/devel/cmake
-*** Error code 1
-
-Stop.
-make: stopped in /usr/ports/devel/cmake
-```
-
-To work around, comment the following line in `/usr/ports/devel/cmake/Makefile`:
-
-```
-.if defined(STRIP) && ${STRIP} != "" && !defined(WITH_DEBUG)
-#INSTALL_TARGET=        install/strip
-.endif
-```
-
-## PL/R
-
-[PL/R](http://www.joeconway.com/plr/) is a R procedural language extension for PostgreSQL. For build instructions see [here](https://github.com/jconway/plr) and [here](http://www.joeconway.com/plr/doc/plr-install.html).
-
-Obviously, you will need to have PostgreSQL and R built before building PL/R.
-
-Make sure you have the PostgreSQL [extension building helper](http://www.postgresql.org/docs/9.4/static/extend-pgxs.html) `/usr/local/bin/pg_config` installed.
-
-Then, to build PL/R from vanilla sources (there currently is no FreeBSD port for PL/R)
-
-```
-cd /tmp
-wget http://www.joeconway.com/plr/plr-8.3.0.16.tar.gz
-tar xvzf plr-8.3.0.16.tar.gz
-cd plr
-export USE_PGXS=1
-gmake
-gmake install
-```
-
-To add PL/R to a database `oberstet`
-
-```
-su -l pgsql
-psql --dbname=oberstet < /usr/local/share/postgresql/extension/plr.sql
-```
-
-To allow any (non-privileged) database user in database `oberstet` to use the **untrusted** PL/R language:
-
-```console
-$ psql --dbname=oberstet 
-psql (9.4.1)
-Type "help" for help.
-
-oberstet=#  CREATE EXTENSION plr;
-ERROR:  function "plr_call_handler" already exists with same argument types
-oberstet=# select * from pg_language;
-  lanname  | lanowner | lanispl | lanpltrusted | lanplcallfoid | laninline | lanvalidator | lanacl 
------------+----------+---------+--------------+---------------+-----------+--------------+--------
- internal  |       10 | f       | f            |             0 |         0 |         2246 | 
- c         |       10 | f       | f            |             0 |         0 |         2247 | 
- sql       |       10 | f       | t            |             0 |         0 |         2248 | 
- plpgsql   |       10 | t       | t            |         12172 |     12173 |        12174 | 
- plpythonu |       10 | t       | t            |         16393 |     16394 |        16395 | 
- plr       |       10 | t       | f            |         18063 |         0 |            0 | 
-(6 rows)
-
-oberstet=# 
-oberstet=# UPDATE pg_language SET lanpltrusted = true WHERE lanname = 'plr';
-UPDATE 1
-oberstet=# 
-```
-
-To test PL/R, connect to a PL/R-enabled database and
-
-```sql
--- getting versions of installed PL/R extension
-SELECT r_version();
-
--- create a trivial R function
-CREATE OR REPLACE FUNCTION r_max (integer, integer) RETURNS integer
-AS
-'
-    if (arg1 > arg2)
-       return(arg1)
-    else
-       return(arg2)
-'
-LANGUAGE 'plr' STRICT;
-
--- call our R function from SQL
-SELECT r_max(2,3);
-
-
--- create a wrapper for SD function in R
-CREATE OR REPLACE FUNCTION r_sd (float[]) RETURNS float
-AS
-'
-   return(sd(arg1))
-'
-LANGUAGE 'plr' STRICT;
-
--- call our R function
-SELECT r_sd(array[1.2, 3.4, 5.0, 9.9]);
-
--- generate a series of integers
-SELECT generate_series(5, 23);
-
--- call our R function with a generated series
-SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
-```
-
 
 ## MADlib
 
@@ -724,15 +436,306 @@ SELECT madlib.array_mean(array[1,2,3]);
 SELECT madlib.normal_cdf(0);
 ```
 
+## Cmake
 
-## PL/V8
+Building R requires Cmake as a dependency, which might trigger the following issue:
 
-[PL/V8](https://code.google.com/p/plv8js/) is a JavaScript procedural language extension for PostgreSQL using the V8 engine under the hood. For build instructions, see [here](https://code.google.com/p/plv8js/wiki/PLV8).
+```console
+root@crunchertest:/usr/ports/devel/cmake # make
+===>  Staging for cmake-3.1.3
+===>   cmake-3.1.3 depends on file: /usr/local/share/cmake/Modules/CMake.cmake - found
+===>   cmake-3.1.3 depends on shared library: libcurl.so - found (/usr/local/lib/libcurl.so.4.3.0)
+===>   cmake-3.1.3 depends on shared library: libexpat.so - found (/usr/local/lib/libexpat.so.1.6.0)
+===>   Generating temporary packing list
+make[2]: don't know how to make install/strip. Stop
 
-> Note: You will need PostgreSQL and V8 built before (obviously).
+make[2]: stopped in /usr/ports/devel/cmake/work/cmake-3.1.3
+*** Error code 2
+
+Stop.
+make[1]: stopped in /usr/ports/devel/cmake
+*** Error code 1
+
+Stop.
+make: stopped in /usr/ports/devel/cmake
+```
+
+To work around, comment the following line in `/usr/ports/devel/cmake/Makefile`:
+
+```
+.if defined(STRIP) && ${STRIP} != "" && !defined(WITH_DEBUG)
+#INSTALL_TARGET=        install/strip
+.endif
+```
 
 
-# Java JDK
+## R
+
+The following describes building the [R statistics package](http://www.r-project.org/) from a [FreeBSD port](http://www.freshports.org/math/R), without any X things, and building the R shared library (which is required for PL/R).
+
+> Note: This is a *huge* package: long build time, pulls in lots of dependencies - like GCC!
+
+Configure the port:
+
+```
+cd /usr/ports/math/R
+make config
+```
+
+Select the following options (and only those):
+
+* `ATLAS`
+* `LIBR`
+* `PCRE_PORT`
+* `THREADS`
+
+The build and install R:
+
+```
+make install clean
+``` 
+
+This should have produced the R executable
+
+
+```console
+root@crunchertest:/usr/ports/math/R # which R
+/usr/local/bin/R
+
+root@crunchertest:/usr/ports/math/R # R --version
+R version 3.0.2 Patched (2013-11-12 r64207) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: amd64-portbld-freebsd10.1 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under the terms of the
+GNU General Public License versions 2 or 3.
+For more information about these matters see
+http://www.gnu.org/licenses/.
+```
+
+and the R shared library
+
+```console
+root@crunchertest:/usr/ports/math/R # ldd /usr/local/lib/R/lib/libR.so
+/usr/local/lib/R/lib/libR.so:
+    libquadmath.so.0 => /usr/local/lib/gcc48/libquadmath.so.0 (0x801969000)
+    libm.so.5 => /lib/libm.so.5 (0x801bb6000)
+    libf77blas.so.2 => /usr/local/lib/libf77blas.so.2 (0x801dde000)
+    libgfortran.so.3 => /usr/local/lib/gcc48/libgfortran.so.3 (0x801ffc000)
+    libintl.so.8 => /usr/local/lib/libintl.so.8 (0x80246c000)
+    libreadline.so.6 => /usr/local/lib/libreadline.so.6 (0x802676000)
+    libpcre.so.1 => /usr/local/lib/libpcre.so.1 (0x8028c0000)
+    liblzma.so.5 => /usr/lib/liblzma.so.5 (0x802b33000)
+    libbz2.so.1 => /usr/local/lib/libbz2.so.1 (0x802d58000)
+    libz.so.6 => /lib/libz.so.6 (0x802f69000)
+    libgomp.so.1 => /usr/local/lib/gcc48/libgomp.so.1 (0x80317f000)
+    libthr.so.3 => /lib/libthr.so.3 (0x80338e000)
+    libc.so.7 => /lib/libc.so.7 (0x80081f000)
+    libatlas.so.2 => /usr/local/lib/libatlas.so.2 (0x8035b3000)
+    libgcc_s.so.1 => /usr/local/lib/gcc48/libgcc_s.so.1 (0x804082000)
+    libncurses.so.8 => /lib/libncurses.so.8 (0x804299000)
+```
+
+We won't use the R executable directly, but PL/R will use the shared library `/usr/local/lib/R/lib/libR.so`.
+
+Make sure the R shared library is found by the dynamic linker:
+
+```console
+$ ldconfig -r | grep libR
+    281:-lR.1 => /usr/local/lib/R/lib/libR.so.1
+```
+
+To reload cache and restart the dynamic linker
+
+```
+/etc/rc.d/ldconfig restart
+```
+
+
+## PL/R
+
+[PL/R](http://www.joeconway.com/plr/) is a R procedural language extension for PostgreSQL. For build instructions see [here](https://github.com/jconway/plr) and [here](http://www.joeconway.com/plr/doc/plr-install.html).
+
+Obviously, you will need to have PostgreSQL and R built before building PL/R.
+
+Make sure you have the PostgreSQL [extension building helper](http://www.postgresql.org/docs/9.4/static/extend-pgxs.html) `/usr/local/bin/pg_config` installed.
+
+Then, to build PL/R from vanilla sources (there currently is no FreeBSD port for PL/R)
+
+```
+cd /tmp
+wget http://www.joeconway.com/plr/plr-8.3.0.16.tar.gz
+tar xvzf plr-8.3.0.16.tar.gz
+cd plr
+export USE_PGXS=1
+gmake
+gmake install
+```
+
+To add PL/R to a database `oberstet`
+
+```
+su -l pgsql
+psql --dbname=oberstet < /usr/local/share/postgresql/extension/plr.sql
+```
+
+To allow any (non-privileged) database user in database `oberstet` to use the **untrusted** PL/R language:
+
+```console
+$ psql --dbname=oberstet 
+psql (9.4.1)
+Type "help" for help.
+
+oberstet=#  CREATE EXTENSION plr;
+ERROR:  function "plr_call_handler" already exists with same argument types
+oberstet=# select * from pg_language;
+  lanname  | lanowner | lanispl | lanpltrusted | lanplcallfoid | laninline | lanvalidator | lanacl 
+-----------+----------+---------+--------------+---------------+-----------+--------------+--------
+ internal  |       10 | f       | f            |             0 |         0 |         2246 | 
+ c         |       10 | f       | f            |             0 |         0 |         2247 | 
+ sql       |       10 | f       | t            |             0 |         0 |         2248 | 
+ plpgsql   |       10 | t       | t            |         12172 |     12173 |        12174 | 
+ plpythonu |       10 | t       | t            |         16393 |     16394 |        16395 | 
+ plr       |       10 | t       | f            |         18063 |         0 |            0 | 
+(6 rows)
+
+oberstet=# 
+oberstet=# UPDATE pg_language SET lanpltrusted = true WHERE lanname = 'plr';
+UPDATE 1
+oberstet=# 
+```
+
+To test PL/R, connect to a PL/R-enabled database and
+
+```sql
+-- getting versions of installed PL/R extension
+SELECT r_version();
+
+-- create a trivial R function
+CREATE OR REPLACE FUNCTION r_max (integer, integer) RETURNS integer
+AS
+'
+    if (arg1 > arg2)
+       return(arg1)
+    else
+       return(arg2)
+'
+LANGUAGE 'plr' STRICT;
+
+-- call our R function from SQL
+SELECT r_max(2,3);
+
+
+-- create a wrapper for SD function in R
+CREATE OR REPLACE FUNCTION r_sd (float[]) RETURNS float
+AS
+'
+   return(sd(arg1))
+'
+LANGUAGE 'plr' STRICT;
+
+-- call our R function
+SELECT r_sd(array[1.2, 3.4, 5.0, 9.9]);
+
+-- generate a series of integers
+SELECT generate_series(5, 23);
+
+-- call our R function with a generated series
+SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
+```
+
+
+----------------
+
+
+
+
+
+## V8
+
+To build Google V8 JavaScript engine from ports collection:
+
+```
+cd /usr/ports/lang/v8
+make
+make install clean
+```
+
+This will create the V8 dynamic library under `/usr/local/lib/libv8.so.1`.
+
+
+## Node
+
+> Note: Make sure you have V8 build before.
+
+To build Node from ports collection:
+
+```
+cd /usr/ports/www/node
+make
+make install clean
+```
+
+This will create the Node executable under `/usr/local/bin/node`.
+
+You will want the Node package manager (`npm`) as well:
+
+```
+cd /usr/ports/www/npm
+make
+make install clean
+```
+
+The Node package manager exectuable will be created under `/usr/local/bin/npm`.
+
+
+## OpenLDAP
+
+To build the OpenLDAP server from the ports collection:
+
+```
+cd /usr/ports/net/openldap24-server/
+make config
+```
+
+Add the following options to the already selected ones:
+
+* `SHA2`
+* `SMBPWD`
+
+Then
+
+```
+make install clean
+```
+
+Edit the server configuration
+
+* `/usr/local/etc/openldap/slapd.conf`
+
+and add the following to `/etc/rc.conf`
+
+```
+cat >> /etc/rc.conf << EOT
+slapd_enable="YES"
+slapd_flags='-h "ldapi://%2fvar%2frun%2fopenldap%2fldapi/ ldap://0.0.0.0/"'
+slapd_sockets="/var/run/openldap/ldapi"
+EOT
+```
+
+To start the server:
+
+```
+/usr/local/etc/rc.d/slapd start
+```
+
+The server (by default) runs under the non-privileged user `ldap`.
+
+
+## Java JDK
+
+A Java run-time (and JDK for building stuff) is required for Apache Solr (a Java-based software).
 
 > Note: This is a *huge* package and pulls in lots of dependencies including the kitchen sink and X!. It will happily *ignore* our `/etc/make.conf` which is set up to ignore any X stuff. Don't know how to work around.
 
@@ -761,7 +764,7 @@ cd /usr/ports/devel/maven31
 make install clean
 ```
 
-# Apache Solr
+## Apache Solr
 
 Apache Solr is a full-text indexing engine.
 
@@ -788,6 +791,12 @@ apache-solr-4.10.1:
     /usr/local/share/examples/apache-solr/README.txt
 ...
 ```
+
+## PL/V8
+
+[PL/V8](https://code.google.com/p/plv8js/) is a JavaScript procedural language extension for PostgreSQL using the V8 engine under the hood. For build instructions, see [here](https://code.google.com/p/plv8js/wiki/PLV8).
+
+> Note: You will need PostgreSQL and V8 built before (obviously).
 
 
 ## PostgreSQL XL
