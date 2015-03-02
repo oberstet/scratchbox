@@ -13,6 +13,41 @@ The following a setup and administration guide for re-creating the new ADR host 
 
 All of above running on [FreeBSD](https://www.freebsd.org/) 10.1 (x86-64) using [ZFS](http://open-zfs.org/) and [jails](https://www.freebsd.org/doc/en/books/handbook/jails.html) to isolation services in [OS containers](http://en.wikipedia.org/wiki/Operating-system-level_virtualization).
 
+# TOC
+
+* [Base Setup](Base Setup)
+   - [Update System](Update System)
+   - [Update Ports Collection](Update Ports Collection)
+   - [Configure Ports Collection](Configure Ports Collection)
+   - [Install Common Tools](Install Common Tools)
+   - [Install htop](Install htop)
+   - [Setup fdescfs and procfs](Setup fdescfs and procfs)
+   - [Setup DTrace](Setup DTrace)
+   - [The Package Manager](The Package Manager)
+* [Services Setup](Services Setup)
+   - [PostgreSQL](PostgreSQL)
+   - [PostgreSQL Contrib Packages](PostgreSQL Contrib Packages)
+   - [Python](Python)
+   - [PL/Python](PL/Python)
+   - [MADlib](MADlib)
+   - [Cmake](Cmake)
+   - [R](R)
+   - [PL/R](PL/R)
+   - [OpenLDAP](OpenLDAP)
+   - [Java](Java)
+   - [Apache Solr](Apache Solr)
+   - [V8](V8)
+   - [Node](Node)
+   - [PL/V8](PL/V8)
+   - [PostgreSQL XL](PostgreSQL XL)
+   - [Samba](Samba)
+   - [Web Server](Web Server)
+   - [GitLab](GitLab)
+   - [iPython](iPython)
+   - [SQL Workbench](SQL Workbench)
+   - [R Studio Server](R Studio Server)
+
+
 # Base Setup
 
 ## Update System
@@ -38,7 +73,7 @@ portsnap extract
 portsnap update
 ```
 
-## Configure Ports
+## Configure Ports Collection
 
 Ports are built from (patched) sources. Building ports can be customized using the global `/etc/make.conf` configuration.
 
@@ -61,7 +96,7 @@ EOT
 
 This will disable any X stuff, and enable building using 4 cores in parallel and optimize for the specific machine and CPU architecture being build on.
 
-## Some Tools
+## Install Common Tools
 
 We need a couple of standard tools - and we won't bother building those from source, but install from prebuilt binary packages:
 
@@ -87,7 +122,7 @@ pkg install -y gmake
 pkg install -y git
 ```
 
-### htop
+### Install htop
 
 Another useful tool is [htop](http://hisham.hm/htop/). This requires a little more pimping:
 
@@ -97,7 +132,7 @@ echo "linproc /compat/linux/proc linprocfs rw,late 0 0" >> /etc/fstab
 mkdir -p /usr/compat/linux/proc; ln -s /usr/compat /compat; mount linproc
 ```
 
-### fdescfs and procfs
+### Setup fdescfs and procfs
 
 As we are on it, we add the following. OpenJDK requires `fdescfs(5)` mounted on `/dev/fd` and `procfs(5)` mounted on `/proc`.
 
@@ -115,7 +150,7 @@ proc    /proc       procfs      rw  0   0
 EOT
 ```
 
-### DTrace
+### Setup DTrace
 
 [DTrace](http://en.wikipedia.org/wiki/DTrace) is a powerful (actually, unmatched) system and application monitoring and performance analysis tool that **can run in production** with near zero overhead.
 
@@ -133,7 +168,7 @@ cd /usr/ports/sysutils/DTraceToolkit
 make install clean
 ```
 
-### pkg
+### The Package Manager
 
 FreeBSD comes with [pkg](https://www.freebsd.org/doc/en/books/handbook/pkgng-intro.html), a tool for package management.
 
@@ -144,7 +179,6 @@ pkg info -l postgresql94-contrib-9.4.1
 ```
 
 # Services Setup
-
 
 ## PostgreSQL
 
@@ -225,7 +259,7 @@ createdb oberstet -O oberstet
 ```
 
 
-## PostgreSQL Contrib
+## PostgreSQL Contrib Packages
 
 To build the PostgreSQL contrib packages from the ports collection:
 
@@ -671,6 +705,9 @@ SELECT generate_series(5, 23);
 SELECT r_sd(array_agg(generate_series)) FROM generate_series(5, 23);
 ```
 
+![](plr_test.png)
+
+
 ## OpenLDAP
 
 To build the OpenLDAP server from the ports collection:
@@ -714,7 +751,7 @@ To start the server:
 The server (by default) runs under the non-privileged user `ldap`.
 
 
-## Java JDK
+## Java
 
 A Java run-time (and JDK for building stuff) is required for Apache Solr (a Java-based software).
 
@@ -862,6 +899,9 @@ oberstet@thinkpad-t430s:~$ ipython notebook
 ...
 ```
 
+![](ipython_test.png)
+
+
 ## SQL Workbench
 
 This is for Ubuntu desktop
@@ -887,3 +927,5 @@ https://support.rstudio.com/hc/en-us/articles/200552306-Getting-Started
 cd /tmp
 wget --no-check-certificate https://github.com/rstudio/rstudio/tarball/v0.98.507
 ```
+
+![](rstudio_test.png)
