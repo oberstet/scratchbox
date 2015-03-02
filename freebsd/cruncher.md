@@ -13,8 +13,6 @@ The following a setup and administration guide for re-creating the new ADR host 
 
 All of above running on [FreeBSD](https://www.freebsd.org/) 10.1 (x86-64) using [ZFS](http://open-zfs.org/) and [jails](https://www.freebsd.org/doc/en/books/handbook/jails.html) to isolation services in [OS containers](http://en.wikipedia.org/wiki/Operating-system-level_virtualization).
 
-
-
 # Base Setup
 
 ## Update System
