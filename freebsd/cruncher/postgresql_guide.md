@@ -99,9 +99,7 @@ DROP FOREIGN TABLE file1;
 
 # Partitioning
 
-http://www.postgresql.org/docs/current/static/ddl-partitioning.html
-
-
+* http://www.postgresql.org/docs/current/static/ddl-partitioning.html
 
 # Using PostgreSQL from R Studio (Desktop)
 
@@ -110,12 +108,11 @@ install.packages("RPostgreSQL")
 
 library(RPostgreSQL)
 drv <- dbDriver("PostgreSQL")
-con <- dbConnect(drv, dbname="oberstet", host="bvr-sql18", port=5432, user="oberstet", password="23664775")
+con <- dbConnect(drv, dbname="oberstet", host="bvr-sql18", port=5432, user="oberstet", password="123456")
 
 dbExistsTable(con, c("public","test1"))
 myTable <- dbReadTable(con, c("public","test1"))
 ```
-
 
 # Using psql from Command Line
 
