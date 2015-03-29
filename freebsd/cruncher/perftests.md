@@ -365,6 +365,9 @@ matches well with the numbers from the Intel datasheet - but only for the DC S37
 |  DC S3700        | 75,000          | 67,186          |  90%   |
 |  P3700           | 450,000         | 75,945          |  17%   |
 
-The results indicate that there is a performance issue with the NVMe devices already at the block device or device driver level.
+So while from the datasheets the P3700 should be 6x as fast as the DC S3700, the FIO test above only gives a 13% speedup.
 
-For the internal SSDs, we can continue testing at the ZFS level after we have verified the rest of the datasheet numbers at the block device level.
+At this point, we might draw two preliminary conclusions:
+
+1. The results indicate that there is a performance issue with the NVMe devices already at the block device or device driver level.
+2. For the internal SSDs, we should verify the rest of the performance numbers (random writes, sequential reads, sequential writes), but chances results are similar close, and then we can continue testing at the ZFS level.
