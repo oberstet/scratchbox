@@ -360,13 +360,13 @@ With 67,186 IOPS measured using FIO, this compares quite well with the "up to 75
 At the block device level, the FIO performance results for 4kB pure random reads
 matches well with the numbers from the Intel datasheet - but only for the DC S3700, not the P3700.
 
-----------------------------------------------------------------
-|                 | Intel Datasheet | FIO Measurement |  Match |
-|-----------------|-----------------|-----------------|--------|
-| DC S3700        | 75,000          | 67,186          |  90%   |
-|-----------------|-----------------|-----------------|--------|
-| P3700           | 450,000         | 75,945          |  17%   |
-----------------------------------------------------------------
+--------------------------------------------------------------------
+|                 | Intel Datasheet | FIO Measurement |  Match     |
+--------------------------------------------------------------------
+| **DC S3700**    | 75,000          | 67,186          |  **90%**   |
+--------------------------------------------------------------------
+| **P3700**       | 450,000         | 75,945          |  **17%**   |
+--------------------------------------------------------------------
 
 The results indicate that there is a performance issue with the NVMe devices already at the block device or device driver level.
 
