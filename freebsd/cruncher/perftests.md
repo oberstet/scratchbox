@@ -56,3 +56,66 @@ root@s4l-zfs:~/oberstet # nvmecontrol devlist
  nvme7: INTEL SSDPEDMD020T4
     nvme7ns1 (1907729MB)
 ```
+
+To query a controller:
+
+```console
+root@s4l-zfs:~/oberstet # nvmecontrol identify nvme0
+Controller Capabilities/Features
+================================
+Vendor ID:                  8086
+Subsystem Vendor ID:        8086
+Serial Number:              CVFT4476002A2P0EGN
+Model Number:               INTEL SSDPEDMD020T4
+Firmware Version:           8DV10130
+Recommended Arb Burst:      0
+IEEE OUI Identifier:        e4 d2 5c
+Multi-Interface Cap:        00
+Max Data Transfer Size:     131072
+
+Admin Command Set Attributes
+============================
+Security Send/Receive:       Not Supported
+Format NVM:                  Supported
+Firmware Activate/Download:  Supported
+Abort Command Limit:         4
+Async Event Request Limit:   4
+Number of Firmware Slots:    1
+Firmware Slot 1 Read-Only:   No
+Per-Namespace SMART Log:     No
+Error Log Page Entries:      64
+Number of Power States:      1
+
+NVM Command Set Attributes
+==========================
+Submission Queue Entry Size
+  Max:                       64
+  Min:                       64
+Completion Queue Entry Size
+  Max:                       16
+  Min:                       16
+Number of Namespaces:        1
+Compare Command:             Not Supported
+Write Uncorrectable Command: Supported
+Dataset Management Command:  Supported
+Volatile Write Cache:        Not Present
+```
+
+To get information on a namespace:
+
+```console
+root@s4l-zfs:~/oberstet # nvmecontrol identify nvme0ns1
+Size (in LBAs):              3907029168 (3726M)
+Capacity (in LBAs):          3907029168 (3726M)
+Utilization (in LBAs):       3907029168 (3726M)
+Thin Provisioning:           Not Supported
+Number of LBA Formats:       7
+Current LBA Format:          LBA Format #00
+LBA Format #00: Data Size:   512  Metadata Size:     0
+LBA Format #01: Data Size:   512  Metadata Size:     8
+LBA Format #02: Data Size:   512  Metadata Size:    16
+LBA Format #03: Data Size:  4096  Metadata Size:     0
+LBA Format #04: Data Size:  4096  Metadata Size:     8
+LBA Format #05: Data Size:  4096  Metadata Size:    64
+LBA Format #06: Data Size:  4096  Metadata Size:   128
+```
