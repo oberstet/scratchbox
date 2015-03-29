@@ -266,44 +266,7 @@ The CPU load is negliable, the latencies are very flat and with 79,945 IOPS the 
 
 However, now we finally have arrived at 80k / 450k or roughly 18% of the datesheet performance. And this is at the filesystem level.
 
-Maybe we ask too much? Lets check the performance of one of the internal Intel DC S3700 SSDs using the exact same control file as above:
-
-
-```console
-root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
-random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
-...
-fio-2.1.9
-Starting 32 threads
-Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [258.6MB/0KB/0KB /s] [66.2K/0/0 iops] [eta 00m:00s]
-random-read-4k: (groupid=0, jobs=32): err= 0: pid=101028: Sun Mar 29 23:48:25 2015
-  read : io=7873.7MB, bw=268745KB/s, iops=67186, runt= 30001msec
-    clat (usec): min=142, max=1137.3K, avg=475.05, stdev=1195.30
-     lat (usec): min=142, max=1137.3K, avg=475.13, stdev=1195.31
-    clat percentiles (usec):
-     |  1.00th=[  326],  5.00th=[  354], 10.00th=[  374], 20.00th=[  394],
-     | 30.00th=[  410], 40.00th=[  426], 50.00th=[  446], 60.00th=[  466],
-     | 70.00th=[  490], 80.00th=[  524], 90.00th=[  596], 95.00th=[  668],
-     | 99.00th=[  804], 99.50th=[  868], 99.90th=[ 1432], 99.95th=[ 2672],
-     | 99.99th=[17536]
-    bw (KB  /s): min=  299, max= 9288, per=3.13%, avg=8411.83, stdev=1217.48
-    lat (usec) : 250=0.01%, 500=72.90%, 750=25.08%, 1000=1.82%
-    lat (msec) : 2=0.14%, 4=0.03%, 10=0.02%, 20=0.01%, 50=0.01%
-    lat (msec) : 100=0.01%, 250=0.01%, 500=0.01%, 750=0.01%, 2000=0.01%
-  cpu          : usr=0.42%, sys=5.41%, ctx=2001658, majf=0, minf=32
-  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
-     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued    : total=r=2015652/w=0/d=0, short=r=0/w=0/d=0
-     latency   : target=0, window=0, percentile=100.00%, depth=1
-
-Run status group 0 (all jobs):
-   READ: io=7873.7MB, aggrb=268744KB/s, minb=268744KB/s, maxb=268744KB/s, mint=30001msec, maxt=30001msec
-```
-
-With 67,186 IOPS measured using FIO, this compares quite well with the "up to 75,000 IOPS" that Intel [claims](http://www.intel.com/content/www/us/en/solid-state-drives/solid-state-drives-dc-s3700-series.html) for this device.
-
-> The 12 Intel DC S3700 SSDs are connected to a HBA (LSI SAS 3008) using the `msr` driver. 
+Maybe we ask too much? Lets check the performance of one of the internal Intel DC S3700 SSDs. These 12 Intel DC S3700 SSDs are connected to a HBA (LSI SAS 3008) using the `msr` driver. 
 
 ```console
 root@s4l-zfs:~/oberstet # camcontrol identify da11
@@ -355,11 +318,56 @@ HPA - Security                 no
 root@s4l-zfs:~/oberstet # 
 ```
 
+Here are FIO results using the exact same control file as above:
 
 
+```console
+root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
+random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+fio-2.1.9
+Starting 32 threads
+Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [258.6MB/0KB/0KB /s] [66.2K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101028: Sun Mar 29 23:48:25 2015
+  read : io=7873.7MB, bw=268745KB/s, iops=67186, runt= 30001msec
+    clat (usec): min=142, max=1137.3K, avg=475.05, stdev=1195.30
+     lat (usec): min=142, max=1137.3K, avg=475.13, stdev=1195.31
+    clat percentiles (usec):
+     |  1.00th=[  326],  5.00th=[  354], 10.00th=[  374], 20.00th=[  394],
+     | 30.00th=[  410], 40.00th=[  426], 50.00th=[  446], 60.00th=[  466],
+     | 70.00th=[  490], 80.00th=[  524], 90.00th=[  596], 95.00th=[  668],
+     | 99.00th=[  804], 99.50th=[  868], 99.90th=[ 1432], 99.95th=[ 2672],
+     | 99.99th=[17536]
+    bw (KB  /s): min=  299, max= 9288, per=3.13%, avg=8411.83, stdev=1217.48
+    lat (usec) : 250=0.01%, 500=72.90%, 750=25.08%, 1000=1.82%
+    lat (msec) : 2=0.14%, 4=0.03%, 10=0.02%, 20=0.01%, 50=0.01%
+    lat (msec) : 100=0.01%, 250=0.01%, 500=0.01%, 750=0.01%, 2000=0.01%
+  cpu          : usr=0.42%, sys=5.41%, ctx=2001658, majf=0, minf=32
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=2015652/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
 
+Run status group 0 (all jobs):
+   READ: io=7873.7MB, aggrb=268744KB/s, minb=268744KB/s, maxb=268744KB/s, mint=30001msec, maxt=30001msec
+```
 
+With 67,186 IOPS measured using FIO, this compares quite well with the "up to 75,000 IOPS" that Intel [claims](http://www.intel.com/content/www/us/en/solid-state-drives/solid-state-drives-dc-s3700-series.html) for this device.
 
-WARNING: WITNESS option enabled, expect reduced performance.
-WARNING: DIAGNOSTIC option enabled, expect reduced performance.
+#### Summary
 
+At the block device level, the FIO performance results for 4kB pure random reads
+matches well with the numbers from the Intel datasheet - but only for the DC S3700, not the P3700.
+
+----------------------------------------------------------------
+|                 | Intel Datasheet | FIO Measurement |  Match |
+|-----------------|-----------------|-----------------|--------|
+| DC S3700        | 75,000          | 67,186          |  90%   |
+|-----------------|-----------------|-----------------|--------|
+| P3700           | 450,000         | 75,945          |  17%   |
+----------------------------------------------------------------
+
+The results indicate that there is a performance issue with the NVMe devices already at the block device or device driver level.
+
+For the internal SSDs, we can continue testing at the ZFS level after we have verified the rest of the datasheet numbers at the block device level.
