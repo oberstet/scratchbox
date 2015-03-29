@@ -171,9 +171,7 @@ Using this control file
 root@s4l-zfs:~/oberstet # cat control.fio 
 [global]
 thread=1
-filename=/dev/nvd0
 ioengine=posixaio
-#ioengine=sync
 direct=1
 time_based=1
 randrepeat=0
@@ -194,71 +192,174 @@ group_reporting
 we get 
 
 ```console
-root@s4l-zfs:~/oberstet # fio control.fio
+root@s4l-zfs:~/oberstet # fio --filename=/dev/nvd7 control.fio
 random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=posixaio, iodepth=32
 ...
 fio-2.1.9
 Starting 4 threads
-Jobs: 4 (f=4): [RRRR] [100.0% done] [330.3MB/0KB/0KB /s] [84.6K/0/0 iops] [eta 00m:00s]
-random-read-4k: (groupid=0, jobs=4): err= 0: pid=102081: Sun Mar 29 23:02:25 2015
-  read : io=9920.3MB, bw=338589KB/s, iops=84647, runt= 30002msec
-    slat (usec): min=1, max=285, avg=11.76, stdev= 7.76
-    clat (usec): min=261, max=4989, avg=1431.39, stdev=430.32
-     lat (usec): min=271, max=5015, avg=1443.15, stdev=427.03
+Jobs: 4 (f=4): [RRRR] [100.0% done] [327.5MB/0KB/0KB /s] [83.8K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=4): err= 0: pid=101035: Sun Mar 29 23:37:56 2015
+  read : io=10216MB, bw=348685KB/s, iops=87171, runt= 30002msec
+    slat (usec): min=1, max=253, avg=13.38, stdev=10.00
+    clat (usec): min=223, max=5266, avg=1362.70, stdev=445.07
+     lat (usec): min=249, max=5320, avg=1376.09, stdev=443.27
     clat percentiles (usec):
-     |  1.00th=[  572],  5.00th=[  692], 10.00th=[  796], 20.00th=[  980],
-     | 30.00th=[ 1160], 40.00th=[ 1400], 50.00th=[ 1528], 60.00th=[ 1608],
-     | 70.00th=[ 1704], 80.00th=[ 1800], 90.00th=[ 1944], 95.00th=[ 2064],
-     | 99.00th=[ 2256], 99.50th=[ 2320], 99.90th=[ 2544], 99.95th=[ 2704],
-     | 99.99th=[ 3568]
-    bw (KB  /s): min=58024, max=91504, per=25.01%, avg=84686.41, stdev=3869.77
-    lat (usec) : 500=0.13%, 750=7.42%, 1000=13.74%
-    lat (msec) : 2=71.29%, 4=7.42%, 10=0.01%
-  cpu          : usr=1.14%, sys=98.80%, ctx=11430, majf=0, minf=33
-  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=1.6%, 16=87.7%, 32=10.5%, >=64=0.0%
+     |  1.00th=[  524],  5.00th=[  612], 10.00th=[  700], 20.00th=[  932],
+     | 30.00th=[ 1112], 40.00th=[ 1272], 50.00th=[ 1416], 60.00th=[ 1528],
+     | 70.00th=[ 1624], 80.00th=[ 1720], 90.00th=[ 1912], 95.00th=[ 2064],
+     | 99.00th=[ 2352], 99.50th=[ 2480], 99.90th=[ 2832], 99.95th=[ 2960],
+     | 99.99th=[ 3344]
+    bw (KB  /s): min=63600, max=104496, per=25.05%, avg=87341.55, stdev=9264.77
+    lat (usec) : 250=0.01%, 500=0.51%, 750=11.62%, 1000=11.05%
+    lat (msec) : 2=69.72%, 4=7.10%, 10=0.01%
+  cpu          : usr=1.22%, sys=98.70%, ctx=15029, majf=0, minf=80
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.6%, 8=3.9%, 16=85.6%, 32=9.9%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=91.5%, 8=3.2%, 16=4.8%, 32=0.5%, 64=0.0%, >=64=0.0%
-     issued    : total=r=2539587/w=0/d=0, short=r=0/w=0/d=0
+     complete  : 0=0.0%, 4=92.1%, 8=2.8%, 16=4.1%, 32=1.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=2615310/w=0/d=0, short=r=0/w=0/d=0
      latency   : target=0, window=0, percentile=100.00%, depth=32
 
 Run status group 0 (all jobs):
-   READ: io=9920.3MB, aggrb=338589KB/s, minb=338589KB/s, maxb=338589KB/s, mint=30002msec, maxt=30002msec
+   READ: io=10216MB, aggrb=348684KB/s, minb=348684KB/s, maxb=348684KB/s, mint=30002msec, maxt=30002msec
 ```
 
 FIO measures 84,647 IOPS. nvmecontrol says 128,345 IOPS. And Intel says 450,000 IOPS. Mmmmh.
 
 > Using the **posixaio* engine of FIO above was the fastest run of varying numjobs and iodepth.
 
-Here is what we get using the **sync** engine of FIO (fastest parameters):
+Further, look at the CPU load. The AIO implementation in the FreeBSD Posix layer seems to incur some overhead.
+
+Here is what we get using the **sync** engine of FIO (fastest parameters) by setting `ioengine=sync` in the control file:
 
 ```console
-root@s4l-zfs:~/oberstet # fio control.fio
+root@s4l-zfs:~/oberstet # fio --filename=/dev/nvd7 control.fio
 random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
 ...
 fio-2.1.9
 Starting 32 threads
-Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [307.6MB/0KB/0KB /s] [78.8K/0/0 iops] [eta 00m:00s]
-random-read-4k: (groupid=0, jobs=32): err= 0: pid=100457: Sun Mar 29 23:16:20 2015
-  read : io=9182.9MB, bw=313429KB/s, iops=78357, runt= 30001msec
-    clat (usec): min=33, max=4039, avg=406.86, stdev=132.64
-     lat (usec): min=33, max=4039, avg=406.96, stdev=132.65
+Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [342.4MB/0KB/0KB /s] [87.7K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101033: Sun Mar 29 23:41:04 2015
+  read : io=8900.2MB, bw=303780KB/s, iops=75945, runt= 30001msec
+    clat (usec): min=60, max=3515, avg=420.06, stdev=60.56
+     lat (usec): min=60, max=3515, avg=420.15, stdev=60.57
     clat percentiles (usec):
-     |  1.00th=[  163],  5.00th=[  247], 10.00th=[  286], 20.00th=[  326],
-     | 30.00th=[  358], 40.00th=[  382], 50.00th=[  406], 60.00th=[  426],
-     | 70.00th=[  446], 80.00th=[  474], 90.00th=[  506], 95.00th=[  540],
-     | 99.00th=[  812], 99.50th=[ 1004], 99.90th=[ 1608], 99.95th=[ 2768],
-     | 99.99th=[ 3312]
-    bw (KB  /s): min= 8024, max=12880, per=3.13%, avg=9804.22, stdev=1227.31
-    lat (usec) : 50=0.01%, 100=0.10%, 250=5.24%, 500=83.24%, 750=10.11%
-    lat (usec) : 1000=0.79%
-    lat (msec) : 2=0.44%, 4=0.07%, 10=0.01%
-  cpu          : usr=0.60%, sys=3.88%, ctx=2351228, majf=0, minf=32
+     |  1.00th=[  318],  5.00th=[  342], 10.00th=[  354], 20.00th=[  366],
+     | 30.00th=[  378], 40.00th=[  398], 50.00th=[  418], 60.00th=[  438],
+     | 70.00th=[  454], 80.00th=[  474], 90.00th=[  490], 95.00th=[  506],
+     | 99.00th=[  540], 99.50th=[  556], 99.90th=[  636], 99.95th=[  724],
+     | 99.99th=[ 1320]
+    bw (KB  /s): min= 8160, max=11232, per=3.12%, avg=9475.23, stdev=846.42
+    lat (usec) : 100=0.01%, 250=0.05%, 500=93.62%, 750=6.29%, 1000=0.02%
+    lat (msec) : 2=0.01%, 4=0.01%
+  cpu          : usr=0.52%, sys=2.92%, ctx=2278909, majf=0, minf=32
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued    : total=r=2350797/w=0/d=0, short=r=0/w=0/d=0
+     issued    : total=r=2278428/w=0/d=0, short=r=0/w=0/d=0
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: io=9182.9MB, aggrb=313429KB/s, minb=313429KB/s, maxb=313429KB/s, mint=30001msec, maxt=30001msec
+   READ: io=8900.2MB, aggrb=303780KB/s, minb=303780KB/s, maxb=303780KB/s, mint=30001msec, maxt=30001msec
 ```
+
+The CPU load is negliable, the latencies are very flat and with 79,945 IOPS the throughput is only marginally less than using AIO.
+
+However, now we finally have arrived at 80k / 450k or roughly 18% of the datesheet performance. And this is at the filesystem level.
+
+Maybe we ask too much? Lets check the performance of one of the internal Intel DC S3700 SSDs using the exact same control file as above:
+
+
+```console
+root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
+random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+fio-2.1.9
+Starting 32 threads
+Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [258.6MB/0KB/0KB /s] [66.2K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101028: Sun Mar 29 23:48:25 2015
+  read : io=7873.7MB, bw=268745KB/s, iops=67186, runt= 30001msec
+    clat (usec): min=142, max=1137.3K, avg=475.05, stdev=1195.30
+     lat (usec): min=142, max=1137.3K, avg=475.13, stdev=1195.31
+    clat percentiles (usec):
+     |  1.00th=[  326],  5.00th=[  354], 10.00th=[  374], 20.00th=[  394],
+     | 30.00th=[  410], 40.00th=[  426], 50.00th=[  446], 60.00th=[  466],
+     | 70.00th=[  490], 80.00th=[  524], 90.00th=[  596], 95.00th=[  668],
+     | 99.00th=[  804], 99.50th=[  868], 99.90th=[ 1432], 99.95th=[ 2672],
+     | 99.99th=[17536]
+    bw (KB  /s): min=  299, max= 9288, per=3.13%, avg=8411.83, stdev=1217.48
+    lat (usec) : 250=0.01%, 500=72.90%, 750=25.08%, 1000=1.82%
+    lat (msec) : 2=0.14%, 4=0.03%, 10=0.02%, 20=0.01%, 50=0.01%
+    lat (msec) : 100=0.01%, 250=0.01%, 500=0.01%, 750=0.01%, 2000=0.01%
+  cpu          : usr=0.42%, sys=5.41%, ctx=2001658, majf=0, minf=32
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=2015652/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: io=7873.7MB, aggrb=268744KB/s, minb=268744KB/s, maxb=268744KB/s, mint=30001msec, maxt=30001msec
+```
+
+With 67,186 IOPS measured using FIO, this compares quite well with the "up to 75,000 IOPS" that Intel [claims](http://www.intel.com/content/www/us/en/solid-state-drives/solid-state-drives-dc-s3700-series.html) for this device.
+
+> The 12 Intel DC S3700 SSDs are connected to a HBA (LSI SAS 3008) using the `msr` driver. 
+
+```console
+root@s4l-zfs:~/oberstet # camcontrol identify da11
+pass11: <INTEL SSDSC2BA800G3 5DV10270> ATA-9 SATA 3.x device
+pass11: 600.000MB/s transfers, Command Queueing Enabled
+
+protocol              ATA/ATAPI-9 SATA 3.x
+device model          INTEL SSDSC2BA800G3
+firmware revision     5DV10270
+serial number         BTTV449503TE800JGN
+WWN                   55cd2e404b738727
+cylinders             16383
+heads                 16
+sectors/track         63
+sector size           logical 512, physical 4096, offset 0
+LBA supported         268435455 sectors
+LBA48 supported       1562824368 sectors
+PIO supported         PIO4
+DMA supported         WDMA2 UDMA6 
+media RPM             non-rotating
+
+Feature                      Support  Enabled   Value           Vendor
+read ahead                     yes  yes
+write cache                    yes  yes
+flush cache                    yes  yes
+overlap                        no
+Tagged Command Queuing (TCQ)   no   no
+Native Command Queuing (NCQ)   yes      32 tags
+NCQ Queue Management           no
+NCQ Streaming                  no
+Receive & Send FPDMA Queued    no
+SMART                          yes  yes
+microcode download             yes  yes
+security                       yes  no
+power management               yes  yes
+advanced power management      no   no
+automatic acoustic management  no   no
+media status notification      no   no
+power-up in Standby            no   no
+write-read-verify              no   no
+unload                         yes  yes
+general purpose logging        yes  yes
+free-fall                      no   no
+Data Set Management (DSM/TRIM) yes
+DSM - max 512byte blocks       yes              6
+DSM - deterministic read       yes              zeroed
+Host Protected Area (HPA)      yes      no      1562824368/1562824368
+HPA - Security                 no
+root@s4l-zfs:~/oberstet # 
+```
+
+
+
+
+
+
+WARNING: WITNESS option enabled, expect reduced performance.
+WARNING: DIAGNOSTIC option enabled, expect reduced performance.
+
