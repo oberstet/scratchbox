@@ -1,0 +1,16 @@
+<style>
+    span.lampe {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #f00;
+    }
+
+    span.lampe.on {
+        background-color: #0f0;
+    }
+</style>
+<p>
+    Is running: <span class="lampe" data-bind="css: {on: is_running }"></span><br>
+    CPU affinity <input type="text" data-bind="value: cpu_affinity">
+</p>
