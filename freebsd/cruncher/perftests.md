@@ -125,47 +125,46 @@ LBA Format #06: Data Size:  4096  Metadata Size:   128
 The `nvmecontrol` tool also allows to run performance tests. E.g. the FreeBSD manual contains this example
 
 ```console
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 32 -o read -s 512 -t 30 nvme0ns1
-Threads: 32 Size:    512  READ Time:  30 IO/s:   95797 MB/s:   46
+root@s4l-zfs:~ # nvmecontrol perftest -n 32 -o read -s 512 -t 30 nvme0ns1
+Threads: 32 Size:    512  READ Time:  30 IO/s:  151373 MB/s:   73
 ```
 
 When running with a 4KB block size we get:
 
 ```console
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 32 -o read -s 4096 -t 30 nvme0ns1
-Threads: 32 Size:   4096  READ Time:  30 IO/s:  126968 MB/s:  495
+root@s4l-zfs:~ # nvmecontrol perftest -n 32 -o read -s 4096 -t 30 nvme0ns1
+Threads: 32 Size:   4096  READ Time:  30 IO/s:  152631 MB/s:  596
 ```
-
-Interestingly, the numbers for 4KB are higher than for 512 bytes requests.
 
 Here are results with increasing number of threads performing I/O requests:
 
 ```console
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 1 -o read -s 4096 -t 30 nvme0ns1
-Threads:  1 Size:   4096  READ Time:  30 IO/s:   22565 MB/s:   88
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 2 -o read -s 4096 -t 30 nvme0ns1
-Threads:  2 Size:   4096  READ Time:  30 IO/s:   43968 MB/s:  171
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 4 -o read -s 4096 -t 30 nvme0ns1
-Threads:  4 Size:   4096  READ Time:  30 IO/s:   78263 MB/s:  305
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 8 -o read -s 4096 -t 30 nvme0ns1
-Threads:  8 Size:   4096  READ Time:  30 IO/s:  122422 MB/s:  478
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 16 -o read -s 4096 -t 30 nvme0ns1
-Threads: 16 Size:   4096  READ Time:  30 IO/s:  128345 MB/s:  501
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 32 -o read -s 4096 -t 30 nvme0ns1
-Threads: 32 Size:   4096  READ Time:  30 IO/s:  126968 MB/s:  495
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 48 -o read -s 4096 -t 30 nvme0ns1
-Threads: 48 Size:   4096  READ Time:  30 IO/s:  125945 MB/s:  491
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 64 -o read -s 4096 -t 30 nvme0ns1
-Threads: 64 Size:   4096  READ Time:  30 IO/s:  125385 MB/s:  489
-root@s4l-zfs:~/oberstet # nvmecontrol perftest -n 96 -o read -s 4096 -t 30 nvme0ns1
-Threads: 96 Size:   4096  READ Time:  30 IO/s:   94188 MB/s:  367
+root@s4l-zfs:~ # nvmecontrol perftest -n 1 -o read -s 4096 -t 30 nvme0ns1
+Threads:  1 Size:   4096  READ Time:  30 IO/s:   22785 MB/s:   89
+root@s4l-zfs:~ # nvmecontrol perftest -n 2 -o read -s 4096 -t 30 nvme0ns1
+Threads:  2 Size:   4096  READ Time:  30 IO/s:   44971 MB/s:  175
+root@s4l-zfs:~ # nvmecontrol perftest -n 4 -o read -s 4096 -t 30 nvme0ns1
+Threads:  4 Size:   4096  READ Time:  30 IO/s:   81305 MB/s:  317
+root@s4l-zfs:~ # nvmecontrol perftest -n 8 -o read -s 4096 -t 30 nvme0ns1
+Threads:  8 Size:   4096  READ Time:  30 IO/s:  124931 MB/s:  488
+root@s4l-zfs:~ # nvmecontrol perftest -n 16 -o read -s 4096 -t 30 nvme0ns1
+Threads: 16 Size:   4096  READ Time:  30 IO/s:  152883 MB/s:  597
+root@s4l-zfs:~ # nvmecontrol perftest -n 32 -o read -s 4096 -t 30 nvme0ns1
+Threads: 32 Size:   4096  READ Time:  30 IO/s:  152733 MB/s:  596
+root@s4l-zfs:~ # nvmecontrol perftest -n 64 -o read -s 4096 -t 30 nvme0ns1
+Threads: 64 Size:   4096  READ Time:  30 IO/s:  150085 MB/s:  586
+root@s4l-zfs:~ # nvmecontrol perftest -n 128 -o read -s 4096 -t 30 nvme0ns1
+Threads: 128 Size:   4096  READ Time:  30 IO/s:  149764 MB/s:  585
+root@s4l-zfs:~ # 
 ```
 
-The peak performance in IOPS is reached at 16 threads. The is far beyond the IO queue depth of 128 which the NVMe device has. The peak performance of 128,345 IOPS is also far less than the 450,000 IOPS Intel claims for the device - 28% of the claimed performance. Mmh.
+The peak performance in IOPS is reached at 16 threads. The is far beyond the IO queue depth of 128 which the NVMe device has. The peak performance of 152,883 IOPS is also far less than the 450,000 IOPS Intel claims for the device - 34% of the claimed performance. Mmh.
 
 Lets do a quick test using FIO and see what we can get there for a pure 4KB random read workload.
 
 Using this control file
+
+**Control File 1**
 
 ```
 root@s4l-zfs:~/oberstet # cat control.fio 
@@ -181,7 +180,7 @@ size=10G
 runtime=30
 ramp_time=0
 bs=4k
-rw=read
+rw=randread
 
 [random-read-4k]
 numjobs=4
@@ -193,78 +192,106 @@ we get
 
 ```console
 root@s4l-zfs:~/oberstet # fio --filename=/dev/nvd7 control.fio
-random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=posixaio, iodepth=32
+random-read-4k: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=posixaio, iodepth=32
 ...
 fio-2.1.9
 Starting 4 threads
-Jobs: 4 (f=4): [RRRR] [100.0% done] [327.5MB/0KB/0KB /s] [83.8K/0/0 iops] [eta 00m:00s]
-random-read-4k: (groupid=0, jobs=4): err= 0: pid=101035: Sun Mar 29 23:37:56 2015
-  read : io=10216MB, bw=348685KB/s, iops=87171, runt= 30002msec
-    slat (usec): min=1, max=253, avg=13.38, stdev=10.00
-    clat (usec): min=223, max=5266, avg=1362.70, stdev=445.07
-     lat (usec): min=249, max=5320, avg=1376.09, stdev=443.27
+Jobs: 4 (f=4): [rrrr] [100.0% done] [391.7MB/0KB/0KB /s] [100K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=4): err= 0: pid=101124: Mon Mar 30 23:42:25 2015
+  read : io=13109MB, bw=447424KB/s, iops=111855, runt= 30001msec
+    slat (usec): min=0, max=224, avg=10.68, stdev= 8.51
+    clat (usec): min=212, max=4915, avg=1043.01, stdev=336.08
+     lat (usec): min=222, max=4922, avg=1053.70, stdev=335.64
     clat percentiles (usec):
-     |  1.00th=[  524],  5.00th=[  612], 10.00th=[  700], 20.00th=[  932],
-     | 30.00th=[ 1112], 40.00th=[ 1272], 50.00th=[ 1416], 60.00th=[ 1528],
-     | 70.00th=[ 1624], 80.00th=[ 1720], 90.00th=[ 1912], 95.00th=[ 2064],
-     | 99.00th=[ 2352], 99.50th=[ 2480], 99.90th=[ 2832], 99.95th=[ 2960],
-     | 99.99th=[ 3344]
-    bw (KB  /s): min=63600, max=104496, per=25.05%, avg=87341.55, stdev=9264.77
-    lat (usec) : 250=0.01%, 500=0.51%, 750=11.62%, 1000=11.05%
-    lat (msec) : 2=69.72%, 4=7.10%, 10=0.01%
-  cpu          : usr=1.22%, sys=98.70%, ctx=15029, majf=0, minf=80
-  IO depths    : 1=0.1%, 2=0.1%, 4=0.6%, 8=3.9%, 16=85.6%, 32=9.9%, >=64=0.0%
+     |  1.00th=[  422],  5.00th=[  502], 10.00th=[  580], 20.00th=[  740],
+     | 30.00th=[  868], 40.00th=[  948], 50.00th=[ 1020], 60.00th=[ 1112],
+     | 70.00th=[ 1224], 80.00th=[ 1336], 90.00th=[ 1480], 95.00th=[ 1592],
+     | 99.00th=[ 1848], 99.50th=[ 1976], 99.90th=[ 2288], 99.95th=[ 2384],
+     | 99.99th=[ 2832]
+    bw (KB  /s): min=79152, max=139880, per=25.00%, avg=111868.58, stdev=12339.09
+    lat (usec) : 250=0.01%, 500=4.79%, 750=15.67%, 1000=26.56%
+    lat (msec) : 2=52.54%, 4=0.43%, 10=0.01%
+  cpu          : usr=1.45%, sys=98.56%, ctx=3077, majf=0, minf=36
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.6%, 8=7.1%, 16=85.0%, 32=7.2%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     complete  : 0=0.0%, 4=92.1%, 8=2.8%, 16=4.1%, 32=1.0%, 64=0.0%, >=64=0.0%
-     issued    : total=r=2615310/w=0/d=0, short=r=0/w=0/d=0
+     complete  : 0=0.0%, 4=93.5%, 8=0.9%, 16=3.7%, 32=1.9%, 64=0.0%, >=64=0.0%
+     issued    : total=r=3355790/w=0/d=0, short=r=0/w=0/d=0
      latency   : target=0, window=0, percentile=100.00%, depth=32
 
 Run status group 0 (all jobs):
-   READ: io=10216MB, aggrb=348684KB/s, minb=348684KB/s, maxb=348684KB/s, mint=30002msec, maxt=30002msec
+   READ: io=13109MB, aggrb=447423KB/s, minb=447423KB/s, maxb=447423KB/s, mint=30001msec, maxt=30001msec
 ```
 
-FIO measures 84,647 IOPS. nvmecontrol says 128,345 IOPS. And Intel says 450,000 IOPS. Mmmmh.
+FIO measures 111,855 IOPS. nvmecontrol says 152,883 IOPS. And Intel says 450,000 IOPS. Mmmmh.
 
 > Using the **posixaio* engine of FIO above was the fastest run of varying numjobs and iodepth.
 
-Further, look at the CPU load. The AIO implementation in the FreeBSD Posix layer seems to incur some overhead.
+Further, look at the CPU load! The AIO implementation in the FreeBSD Posix layer seems to incur some overhead.
 
-Here is what we get using the **sync** engine of FIO (fastest parameters) by setting `ioengine=sync` in the control file:
+Using the **sync** engine of FIO (fastest parameters) by setting `ioengine=sync` in the control file (and `iodepth=1`, since the sync engine will only produce one concurrent request per worker thread/process)
+
+**Control File 2**
+
+```
+root@s4l-zfs:~/oberstet # cat control.fio 
+[global]
+thread=1
+ioengine=sync
+direct=1
+time_based=1
+randrepeat=0
+refill_buffers=1
+end_fsync=1
+size=10G
+runtime=30
+ramp_time=0
+bs=4k
+rw=randread
+
+[random-read-4k]
+numjobs=32
+iodepth=1
+group_reporting
+```
+
+here is what we get:
+
 
 ```console
 root@s4l-zfs:~/oberstet # fio --filename=/dev/nvd7 control.fio
-random-read-4k: (g=0): rw=read, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+random-read-4k: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
 ...
 fio-2.1.9
 Starting 32 threads
-Jobs: 32 (f=32): [RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR] [100.0% done] [342.4MB/0KB/0KB /s] [87.7K/0/0 iops] [eta 00m:00s]
-random-read-4k: (groupid=0, jobs=32): err= 0: pid=101033: Sun Mar 29 23:41:04 2015
-  read : io=8900.2MB, bw=303780KB/s, iops=75945, runt= 30001msec
-    clat (usec): min=60, max=3515, avg=420.06, stdev=60.56
-     lat (usec): min=60, max=3515, avg=420.15, stdev=60.57
+Jobs: 32 (f=32): [rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr] [100.0% done] [419.2MB/0KB/0KB /s] [107K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101139: Mon Mar 30 23:47:53 2015
+  read : io=12550MB, bw=428371KB/s, iops=107092, runt= 30001msec
+    clat (usec): min=96, max=3394, avg=296.70, stdev=31.06
+     lat (usec): min=96, max=3394, avg=296.76, stdev=31.07
     clat percentiles (usec):
-     |  1.00th=[  318],  5.00th=[  342], 10.00th=[  354], 20.00th=[  366],
-     | 30.00th=[  378], 40.00th=[  398], 50.00th=[  418], 60.00th=[  438],
-     | 70.00th=[  454], 80.00th=[  474], 90.00th=[  490], 95.00th=[  506],
-     | 99.00th=[  540], 99.50th=[  556], 99.90th=[  636], 99.95th=[  724],
-     | 99.99th=[ 1320]
-    bw (KB  /s): min= 8160, max=11232, per=3.12%, avg=9475.23, stdev=846.42
-    lat (usec) : 100=0.01%, 250=0.05%, 500=93.62%, 750=6.29%, 1000=0.02%
+     |  1.00th=[  247],  5.00th=[  258], 10.00th=[  262], 20.00th=[  270],
+     | 30.00th=[  278], 40.00th=[  282], 50.00th=[  290], 60.00th=[  302],
+     | 70.00th=[  314], 80.00th=[  326], 90.00th=[  334], 95.00th=[  346],
+     | 99.00th=[  366], 99.50th=[  374], 99.90th=[  394], 99.95th=[  406],
+     | 99.99th=[  474]
+    bw (KB  /s): min=12088, max=14504, per=3.12%, avg=13374.60, stdev=943.67
+    lat (usec) : 100=0.01%, 250=1.75%, 500=98.25%, 750=0.01%, 1000=0.01%
     lat (msec) : 2=0.01%, 4=0.01%
-  cpu          : usr=0.52%, sys=2.92%, ctx=2278909, majf=0, minf=32
+  cpu          : usr=0.71%, sys=2.62%, ctx=3212977, majf=0, minf=32
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued    : total=r=2278428/w=0/d=0, short=r=0/w=0/d=0
+     issued    : total=r=3212893/w=0/d=0, short=r=0/w=0/d=0
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: io=8900.2MB, aggrb=303780KB/s, minb=303780KB/s, maxb=303780KB/s, mint=30001msec, maxt=30001msec
+   READ: io=12550MB, aggrb=428371KB/s, minb=428371KB/s, maxb=428371KB/s, mint=30001msec, maxt=30001msec
+
 ```
 
-The CPU load is negliable, the latencies are very flat and with 79,945 IOPS the throughput is only marginally less than using AIO.
+The CPU load is negliable, the latencies are very flat and with 107,092 IOPS the throughput is only marginally lower than using AIO.
 
-However, now we finally have arrived at 80k / 450k or roughly 18% of the datesheet performance. And this is at the filesystem level.
+**However, now we finally have arrived at 107k / 450k or roughly 24% of the datesheet performance. And this is at the block device level.**
 
 Maybe we ask too much? Lets check the performance of one of the internal Intel DC S3700 SSDs. These 12 Intel DC S3700 SSDs are connected to a HBA (LSI SAS 3008) using the `msr` driver. 
 
@@ -318,8 +345,42 @@ HPA - Security                 no
 root@s4l-zfs:~/oberstet # 
 ```
 
-Here are FIO results using the exact same control file as above:
+Here are FIO results using the exact same **Control File 1** as above:
 
+```console
+root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
+random-read-4k: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=posixaio, iodepth=32
+...
+fio-2.1.9
+Starting 4 threads
+Jobs: 4 (f=4): [rrrr] [100.0% done] [295.2MB/0KB/0KB /s] [75.8K/0/0 iops] [eta 00m:00s]
+random-read-4k: (groupid=0, jobs=4): err= 0: pid=101134: Mon Mar 30 23:44:54 2015
+  read : io=8602.3MB, bw=293605KB/s, iops=73401, runt= 30002msec
+    slat (usec): min=0, max=1726.7K, avg=14.79, stdev=1203.15
+    clat (usec): min=56, max=1727.7K, avg=1631.81, stdev=3729.51
+     lat (usec): min=302, max=1727.7K, avg=1646.60, stdev=3917.54
+    clat percentiles (usec):
+     |  1.00th=[  604],  5.00th=[  708], 10.00th=[  796], 20.00th=[  996],
+     | 30.00th=[ 1304], 40.00th=[ 1592], 50.00th=[ 1736], 60.00th=[ 1848],
+     | 70.00th=[ 1944], 80.00th=[ 2064], 90.00th=[ 2224], 95.00th=[ 2384],
+     | 99.00th=[ 2736], 99.50th=[ 2896], 99.90th=[ 3728], 99.95th=[ 4896],
+     | 99.99th=[ 9152]
+    bw (KB  /s): min=11004, max=88176, per=25.31%, avg=74297.00, stdev=8208.27
+    lat (usec) : 100=0.01%, 250=0.01%, 500=0.19%, 750=7.12%, 1000=12.91%
+    lat (msec) : 2=54.42%, 4=25.28%, 10=0.07%, 20=0.01%, 50=0.01%
+    lat (msec) : 100=0.01%, 250=0.01%, 500=0.01%, 2000=0.01%
+  cpu          : usr=1.50%, sys=97.68%, ctx=85166, majf=0, minf=19
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.1%, 8=1.4%, 16=85.3%, 32=13.3%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=91.5%, 8=4.3%, 16=3.7%, 32=0.5%, 64=0.0%, >=64=0.0%
+     issued    : total=r=2202186/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=32
+
+Run status group 0 (all jobs):
+   READ: io=8602.3MB, aggrb=293605KB/s, minb=293605KB/s, maxb=293605KB/s, mint=30002msec, maxt=30002msec
+```
+
+And here are results for **Control File 2**
 
 ```console
 root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
@@ -360,14 +421,273 @@ With 67,186 IOPS measured using FIO, this compares quite well with the "up to 75
 At the block device level, the FIO performance results for 4kB pure random reads
 matches well with the numbers from the Intel datasheet - but only for the DC S3700, not the P3700.
 
+**4kB Random Read**
+
 |                  | Intel Datasheet | FIO Measurement |  Match |
 |------------------|-----------------|-----------------|--------|
 |  DC S3700        | 75,000          | 67,186          |  90%   |
-|  P3700           | 450,000         | 75,945          |  17%   |
+|  P3700           | 450,000         | 107,092         |  24%   |
 
-So while from the datasheets the P3700 should be 6x as fast as the DC S3700, the FIO test above only gives a 13% speedup.
+So from the datasheets the P3700 should be 6x as fast as the DC S3700, however FIO only shows a 59% speedup.
 
 At this point, we might draw two preliminary conclusions:
 
 1. The results indicate that there is a performance issue with the NVMe devices already at the block device or device driver level.
 2. For the internal SSDs, we should verify the rest of the performance numbers (random writes, sequential reads, sequential writes), but chances results are similar close, and then we can continue testing at the ZFS level.
+
+#### More numbers
+
+##### Control File
+
+```console
+root@s4l-zfs:~/oberstet # cat control.fio 
+[global]
+thread=1
+ioengine=sync
+direct=1
+time_based=1
+randrepeat=0
+refill_buffers=1
+end_fsync=1
+size=10G
+runtime=30
+ramp_time=0
+numjobs=32
+iodepth=1
+
+[random-read-4k]
+stonewall
+bs=4k
+rw=randread
+group_reporting
+
+[random-write-4k]
+stonewall
+bs=4k
+rw=randwrite
+group_reporting
+
+[sequential-read-128k]
+stonewall
+bs=128k
+rw=read
+group_reporting
+ 
+[sequential-write-128k]
+stonewall
+bs=128k
+rw=write
+group_reporting
+```
+
+##### Intel DC S3700
+
+```console
+root@s4l-zfs:~/oberstet # fio --filename=/dev/da11 control.fio
+random-read-4k: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+random-write-4k: (g=1): rw=randwrite, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+sequential-read-128k: (g=2): rw=read, bs=128K-128K/128K-128K/128K-128K, ioengine=sync, iodepth=1
+...
+sequential-write-128k: (g=3): rw=write, bs=128K-128K/128K-128K/128K-128K, ioengine=sync, iodepth=1
+...
+fio-2.1.9
+Starting 128 threads
+...
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101193: Tue Mar 31 00:11:27 2015
+  read : io=6654.5MB, bw=227129KB/s, iops=56782, runt= 30001msec
+    clat (usec): min=128, max=84231, avg=558.91, stdev=411.86
+     lat (usec): min=128, max=84232, avg=558.99, stdev=411.86
+    clat percentiles (usec):
+     |  1.00th=[  306],  5.00th=[  374], 10.00th=[  414], 20.00th=[  458],
+     | 30.00th=[  494], 40.00th=[  524], 50.00th=[  548], 60.00th=[  572],
+     | 70.00th=[  604], 80.00th=[  636], 90.00th=[  684], 95.00th=[  724],
+     | 99.00th=[  820], 99.50th=[  876], 99.90th=[ 3184], 99.95th=[ 6496],
+     | 99.99th=[18816]
+    bw (KB  /s): min= 4472, max= 9128, per=3.13%, avg=7112.62, stdev=889.53
+    lat (usec) : 250=0.03%, 500=32.03%, 750=64.70%, 1000=2.97%
+    lat (msec) : 2=0.12%, 4=0.06%, 10=0.05%, 20=0.02%, 50=0.01%
+    lat (msec) : 100=0.01%
+  cpu          : usr=0.44%, sys=5.99%, ctx=1688677, majf=0, minf=32
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=1703525/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+random-write-4k: (groupid=1, jobs=32): err= 0: pid=100669: Tue Mar 31 00:11:27 2015
+  write: io=4892.6MB, bw=166989KB/s, iops=41747, runt= 30002msec
+    clat (usec): min=60, max=8627, avg=760.18, stdev=165.76
+     lat (usec): min=60, max=8627, avg=760.33, stdev=165.76
+    clat percentiles (usec):
+     |  1.00th=[  596],  5.00th=[  620], 10.00th=[  628], 20.00th=[  644],
+     | 30.00th=[  660], 40.00th=[  692], 50.00th=[  740], 60.00th=[  780],
+     | 70.00th=[  828], 80.00th=[  868], 90.00th=[  932], 95.00th=[  972],
+     | 99.00th=[ 1048], 99.50th=[ 1080], 99.90th=[ 1144], 99.95th=[ 1192],
+     | 99.99th=[ 8256]
+    bw (KB  /s): min= 4208, max= 6304, per=3.13%, avg=5227.60, stdev=709.58
+    lat (usec) : 100=0.01%, 250=0.02%, 500=0.10%, 750=51.51%, 1000=45.26%
+    lat (msec) : 2=3.08%, 10=0.03%
+  cpu          : usr=0.64%, sys=3.80%, ctx=1252652, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=1252499/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+sequential-read-128k: (groupid=2, jobs=32): err= 0: pid=101204: Tue Mar 31 00:11:27 2015
+  read : io=12587MB, bw=429489KB/s, iops=3355, runt= 30010msec
+    clat (usec): min=466, max=30094, avg=9530.53, stdev=925.16
+     lat (usec): min=466, max=30094, avg=9530.97, stdev=925.02
+    clat percentiles (usec):
+     |  1.00th=[ 8640],  5.00th=[ 8768], 10.00th=[ 8768], 20.00th=[ 8768],
+     | 30.00th=[ 8896], 40.00th=[ 8896], 50.00th=[ 9024], 60.00th=[ 9024],
+     | 70.00th=[10560], 80.00th=[10688], 90.00th=[10816], 95.00th=[10944],
+     | 99.00th=[11072], 99.50th=[11200], 99.90th=[11456], 99.95th=[11584],
+     | 99.99th=[26496]
+    bw (KB  /s): min=11912, max=15905, per=3.13%, avg=13449.43, stdev=1184.52
+    lat (usec) : 500=0.01%, 750=0.01%, 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%, 10=64.48%, 20=35.48%, 50=0.02%
+  cpu          : usr=0.06%, sys=0.87%, ctx=101655, majf=0, minf=928
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=100695/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+sequential-write-128k: (groupid=3, jobs=32): err= 0: pid=101312: Tue Mar 31 00:11:27 2015
+  write: io=11148MB, bw=380379KB/s, iops=2971, runt= 30012msec
+    clat (usec): min=435, max=21292, avg=10720.00, stdev=1156.17
+     lat (usec): min=435, max=21305, avg=10720.38, stdev=1156.30
+    clat percentiles (usec):
+     |  1.00th=[ 9408],  5.00th=[ 9664], 10.00th=[ 9664], 20.00th=[ 9792],
+     | 30.00th=[ 9792], 40.00th=[10176], 50.00th=[10944], 60.00th=[11200],
+     | 70.00th=[11328], 80.00th=[11456], 90.00th=[11584], 95.00th=[11840],
+     | 99.00th=[12096], 99.50th=[19584], 99.90th=[20864], 99.95th=[21120],
+     | 99.99th=[21120]
+    bw (KB  /s): min=10730, max=13568, per=3.13%, avg=11898.62, stdev=868.81
+    lat (usec) : 500=0.01%, 750=0.01%, 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%, 10=37.23%, 20=62.38%, 50=0.36%
+  cpu          : usr=0.42%, sys=0.50%, ctx=89720, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=89187/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: io=6654.5MB, aggrb=227129KB/s, minb=227129KB/s, maxb=227129KB/s, mint=30001msec, maxt=30001msec
+
+Run status group 1 (all jobs):
+  WRITE: io=4892.6MB, aggrb=166988KB/s, minb=166988KB/s, maxb=166988KB/s, mint=30002msec, maxt=30002msec
+
+Run status group 2 (all jobs):
+   READ: io=12587MB, aggrb=429488KB/s, minb=429488KB/s, maxb=429488KB/s, mint=30010msec, maxt=30010msec
+
+Run status group 3 (all jobs):
+  WRITE: io=11148MB, aggrb=380379KB/s, minb=380379KB/s, maxb=380379KB/s, mint=30012msec, maxt=30012msec
+```
+
+##### Intel P3700
+
+```console
+root@s4l-zfs:~/oberstet # fio --filename=/dev/nvd7 control.fio
+random-read-4k: (g=0): rw=randread, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+random-write-4k: (g=1): rw=randwrite, bs=4K-4K/4K-4K/4K-4K, ioengine=sync, iodepth=1
+...
+sequential-read-128k: (g=2): rw=read, bs=128K-128K/128K-128K/128K-128K, ioengine=sync, iodepth=1
+...
+sequential-write-128k: (g=3): rw=write, bs=128K-128K/128K-128K/128K-128K, ioengine=sync, iodepth=1
+...
+fio-2.1.9
+Starting 128 threads
+...
+random-read-4k: (groupid=0, jobs=32): err= 0: pid=101749: Tue Mar 31 00:21:15 2015
+  read : io=11319MB, bw=386345KB/s, iops=96586, runt= 30001msec
+    clat (usec): min=100, max=3696, avg=329.07, stdev=53.15
+     lat (usec): min=100, max=3696, avg=329.14, stdev=53.16
+    clat percentiles (usec):
+     |  1.00th=[  247],  5.00th=[  258], 10.00th=[  266], 20.00th=[  274],
+     | 30.00th=[  286], 40.00th=[  306], 50.00th=[  330], 60.00th=[  354],
+     | 70.00th=[  366], 80.00th=[  382], 90.00th=[  398], 95.00th=[  410],
+     | 99.00th=[  430], 99.50th=[  438], 99.90th=[  458], 99.95th=[  466],
+     | 99.99th=[  498]
+    bw (KB  /s): min=10496, max=14568, per=3.13%, avg=12101.09, stdev=1492.87
+    lat (usec) : 250=1.66%, 500=98.33%, 750=0.01%, 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%
+  cpu          : usr=0.62%, sys=2.66%, ctx=2897748, majf=0, minf=32
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=2897682/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+random-write-4k: (groupid=1, jobs=32): err= 0: pid=100420: Tue Mar 31 00:21:15 2015
+  write: io=13581MB, bw=463530KB/s, iops=115882, runt= 30002msec
+    clat (usec): min=25, max=13300, avg=272.68, stdev=92.18
+     lat (usec): min=25, max=13300, avg=272.75, stdev=92.18
+    clat percentiles (usec):
+     |  1.00th=[  211],  5.00th=[  225], 10.00th=[  233], 20.00th=[  245],
+     | 30.00th=[  253], 40.00th=[  262], 50.00th=[  270], 60.00th=[  278],
+     | 70.00th=[  290], 80.00th=[  302], 90.00th=[  314], 95.00th=[  322],
+     | 99.00th=[  338], 99.50th=[  346], 99.90th=[  366], 99.95th=[  382],
+     | 99.99th=[ 5728]
+    bw (KB  /s): min=12640, max=17360, per=3.13%, avg=14494.35, stdev=1116.49
+    lat (usec) : 50=0.01%, 100=0.06%, 250=25.02%, 500=74.89%, 750=0.01%
+    lat (usec) : 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%, 10=0.01%, 20=0.01%
+  cpu          : usr=1.24%, sys=5.15%, ctx=3476760, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=3476704/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+sequential-read-128k: (groupid=2, jobs=32): err= 0: pid=100424: Tue Mar 31 00:21:15 2015
+  read : io=17569MB, bw=599649KB/s, iops=4684, runt= 30002msec
+    clat (usec): min=482, max=11166, avg=6826.35, stdev=175.27
+     lat (usec): min=482, max=11167, avg=6826.54, stdev=175.28
+    clat percentiles (usec):
+     |  1.00th=[ 6496],  5.00th=[ 6688], 10.00th=[ 6752], 20.00th=[ 6752],
+     | 30.00th=[ 6816], 40.00th=[ 6816], 50.00th=[ 6816], 60.00th=[ 6816],
+     | 70.00th=[ 6880], 80.00th=[ 6880], 90.00th=[ 6944], 95.00th=[ 7008],
+     | 99.00th=[ 7072], 99.50th=[ 7200], 99.90th=[ 8512], 99.95th=[ 8896],
+     | 99.99th=[ 9408]
+    bw (KB  /s): min=18213, max=20571, per=3.13%, avg=18753.19, stdev=169.59
+    lat (usec) : 500=0.01%, 750=0.01%, 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.03%, 10=99.95%, 20=0.01%
+  cpu          : usr=0.09%, sys=0.67%, ctx=141495, majf=0, minf=928
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=140552/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+sequential-write-128k: (groupid=3, jobs=32): err= 0: pid=100677: Tue Mar 31 00:21:15 2015
+  write: io=16223MB, bw=553690KB/s, iops=4325, runt= 30003msec
+    clat (usec): min=171, max=17915, avg=7369.70, stdev=1163.40
+     lat (usec): min=171, max=17915, avg=7369.80, stdev=1163.40
+    clat percentiles (usec):
+     |  1.00th=[ 4512],  5.00th=[ 4704], 10.00th=[ 4768], 20.00th=[ 7392],
+     | 30.00th=[ 7520], 40.00th=[ 7712], 50.00th=[ 7776], 60.00th=[ 7840],
+     | 70.00th=[ 7904], 80.00th=[ 8032], 90.00th=[ 8096], 95.00th=[ 8160],
+     | 99.00th=[ 8256], 99.50th=[ 8384], 99.90th=[14144], 99.95th=[15040],
+     | 99.99th=[16768]
+    bw (KB  /s): min=15616, max=27483, per=3.13%, avg=17332.36, stdev=3001.24
+    lat (usec) : 250=0.01%, 500=0.01%, 750=0.01%, 1000=0.02%
+    lat (msec) : 2=0.05%, 4=0.06%, 10=99.62%, 20=0.25%
+  cpu          : usr=0.44%, sys=0.63%, ctx=130195, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=129784/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: io=11319MB, aggrb=386344KB/s, minb=386344KB/s, maxb=386344KB/s, mint=30001msec, maxt=30001msec
+
+Run status group 1 (all jobs):
+  WRITE: io=13581MB, aggrb=463529KB/s, minb=463529KB/s, maxb=463529KB/s, mint=30002msec, maxt=30002msec
+
+Run status group 2 (all jobs):
+   READ: io=17569MB, aggrb=599648KB/s, minb=599648KB/s, maxb=599648KB/s, mint=30002msec, maxt=30002msec
+
+Run status group 3 (all jobs):
+  WRITE: io=16223MB, aggrb=553689KB/s, minb=553689KB/s, maxb=553689KB/s, mint=30003msec, maxt=30003msec
+```
