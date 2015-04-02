@@ -1,5 +1,10 @@
 # Linux / P3700 Block Device
 
+SLES 12 is based on the Linux 3.12 kernel
+
+
+* [Selecting the right Linux I/O scheduler for a host equipped with NVMe SSD?](http://stackoverflow.com/questions/27664334/selecting-the-right-linux-i-o-scheduler-for-a-host-equipped-with-nvme-ssd)
+
 ## Control File
 
 ```console
