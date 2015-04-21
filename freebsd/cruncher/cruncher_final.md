@@ -1,3 +1,4 @@
+http://www.ducea.com/2009/03/08/mdadm-cheat-sheet/
 
 >>>>>>> cbd6a0e478e50ec7612847c8c916c7fe640bb8fd
 >>>>>> r http://download.opensuse.org/repositories/benchmark/SLE_12/ opensuse:benchmark
@@ -16,8 +17,24 @@ bvr-sql18:~ # init 3
 bvr-sql18:~ # ps -Af | grep X
 
 
- mdadm --create /dev/md0 --chunk=256 --level=0 --raid-devices=4 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+mdadm --create /dev/md0 --chunk=256 --level=0 --raid-devices=4 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 
+mdadm --detail /dev/md0
+
+mdadm --stop /dev/md0
+mdadm --remove /dev/md0
+mdadm --zero-superblock /dev/nvme0n1
+ 
+
+mdadm --create /dev/md0 --chunk=256 --level=0 --raid-devices=8 \
+   /dev/nvme0n1 \
+   /dev/nvme1n1 \
+   /dev/nvme2n1 \
+   /dev/nvme3n1 \
+   /dev/nvme4n1 \
+   /dev/nvme5n1 \
+   /dev/nvme6n1 \
+   /dev/nvme7n1
 
 
 
