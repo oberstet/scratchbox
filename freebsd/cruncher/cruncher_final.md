@@ -1,3 +1,45 @@
+# Git
+
+To clone the BVR Git repository in your Unix home:
+
+```console
+oberstet@bvr-sql18:~/scm> git clone http://bvr-git10.bvr-ext.de/Bonobo.Git.Server/RA.git bvr
+Klone nach 'bvr'...
+Username for 'http://bvr-git10.bvr-ext.de': re_oberstein
+Password for 'http://re_oberstein@bvr-git10.bvr-ext.de': 
+remote: Counting objects: 26783, done.
+
+remote: Compressing objects: 100% (24065/24065), done.
+remote: Total 26783 (delta 17054), reused 2836 (delta 1762)
+Empfange Objekte: 100% (26783/26783), 22.93 MiB | 2.73 MiB/s, Fertig.
+Löse Unterschiede auf: 100% (17054/17054), Fertig.
+Prüfe Konnektivität... Fertig.
+oberstet@bvr-sql18:~/scm> 
+oberstet@bvr-sql18:~/scm> cd bvr/
+oberstet@bvr-sql18:~/scm/bvr> git status
+Auf Branch master
+Ihr Branch ist auf dem selben Stand wie 'origin/master'.
+nichts zu committen, Arbeitsverzeichnis unverändert
+oberstet@bvr-sql18:~/scm/bvr> git remote -v
+origin	http://bvr-git10.bvr-ext.de/Bonobo.Git.Server/RA.git (fetch)
+origin	http://bvr-git10.bvr-ext.de/Bonobo.Git.Server/RA.git (push)
+oberstet@bvr-sql18:~/scm/bvr> 
+```
+
+# Network Statistics
+
+There are lots of options to get network bandwidth statistics. One of them is using [iftop](http://www.ex-parrot.com/pdw/iftop/). To install:
+
+```console
+zypper install iftop
+```
+
+And then run `iftop`.
+
+
+# Sortme
+
+
 http://www.ducea.com/2009/03/08/mdadm-cheat-sheet/
 
 >>>>>>> cbd6a0e478e50ec7612847c8c916c7fe640bb8fd
