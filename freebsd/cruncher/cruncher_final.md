@@ -1,5 +1,14 @@
 # Git
 
+Configure Git (obviously, adjust for your name and email):
+
+```console
+git config --global user.name "Tobias Oberstein"
+git config --global user.email "tobias.oberstein@tavendo.de"
+git config --global push.default simple
+git config --global --bool pull.rebase true
+```
+
 To clone the BVR Git repository in your Unix home:
 
 ```console
@@ -25,6 +34,15 @@ origin	http://bvr-git10.bvr-ext.de/Bonobo.Git.Server/RA.git (fetch)
 origin	http://bvr-git10.bvr-ext.de/Bonobo.Git.Server/RA.git (push)
 oberstet@bvr-sql18:~/scm/bvr> 
 ```
+
+After this, change into the repository and run:
+
+```console
+git config credential.helper store
+```
+
+This way Git will remember your login and password.
+
 
 # Network Statistics
 
