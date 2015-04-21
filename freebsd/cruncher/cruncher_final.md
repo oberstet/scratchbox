@@ -41,7 +41,13 @@ After this, change into the repository and run:
 git config credential.helper store
 ```
 
-This way Git will remember your login and password.
+This way Git will remember your login and password. The password is saved in `$HOME/.git-credentials`. Make sure this file is properly protected with permissions:
+
+```console
+oberstet@bvr-sql18:~/scm/bvr/user/oberstet> ls -la ~/.git*
+-rw-r--r-- 1 oberstet users 116 21. Apr 12:31 /home/oberstet/.gitconfig
+-rw------- 1 oberstet users 120 21. Apr 16:11 /home/oberstet/.git-credentials
+```
 
 
 # Network Statistics
