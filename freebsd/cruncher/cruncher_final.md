@@ -1,3 +1,14 @@
+# Storage Performance
+
+The following storage configurations are tested both at **block device** level and at **filesystem level** (XFS and ext4).
+
+- single DC S3700
+- 2/4/8 x DC S3700 under mdadm RAID-0
+- 2/4/8 x DC S3700 under mdadm RAID-10
+- single P3700
+- 2/4/8 x P3700 under mdadm RAID-0
+- 2/4/8 x P3700 under mdadm RAID-10
+
 # Git
 
 Configure Git (obviously, adjust for your name and email):
