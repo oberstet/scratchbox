@@ -125,6 +125,7 @@ def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iode
         '--norandommap',
         '--refill_buffers=1',
         '--end_fsync=1',
+        '--group_reporting', 
     ]
 
     if 'rwmixread' in spec:
