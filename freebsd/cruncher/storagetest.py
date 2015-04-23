@@ -58,6 +58,7 @@ STORSYS_EXTERNAL_HDD_DEV = [
     'sdaj',
 ]
 
+
 TESTS = [
     {
         'name': 'random-read-4k',
@@ -97,24 +98,22 @@ TESTS = [
     },
 ]
 
+
 TEST_VARIANTS = [
     {
         'ioengine': 'sync',
-        'numjobs': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+#        'numjobs': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+        'numjobs': [1, 32],
         'iodepth': [1]
     },
     {
         'ioengine': 'aio',
-        'numjobs': [1, 2, 4, 8, 16, 32, 64],
-        'iodepth': [1, 2, 4, 8, 16, 32, 64]
+        'numjobs': [1, 32],
+        'iodepth': [1, 32]
+#        'numjobs': [1, 2, 4, 8, 16, 32, 64],
+#        'iodepth': [1, 2, 4, 8, 16, 32, 64]
     },
 ]
-
-
-
-def utcnow():
-    now = datetime.utcnow()
-    return now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
 def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iodepth=1, numjobs=1, json=True):
@@ -146,11 +145,13 @@ def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iode
     if json:
         args.append('--output-format=json')
 
-    print("Running FIO: {}".format(' '.join(args)))
+    cmd = ' '.join(args)
+
+    print("Running FIO: {}".format(cmd))
 
     res = subprocess.check_output(args)
 
-    return res
+    return (cmd, res)
 
 
 if __name__ == '__main__':
@@ -177,26 +178,26 @@ if __name__ == '__main__':
     cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started) VALUES (%s, %s, %s, %s, %s, %s, %s)",
         (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started))
 
-    if True:
-        for variant in TEST_VARIANTS:
-            for numjobs in variant['numjobs']:
-                for iodepth in variant['iodepth']:
+    for variant in TEST_VARIANTS:
 
-                    cur.execute("SELECT nextval('perf.seq_storage_test_result')")
-                    test_result_id = cur.fetchone()[0]
+        ioengine = variant['ioengine']
 
-                    test_started = datetime.now()
+        for numjobs in variant['numjobs']:
 
-                    result = fio(TESTS[0], filename=args.filename, size=args.filesize,
-                        ioengine=variant['ioengine'], iodepth=iodepth, numjobs=numjobs)
+            for iodepth in variant['iodepth']:
 
-                    test_ended = datetime.now()
+                cur.execute("SELECT nextval('perf.seq_storage_test_result')")
+                test_result_id = cur.fetchone()[0]
 
-                    #output = json.dumps(res, separators=(',', ':'), ensure_ascii=False)
-                    print result
+                test_started = datetime.now()
 
-                    cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, started, ended, result) VALUES (%s, %s, %s, %s, %s)",
-                        (test_result_id, test_id, test_started, test_ended, result))
+                (cmd, result) = fio(TESTS[0], filename=args.filename, size=args.filesize,
+                    ioengine=ioengine, iodepth=iodepth, numjobs=numjobs)
+
+                test_ended = datetime.now()
+
+                cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, command, ioengine, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (test_result_id, test_id, cmd, ioengine, iodepth, numjobs, test_started, test_ended, result))
 
     ended = datetime.now()
 
