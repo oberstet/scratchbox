@@ -18,6 +18,12 @@ rpm -qa
 zypper lr -u
 ```
 
+## Searching for packages
+
+```console
+zypper se postgres
+```
+
 ## Adding a repository
 
 ```console
