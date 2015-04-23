@@ -1,3 +1,95 @@
+# Todo
+
+1. Nächste Woche:
+
+Performance Optimierung auf XFS Ebene
+Aufsetzen PostgreSQL, R, PL/R, MADlib
+Transferieren der Basistabellen
+Entwicklung Workload Scheduler
+
+2. Übernächste Woche:
+
+Performance Optimierung auf DB Ebene
+erste Queries mit Produktivdaten
+Prüfung tragfähiger Ansätze
+Entwicklung Workload Scheduler
+Anlegen aller Nutzern
+
+=> hier nur sehr limitierte Nutzergruppe (z.B. Marko und Michael)
+
+# Storage Testing
+
+FIO result parser in Python
+
+Test schedule defined in Python:
+
+- vary IO engine between aio and sync
+- vary IO queue depth
+- vary number of workers (threads)
+- vary between sequential and random IO
+- vary between 4kB, 8kB and 128kB block size
+
+Spawn FIO executable with parameters set
+
+Receive and parse FIO result output in Python
+
+Save results and generate plots
+
+
+- hardware block device
+- XFS on hardware block device
+- mdadm on hardware block device
+- XFS on mdadm software block device
+
+- 1
+- 2, 4, 8 disks as RAID-0
+- 2, 4, 8 disks as RAID-10
+
+
+# Storage Layout
+
+## Run one database cluster
+
+The reason is to make optimal use of the large amount of RAM. When running multiple PostgreSQL database clusters, the available physical RAM needs to be split up and dedicated to the individual PostgreSQL database clusters.
+
+## Run one (main) database
+
+The reason is that - different from other DBMSs - PostgreSQL requires the use of usual database link mechanisms to cross databases even when those reside in the same PostgreSQL database cluster.
+
+## Use schemas to organize the data-warehouse
+
+As an organizational tool, PostgreSQL database schemes are used for:
+
+* different layers within the DWH
+* user scratch areas
+
+Other categories might be added.
+
+## Use tablespaces to expose storage hardware
+
+The three storage subsystems of the hardware have different characteristics regarding performance and reliability.
+
+We expose all three storage subsystem at the application level via PostgreSQL tablespaces.
+
+The tablespaces are:
+
+* standard
+* fast
+* archive
+
+The *standard* tablespace runs on top of a RAID-10 mdadm software RAID over 10 Intel DC S3700 SAS SSDs with 800GB capacity each. The tablespace has a usable capacity of **4TB**.
+
+The *fast* tablespace runs on top of a RAID-0 mdadm software RAID over 8 Intel P3700 NVMe SSDs with 2TB capacity each. This tablespace has a usable capacity of **16TB**.
+
+The *archive* tablespace runs on top of a RAID-6 mdadm software RAID over 6 Seagate Constellation ES.3 disks and LVM managed volumes over 4 sets of disks. This tablespace has a usable capacity of 4 x 4 x 6TB = **96TB** minus use for other purposes (flat-files, backups, ..).
+
+## Alternative Tablespace Design
+
+Have each NVMe exposed as a single XFS filesystem to hold *fast* tablespaces *fast0* - *fast7*.
+
+Put table partitions over *fast0* - *fast7* in a round-robin fashion.
+
+
 # Zypper
 
 ## Listing installed packages
