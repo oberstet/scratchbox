@@ -196,8 +196,8 @@ if __name__ == '__main__':
 
                 test_ended = datetime.now()
 
-                cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, command, ioengine, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (test_result_id, test_id, cmd, ioengine, iodepth, numjobs, test_started, test_ended, result))
+                cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, name, command, ioengine, iomode, blocksize, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (test_result_id, test_id, name, cmd, ioengine, spec.get('rw', 'read'), int(spec.get('bs', 4)), iodepth, numjobs, test_started, test_ended, result))
 
     ended = datetime.now()
 
