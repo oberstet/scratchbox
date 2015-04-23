@@ -3,7 +3,7 @@ import sys
 import argparse
 import subprocess
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import psycopg2
 
 # 10 internal Intel DC S3700 SATA SSDs
@@ -206,16 +206,20 @@ if __name__ == '__main__':
             for numjobs in variant['numjobs']:
                 for iodepth in variant['iodepth']:
                     test_count += 1
+
+    if args.limit is not None:
+        test_count = args.limit
+
     estimated_duration = test_count * (args.ramptime + args.runtime)
 
     started = datetime.now()
 
-    estimated_end = started + datetime.timedelta(seconds=estimated_duration)
+    estimated_end = started + timedelta(seconds=estimated_duration)
 
     print("Ok, I will run {} tests, which will take {} seconds and end at (estimated) {}".format(test_count, estimated_duration, estimated_end))
 
     while True:
-        ok = get_input("Continue? (y/n)").lower()
+        ok = raw_input("Continue? (y/n)").lower()
         if ok in ['y', 'n']:
             break
 
