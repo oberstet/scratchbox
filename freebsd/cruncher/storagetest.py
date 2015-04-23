@@ -1,4 +1,9 @@
+import argparse
 import subprocess
+import json
+from datetime import datetime
+import psycopg2
+
 
 STORSYS_INTERNAL_SSD_DEV = [
     #'sda',
@@ -75,7 +80,7 @@ TESTS = [
         'rw': 'randwrite'
     },
     {
-        'name': 'random-read70write30-8k',
+        'name': 'random-readwrite7030-8k',
         'bs': 8,
         'rw': 'randrw',
         'rwmixread': 70
@@ -104,6 +109,12 @@ TEST_VARIANTS = [
         'iodepth': [1, 2, 4, 8, 16, 32, 64]
     },
 ]
+
+
+
+def utcnow():
+    now = datetime.utcnow()
+    return now.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
 def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iodepth=1, numjobs=1, json=True):
@@ -142,8 +153,51 @@ def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iode
     return res
 
 
-for variant in TEST_VARIANTS:
-    for numjobs in variant['numjobs']:
-        for iodepth in variant['iodepth']:
-            res = fio(TESTS[0], "/dev/sdl", ioengine=variant['ioengine'], iodepth=iodepth, numjobs=numjobs, json=False)
-            print res
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument("--description", type=str, required=True, help='Test setup description')
+    parser.add_argument("--filename", type=str, required=True, help='Filename or device to run tests on, e.g. /dev/sdl')
+    parser.add_argument("--filesize", type=str, default=None, help='Size of test data, e.g. 10g.')
+    parser.add_argument("--runtime", type=int, default=10, help='Run-time in seconds, default is 10.')
+    parser.add_argument("--ramptime", type=int, default=0, help='Rampup-time in seconds, default is 0.')
+
+    args = parser.parse_args()
+
+    conn = psycopg2.connect(host="192.168.9.1", port=5432, database="adr", user="oberstet", password="123456")
+    conn.autocommit = True
+    cur = conn.cursor()
+
+    cur.execute("SELECT nextval('perf.seq_storage_test')")
+    test_id = cur.fetchone()[0]
+
+    started = datetime.datetime.now()
+
+    cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+        (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started))
+
+    with open(args.output, 'a') as out:
+        for variant in TEST_VARIANTS:
+            for numjobs in variant['numjobs']:
+                for iodepth in variant['iodepth']:
+
+                    cur.execute("SELECT nextval('perf.seq_storage_test_result')")
+                    test_result_id = cur.fetchone()[0]
+
+                    test_started = datetime.datetime.now()
+
+                    result = fio(TESTS[0], filename=args.filename, size=args.filesize,
+                        ioengine=variant['ioengine'], iodepth=iodepth, numjobs=numjobs)
+
+                    test_ended = datetime.datetime.now()
+
+                    #output = json.dumps(res, separators=(',', ':'), ensure_ascii=False)
+                    print res
+
+                    cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, started, ended, result) VALUES (%s, %s, %s, %s, %s)",
+                        (test_result_id, test_id, test_started, test_ended, result))
+
+    ended = datetime.datetime.now()
+
+    cur.execute("UPDATE perf.tbl_storage_test SET ended = %s", (ended,))

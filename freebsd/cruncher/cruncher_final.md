@@ -1,3 +1,34 @@
+# Zypper
+
+## Listing installed packages
+
+```console
+zypper search -i
+```
+
+or
+
+```console
+rpm -qa
+```
+
+## Listing repositories
+
+```console
+zypper lr -u
+```
+
+## Adding a repository
+
+```console
+zypper ar http://download.opensuse.org/repositories/server:/database:/postgresql/SLE_12/ opensuse:server:database:postgresql
+zypper ref
+```
+
+https://en.opensuse.org/images/1/17/Zypper-cheat-sheet-1.pdf
+https://en.opensuse.org/images/3/30/Zypper-cheat-sheet-2.pdf
+
+
 # Storage Performance
 
 The following storage configurations are tested both at **block device** level and at **filesystem level** (XFS and ext4).
