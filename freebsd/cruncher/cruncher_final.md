@@ -135,3 +135,64 @@ md127 : active raid1 sda2[0] sdd2[1]
 unused devices: <none>
 
  cbd6a0e478e50ec7612847c8c916c7fe640bb8fd
+
+
+
+
+
+
+
+http://linux.die.net/man/8/mkfs.xfs
+https://erikugel.wordpress.com/2010/04/11/setting-up-linux-with-raid-faster-slackware-with-mdadm-and-xfs/
+https://www.mythtv.org/wiki/Optimizing_Performance#Optimizing_XFS_on_RAID_Arrays
+
+
+mkfs.xfs -d sunit=512,swidth=4096 /dev/md0
+
+
+mount -o noatime,nodiratime,logbufs=8
+
+
+mount -o remount,sunit=512,swidth=3072
+
+/bin/mount -t xfs -o noatime /dev/md0 /mnt
+
+
+
+
+
+bvr-sql18:/home/oberstet # zypper search -iv | grep "opensuse:"
+i | fio                                  | package     | 2.2.6-34.1                   | x86_64 | opensuse:benchmark
+i | git                                  | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | git-core                             | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | git-email                            | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | git-gui                              | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | git-web                              | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | gitk                                 | package     | 2.3.5-241.2                  | x86_64 | opensuse:devel:tools:scm
+i | htop                                 | package     | 1.0.3-1.1                    | x86_64 | opensuse:server:monitoring
+i | perl-Net-SMTP-SSL                    | package     | 1.02-27.1                    | noarch | opensuse:devel:tools:scm
+
+
+
+---- BEGIN SSH2 PUBLIC KEY ----
+Comment: "rsa-key-20150417 BVR-SQL18"
+AAAAB3NzaC1yc2EAAAABJQAAAQEAi989X/st3U2eOsKa7KkpgeQQeHuWklYfPZPr
+zTtGl9rSKMXQZ8LnEjjM7Jb2wD5X/qjCRJH1V8UHiYTAAB140aolAcJaVRCGN3P1
+YCo5uDEpr2aktr9g5wePFtrJrISw+g49y8bSLDP00nDjNLHkPw1BskGEBH0jTyKn
+wkB+r3vcWPzCFU3w4/Bhf39DIuKvpXQc9HfotscQ0GnHrAqwyW3vgiefgtN8qcQF
+7O6ZWfCxlVvnUpKNRkBuDglT3C+9vzxp8n0m8Q7OdMzOCs1bgBQE+NEaUil7bb70
+YERamugq34TGsqwd1bwxoXbywLTpoLJvCbyRFvK88HNwpPEcqw==
+---- END SSH2 PUBLIC KEY ----
+
+
+bvr-sql18:~ # mkfs.xfs -d sunit=512,swidth=4096 /dev/md0
+meta-data=/dev/md0               isize=256    agcount=32, agsize=122086464 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=0        finobt=0
+data     =                       bsize=4096   blocks=3906766848, imaxpct=5
+         =                       sunit=64     swidth=512 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=0
+log      =internal log           bsize=4096   blocks=521728, version=2
+         =                       sectsz=512   sunit=64 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+

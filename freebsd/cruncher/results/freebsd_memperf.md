@@ -2715,3 +2715,9 @@ Now build
 gmake
 gmake install
 ```
+
+```console
+nice -n -2 ./pmbw -S 0
+~/pmbw/bin/pmbw -M 17179869184
+./stats2gnuplot stats.txt | gnuplot
+```
