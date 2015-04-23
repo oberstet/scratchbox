@@ -1,16 +1,18 @@
 import os
+import sys
 import argparse
 import subprocess
 import json
 from datetime import datetime
 import psycopg2
 
-
+# 10 internal Intel DC S3700 SATA SSDs
+#
 STORSYS_INTERNAL_SSD_DEV = [
-    #'sda',
+    #'sda', # boot/system disk!! do NOT touch!
     'sdb',
     'sdc',
-    #'sdd',
+    #'sdd', # boot/system disk!! do NOT touch!
     'sde',
     'sdf',
     'sdg',
@@ -21,6 +23,8 @@ STORSYS_INTERNAL_SSD_DEV = [
     'sdl',
 ]
 
+# 8 internal Intel P3700 NVMe SSDs
+#
 STORSYS_INTERNAL_NVME_DEV = [
     'nvme0n1',
     'nvme1n1',
@@ -32,6 +36,8 @@ STORSYS_INTERNAL_NVME_DEV = [
     'nvme7n1',
 ]
 
+# 24 external Seagate Constellation ES.3 disks
+#
 STORSYS_EXTERNAL_HDD_DEV = [
     'sdm',
     'sdn',
@@ -60,6 +66,8 @@ STORSYS_EXTERNAL_HDD_DEV = [
 ]
 
 
+# 7 tests
+#
 TESTS = [
     {
         'name': 'random-read-4k',
@@ -100,19 +108,20 @@ TESTS = [
 ]
 
 
+# 60 test variants
+#
 TEST_VARIANTS = [
+    # 11 test variants
     {
         'ioengine': 'sync',
-#        'numjobs': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
-        'numjobs': [1, 32],
+        'numjobs': [1, 2, 4, 8, 16, 32, 48, 64, 128, 256, 512],
         'iodepth': [1]
     },
+    # 49 test variants
     {
         'ioengine': 'aio',
-        'numjobs': [1, 32],
-        'iodepth': [1, 32]
-#        'numjobs': [1, 2, 4, 8, 16, 32, 64],
-#        'iodepth': [1, 2, 4, 8, 16, 32, 64]
+        'numjobs': [1, 2, 4, 8, 16, 32, 64],
+        'iodepth': [1, 2, 4, 8, 16, 32, 64]
     },
 ]
 
@@ -175,21 +184,53 @@ if __name__ == '__main__':
     parser.add_argument("--runtime", type=int, default=10, help='Run-time in seconds, default is 10.')
     parser.add_argument("--ramptime", type=int, default=0, help='Rampup-time in seconds, default is 0.')
 
+    # limit number of tests run
+    #
+    parser.add_argument("--limit", type=int, default=None, help='Limit number of tests run.')
+
+    # parse cmd line args
+    #
     args = parser.parse_args()
 
+    # connect to DB
+    #
     conn = psycopg2.connect(host=args.pghost, port=args.pgport, database=args.pgdb, user=args.pguser, password=args.pgpassword)
     conn.autocommit = True
     cur = conn.cursor()
 
-    cur.execute("SELECT nextval('perf.seq_storage_test')")
-    test_id = cur.fetchone()[0]
+    # give user last chance to exit
+    #
+    test_count = 0
+    for test in TESTS:
+        for variant in TEST_VARIANTS:
+            for numjobs in variant['numjobs']:
+                for iodepth in variant['iodepth']:
+                    test_count += 1
+    estimated_duration = test_count * (args.ramptime + args.runtime)
 
     started = datetime.now()
 
-    cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-        (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started))
+    estimated_end = started + datetime.timedelta(seconds=estimated_duration)
 
-    for test in TESTS[:1]:
+    print("Ok, I will run {} tests, which will take {} seconds and end at (estimated) {}".format(test_count, estimated_duration, estimated_end))
+
+    while True:
+        ok = get_input("Continue? (y/n)").lower()
+        if ok in ['y', 'n']:
+            break
+
+    if ok == 'n':
+        sys.exit(0)
+
+    cur.execute("SELECT nextval('perf.seq_storage_test')")
+    test_id = cur.fetchone()[0]
+
+    cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started, test_count, estimated_end, estimated_duration) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started, test_count, estimated_end, estimated_duration))
+
+    cnt_tests = 0
+
+    for test in TESTS:
 
         for variant in TEST_VARIANTS:
 
@@ -199,18 +240,22 @@ if __name__ == '__main__':
 
                 for iodepth in variant['iodepth']:
 
-                    cur.execute("SELECT nextval('perf.seq_storage_test_result')")
-                    test_result_id = cur.fetchone()[0]
+                    if args.limit is None or cnt_tests < args.limit:
 
-                    test_started = datetime.now()
+                        cur.execute("SELECT nextval('perf.seq_storage_test_result')")
+                        test_result_id = cur.fetchone()[0]
 
-                    (cmd, result) = fio(test, filename=args.filename, size=args.filesize,
-                        ioengine=ioengine, iodepth=iodepth, numjobs=numjobs)
+                        test_started = datetime.now()
 
-                    test_ended = datetime.now()
+                        (cmd, result) = fio(test, filename=args.filename, size=args.filesize,
+                            ioengine=ioengine, iodepth=iodepth, numjobs=numjobs)
 
-                    cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, name, command, ioengine, iomode, blocksize, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                        (test_result_id, test_id, test.get('name', 'fio-test'), cmd, ioengine, test.get('rw', 'read'), int(test.get('bs', 4)), iodepth, numjobs, test_started, test_ended, result))
+                        test_ended = datetime.now()
+
+                        cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, name, command, ioengine, iomode, blocksize, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                            (test_result_id, test_id, test.get('name', 'fio-test'), cmd, ioengine, test.get('rw', 'read'), int(test.get('bs', 4)), iodepth, numjobs, test_started, test_ended, result))
+
+                        cnt_tests += 1
 
     ended = datetime.now()
 
