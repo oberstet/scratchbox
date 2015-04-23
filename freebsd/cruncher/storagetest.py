@@ -157,7 +157,17 @@ def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iode
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+
+    # target database
+    #
+    parser.add_argument("--dbhost", type=str, required=True, help='PostgreSQL database server.')
+    parser.add_argument("--dbport", type=int, default=5432, help='PostgreSQL database server listening port.')
+    parser.add_argument("--db", type=str, required=True, help='PostgreSQL database name.')
+    parser.add_argument("--dbuser", type=str, required=True, help='PostgreSQL database user.')
+    parser.add_argument("--dbpassword", type=str, required=True, help='PostgreSQL database user password.')
     
+    # test setup
+    #
     parser.add_argument("--description", type=str, required=True, help='Test setup description')
     parser.add_argument("--filename", type=str, required=True, help='Filename or device to run tests on, e.g. /dev/sdl')
     parser.add_argument("--filesize", type=str, default=None, help='Size of test data, e.g. 10g.')
@@ -166,7 +176,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    conn = psycopg2.connect(host="192.168.9.1", port=5432, database="adr", user="oberstet", password="123456")
+    conn = psycopg2.connect(host=args.dbhost, port=args.dbport, database=args.db, user=args.dbuser, password=args.dbpassword)
     conn.autocommit = True
     cur = conn.cursor()
 
