@@ -106,7 +106,8 @@ TESTS = [
 def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iodepth=1, numjobs=1):
     args = [
         '/usr/bin/fio',
-        '--filename="{}"'.format(filename),
+        '--name={}'.format(spec.get('name', 'fio-test')),
+        '--filename={}'.format(filename),
         '--ioengine={}'.format(ioengine),
         '--rw={}'.format(spec.get('rw', 'read')),
         '--bs={}k'.format(int(spec.get('bs', 4))),
@@ -125,11 +126,13 @@ def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iode
     ]
 
     if 'rwmixread' in spec:
-        args.append('--rwmixread={}'.format(int(spec['rwmixread'])
+        args.append('--rwmixread={}'.format(int(spec['rwmixread'])))
     if size:
-        args.append('--size={}'.format(int(size))
+        args.append('--size={}'.format(int(size)))
 
-    res = subprocess.check_output()
+    print("Running FIO: {}".format(' '.join(args)))
+
+    res = subprocess.check_output(args)
 
     return res
 
