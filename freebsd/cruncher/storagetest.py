@@ -1,3 +1,4 @@
+import os
 import argparse
 import subprocess
 import json
@@ -160,11 +161,11 @@ if __name__ == '__main__':
 
     # target database
     #
-    parser.add_argument("--dbhost", type=str, required=True, help='PostgreSQL database server.')
-    parser.add_argument("--dbport", type=int, default=5432, help='PostgreSQL database server listening port.')
-    parser.add_argument("--db", type=str, required=True, help='PostgreSQL database name.')
-    parser.add_argument("--dbuser", type=str, required=True, help='PostgreSQL database user.')
-    parser.add_argument("--dbpassword", type=str, required=True, help='PostgreSQL database user password.')
+    parser.add_argument("--pghost", type=str, required=True, help='PostgreSQL database server.')
+    parser.add_argument("--pgport", type=int, default=5432, help='PostgreSQL database server listening port.')
+    parser.add_argument("--pgdb", type=str, required=True, help='PostgreSQL database name.')
+    parser.add_argument("--pguser", type=str, required=True, help='PostgreSQL database user.')
+    parser.add_argument("--pgpassword", type=str, default=os.environ.get('PGPASSWORD', None), help='PostgreSQL database user password.')
     
     # test setup
     #
@@ -176,7 +177,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    conn = psycopg2.connect(host=args.dbhost, port=args.dbport, database=args.db, user=args.dbuser, password=args.dbpassword)
+    conn = psycopg2.connect(host=args.pghost, port=args.pgport, database=args.pgdb, user=args.pguser, password=args.pgpassword)
     conn.autocommit = True
     cur = conn.cursor()
 
