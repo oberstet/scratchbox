@@ -444,6 +444,80 @@ Working Devices : 2
        1       8       50        1      active sync   /dev/sdd2
 ```
 
+# Install Proxy Certificate
+
+Auf Notebook:
+
+```console
+cat Schreibtisch/BVR/BVRGateway.cer
+openssl x509 -in Schreibtisch/BVR/BVRGateway.cer -text -noout
+scp Schreibtisch/BVR/BVRGateway.cer ec2-user@jumper.tavendo.de:/home/ec2-user
+```
+
+Auf Jumper:
+
+```console
+scp -P 2222 BVRGateway.cer root@localhost:/root
+```
+
+Auf SQL18:
+
+```console
+cp BVRGateway.cer /etc/pki/trust/anchors/
+/usr/sbin/update-ca-certificates
+```
+
+Test:
+
+```console
+wget https://pypi.python.org
+```
+
+Links:
+
+* https://blog.hqcodeshop.fi/archives/157-Installing-own-CA-root-certificate-into-openSUSE.html
+
+
+# Python
+
+Install prerequisites:
+
+```console
+zypper in python-devel libopenssl-devel libbz2-devel readline-devel sqlite3-devel ncurses-devel
+```
+
+Build:
+
+```console
+CPPFLAGS="-I/usr/include/ncurses/" ./configure --prefix=/opt/python2
+CPPFLAGS="-I/usr/include/ncurses/" make
+sudo make install
+```
+
+Pip:
+
+```console
+wget https://bootstrap.pypa.io/get-pip.py
+sudo /opt/python2/bin/python get-pip.py
+```
+
+Test:
+
+```console
+sudo /opt/python2/bin/pip install glances
+```
+
+# Install SLES12 SDK
+
+`sudo yast` and:
+
+* => Software => Software Repositories
+* => Select "Add", then "Extensions and Modules from Registration Server ..."
+* => Choose "SUSE Linux Enterprise Software Development Kit 12 x86_6"
+
+Walk through the rest of the dialogs.
+
+
 
 # Sortme
 
