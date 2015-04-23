@@ -152,6 +152,11 @@ or
 lsblk -io KNAME,TYPE,SIZE,MODEL | grep ST6000
 ```
 
+Erasing a partition table:
+
+```console
+dd if=/dev/zero of=/dev/sdg bs=512 count=1 conv=notrunc
+```
 
 # mdadm
 
