@@ -53,16 +53,6 @@ STORSYS_EXTERNAL_HDD_DEV = [
     'sdaj',
 ]
 
-#
-# --filename
-# --size
-# --ioengine
-# --iodepth
-# --numjobs
-# --runtime
-# --ramp_time
-
-
 TESTS = [
     {
         'name': 'random-read-4k',
@@ -102,8 +92,21 @@ TESTS = [
     },
 ]
 
+TEST_VARIANTS = [
+    {
+        'ioengine': 'sync',
+        'numjobs': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+        'iodepth': [1]
+    },
+    {
+        'ioengine': 'aio',
+        'numjobs': [1, 2, 4, 8, 16, 32, 64],
+        'iodepth': [1, 2, 4, 8, 16, 32, 64]
+    },
+]
 
-def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iodepth=1, numjobs=1):
+
+def fio(spec, filename, size=None, runtime=10, ramptime=0, ioengine='sync', iodepth=1, numjobs=1, json=True):
     args = [
         '/usr/bin/fio',
         '--name={}'.format(spec.get('name', 'fio-test')),
@@ -111,7 +114,6 @@ def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iode
         '--ioengine={}'.format(ioengine),
         '--rw={}'.format(spec.get('rw', 'read')),
         '--bs={}k'.format(int(spec.get('bs', 4))),
-        '--output-format=json',
         '--runtime={}'.format(int(runtime)),
         '--ramp_time={}'.format(int(ramptime)),
         '--iodepth={}'.format(int(iodepth)),
@@ -129,6 +131,8 @@ def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iode
         args.append('--rwmixread={}'.format(int(spec['rwmixread'])))
     if size:
         args.append('--size={}'.format(int(size)))
+    if json:
+        args.append('--output-format=json')
 
     print("Running FIO: {}".format(' '.join(args)))
 
@@ -137,4 +141,8 @@ def fio(spec, filename, size=None, runtime=30, ramptime=0, ioengine='sync', iode
     return res
 
 
-print fio(TESTS[0], "/dev/sdl")
+for variant in TEST_VARIANTS:
+    for numjobs in variant['numjobs']:
+        for iodepth in variant['iodepth']:
+            res = fio(TESTS[0], "/dev/sdl", ioengine=variant['ioengine'], iodepth=iodepth, numjobs=numjobs, json=False)
+            print res
