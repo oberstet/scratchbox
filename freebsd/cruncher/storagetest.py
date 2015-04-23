@@ -178,26 +178,28 @@ if __name__ == '__main__':
     cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started) VALUES (%s, %s, %s, %s, %s, %s, %s)",
         (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started))
 
-    for variant in TEST_VARIANTS:
+    for test in TESTS[:1]:
 
-        ioengine = variant['ioengine']
+        for variant in TEST_VARIANTS:
 
-        for numjobs in variant['numjobs']:
+            ioengine = variant['ioengine']
 
-            for iodepth in variant['iodepth']:
+            for numjobs in variant['numjobs']:
 
-                cur.execute("SELECT nextval('perf.seq_storage_test_result')")
-                test_result_id = cur.fetchone()[0]
+                for iodepth in variant['iodepth']:
 
-                test_started = datetime.now()
+                    cur.execute("SELECT nextval('perf.seq_storage_test_result')")
+                    test_result_id = cur.fetchone()[0]
 
-                (cmd, result) = fio(TESTS[0], filename=args.filename, size=args.filesize,
-                    ioengine=ioengine, iodepth=iodepth, numjobs=numjobs)
+                    test_started = datetime.now()
 
-                test_ended = datetime.now()
+                    (cmd, result) = fio(test, filename=args.filename, size=args.filesize,
+                        ioengine=ioengine, iodepth=iodepth, numjobs=numjobs)
 
-                cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, name, command, ioengine, iomode, blocksize, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (test_result_id, test_id, name, cmd, ioengine, spec.get('rw', 'read'), int(spec.get('bs', 4)), iodepth, numjobs, test_started, test_ended, result))
+                    test_ended = datetime.now()
+
+                    cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, name, command, ioengine, iomode, blocksize, iodepth, numjobs, started, ended, result) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                        (test_result_id, test_id, test.get('name', 'fio-test'), cmd, ioengine, test.get('rw', 'read'), int(test.get('bs', 4)), iodepth, numjobs, test_started, test_ended, result))
 
     ended = datetime.now()
 
