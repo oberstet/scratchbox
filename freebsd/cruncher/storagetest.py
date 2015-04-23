@@ -172,12 +172,12 @@ if __name__ == '__main__':
     cur.execute("SELECT nextval('perf.seq_storage_test')")
     test_id = cur.fetchone()[0]
 
-    started = datetime.datetime.now()
+    started = datetime.now()
 
     cur.execute("INSERT INTO perf.tbl_storage_test (id, descr, filename, filesize, runtime, ramptime, started) VALUES (%s, %s, %s, %s, %s, %s, %s)",
         (test_id, args.description, args.filename, args.filesize, args.runtime, args.ramptime, started))
 
-    with open(args.output, 'a') as out:
+    if True:
         for variant in TEST_VARIANTS:
             for numjobs in variant['numjobs']:
                 for iodepth in variant['iodepth']:
@@ -185,19 +185,19 @@ if __name__ == '__main__':
                     cur.execute("SELECT nextval('perf.seq_storage_test_result')")
                     test_result_id = cur.fetchone()[0]
 
-                    test_started = datetime.datetime.now()
+                    test_started = datetime.now()
 
                     result = fio(TESTS[0], filename=args.filename, size=args.filesize,
                         ioengine=variant['ioengine'], iodepth=iodepth, numjobs=numjobs)
 
-                    test_ended = datetime.datetime.now()
+                    test_ended = datetime.now()
 
                     #output = json.dumps(res, separators=(',', ':'), ensure_ascii=False)
-                    print res
+                    print result
 
                     cur.execute("INSERT INTO perf.tbl_storage_test_result (id, test_id, started, ended, result) VALUES (%s, %s, %s, %s, %s)",
                         (test_result_id, test_id, test_started, test_ended, result))
 
-    ended = datetime.datetime.now()
+    ended = datetime.now()
 
     cur.execute("UPDATE perf.tbl_storage_test SET ended = %s", (ended,))
