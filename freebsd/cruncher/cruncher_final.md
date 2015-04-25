@@ -113,7 +113,8 @@ To mount a remote directory over SSH:
 
 ```console
 sudo mkdir /mnt/bvr
-sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa ec2-user@jumper.tavendo.de:/home/ec2-user /mnt/bvr
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa \
+   ec2-user@jumper.tavendo.de:/home/ec2-user /mnt/bvr
 ```
 
 To unmount
@@ -132,8 +133,9 @@ ssh -fN -L 2222:localhost:2222 ec2-user@jumper.tavendo.de
 
 and then mount
 
-```
-sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa -p 2222 oberstet@localhost:/home/oberstet /mnt/bvr
+```console
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa \
+   -p 2222 oberstet@localhost:/home/oberstet /mnt/bvr
 ```
 
 # Zypper
