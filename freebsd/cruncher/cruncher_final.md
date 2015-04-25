@@ -89,6 +89,52 @@ Have each NVMe exposed as a single XFS filesystem to hold *fast* tablespaces *fa
 
 Put table partitions over *fast0* - *fast7* in a round-robin fashion.
 
+# SSH
+
+## Reverse SSH Tunnel
+
+On `bvr-sql18`, execute the following to establish the reverse SSH tunnel to `jumper.tavendo.de`:
+
+```console
+sudo ssh -fN -R 2222:localhost:22 ec2-user@jumper.tavendo.de
+```
+
+Note that above command will properly daemonize the SSH tunnel.
+
+You now can login via the jump host:
+
+```console
+ssh -t ec2-user@jumper.tavendo.de "ssh -p 2222 oberstet@localhost"
+```
+
+## SSHFS
+
+To mount a remote directory over SSH:
+
+```console
+sudo mkdir /mnt/bvr
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa ec2-user@jumper.tavendo.de:/home/ec2-user /mnt/bvr
+```
+
+To unmount
+
+```console
+sudo fusermount -u /mnt/bvr
+```
+
+## SSHFS over reverse tunnel
+
+To mount a directory over SSHFS via an intermediary jump host, first establish a (forward) SSH tunnel:
+
+```console
+ssh -fN -L 2222:localhost:2222 ec2-user@jumper.tavendo.de
+```
+
+and then mount
+
+```
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa -p 2222 oberstet@localhost:/home/oberstet /mnt/bvr
+```
 
 # Zypper
 
