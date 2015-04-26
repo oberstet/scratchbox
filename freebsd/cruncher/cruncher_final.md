@@ -93,14 +93,14 @@ Put table partitions over *fast0* - *fast7* in a round-robin fashion.
 
 ## Maximum number of open FDs
 
-Add the following to the end of /etc/sysctl.conf and do sysctl -p:
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
 
 ```
 fs.file-max = 16777216
 fs.pipe-max-size = 134217728
 ```
 
-Modify /etc/security/limits.conf for the following
+Modify `/etc/security/limits.conf` for the following
 
 ```
 # wildcard does not work for root, but for all other users
@@ -129,6 +129,31 @@ You [have to re-login](http://unix.stackexchange.com/a/108605/52500) for the PAM
 ```
 ulimit -n
 ```
+
+## AIO
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+```
+# maximum I/O size for asynchronous I/Os
+#fs.aio-max-size = 1048576
+
+# maximum number of allowable concurrent requests
+fs.aio-max-nr = 1048576
+```
+
+## Network
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+```
+net.core.somaxconn = 8192
+net.ipv4.tcp_max_orphans = 8192
+net.ipv4.tcp_max_syn_backlog = 8192
+net.core.netdev_max_backlog = 262144
+net.ipv4.ip_local_port_range = 1024 65535
+```
+
 
 # SSH
 
