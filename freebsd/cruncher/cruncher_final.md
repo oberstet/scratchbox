@@ -89,6 +89,47 @@ Have each NVMe exposed as a single XFS filesystem to hold *fast* tablespaces *fa
 
 Put table partitions over *fast0* - *fast7* in a round-robin fashion.
 
+# System Tuning
+
+## Maximum number of open FDs
+
+Add the following to the end of /etc/sysctl.conf and do sysctl -p:
+
+```
+fs.file-max = 16777216
+fs.pipe-max-size = 134217728
+```
+
+Modify /etc/security/limits.conf for the following
+
+```
+# wildcard does not work for root, but for all other users
+*               soft     nofile           1048576
+*               hard     nofile           1048576
+# settings should also apply to root
+root            soft     nofile           1048576
+root            hard     nofile           1048576
+```
+
+and add the following line
+
+```
+session required pam_limits.so
+```
+
+to both of these files at the end:
+
+```
+/etc/pam.d/common-session
+/etc/pam.d/common-session-noninteractive
+```
+
+You [have to re-login](http://unix.stackexchange.com/a/108605/52500) for the PAM limits to take effect. Check that you actually got large (1048576) FD limit:
+
+```
+ulimit -n
+```
+
 # SSH
 
 ## Reverse SSH Tunnel
