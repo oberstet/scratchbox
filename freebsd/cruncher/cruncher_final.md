@@ -237,6 +237,8 @@ net.ipv4.ip_local_port_range = 1024 65535
 
 ## Reverse SSH Tunnel
 
+### SSH
+
 On `bvr-sql18`, execute the following to establish the reverse SSH tunnel to `jumper.tavendo.de`:
 
 ```console
@@ -250,6 +252,21 @@ You now can login via the jump host:
 ```console
 ssh -t ec2-user@jumper.tavendo.de "ssh -p 2222 oberstet@localhost"
 ```
+
+### PostgreSQL
+
+On `test-pc`, execute the following:
+
+```console
+ssh -fN -R 5432:localhost:5432 ec2-user@jumper.tavendo.de
+```
+
+You can now establish a 2nd (forward) tunnel to acces PostgreSQL on the Test-PC:
+
+```console
+ssh -fN -L 5432:localhost:5432 ec2-user@jumper.tavendo.de
+```
+
 
 ## SSHFS
 
