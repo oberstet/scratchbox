@@ -5,6 +5,8 @@ import math
 import matplotlib
 matplotlib.use("agg")
 
+import psycopg2
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -344,7 +346,7 @@ fiodata_cpu = [
 ]
 
 
-def plot_fio_aio_heatmap(data, ax, cmap=None):
+def plot_fio_aio_heatmap(data, ax, cmap=None, vmin=None, vmax=None):
     xticklabels = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
     yticklabels = list(reversed(xticklabels))
     heatmap_data = np.ndarray(shape=(12,12), dtype=float, order='F')
@@ -356,7 +358,7 @@ def plot_fio_aio_heatmap(data, ax, cmap=None):
         read_iops = d[2]
         heatmap_data[iodepth][numjobs] = int(read_iops)
 
-    sns.heatmap(heatmap_data, ax=ax, cmap=cmap, annot=True, annot_kws={"size": 5}, fmt="g", xticklabels=xticklabels, yticklabels=yticklabels)
+    sns.heatmap(heatmap_data, ax=ax, cmap=cmap, vmin=vmin, vmax=vmax, annot=True, annot_kws={"size": 5}, fmt="g", xticklabels=xticklabels, yticklabels=yticklabels)
 
 
 def create_report_page(data, outfile):
@@ -385,8 +387,8 @@ def create_report_page(data, outfile):
     #cmap2 = sns.blend_palette(["firebrick", "palegreen"], 8) 
     #for ax in axarr:
     plot_fio_aio_heatmap(data['iops'], axarr[0], cmap=None)
-    plot_fio_aio_heatmap(data['latency_q995'], axarr[1], cmap="coolwarm")
-    plot_fio_aio_heatmap(data['cpu_idle'], axarr[2], cmap="hot")
+    plot_fio_aio_heatmap(data['latency_q995'], axarr[1], cmap="copper_r")
+    plot_fio_aio_heatmap(data['cpu_idle'], axarr[2], cmap="jet", vmin=0, vmax=100)
     #sns.heatmap(data, ax=ax, annot=True, annot_kws={"size": 5}, fmt="g", xticklabels=xticklabels)
     #plt.xlabel = xticklabels
     #plt.ylabel = yticklabels
@@ -414,18 +416,78 @@ def create_report_page(data, outfile):
     pdf.close() 
 
 
+def get_test_result(conn, test_id, ioengine="aio", blocksize=4, iomode="randread", indicator="read_iops"):
+
+    if indicator == "read_iops":
+        sel = "round((result->'jobs'->0->'read'->'iops')::text::float)"
+
+    elif indicator == "read_latency_q995":
+        sel = "round((result->'jobs'->0->'read'->'clat'->'percentile'->'99.500000')::text::float)"
+
+    elif indicator == "write_iops":
+        sel = "round((result->'jobs'->0->'write'->'iops')::text::float)"
+
+    elif indicator == "write_latency_q995":
+        sel = "round((result->'jobs'->0->'write'->'clat'->'percentile'->'99.500000')::text::float)"
+
+    elif indicator == "cpu_idle":
+        sel = "(cpu_load->'idle')::text::float"
+
+    else:
+        raise Exception("unknown indicator {}".format(indicator))
+
+    sql = """
+        select
+            numjobs,
+            iodepth,
+            {0} as indicator
+        from
+            perf.tbl_storage_test_result
+        where
+            test_id = %s
+            and ioengine = %s
+            and iomode = %s
+            and blocksize = %s
+    """.format(sel)
+
+    res = []
+    cur = conn.cursor()
+    cur.execute(sql, (test_id, ioengine, iomode, blocksize))
+    for numjobs, iodepth, indicator in cur.fetchall():
+        res.append([numjobs, iodepth, indicator])
+
+    return res
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
+    # target database
+    #
+    parser.add_argument("--pghost", type=str, default="localhost", help='PostgreSQL database server.')
+    parser.add_argument("--pgport", type=int, default=5434, help='PostgreSQL database server listening port.')
+    parser.add_argument("--pgdb", type=str, default="adr", help='PostgreSQL database name.')
+    parser.add_argument("--pguser", type=str, default="oberstet", help='PostgreSQL database user.')
+    parser.add_argument("--pgpassword", type=str, default=os.environ.get('PGPASSWORD', None), help='PostgreSQL database user password.')
+
     # parse cmd line args
     #
     args = parser.parse_args()
+
+    # connect to DB
+    #
+    conn = psycopg2.connect(host=args.pghost, port=args.pgport, database=args.pgdb, user=args.pguser, password=args.pgpassword)
+    conn.autocommit = True
 
     data = {
         'iops': fiodata,
         'latency_q995': fiodata_q995,
         'cpu_idle': fiodata_cpu
     }
+
+    data['iops'] = get_test_result(conn, test_id=1, indicator="read_iops", ioengine="aio", blocksize=4, iomode="randread")
+    data['latency_q995'] = get_test_result(conn, test_id=1, indicator="read_latency_q995", ioengine="aio", blocksize=4, iomode="randread")
+    data['cpu_idle'] = get_test_result(conn, test_id=1, indicator="cpu_idle", ioengine="aio", blocksize=4, iomode="randread")
 
     create_report_page(data, "outfile.pdf")
