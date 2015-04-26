@@ -1,21 +1,18 @@
+# Introduction
+
+The box runs **SuSE Linux Enterprise Server 12** - see [here](https://www.suse.com/documentation/sles-12/) for documentation.
+
 # Todo
 
-1. Nächste Woche:
-
-Performance Optimierung auf XFS Ebene
-Aufsetzen PostgreSQL, R, PL/R, MADlib
-Transferieren der Basistabellen
-Entwicklung Workload Scheduler
-
-2. Übernächste Woche:
-
-Performance Optimierung auf DB Ebene
-erste Queries mit Produktivdaten
-Prüfung tragfähiger Ansätze
-Entwicklung Workload Scheduler
-Anlegen aller Nutzern
-
-=> hier nur sehr limitierte Nutzergruppe (z.B. Marko und Michael)
+* [x] Anlegen von Unix Nutzern
+* [ ] Performance Optimierung auf XFS Ebene
+* [ ] Aufsetzen PostgreSQL, R, PL/R, MADlib
+* [ ] Transferieren der Basistabellen
+* [ ] Entwicklung Workload Scheduler
+* [ ] Performance Optimierung auf DB Ebene
+* [ ] erste Queries mit Produktivdaten
+* [ ] Prüfung tragfähiger Ansätze
+* [ ] Anlegen aller Nutzern
 
 # Storage Testing
 
@@ -89,6 +86,201 @@ Have each NVMe exposed as a single XFS filesystem to hold *fast* tablespaces *fa
 
 Put table partitions over *fast0* - *fast7* in a round-robin fashion.
 
+# System Tuning
+
+Kernel tuning for PostgreSQL is decribed [here](http://www.postgresql.org/docs/9.4/static/kernel-resources.html).
+
+Some useful information might also be found in tuning guides for Oracle on Linux: see [here](http://www.puschitz.com/TuningLinuxForOracle.shtml), [here](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/chap-Oracle_9i_and_10g_Tuning_Guide-Setting_Shared_Memory.html) and [here](http://www.puschitz.com/TuningLinuxForOracle.shtml).
+
+## Maximum number of open FDs
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+```
+fs.file-max = 16777216
+fs.pipe-max-size = 134217728
+```
+
+Modify `/etc/security/limits.conf` for the following
+
+```
+# wildcard does not work for root, but for all other users
+*               soft     nofile           1048576
+*               hard     nofile           1048576
+# settings should also apply to root
+root            soft     nofile           1048576
+root            hard     nofile           1048576
+```
+
+and add the following line
+
+```
+session required pam_limits.so
+```
+
+to both of these files at the end:
+
+```
+/etc/pam.d/common-session
+/etc/pam.d/common-session-noninteractive
+```
+
+You [have to re-login](http://unix.stackexchange.com/a/108605/52500) for the PAM limits to take effect. Check that you actually got large (1048576) FD limit:
+
+```
+ulimit -n
+```
+
+## AIO
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+```
+# maximum I/O size for asynchronous I/Os
+#fs.aio-max-size = 1048576
+
+# maximum number of allowable concurrent requests
+fs.aio-max-nr = 1048576
+```
+
+## SysV IPC
+
+To list the current limits:
+
+```console
+bvr-sql18:~ # ipcs -l
+
+------ Nachrichtenbeschränkungen --------
+maximale systemweite Warteschlangen = 32768
+maximale Größe der Nachricht (Bytes) = 65536
+normale maximale Größe der Warteschlange (Bytes) = 65536
+
+------ Gemeinsamer Speicher: Grenzen --------
+Maximale Anzahl an Segmenten = 4096
+Maximale Segmentgröße (KBytes) = 18014398509481983
+Maximaler gesamter gemeinsamer Speicher (KBytes) = 18014398509480960
+minimale Segmentgröße (Bytes) = 1
+
+------ Semaphorengrenzen --------
+maximale Anzahl von Feldern = 1024
+maximale Semaphoren pro Feld = 250
+maximale systemweite Semaphoren = 256000
+maximale Operationen pro Semaphorenaufruf = 32
+maximaler Semaphorenwert = 32767
+```
+
+## IO Scheduler
+
+The recommended IO schedulers for database workloads is `deadline` for fast devices (normal SSDs) and `noop` for very fast devices with deep IO queues (NVMe disks). For slow magnetic disks, the `cfq` scheduler should work fine.
+
+Check current settings on block devices (`/dev/sdm` is a magnetic disk, `/dev/sdb` is a fast SSD, and `/dev/nvme01n1` is a very fast NVMe SSD):
+
+```console
+bvr-sql18:~ # cat /sys/block/sdm/queue/scheduler
+noop deadline [cfq] 
+bvr-sql18:~ # cat /sys/block/sdb/queue/scheduler
+noop [deadline] cfq 
+bvr-sql18:~ # cat /sys/block/nvme0n1/queue/scheduler
+none
+bvr-sql18:~ # cat /sys/block/md100/queue/scheduler
+none
+```
+
+**As can be seen, SLES 12 has automatically set the best IO scheduler depending on device type`.
+
+To check which disks were automatically detected as slow, magnetic, rotational disks by the kernel:
+
+```console
+bvr-sql18:~ # grep . /sys/block/sd?/queue/rotational
+/sys/block/sda/queue/rotational:0
+/sys/block/sdb/queue/rotational:0
+/sys/block/sdc/queue/rotational:0
+/sys/block/sdd/queue/rotational:0
+/sys/block/sde/queue/rotational:0
+/sys/block/sdf/queue/rotational:0
+/sys/block/sdg/queue/rotational:0
+/sys/block/sdh/queue/rotational:0
+/sys/block/sdi/queue/rotational:0
+/sys/block/sdj/queue/rotational:0
+/sys/block/sdk/queue/rotational:0
+/sys/block/sdl/queue/rotational:0
+/sys/block/sdm/queue/rotational:1
+/sys/block/sdn/queue/rotational:1
+/sys/block/sdo/queue/rotational:1
+/sys/block/sdp/queue/rotational:1
+/sys/block/sdq/queue/rotational:1
+/sys/block/sdr/queue/rotational:1
+/sys/block/sds/queue/rotational:1
+/sys/block/sdt/queue/rotational:1
+/sys/block/sdu/queue/rotational:1
+/sys/block/sdv/queue/rotational:1
+/sys/block/sdw/queue/rotational:1
+/sys/block/sdx/queue/rotational:1
+/sys/block/sdy/queue/rotational:1
+/sys/block/sdz/queue/rotational:1
+```
+
+## Network
+
+Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
+
+```
+net.core.somaxconn = 8192
+net.ipv4.tcp_max_orphans = 8192
+net.ipv4.tcp_max_syn_backlog = 8192
+net.core.netdev_max_backlog = 262144
+net.ipv4.ip_local_port_range = 1024 65535
+```
+
+
+# SSH
+
+## Reverse SSH Tunnel
+
+On `bvr-sql18`, execute the following to establish the reverse SSH tunnel to `jumper.tavendo.de`:
+
+```console
+sudo ssh -fN -R 2222:localhost:22 ec2-user@jumper.tavendo.de
+```
+
+Note that above command will properly daemonize the SSH tunnel.
+
+You now can login via the jump host:
+
+```console
+ssh -t ec2-user@jumper.tavendo.de "ssh -p 2222 oberstet@localhost"
+```
+
+## SSHFS
+
+To mount a remote directory over SSH:
+
+```console
+sudo mkdir /mnt/bvr
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa \
+   ec2-user@jumper.tavendo.de:/home/ec2-user /mnt/bvr
+```
+
+To unmount
+
+```console
+sudo fusermount -u /mnt/bvr
+```
+
+## SSHFS over reverse tunnel
+
+To mount a directory over SSHFS via an intermediary jump host, first establish a (forward) SSH tunnel:
+
+```console
+ssh -fN -L 2222:localhost:2222 ec2-user@jumper.tavendo.de
+```
+
+and then mount
+
+```console
+sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa \
+   -p 2222 oberstet@localhost:/home/oberstet /mnt/bvr
+```
 
 # Zypper
 
@@ -159,6 +351,11 @@ dd if=/dev/zero of=/dev/sdg bs=512 count=1 conv=notrunc
 ```
 
 # mdadm
+
+Documentation:
+
+* [mdadm man page](http://linux.die.net/man/8/mdadm)
+* [mdadm Wiki](https://raid.wiki.kernel.org/index.php/RAID_setup)
 
 ## Creating an array
 
