@@ -359,6 +359,11 @@ dd if=/dev/zero of=/dev/sdg bs=512 count=1 conv=notrunc
 
 # mdadm
 
+Documentation:
+
+* [mdadm man page](http://linux.die.net/man/8/mdadm)
+* [mdadm Wiki](https://raid.wiki.kernel.org/index.php/RAID_setup)
+
 ## Creating an array
 
 Create a RAID-0 over all NVMe SSDs:
