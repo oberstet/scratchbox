@@ -1,3 +1,7 @@
+# Introduction
+
+The box runs **SuSE Linux Enterprise Server 12** - see [here](https://www.suse.com/documentation/sles-12/) for documentation.
+
 # Todo
 
 1. Nächste Woche:
