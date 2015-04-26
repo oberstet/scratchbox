@@ -4,22 +4,15 @@ The box runs **SuSE Linux Enterprise Server 12** - see [here](https://www.suse.c
 
 # Todo
 
-1. Nächste Woche:
-
-Performance Optimierung auf XFS Ebene
-Aufsetzen PostgreSQL, R, PL/R, MADlib
-Transferieren der Basistabellen
-Entwicklung Workload Scheduler
-
-2. Übernächste Woche:
-
-Performance Optimierung auf DB Ebene
-erste Queries mit Produktivdaten
-Prüfung tragfähiger Ansätze
-Entwicklung Workload Scheduler
-Anlegen aller Nutzern
-
-=> hier nur sehr limitierte Nutzergruppe (z.B. Marko und Michael)
+* [x] Anlegen von Unix Nutzern
+* [ ] Performance Optimierung auf XFS Ebene
+* [ ] Aufsetzen PostgreSQL, R, PL/R, MADlib
+* [ ] Transferieren der Basistabellen
+* [ ] Entwicklung Workload Scheduler
+* [ ] Performance Optimierung auf DB Ebene
+* [ ] erste Queries mit Produktivdaten
+* [ ] Prüfung tragfähiger Ansätze
+* [ ] Anlegen aller Nutzern
 
 # Storage Testing
 
