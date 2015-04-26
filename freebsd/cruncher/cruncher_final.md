@@ -91,6 +91,10 @@ Put table partitions over *fast0* - *fast7* in a round-robin fashion.
 
 # System Tuning
 
+Kernel tuning for PostgreSQL is decribed [here](http://www.postgresql.org/docs/9.4/static/kernel-resources.html).
+
+Some useful information might also be found in tuning guides for Oracle on Linux: see [here](http://www.puschitz.com/TuningLinuxForOracle.shtml), [here](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/5/html/Tuning_and_Optimizing_Red_Hat_Enterprise_Linux_for_Oracle_9i_and_10g_Databases/chap-Oracle_9i_and_10g_Tuning_Guide-Setting_Shared_Memory.html) and [here](http://www.puschitz.com/TuningLinuxForOracle.shtml).
+
 ## Maximum number of open FDs
 
 Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
@@ -140,6 +144,83 @@ Add the following to the end of `/etc/sysctl.conf` and do `sysctl -p`:
 
 # maximum number of allowable concurrent requests
 fs.aio-max-nr = 1048576
+```
+
+## SysV IPC
+
+To list the current limits:
+
+```console
+bvr-sql18:~ # ipcs -l
+
+------ Nachrichtenbeschränkungen --------
+maximale systemweite Warteschlangen = 32768
+maximale Größe der Nachricht (Bytes) = 65536
+normale maximale Größe der Warteschlange (Bytes) = 65536
+
+------ Gemeinsamer Speicher: Grenzen --------
+Maximale Anzahl an Segmenten = 4096
+Maximale Segmentgröße (KBytes) = 18014398509481983
+Maximaler gesamter gemeinsamer Speicher (KBytes) = 18014398509480960
+minimale Segmentgröße (Bytes) = 1
+
+------ Semaphorengrenzen --------
+maximale Anzahl von Feldern = 1024
+maximale Semaphoren pro Feld = 250
+maximale systemweite Semaphoren = 256000
+maximale Operationen pro Semaphorenaufruf = 32
+maximaler Semaphorenwert = 32767
+```
+
+## IO Scheduler
+
+The recommended IO schedulers for database workloads is `deadline` for fast devices (normal SSDs) and `noop` for very fast devices with deep IO queues (NVMe disks). For slow magnetic disks, the `cfq` scheduler should work fine.
+
+Check current settings on block devices (`/dev/sdm` is a magnetic disk, `/dev/sdb` is a fast SSD, and `/dev/nvme01n1` is a very fast NVMe SSD):
+
+```console
+bvr-sql18:~ # cat /sys/block/sdm/queue/scheduler
+noop deadline [cfq] 
+bvr-sql18:~ # cat /sys/block/sdb/queue/scheduler
+noop [deadline] cfq 
+bvr-sql18:~ # cat /sys/block/nvme0n1/queue/scheduler
+none
+bvr-sql18:~ # cat /sys/block/md100/queue/scheduler
+none
+```
+
+**As can be seen, SLES 12 has automatically set the best IO scheduler depending on device type`.
+
+To check which disks were automatically detected as slow, magnetic, rotational disks by the kernel:
+
+```console
+bvr-sql18:~ # grep . /sys/block/sd?/queue/rotational
+/sys/block/sda/queue/rotational:0
+/sys/block/sdb/queue/rotational:0
+/sys/block/sdc/queue/rotational:0
+/sys/block/sdd/queue/rotational:0
+/sys/block/sde/queue/rotational:0
+/sys/block/sdf/queue/rotational:0
+/sys/block/sdg/queue/rotational:0
+/sys/block/sdh/queue/rotational:0
+/sys/block/sdi/queue/rotational:0
+/sys/block/sdj/queue/rotational:0
+/sys/block/sdk/queue/rotational:0
+/sys/block/sdl/queue/rotational:0
+/sys/block/sdm/queue/rotational:1
+/sys/block/sdn/queue/rotational:1
+/sys/block/sdo/queue/rotational:1
+/sys/block/sdp/queue/rotational:1
+/sys/block/sdq/queue/rotational:1
+/sys/block/sdr/queue/rotational:1
+/sys/block/sds/queue/rotational:1
+/sys/block/sdt/queue/rotational:1
+/sys/block/sdu/queue/rotational:1
+/sys/block/sdv/queue/rotational:1
+/sys/block/sdw/queue/rotational:1
+/sys/block/sdx/queue/rotational:1
+/sys/block/sdy/queue/rotational:1
+/sys/block/sdz/queue/rotational:1
 ```
 
 ## Network
