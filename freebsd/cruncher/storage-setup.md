@@ -37,12 +37,14 @@ Pros:
 
 * likely the highest performance setup we can achieve
 * clear separation in "work" and "results" datasets
+* each database can be tuned to needs (performance vs availability)
 * **Work Database** maintainance/downtime does not affect presentation frontends
 
 Cons:
 
 * two database clusters required database links / foreign tables to move data between
-* 
+* small risk of small data loss on **Work Database**
+
 
 ## Storage Configuration B
 
