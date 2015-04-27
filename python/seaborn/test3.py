@@ -5,6 +5,8 @@ import math
 import matplotlib
 matplotlib.use("agg")
 
+import subprocess
+
 import psycopg2
 
 import numpy as np
@@ -32,8 +34,8 @@ def plot_fio_aio_heatmap(data, ax, cmap=None, vmin=None, vmax=None):
     for d in data:
         numjobs = int(math.log(d[0], 2))
         iodepth = 11- int(math.log(d[1], 2))
-        read_iops = d[2]
-        heatmap_data[iodepth][numjobs] = int(read_iops)
+        indicator = d[2]
+        heatmap_data[iodepth][numjobs] = round(indicator,1)
 
     #locs, labels = plt.xticks()
     #plt.setp(labels, rotation=45)
@@ -42,7 +44,11 @@ def plot_fio_aio_heatmap(data, ax, cmap=None, vmin=None, vmax=None):
     sns.heatmap(heatmap_data, ax=ax, cmap=cmap, vmin=vmin, vmax=vmax, annot=True, annot_kws={"size": 5}, fmt="g", xticklabels=xticklabels, yticklabels=yticklabels)
 
 
-def create_report_page(report, data, outfile, indicators):
+def create_report_page(report, data, outfile):
+
+    indicators = report['indicators']
+    indicator_headings = report['indicator_headings']
+
     pdf = PdfPages(outfile) 
 
     fig_width_cm = 21                         # A4 page
@@ -70,7 +76,9 @@ def create_report_page(report, data, outfile, indicators):
     fig, axarr = plt.subplots(allplots, 1)
     fig.set_size_inches(fig_size)
     fig.subplots_adjust(hspace=.4)
-    fig.suptitle('{} - {}kB {} (asynchronous IO)'.format(report['name'], report['blocksize'], report['iomode']), fontsize=14)
+#    fig.suptitle('{} - {}kB {} (asynchronous IO)'.format(report['name'], report['blocksize'], report['iomode']), fontsize=14)
+    fig.suptitle('{}'.format(report['title']), fontsize=14)
+
 
 
     #ax.set(xlabel="number of workers", ylabel="IO Depth")
@@ -82,17 +90,17 @@ def create_report_page(report, data, outfile, indicators):
     cmap = sns.diverging_palette(h_neg=210, h_pos=350, s=90, l=30, as_cmap=True)
     #cmap2 = sns.blend_palette(["firebrick", "palegreen"], 8) 
     #for ax in axarr:
-    axarr[0].set_title("IOPS")
+    axarr[0].set_title(indicator_headings[0])
     plot_fio_aio_heatmap(data[0], axarr[0], cmap=None)
     axarr[0].set_xlabel('number of workers')
     axarr[0].set_ylabel('queue depth')
 
-    axarr[1].set_title(r"Latency, 99.5% quantile")
+    axarr[1].set_title(indicator_headings[1])
     plot_fio_aio_heatmap(data[1], axarr[1], cmap="copper_r")
     axarr[1].set_xlabel('number of workers')
     axarr[1].set_ylabel('queue depth')
 
-    axarr[2].set_title("CPU Load")
+    axarr[2].set_title(indicator_headings[2])
     plot_fio_aio_heatmap(data[2], axarr[2], cmap="jet", vmin=0, vmax=100)
     axarr[2].set_xlabel('number of workers')
     axarr[2].set_ylabel('queue depth')
@@ -176,6 +184,16 @@ def get_test_result(conn, test_id, ioengine="aio", blocksize=4, iomode="randread
     return res
 
 
+def combine_pdf_pages(pages, output, remove=False):
+    args = ["pdfunite"]
+    args.extend(pages)
+    args.append(output)
+    subprocess.check_output(args)
+    if remove:
+        for f in pages:
+            os.remove(f)
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -199,66 +217,84 @@ if __name__ == '__main__':
 
     reports = []
 
+    # pdfunite nvme_p3700_*.pdf nvme_p3700.pdf
+
     for name in [
         'nvme_p3700_x1_blockdev',
         'nvme_p3700_x2_raid0_blockdev',
         'nvme_p3700_x4_raid0_blockdev',
         'nvme_p3700_x6_raid0_blockdev',
         'nvme_p3700_x8_raid0_blockdev',
+        'nvme_p3700_x2_raid1_blockdev',
+        'nvme_p3700_x4_raid10_blockdev',
+        'nvme_p3700_x6_raid10_blockdev',
+        'nvme_p3700_x8_raid10_blockdev',
     ]:
         l = [
-            # 
-            # nvme_p3700_x1_blockdev
-            #
             {
                 'name': name,
+                'title': "Random Read, 4kB",
                 'iomode': 'randread',
                 'blocksize': 4,
-                'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle']
+                'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['IOPS, reqs/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
             {
                 'name': name,
+                'title': "Random Write, 4kB",
                 'iomode': 'randwrite',
                 'blocksize': 4,
-                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle']
+                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['IOPS, reqs/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
 
             {
                 'name': name,
+                'title': "Random Read, 8kB",
                 'iomode': 'randread',
                 'blocksize': 8,
-                'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle']
+                'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['IOPS, reqs/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
             {
                 'name': name,
+                'title': "Random Write, 8kB",
+                'iomode': 'randwrite',
+                'blocksize': 8,
+                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['IOPS, reqs/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
+            },
+            {
+                'name': name,
+                'title': "Random Read/Write (70/30), 8kB",
                 'iomode': 'randrw',
                 'blocksize': 8,
-                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle']
+                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['IOPS, reqs/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
             {
                 'name': name,
-                'iomode': 'randwrite',
-                'blocksize': 8,
-                'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle']
-            },
-
-            {
-                'name': name,
+                'title': "Sequential Read, 128kB",
                 'iomode': 'read',
                 'blocksize': 128,
-                'indicators': ['read_bw', 'read_latency_q995', 'cpu_idle']
+                'indicators': ['read_bw', 'read_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['Bandwidth, kB/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
             {
                 'name': name,
+                'title': "Sequential Write, 128kB",
                 'iomode': 'write',
                 'blocksize': 128,
-                'indicators': ['write_bw', 'write_latency_q995', 'cpu_idle']
+                'indicators': ['write_bw', 'write_latency_q995', 'cpu_idle'],
+                'indicator_headings': ['Bandwidth, kB/s', r'IO Latency, us (99.5% Quantile)', r'CPU Utilization, %']
             },
         ]
         reports.extend(l)
 
     cnt = 0
-    break_at = None
+    break_at = 2
+
+    report_pages = []
 
     for report in reports:
         if break_at is None or cnt < break_at:
@@ -276,9 +312,12 @@ if __name__ == '__main__':
 
             filename = "{}_aio_{}_{}.pdf".format(report['name'], report['iomode'], report['blocksize'])
 
-            create_report_page(report, data, filename, report['indicators'])
+            create_report_page(report, data, filename)
+
+            report_pages.append(filename)
 
             cnt += 1
         else:
             break
 
+    combine_pdf_pages(report_pages, "brv-sql18-storage-performance.pdf", remove=True)
