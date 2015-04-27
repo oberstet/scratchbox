@@ -25,12 +25,24 @@ In this variant, two independent PostgreSQL database clusters are run:
 * Work Database
 * Results Database
 
-The **Work Database** completely runs from the 8 NVMes configured in a software RAID-0, formatted with XFS. The suable size is **16TB**.
+The **Work Database** completely runs from the 8 NVMes configured in a software RAID-0, formatted with XFS. The usable capacity is **16TB**.
 
-The **Results Database** completeley runs from the 10 SSDs configured in a software RAID-10, formatted with XFS. The usable size is **4TB**.
+The **Results Database** completeley runs from the 10 SSDs configured in a software RAID-10, formatted with XFS. The usable capacity is **4TB**.
 
-Both database clusters run in **continuous archive mode** archiving WAL segments to the **Archive Storage**.
+Both database clusters run in **continuous archive mode**, archiving WAL segments to the **Archive Storage**.
 
+The **Work Database** is used for big ETLs and analytical workloads. Only final results are copied over to the **Results Database**. All *presentation* front-ends fetch data from the **Results Database**.
+
+Pros:
+
+* likely the highest performance setup we can achieve
+* clear separation in "work" and "results" datasets
+* **Work Database** maintainance/downtime does not affect presentation frontends
+
+Cons:
+
+* two database clusters required database links / foreign tables to move data between
+* 
 
 ## Storage Configuration B
 
