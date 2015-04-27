@@ -44,7 +44,7 @@ def plot_fio_aio_heatmap(data, ax, cmap=None, vmin=None, vmax=None):
     sns.heatmap(heatmap_data, ax=ax, cmap=cmap, vmin=vmin, vmax=vmax, annot=True, annot_kws={"size": 5}, fmt="g", xticklabels=xticklabels, yticklabels=yticklabels)
 
 
-def create_report_page(report, data, outfile):
+def create_report_page(report_title, report, data, outfile):
 
     indicators = report['indicators']
     indicator_headings = report['indicator_headings']
@@ -77,7 +77,8 @@ def create_report_page(report, data, outfile):
     fig.set_size_inches(fig_size)
     fig.subplots_adjust(hspace=.4)
 #    fig.suptitle('{} - {}kB {} (asynchronous IO)'.format(report['name'], report['blocksize'], report['iomode']), fontsize=14)
-    fig.suptitle('{}'.format(report['title']), fontsize=14)
+#    fig.suptitle('{}, {}'.format(report_title, report['title']), fontsize=14)
+    fig.suptitle(report_title, fontsize=12)
 
 
 
@@ -233,7 +234,7 @@ if __name__ == '__main__':
         l = [
             {
                 'name': name,
-                'title': "Random Read, 4kB",
+                'title': "Random Read 4kB",
                 'iomode': 'randread',
                 'blocksize': 4,
                 'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle'],
@@ -241,7 +242,7 @@ if __name__ == '__main__':
             },
             {
                 'name': name,
-                'title': "Random Write, 4kB",
+                'title': "Random Write 4kB",
                 'iomode': 'randwrite',
                 'blocksize': 4,
                 'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
@@ -250,7 +251,7 @@ if __name__ == '__main__':
 
             {
                 'name': name,
-                'title': "Random Read, 8kB",
+                'title': "Random Read 8kB",
                 'iomode': 'randread',
                 'blocksize': 8,
                 'indicators': ['read_iops', 'read_latency_q995', 'cpu_idle'],
@@ -258,7 +259,7 @@ if __name__ == '__main__':
             },
             {
                 'name': name,
-                'title': "Random Write, 8kB",
+                'title': "Random Write 8kB",
                 'iomode': 'randwrite',
                 'blocksize': 8,
                 'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
@@ -266,7 +267,7 @@ if __name__ == '__main__':
             },
             {
                 'name': name,
-                'title': "Random Read/Write (70/30), 8kB",
+                'title': "Random Read/Write (70/30) 8kB",
                 'iomode': 'randrw',
                 'blocksize': 8,
                 'indicators': ['write_iops', 'write_latency_q995', 'cpu_idle'],
@@ -274,7 +275,7 @@ if __name__ == '__main__':
             },
             {
                 'name': name,
-                'title': "Sequential Read, 128kB",
+                'title': "Sequential Read 128kB",
                 'iomode': 'read',
                 'blocksize': 128,
                 'indicators': ['read_bw', 'read_latency_q995', 'cpu_idle'],
@@ -282,7 +283,7 @@ if __name__ == '__main__':
             },
             {
                 'name': name,
-                'title': "Sequential Write, 128kB",
+                'title': "Sequential Write 128kB",
                 'iomode': 'write',
                 'blocksize': 128,
                 'indicators': ['write_bw', 'write_latency_q995', 'cpu_idle'],
@@ -292,7 +293,7 @@ if __name__ == '__main__':
         reports.extend(l)
 
     cnt = 0
-    break_at = 2
+    break_at = None
 
     report_pages = []
 
@@ -305,6 +306,8 @@ if __name__ == '__main__':
                 raise Exception("no such test: '{}'".format(resport['name']))
             test_id, descr = res
 
+            report_title = "{} (Test ID {})\n{}".format(descr, test_id, report['title'])
+
             data = range(3)
             data[0] = get_test_result(conn, test_id=test_id, indicator=report['indicators'][0], ioengine="aio", blocksize=report['blocksize'], iomode=report['iomode'])
             data[1] = get_test_result(conn, test_id=test_id, indicator=report['indicators'][1], ioengine="aio", blocksize=report['blocksize'], iomode=report['iomode'])
@@ -312,7 +315,7 @@ if __name__ == '__main__':
 
             filename = "{}_aio_{}_{}.pdf".format(report['name'], report['iomode'], report['blocksize'])
 
-            create_report_page(report, data, filename)
+            create_report_page(report_title, report, data, filename)
 
             report_pages.append(filename)
 
