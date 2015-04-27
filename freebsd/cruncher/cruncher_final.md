@@ -755,6 +755,9 @@ autovacuum_analyze_scale_factor = 0.2
 
 
 
+* http://www.cybertec.at/bypassing-the-transaction-log/
+* http://www.cybertec.at/pg_resetxlog-when-hope-depends-on-luck/
+
 # Sortme
 
 
