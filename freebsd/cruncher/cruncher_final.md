@@ -737,6 +737,23 @@ sudo /opt/python2/bin/pip install glances
 Walk through the rest of the dialogs.
 
 
+# PostgreSQL Tuning
+
+```
+shared_buffers = 512MB
+work_mem = 64MB
+maintenance_work_mem = 1024MB
+full_page_writes = off
+wal_buffers = 16MB
+checkpoint_segments = 64
+checkpoint_completion_target = 0.9
+random_page_cost = 2.0
+cpu_tuple_cost = 0.05                   
+autovacuum_vacuum_scale_factor = 0.05
+autovacuum_analyze_scale_factor = 0.2
+```
+
+
 
 # Sortme
 
