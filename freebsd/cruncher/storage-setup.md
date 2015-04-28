@@ -57,6 +57,30 @@ The 10 internal SSDs are configured in a software RAID-10 formatted with XFS and
 The remaining 6 NVMe SSDs are configured in a software RAID-0 formatted with XFS and hold an additional **FAST Tablespace** (`PGDATA/pg_tblspc/fast`).
 
 
+## Results Database
+
+To create the storage area for **Results Database**:
+
+```console
+mdadm --create /dev/md230 --name result --level=10 --raid-devices=10 /dev/sd[b-c] /dev/sd[e-l]
+```
+
+```console
+mdadm --create /dev/md230 --name result0 --level=1 --raid-devices=2 /dev/sd{b,c}
+mdadm --create /dev/md231 --name result1 --level=1 --raid-devices=2 /dev/sd{e,f}
+mdadm --create /dev/md232 --name result2 --level=1 --raid-devices=2 /dev/sd{g,h}
+mdadm --create /dev/md233 --name result3 --level=1 --raid-devices=2 /dev/sd{i,j}
+mdadm --create /dev/md234 --name result4 --level=1 --raid-devices=2 /dev/sd{k,l}
+mdadm --create /dev/md235 --name result --level=0 --raid-devices=5 /dev/md23[0-4]
+```
+
+## Work Database
+
+To create the storage area for **Work Database**:
+
+```console
+mdadm --create /dev/md220 --name work --level=0 --raid-devices=8 /dev/nvme[0-7]n1
+```
 
 ## Archive
 
@@ -181,16 +205,16 @@ We will create a RAID-60 software RAID setup using the nesting feature of `mdadm
 First, create the 4 RAID-6 set with 6 disks each:
 
 ```console
-mdadm --create /dev/md240 --name archive0 --chunk=256 --level=6 --raid-devices=6 /dev/sd[m-r]
-mdadm --create /dev/md241 --name archive1 --chunk=256 --level=6 --raid-devices=6 /dev/sd[s-x]
-mdadm --create /dev/md242 --name archive2 --chunk=256 --level=6 --raid-devices=6 /dev/sd[y-z] /dev/sda[a-d]
-mdadm --create /dev/md243 --name archive3 --chunk=256 --level=6 --raid-devices=6 /dev/sda[e-j]
+mdadm --create /dev/md240 --name archive0 --level=6 --raid-devices=6 /dev/sd[m-r]
+mdadm --create /dev/md241 --name archive1 --level=6 --raid-devices=6 /dev/sd[s-x]
+mdadm --create /dev/md242 --name archive2 --level=6 --raid-devices=6 /dev/sd[y-z] /dev/sda[a-d]
+mdadm --create /dev/md243 --name archive3 --level=6 --raid-devices=6 /dev/sda[e-j]
 ```
 
 Now create the RAID-0 from above RAID-6 sets:
 
 ```console
-mdadm --create /dev/md244 --name archive --chunk=256 --level=0 --raid-devices=4 /dev/md24[0-3]
+mdadm --create /dev/md244 --name archive --level=0 --raid-devices=4 /dev/md24[0-3]
 ```
 
 Then create the XFS filesystem on top:
