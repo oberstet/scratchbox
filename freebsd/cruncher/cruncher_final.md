@@ -748,6 +748,25 @@ sudo /opt/python2/bin/pip install glances
 
 Walk through the rest of the dialogs.
 
+# Change run-level
+
+To switch into run-level 3:
+
+```console
+init 3
+```
+
+To [change the default run-level](https://www.suse.com/documentation/sles10/book_sle_reference/data/sec_boot_init.html) permanently:
+
+```console
+bvr-sql18:/home/oberstet # systemctl get-default
+graphical.target
+bvr-sql18:/home/oberstet # systemctl set-default multi-user.target
+rm '/etc/systemd/system/default.target'
+ln -s '/usr/lib/systemd/system/multi-user.target' '/etc/systemd/system/default.target'
+bvr-sql18:/home/oberstet # systemctl get-default
+multi-user.target
+``` 
 
 # PostgreSQL Tuning
 
