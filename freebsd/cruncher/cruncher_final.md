@@ -255,17 +255,29 @@ ssh -t ec2-user@jumper.tavendo.de "ssh -p 2222 oberstet@localhost"
 
 ### PostgreSQL
 
-On `test-pc`, execute the following:
+On **Test PC**, execute the following:
 
 ```console
 ssh -fN -R 5432:localhost:5432 ec2-user@jumper.tavendo.de
 ```
 
-You can now establish a 2nd (forward) tunnel to acces PostgreSQL on the Test-PC:
+On **Jumper**, check if the tunnel is listening there:
+
+```console
+[ec2-user@ip-172-31-11-121 ~]$ sudo netstat -plnt | grep ':5432'
+tcp        0      0 127.0.0.1:5432              0.0.0.0:*                   LISTEN      1966/sshd           
+tcp        0      0 ::1:5432                    :::*                        LISTEN      1966/sshd           
+```
+
+On **Your PC**, establish a 2nd (forward) tunnel:
 
 ```console
 ssh -fN -L 5432:localhost:5432 ec2-user@jumper.tavendo.de
 ```
+
+You now can connect to PostgreSQL on the **Test PC** from **Your PC** by connecting to `localhost:5432`.
+
+> If you have a locally running PostgreSQL already listening on port 5432, you can bind to a different local port like this: ```ssh -fN -L 5434:localhost:5432 ec2-user@jumper.tavendo.de```. This will bind to local port **5434**.
 
 
 ## SSHFS
