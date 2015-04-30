@@ -875,6 +875,46 @@ Private                   1578.46         1578.46
 Total                     2217.00         2217.00
 ```
 
+# PostgreSQL Building
+
+```console
+postgres@bvr-sql18:~> which pg_config
+/usr/bin/pg_config
+```
+
+```console
+postgres@bvr-sql18:~> pg_config --pgxs
+/usr/lib/postgresql94/lib64/pgxs/src/makefiles/pgxs.mk
+```
+
+```console
+postgres@bvr-sql18:~> pg_config 
+BINDIR = /usr/lib/postgresql94/bin
+DOCDIR = /usr/share/doc/packages/postgresql94
+HTMLDIR = /usr/share/doc/packages/postgresql94
+INCLUDEDIR = /usr/include/pgsql
+PKGINCLUDEDIR = /usr/include/pgsql
+INCLUDEDIR-SERVER = /usr/include/pgsql/server
+LIBDIR = /usr/lib/postgresql94/lib64
+PKGLIBDIR = /usr/lib/postgresql94/lib64
+LOCALEDIR = /usr/share/locale
+MANDIR = /usr/share/man
+SHAREDIR = /usr/share/postgresql94
+SYSCONFDIR = /etc/postgresql
+PGXS = /usr/lib/postgresql94/lib64/pgxs/src/makefiles/pgxs.mk
+CONFIGURE = '--host=x86_64-suse-linux-gnu' '--build=x86_64-suse-linux-gnu' '--program-prefix=' '--prefix=/usr' '--exec-prefix=/usr' '--bindir=/usr/bin' '--sbindir=/usr/sbin' '--sysconfdir=/etc' '--datadir=/usr/share' '--includedir=/usr/include' '--libdir=/usr/lib64' '--libexecdir=/usr/lib' '--localstatedir=/var' '--sharedstatedir=/usr/com' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--bindir=/usr/lib/postgresql94/bin' '--libdir=/usr/lib/postgresql94/lib64' '--includedir=/usr/include/pgsql' '--datadir=/usr/share/postgresql94' '--docdir=/usr/share/doc/packages/postgresql94' '--mandir=/usr/share/man' '--disable-rpath' '--enable-nls' '--enable-thread-safety' '--enable-integer-datetimes' '--without-readline' '--with-openssl' '--with-ldap' '--with-gssapi' '--with-krb5' '--with-system-tzdata=/usr/share/zoneinfo' 'build_alias=x86_64-suse-linux-gnu' 'host_alias=x86_64-suse-linux-gnu' 'CFLAGS=-fmessage-length=0 -grecord-gcc-switches -fstack-protector -O2 -Wall -D_FORTIFY_SOURCE=2 -funwind-tables -fasynchronous-unwind-tables -g'
+CC = gcc
+CPPFLAGS = -D_GNU_SOURCE
+CFLAGS = -Wall -Wmissing-prototypes -Wpointer-arith -Wdeclaration-after-statement -Wendif-labels -Wmissing-format-attribute -Wformat-security -fno-strict-aliasing -fwrapv -fexcess-precision=standard -fmessage-length=0 -grecord-gcc-switches -fstack-protector -O2 -Wall -D_FORTIFY_SOURCE=2 -funwind-tables -fasynchronous-unwind-tables -g
+CFLAGS_SL = -fpic
+LDFLAGS = -L../../../src/common -Wl,--as-needed
+LDFLAGS_EX = 
+LDFLAGS_SL = 
+LIBS = -lpgcommon -lpgport -lssl -lcrypto -lgssapi_krb5 -lz -lrt -lcrypt -ldl -lm 
+VERSION = PostgreSQL 9.4.1
+postgres@bvr-sql18:~> 
+```
+
 # Sortme
 
 
