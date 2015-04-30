@@ -859,6 +859,22 @@ L3 Cache:              3072K
 NUMA node0 CPU(s):     0-3
 ```
 
+To find out NUMA usage for a process:
+
+```console
+oberstet@thinkpad-t430s:~$ numastat firefox
+
+Per-node process memory usage (in MBs) for PID 2795 (firefox)
+                           Node 0           Total
+                  --------------- ---------------
+Huge                         0.00            0.00
+Heap                         0.00            0.00
+Stack                      638.54          638.54
+Private                   1578.46         1578.46
+----------------  --------------- ---------------
+Total                     2217.00         2217.00
+```
+
 # Sortme
 
 
