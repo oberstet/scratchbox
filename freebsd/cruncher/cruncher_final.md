@@ -784,10 +784,46 @@ autovacuum_vacuum_scale_factor = 0.05
 autovacuum_analyze_scale_factor = 0.2
 ```
 
-
-
 * http://www.cybertec.at/bypassing-the-transaction-log/
 * http://www.cybertec.at/pg_resetxlog-when-hope-depends-on-luck/
+
+# NUMA
+
+For and introduction to NUMA on Linux, see [here](http://events.linuxfoundation.org/sites/events/files/eeus13_shelton.pdf).
+
+Get NUMA information:
+
+```console
+bvr-sql18:~ # numactl --hardware
+available: 4 nodes (0-3)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11
+node 0 size: 775321 MB
+node 0 free: 770331 MB
+node 1 cpus: 12 13 14 15 16 17 18 19 20 21 22 23
+node 1 size: 775678 MB
+node 1 free: 770899 MB
+node 2 cpus: 24 25 26 27 28 29 30 31 32 33 34 35
+node 2 size: 775678 MB
+node 2 free: 766732 MB
+node 3 cpus: 36 37 38 39 40 41 42 43 44 45 46 47
+node 3 size: 775676 MB
+node 3 free: 761811 MB
+node distances:
+node   0   1   2   3 
+  0:  10  21  21  21 
+  1:  21  10  21  21 
+  2:  21  21  10  21 
+  3:  21  21  21  10 
+bvr-sql18:~ # numactl --show
+policy: default
+preferred node: current
+physcpubind: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 
+cpubind: 0 1 2 3 
+nodebind: 0 1 2 3 
+membind: 0 1 2 3 
+bvr-sql18:~ # 
+```
+
 
 # Sortme
 
