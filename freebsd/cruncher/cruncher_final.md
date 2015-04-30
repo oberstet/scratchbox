@@ -14,6 +14,27 @@ The box runs **SuSE Linux Enterprise Server 12** - see [here](https://www.suse.c
 * [ ] Prüfung tragfähiger Ansätze
 * [ ] Anlegen aller Nutzern
 
+# Tunnel
+
+Locally:
+
+```console
+oberstet@thinkpad-t430s:~$ pgrep -a ssh | grep "\-L [0-9]*"
+31210 ssh -fN -L 5433:localhost:5433 ec2-user@jumper.tavendo.de
+31213 ssh -fN -L 5434:localhost:5432 ec2-user@jumper.tavendo.de
+31770 ssh -fN -L 2222:localhost:2222 ec2-user@jumper.tavendo.de
+32294 ssh -fN -L 8080:localhost:8080 ec2-user@jumper.tavendo.de
+```
+
+Remotely:
+
+```console
+oberstet@bvr-sql18:~/scm/bvr> pgrep -a ssh | grep "\-R [0-9]*"
+9218 ssh -fN -R 2222:localhost:22 ec2-user@jumper.tavendo.de
+12167 ssh -fN -R 5433:localhost:5432 ec2-user@jumper.tavendo.de
+16079 ssh -fN -R 8080:bvr-git10.bvr-ext.de:80 ec2-user@jumper.tavendo.de
+```
+
 # Storage Testing
 
 FIO result parser in Python
