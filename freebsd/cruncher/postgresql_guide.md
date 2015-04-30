@@ -1,3 +1,27 @@
+# Listing PostgreSQL Processes
+
+Here are the PostgreSQL background processes and 2 client processes running:
+
+```console
+bvr-sql18:/home/oberstet # pgrep -au postgres
+9461 /usr/lib/postgresql94/bin/postgres -D /var/lib/pgsql/data
+9462 postgres: logger process                                 
+9467 postgres: checkpointer process                           
+9468 postgres: writer process                                 
+9469 postgres: wal writer process                             
+9470 postgres: autovacuum launcher process                    
+9471 postgres: stats collector process                        
+9511 postgres: oberstet postgres ::1(39237) idle              
+9512 postgres: oberstet adr ::1(39238) idle                   
+```
+
+To watch PostgreSQL processes in `htop`, call
+
+```console
+htop -u postgres
+```
+
+
 # Log in as superuser
 
 To log into PostgreSQL as database superuser (aka "DBA"), SSH into the server using
