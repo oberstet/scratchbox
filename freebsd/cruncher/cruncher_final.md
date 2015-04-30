@@ -824,6 +824,40 @@ membind: 0 1 2 3
 bvr-sql18:~ # 
 ```
 
+For comparison, here is a SMP, non-NUMA system:
+
+```console
+oberstet@thinkpad-t430s:~$ numactl --hardware 
+available: 1 nodes (0)
+node 0 cpus: 0 1 2 3
+node 0 size: 15774 MB
+node 0 free: 8084 MB
+node distances:
+node   0 
+  0:  10 
+oberstet@thinkpad-t430s:~$ lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                4
+On-line CPU(s) list:   0-3
+Thread(s) pro Kern:    2
+Kern(e) pro Socket:    2
+Socket(s):             1
+NUMA-Knoten:           1
+Anbieterkennung:       GenuineIntel
+Prozessorfamilie:      6
+Modell:                58
+Stepping:              9
+CPU MHz:               1200.000
+BogoMIPS:              5188.15
+Virtualisierung:       VT-x
+L1d Cache:             32K
+L1i Cache:             32K
+L2 Cache:              256K
+L3 Cache:              3072K
+NUMA node0 CPU(s):     0-3
+```
 
 # Sortme
 
