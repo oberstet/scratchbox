@@ -18,6 +18,15 @@ END;
 $$
 ```
 
+### Conditionals
+
+```sql
+IF EXISTS (SELECT 1 FROM people WHERE person_id = my_person_id) THEN
+  -- do something
+END IF;
+```
+
+
 # Listing PostgreSQL Processes
 
 Here are the PostgreSQL background processes and 2 client processes running:
