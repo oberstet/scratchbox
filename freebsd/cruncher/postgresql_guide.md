@@ -26,6 +26,10 @@ IF EXISTS (SELECT 1 FROM people WHERE person_id = my_person_id) THEN
 END IF;
 ```
 
+# Tuning
+
+* http://thebuild.com/presentations/not-my-job.pdf
+* 
 
 # Listing PostgreSQL Processes
 
