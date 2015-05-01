@@ -1,3 +1,23 @@
+# PostgreSQL Programming
+
+## Idioms
+
+### Looping
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+   i INT := 0;
+BEGIN
+   WHILE i < 10
+   LOOP
+      i := i + 1;
+   END LOOP;
+END;
+$$
+```
+
 # Listing PostgreSQL Processes
 
 Here are the PostgreSQL background processes and 2 client processes running:
