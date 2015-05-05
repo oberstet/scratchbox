@@ -62,7 +62,7 @@ The remaining 6 NVMe SSDs are configured in a software RAID-0 formatted with XFS
 To create the storage area for **Results Database**:
 
 ```console
-mdadm --create /dev/md230 --name result --level=10 --raid-devices=10 /dev/sd[b-c] /dev/sd[e-l]
+mdadm --create /dev/md123 --name result --level=10 --chunk=256 --raid-devices=10 /dev/sd[b-c] /dev/sd[e-l]
 ```
 
 ```console
@@ -74,12 +74,49 @@ mdadm --create /dev/md234 --name result4 --level=1 --raid-devices=2 /dev/sd{k,l}
 mdadm --create /dev/md235 --name result --level=0 --raid-devices=5 /dev/md23[0-4]
 ```
 
+Check settings:
+
+```console
+for drive in {a..l}; do cat /sys/block/sd${drive}/queue/scheduler; done
+for drive in {a..l}; do cat /sys/block/sd${drive}/device/queue_depth; done
+for drive in {a..l}; do cat /sys/block/sd${drive}/queue/add_random; done
+for drive in {a..l}; do cat /sys/block/sd${drive}/queue/rq_affinity; done
+for drive in {a..l}; do cat /sys/block/sd${drive}/queue/nr_requests; done
+```
+
+Adjust settings:
+
+```console
+for drive in {a..l}; do echo noop > /sys/block/sd${drive}/queue/scheduler; done
+for drive in {a..l}; do echo 32 > /sys/block/sd${drive}/device/queue_depth; done
+for drive in {a..l}; do echo 0 > /sys/block/sd${drive}/queue/add_random; done
+for drive in {a..l}; do echo 1 > /sys/block/sd${drive}/queue/rq_affinity; done
+```
+
+
 ## Work Database
 
 To create the storage area for **Work Database**:
 
 ```console
 mdadm --create /dev/md220 --name work --level=0 --raid-devices=8 /dev/nvme[0-7]n1
+```
+
+Check settings:
+
+```console
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/scheduler; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/add_random; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/rq_affinity; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/nr_requests; done
+```
+
+Adjust settings:
+
+```console
+for drive in {0..7}; do echo none > /sys/block/nvme${drive}n1/queue/scheduler; done
+for drive in {0..7}; do echo 0 > /sys/block/nvme${drive}n1/queue/add_random; done
+for drive in {0..7}; do echo 1 > /sys/block/nvme${drive}n1/queue/rq_affinity; done
 ```
 
 ## Archive
@@ -163,6 +200,19 @@ mdadm: No md superblock detected on /dev/sdai.
 mdadm: No md superblock detected on /dev/sdaj.
 ```
 
+### Delete Array
+
+
+mdadm --misc --zero-superblock /dev/sd[m-z] /dev/sda[a-j]
+
+### Entrpoy Source
+
+By default, block devices are used as an entropy source (this is done by `/usr/sbin/haveged` which is running). Disable that:
+
+```console
+for drive in {m..z}; do echo 0 > /sys/block/sd${drive}/queue/add_random; done
+for drive in {a..j}; do echo 0 > /sys/block/sda${drive}/queue/add_random; done
+```
 
 ### IO Scheduler
 
