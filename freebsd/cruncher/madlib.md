@@ -95,5 +95,6 @@ SELECT * FROM madlib.summary(source_table := 'basis.tbl_pk_konto_bda',
                              how_many_mfv := 5,
                              get_estimates := FALSE)
 ;
+-- Total query runtime: 511827 ms.
 ```
 
