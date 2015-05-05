@@ -41,6 +41,8 @@ psql -d adr -c "GRANT USAGE ON SCHEMA madlib TO PUBLIC"
 
 In this example, we activate MADlib in the **adr** database for use by anyone.
 
+## Test
+
 To test, run the following from a database session:
 
 ```sql
@@ -48,3 +50,9 @@ SELECT madlib.normal_cdf(0);
 ```
 
 This should output 0.5.
+
+To verify the installed version:
+
+```sql
+select pg_catalog.version(), madlib.version();
+```
