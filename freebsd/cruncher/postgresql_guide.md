@@ -26,6 +26,20 @@ IF EXISTS (SELECT 1 FROM people WHERE person_id = my_person_id) THEN
 END IF;
 ```
 
+# Shutdown
+
+http://rhaas.blogspot.de/2015/03/postgresql-shutdown.html
+
+```console
+psql -c CHECKPOINT && pg_ctl stop -m fast
+```
+
+```console
+systemctl stop postgresql
+```
+
+
+
 # Tuning
 
 * http://thebuild.com/presentations/not-my-job.pdf
