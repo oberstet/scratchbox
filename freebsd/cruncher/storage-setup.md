@@ -65,6 +65,10 @@ To create the storage area for **Results Database**:
 mdadm --create /dev/md123 --name result --level=10 --chunk=256 --raid-devices=10 /dev/sd[b-c] /dev/sd[e-l]
 ```
 
+This creates a complex RAID-10.
+
+Another variant would be to create a nested RAID:
+
 ```console
 mdadm --create /dev/md230 --name result0 --level=1 --raid-devices=2 /dev/sd{b,c}
 mdadm --create /dev/md231 --name result1 --level=1 --raid-devices=2 /dev/sd{e,f}
@@ -93,13 +97,15 @@ for drive in {a..l}; do echo 0 > /sys/block/sd${drive}/queue/add_random; done
 for drive in {a..l}; do echo 1 > /sys/block/sd${drive}/queue/rq_affinity; done
 ```
 
+To make these settings permanent, add above to `/etc/rc.d/boot.local`.
+
 
 ## Work Database
 
 To create the storage area for **Work Database**:
 
 ```console
-mdadm --create /dev/md220 --name work --level=0 --raid-devices=8 /dev/nvme[0-7]n1
+mdadm --create /dev/md124 --name work --level=0 --raid-devices=8 /dev/nvme[0-7]n1
 ```
 
 Check settings:
@@ -118,6 +124,9 @@ for drive in {0..7}; do echo none > /sys/block/nvme${drive}n1/queue/scheduler; d
 for drive in {0..7}; do echo 0 > /sys/block/nvme${drive}n1/queue/add_random; done
 for drive in {0..7}; do echo 1 > /sys/block/nvme${drive}n1/queue/rq_affinity; done
 ```
+
+To make these settings permanent, add above to `/etc/rc.d/boot.local`.
+
 
 ## Archive
 
