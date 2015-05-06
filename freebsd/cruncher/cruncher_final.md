@@ -35,6 +35,12 @@ oberstet@bvr-sql18:~/scm/bvr> pgrep -a ssh | grep "\-R [0-9]*"
 16079 ssh -fN -R 8080:bvr-git10.bvr-ext.de:80 ec2-user@jumper.tavendo.de
 ```
 
+```console
+ssh -fN -R 2222:localhost:22 ec2-user@52.28.29.49
+ssh -fN -R 5433:localhost:5432 ec2-user@52.28.29.49
+ssh -fN -R 8080:bvr-git10.bvr-ext.de:80 ec2-user@52.28.29.49
+```
+
 # Storage Testing
 
 FIO result parser in Python
