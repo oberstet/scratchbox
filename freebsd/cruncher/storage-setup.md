@@ -349,6 +349,8 @@ $ ls -la base/20444/80072*
 
 # Final Configuration
 
+md persistent configuration:
+
 ```console
 bvr-sql18:~ # cat /etc/mdadm.conf
 DEVICE containers partitions
@@ -362,6 +364,11 @@ ARRAY /dev/md/archive3  metadata=1.2 UUID=adbebc87:5016ce48:afd53e25:2358ec19 na
 ARRAY /dev/md/archive1  metadata=1.2 UUID=69c90acd:6e7b1849:19f42f3a:bccc60c1 name=bvr-sql18:archive1
 ARRAY /dev/md/archive0  metadata=1.2 UUID=5c2dad3a:5663346e:e3a5f304:7676615c name=bvr-sql18:archive0
 ARRAY /dev/md/archive  metadata=1.2 UUID=1676a04e:49b84715:1bae00c5:f08e5d70 name=bvr-sql18:archive
+```
+
+md configuration:
+
+```console
 bvr-sql18:~ # cat /proc/mdstat
 Personalities : [raid1] [raid0] [raid10] [raid6] [raid5] [raid4]
 md243 : active raid6 sdaj[5] sdai[4] sdah[3] sdag[2] sdaf[1] sdae[0]
@@ -403,6 +410,11 @@ md127 : active raid1 sdd3[1] sda3[0]
       bitmap: 0/6 pages [0KB], 65536KB chunk
 
 unused devices: <none>
+```
+
+md array details:
+
+```console
 bvr-sql18:~ # mdadm --detail /dev/md/work
 /dev/md/work:
         Version : 1.2
@@ -501,10 +513,6 @@ Working Devices : 4
        1       9      241        1      active sync   /dev/md241
        2       9      242        2      active sync   /dev/md242
        3       9      243        3      active sync   /dev/md243
-bvr-sql18:~ # mdadm --detail /dev/md/archive0
-mdadm: cannot open /dev/md/archive0: No such file or directory
-bvr-sql18:~ # mdadm --detail /dev/md/archive1
-mdadm: cannot open /dev/md/archive1: No such file or directory
 bvr-sql18:~ # mdadm --detail /dev/md240
 /dev/md240:
         Version : 1.2
@@ -644,7 +652,7 @@ Working Devices : 6
 bvr-sql18:~ #
 ```
 
-and
+Filesystem configuration:
 
 ```console
 bvr-sql18:~ # cat /etc/fstab
