@@ -41,6 +41,12 @@ ssh -fN -R 5433:localhost:5432 ec2-user@52.28.29.49
 ssh -fN -R 8080:bvr-git10.bvr-ext.de:80 ec2-user@52.28.29.49
 ```
 
+Check on jumper host:
+
+```console
+netstat -plnt
+```
+
 # Storage Testing
 
 FIO result parser in Python
