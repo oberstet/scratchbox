@@ -47,6 +47,18 @@ Check on jumper host:
 netstat -plnt
 ```
 
+To add shortcuts, add the following to `$HOME/.bashrc`:
+
+```
+alias jumper='ssh ec2-user@jumper.tavendo.de'
+alias testpc='ssh -t ec2-user@jumper.tavendo.de "ssh -p 2223 oberstet@localhost"'
+alias bvr='ssh -t ec2-user@jumper.tavendo.de "ssh -p 2222 oberstet@localhost"'
+alias bvr_pg_test='ssh -fN -L 5434:localhost:5432 ec2-user@jumper.tavendo.de'
+alias bvr_pg_work='ssh -fN -L 5433:localhost:5433 ec2-user@jumper.tavendo.de'
+alias bvr_git='ssh -fN -L 8080:localhost:8080 ec2-user@jumper.tavendo.de'
+alias bvr_fs='ssh -fN -L 2222:localhost:2222 ec2-user@jumper.tavendo.de; sudo sshfs -o allow_other -o IdentityFile=~/.ssh/id_rsa -p 2222 oberstet@localhost:/home/oberstet /mnt/bvr'
+```
+
 # Storage Testing
 
 FIO result parser in Python
