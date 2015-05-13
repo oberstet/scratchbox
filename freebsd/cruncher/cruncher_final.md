@@ -960,6 +960,65 @@ VERSION = PostgreSQL 9.4.1
 postgres@bvr-sql18:~> 
 ```
 
+# Systemd
+
+Listing the log of a service:
+
+```console
+bvr-sql18:~ # journalctl -f -u cron.service
+-- Logs begin at Mi 2015-05-06 15:07:12 CEST. --
+Mai 13 14:02:01 bvr-sql18 cron[10541]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:03:01 bvr-sql18 cron[10678]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:04:01 bvr-sql18 cron[10789]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:05:01 bvr-sql18 cron[11197]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:06:01 bvr-sql18 cron[11317]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:07:01 bvr-sql18 cron[11464]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:08:01 bvr-sql18 cron[11740]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:09:01 bvr-sql18 cron[11867]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:10:01 bvr-sql18 cron[11999]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+Mai 13 14:11:01 bvr-sql18 cron[12112]: pam_unix(crond:session): session opened for user adr-git by (uid=0)
+```
+
+Create a new service:
+
+```console
+bvr-sql18:~ # cat /etc/systemd/system/glances.service 
+[Unit]
+Description=Glances System Monitoring
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=adr-glances
+Group=users
+ExecStart=/opt/python2/bin/glances -w -p 8080
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Start the service:
+
+```console
+bvr-sql18:~ # systemctl start glances.service
+bvr-sql18:~ # systemctl status glances.service
+glances.service - Glances System Monitoring
+   Loaded: loaded (/etc/systemd/system/glances.service; disabled)
+   Active: active (running) since Mi 2015-05-13 14:23:49 CEST; 2s ago
+ Main PID: 13674 (glances)
+   CGroup: /system.slice/glances.service
+           └─13674 /opt/python2/bin/python /opt/python2/bin/glances -w -p 8080
+
+Mai 13 14:23:49 bvr-sql18 systemd[1]: Started Glances System Monitoring.
+```
+
+Reload systemd:
+
+```console
+bvr-sql18:~ # systemctl daemon-reload
+```
+
 # Sortme
 
 
