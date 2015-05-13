@@ -1013,6 +1013,13 @@ glances.service - Glances System Monitoring
 Mai 13 14:23:49 bvr-sql18 systemd[1]: Started Glances System Monitoring.
 ```
 
+Make the service automatically start in the respective run-mode:
+
+```console
+bvr-sql18:~ # systemctl enable glances
+ln -s '/etc/systemd/system/glances.service' '/etc/systemd/system/multi-user.target.wants/glances.service'
+```
+
 Reload systemd:
 
 ```console
