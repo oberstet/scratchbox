@@ -2,6 +2,26 @@
 
 ## Idioms
 
+### Database and Table Size
+
+Get size of a database:
+
+```sql
+select pg_size_pretty(pg_database_size('adr'))
+```
+
+Get size of a table (excluding indices):
+
+```sql
+select pg_size_pretty(pg_table_size('basis_partitions.tbl_pk_kunde_201401'))
+```
+
+Get total size of all indices on a table:
+
+```sql
+select pg_size_pretty(pg_indexes_size('basis_partitions.tbl_pk_kunde_201401'))
+```
+
 ### Looping
 
 ```sql
