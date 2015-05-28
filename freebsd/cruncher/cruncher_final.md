@@ -1026,6 +1026,37 @@ Reload systemd:
 bvr-sql18:~ # systemctl daemon-reload
 ```
 
+# IMCS
+
+Build [IMCS](http://www.garret.ru/imcs/user_guide.html):
+
+```console
+cd /tmp
+git clone https://github.com/knizhnik/imcs.git
+cd imcs
+sudo make USE_PGXS=1 CFLAGS="-O3 -Wall -Wno-format-security"  LDFLAGS="-pthread" install
+```
+
+This should create the extension shared lib:
+
+```console
+oberstet@bvr-sql18:~/scm/imcs> file /usr/lib/postgresql94/lib64/imcs.so
+/usr/lib/postgresql94/lib64/imcs.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=ea24a14133414241debc59f6f93133b424a525ce, not stripped
+oberstet@bvr-sql18:~/scm/imcs> ldd /usr/lib/postgresql94/lib64/imcs.so
+        linux-vdso.so.1 (0x00007ffcaadbd000)
+        libm.so.6 => /lib64/libm.so.6 (0x00007fd759c18000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007fd7599fb000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007fd759652000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007fd75a22e000)
+```
+
+To create the extension, connect as DBA to the respective database where the extension is to be installed:
+
+```sql
+create extension imcs;
+```
+
+
 # PL/R Bug
 
 ```sql
