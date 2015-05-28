@@ -1159,6 +1159,49 @@ Error: '\p' is an unrecognized escape in character string starting "'test\p"
 2015-05-28 09:55:08 CEST   LOG:  database system is ready to accept connections
 ```
 
+**Linux**
+
+```
+bvr-sql18:~ # uname -a
+Linux bvr-sql18 3.12.39-47-default #1 SMP Thu Mar 26 13:21:16 UTC 2015 (a901594) x86_64 x86_64 x86_64 GNU/Linux
+```
+
+```
+[684250.490763] postgres[1074]: segfault at 7fff6865709e ip 00007f4cb5b0cee3 sp 00007fff6864f678 error 4 in libc-2.19.so[7f4cb5a81000+19e000]
+```
+
+```
+Error: '\p' is an unrecognized escape in character string starting "'test\p"
+2015-05-27 09:52:14 CEST   LOG:  server process (PID 1074) was terminated by signal 11: Segmentation fault
+2015-05-27 09:52:14 CEST   DETAIL:  Failed process was running:
+        select work_petzoldm.bugtest()
+2015-05-27 09:52:14 CEST   LOG:  terminating any other active server processes
+```
+
+```
+"version"
+"PostgreSQL 9.4.1 on x86_64-suse-linux-gnu, compiled by gcc (SUSE Linux) 4.8.3 20140627 [gcc-4_8-branch revision 212064], 64-bit"
+
+"plr_version"
+"08.03.00.16"
+
+"r_version"
+"(platform,x86_64-suse-linux-gnu)"
+"(arch,x86_64)"
+"(os,linux-gnu)"
+"(system,"x86_64, linux-gnu")"
+"(status,"")"
+"(major,3)"
+"(minor,1.3)"
+"(year,2015)"
+"(month,03)"
+"(day,09)"
+"("svn rev",67962)"
+"(language,R)"
+"(version.string,"R version 3.1.3 (2015-03-09)")"
+"(nickname,"Smooth Sidewalk")"
+```
+
 
 # Sortme
 
