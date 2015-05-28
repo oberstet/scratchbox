@@ -1026,6 +1026,140 @@ Reload systemd:
 bvr-sql18:~ # systemctl daemon-reload
 ```
 
+# PL/R Bug
+
+```sql
+create function bugtest () returns void
+language plr as
+$$
+a = 'test\ptest'
+$$;
+
+select bugtest()
+```
+
+**FreeBSD 10.1**
+
+```
+FreeBSD crunchertest 10.1-RELEASE-p6 FreeBSD 10.1-RELEASE-p6 #0: Tue Feb 24 19:00:21 UTC 2015     root@amd64-builder.daemonology.net:/usr/obj/usr/src/sys/GENERIC  amd64
+```
+
+```
+"version"
+"PostgreSQL 9.4.1 on amd64-portbld-freebsd10.1, compiled by FreeBSD clang version 3.4.1 (tags/RELEASE_34/dot1-final 208032) 20140512, 64-bit"
+
+"plr_version"
+"08.03.00.16"
+
+"r_version"
+"(platform,amd64-portbld-freebsd10.1)"
+"(arch,amd64)"
+"(os,freebsd10.1)"
+"(system,"amd64, freebsd10.1")"
+"(status,Patched)"
+"(major,3)"
+"(minor,0.2)"
+"(year,2013)"
+"(month,11)"
+"(day,12)"
+"("svn rev",64207)"
+"(language,R)"
+"(version.string,"R version 3.0.2 Patched (2013-11-12 r64207)")"
+"(nickname,"Frisbee Sailing")"
+```
+
+```
+May 28 09:55:08 crunchertest postgres: stack overflow detected; terminated
+May 28 09:55:08 crunchertest kernel: pid 61645 (postgres), uid 70: exited on signal 6 (core dumped)
+```
+
+```
+2015-05-28 09:55:07 CEST adr pgsql DEBUG:  StartTransactionCommand
+2015-05-28 09:55:07 CEST adr pgsql DEBUG:  StartTransaction
+2015-05-28 09:55:07 CEST adr pgsql DEBUG:  name: unnamed; blockState:       DEFAULT; state: INPROGR, xid/subid/cid: 0/1/0, nestlvl: 1, children:
+Error: '\p' is an unrecognized escape in character string starting "'test\p"
+2015-05-28 09:55:08 CEST   DEBUG:  reaping dead processes
+2015-05-28 09:55:08 CEST   DEBUG:  server process (PID 61645) was terminated by signal 6: Abort trap
+2015-05-28 09:55:08 CEST   DETAIL:  Failed process was running: select bugtest()
+2015-05-28 09:55:08 CEST   LOG:  server process (PID 61645) was terminated by signal 6: Abort trap
+2015-05-28 09:55:08 CEST   DETAIL:  Failed process was running: select bugtest()
+2015-05-28 09:55:08 CEST   LOG:  terminating any other active server processes
+2015-05-28 09:55:08 CEST   DEBUG:  sending SIGQUIT to process 61639
+2015-05-28 09:55:08 CEST   DEBUG:  sending SIGQUIT to process 61638
+2015-05-28 09:55:08 CEST   DEBUG:  sending SIGQUIT to process 61640
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  sending SIGQUIT to process 61641
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(-1): 0 callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  sending SIGQUIT to process 61642
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(-1): 0 callbacks to make
+2015-05-28 09:55:08 CEST   WARNING:  terminating connection because of crash of another server process
+2015-05-28 09:55:08 CEST   DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+2015-05-28 09:55:08 CEST   HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+2015-05-28 09:55:08 CEST   DEBUG:  writing stats file "pg_stat/global.stat"
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(-1): 0 callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  writing stats file "pg_stat/db_20444.stat"
+2015-05-28 09:55:08 CEST   DEBUG:  removing temporary stats file "pg_stat_tmp/db_20444.stat"
+2015-05-28 09:55:08 CEST   DEBUG:  writing stats file "pg_stat/db_0.stat"
+2015-05-28 09:55:08 CEST   DEBUG:  removing temporary stats file "pg_stat_tmp/db_0.stat"
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(-1): 0 callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  reaping dead processes
+2015-05-28 09:55:08 CEST   DEBUG:  reaping dead processes
+2015-05-28 09:55:08 CEST   DEBUG:  reaping dead processes
+2015-05-28 09:55:08 CEST   LOG:  all server processes terminated; reinitializing
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(1): 4 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  cleaning up dynamic shared memory control segment with ID 1804289383
+2015-05-28 09:55:08 CEST   DEBUG:  invoking IpcMemoryCreate(size=148324352)
+2015-05-28 09:55:08 CEST   DEBUG:  SlruScanDirectory invoking callback on pg_notify/0000
+2015-05-28 09:55:08 CEST   DEBUG:  removing file "pg_notify/0000"
+2015-05-28 09:55:08 CEST   DEBUG:  dynamic shared memory system will support 288 segments
+2015-05-28 09:55:08 CEST   DEBUG:  created dynamic shared memory control segment 1057930314 (2316 bytes)
+2015-05-28 09:55:08 CEST   LOG:  database system was interrupted; last known up at 2015-05-28 09:54:19 CEST
+2015-05-28 09:55:08 CEST   DEBUG:  checkpoint record is at 1D/80606E68
+2015-05-28 09:55:08 CEST   DEBUG:  redo record is at 1D/80606E68; shutdown TRUE
+2015-05-28 09:55:08 CEST   DEBUG:  next transaction ID: 0/354716; next OID: 593954
+2015-05-28 09:55:08 CEST   DEBUG:  next MultiXactId: 1; next MultiXactOffset: 0
+2015-05-28 09:55:08 CEST   DEBUG:  oldest unfrozen transaction ID: 985, in database 1
+2015-05-28 09:55:08 CEST   DEBUG:  oldest MultiXactId: 1, in database 1
+2015-05-28 09:55:08 CEST   DEBUG:  transaction ID wrap limit is 2147484632, limited by database with OID 1
+2015-05-28 09:55:08 CEST   DEBUG:  MultiXactId wrap limit is 2147483648, limited by database with OID 1
+2015-05-28 09:55:08 CEST   DEBUG:  starting up replication slots
+2015-05-28 09:55:08 CEST   LOG:  database system was not properly shut down; automatic recovery in progress
+2015-05-28 09:55:08 CEST   DEBUG:  resetting unlogged relations: cleanup 1 init 0
+2015-05-28 09:55:08 CEST   LOG:  redo starts at 1D/80606ED0
+2015-05-28 09:55:08 CEST   LOG:  record with zero length at 1D/8060DF90
+2015-05-28 09:55:08 CEST   LOG:  redo done at 1D/8060DF60
+2015-05-28 09:55:08 CEST   LOG:  last completed transaction was at log time 2015-05-28 09:55:02.62084+02
+2015-05-28 09:55:08 CEST   DEBUG:  resetting unlogged relations: cleanup 0 init 1
+2015-05-28 09:55:08 CEST   DEBUG:  performing replication slot checkpoint
+2015-05-28 09:55:08 CEST   DEBUG:  attempting to remove WAL segments older than log file 000000000000001D0000007F
+2015-05-28 09:55:08 CEST   DEBUG:  SlruScanDirectory invoking callback on pg_multixact/offsets/0000
+2015-05-28 09:55:08 CEST   DEBUG:  SlruScanDirectory invoking callback on pg_multixact/members/0000
+2015-05-28 09:55:08 CEST   DEBUG:  SlruScanDirectory invoking callback on pg_multixact/offsets/0000
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(0): 1 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(0): 3 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(0): 2 callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  exit(0)
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 before_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  shmem_exit(-1): 0 on_shmem_exit callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  proc_exit(-1): 0 callbacks to make
+2015-05-28 09:55:08 CEST   DEBUG:  reaping dead processes
+2015-05-28 09:55:08 CEST   DEBUG:  checkpointer updated shared memory configuration values
+2015-05-28 09:55:08 CEST   LOG:  autovacuum launcher started
+2015-05-28 09:55:08 CEST   DEBUG:  InitPostgres
+2015-05-28 09:55:08 CEST   DEBUG:  my backend ID is 1
+2015-05-28 09:55:08 CEST   DEBUG:  StartTransaction
+2015-05-28 09:55:08 CEST   LOG:  database system is ready to accept connections
+```
+
+
 # Sortme
 
 
