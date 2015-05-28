@@ -1028,7 +1028,20 @@ bvr-sql18:~ # systemctl daemon-reload
 
 # IMCS
 
-Build [IMCS](http://www.garret.ru/imcs/user_guide.html):
+[IMCS](http://www.garret.ru/imcs/user_guide.html) is a PostgreSQL extension that provides an in-memory, columnar data-store with vectorized functions and thread parallelism.
+
+So steps of using IMCS extension are the following: 
+
+0. Build IMCS
+1.Change PostgreSQL configuration file postgresql.conf by adding IMCS to list of preloaded libraries and specifying maximal size of IMCS storage.
+2.Install IMCS extension (read PostgreSQL documentation about installation of extensions).
+3.Create extension using create extension imcs command (you need to have superuser permissions for it).
+4.Generate interface functions using cs_create function.
+5.If data is already present in the database, load it in columnar store using TABLE_load() function.
+6.You should either enable autoload (imcs.autoload configuration property), either manually call TABLE_load() each time you restart the server.
+
+
+Build:
 
 ```console
 cd /tmp
