@@ -1288,3 +1288,24 @@ log      =internal log           bsize=4096   blocks=521728, version=2
          =                       sectsz=512   sunit=64 blks, lazy-count=1
 realtime =none                   extsz=4096   blocks=0, rtextents=0
 
+
+# Scratch
+
+```
+-- grösste einzelne Datei sowie Gesamtvolumen über alle die als ZIPs geliefert werden
+select cast(max(file_size) as numeric)/1024/1024/1024, cast(sum(file_size) as numeric)/1024/1024/1024, count(*)
+from
+(
+select archive_file_sha256, max(archive_file_size) file_size from adr_roh.files.tbl_file_meta
+where status = 'LOADED' and archive_file_name is not null group by archive_file_sha256
+) as s
+-- 12.5 GB, 455 GB
+
+
+-- grösste einzelne Datei sowie Gesamtvolumen über alle die ungezipped kommen
+select cast(max(file_size) as numeric)/1024/1024/1024, cast(sum(file_size) as numeric)/1024/1024/1024, count(*)
+from adr_roh.files.tbl_file_meta
+where status = 'LOADED' and archive_file_name is null
+;
+-- 54.3 GB, 534 GB
+```
