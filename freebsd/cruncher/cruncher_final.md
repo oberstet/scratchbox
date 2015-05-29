@@ -384,6 +384,8 @@ zypper se postgres
 
 ## Adding a repository
 
+Find your package here http://software.opensuse.org/search
+
 ```console
 zypper ar http://download.opensuse.org/repositories/server:/database:/postgresql/SLE_12/ opensuse:server:database:postgresql
 zypper ref
