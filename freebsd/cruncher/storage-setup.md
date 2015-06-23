@@ -679,57 +679,65 @@ UUID=116f1cc2-74d2-44a7-b4e2-e8196bc86d82 /data/work xfs noatime,nodiratime 0 0
 
 # Backup and Recovery
 
-In a perfect world, there would be no need for a backup. However it is important, especially in business environments, to be prepared for when the "unexpected" happens. In a database scenario, the unexpected could take any of the following forms:
-• data corruption; 
-• system failure, including hardware failure; 
-• human error; 
-• natural disaster. 
+The starting point can only be a business requirement and it is defined through the concept of retention policy.
+ Usually, a company defines a disaster recovery plan within a business continuity plan, where it is clearly defined the period of retention of backup data. In the same documents we find both the recovery point objective (RPO) and the recovery time objective (RTO) definitions, the two key metrics that respectively measure the amount of data that a business can afford to lose and the maximum allowed time to recover from a disaster.
 
+In a perfect world, there would be no need for a backup. However it is important, especially in business environments, to be prepared for when the "unexpected" happens. In a database scenario, the unexpected could take any of the following forms:
+
+* data corruption
+* system failure, including hardware failure
+* human error
+* natural disaster
 
 For now, you should be aware that any PostgreSQL physical/binary backup (not to be confused with the logical backups produced by the pg_dump utility) is composed of:
-• a base backup; 
-• one or more WAL files (usually collected through continuous archiving). 
 
-
-
-
+* a base backup; 
+* one or more WAL files (usually collected through continuous archiving). 
 
 
 https://github.com/wal-e/wal-e
 https://developer.rackspace.com/blog/postgresql-plus-wal-e-plus-cloudfiles-equals-awesome/
-
-
-
 http://www.hagander.net/talks/Backup%20strategies.pdf
+http://riaschissl.bestsolution.at/2015/03/repair-corrupt-tar-archives-the-better-way/
 
 
 
-Weekly, full, logical backups
+**Weekly, full, logical backups**
+`
+Building OpenSSL from source:
 
-
+```console
+cd ~
+wget https://www.openssl.org/source/openssl-1.0.2c.tar.gz
+tar xvzf openssl-1.0.2c.tar.gz
+cd openssl-1.0.2c
+config --prefix=$HOME/openssl
+make
+make install
 export OPENSSL_CONF=/etc/ssl/openssl.cnf
+```
 
+Performance of the system OpenSSL at SHA256
+
+```console
 postgres@bvr-sql18:/data/archive/adr_work> time /usr/bin/openssl sha256 /data/archive/adr_work/backup_sql18_adr_work_20160622/24029.dat.gz
 SHA256(/data/archive/adr_work/backup_sql18_adr_work_20160622/24029.dat.gz)= 24ec7703a28defe0dedcc09a3ac792900b5cbaf79d6e64e212f643e7684be2a7
 
 real    0m3.376s
 user    0m2.828s
 sys     0m0.544s
+```
+
+Performance of custom built OpenSSL at SHA256:
+
+```console
 postgres@bvr-sql18:/data/archive/adr_work> time /home/oberstet/openssl/bin/openssl sha256 /data/archive/adr_work/backup_sql18_adr_work_20160622/24029.dat.gz
 SHA256(/data/archive/adr_work/backup_sql18_adr_work_20160622/24029.dat.gz)= 24ec7703a28defe0dedcc09a3ac792900b5cbaf79d6e64e212f643e7684be2a7
 
 real    0m2.659s
 user    0m1.928s
 sys     0m0.728s
-
-
-
-
-
-fixing currpoted tar archives
-http://riaschissl.bestsolution.at/2015/03/repair-corrupt-tar-archives-the-better-way/
-
-
+```
 
 "The dump duration has no effect on dump integrity. Integrity is ensured by using one transaction
 with repeatable read isolation level by all pg_dump process. There are NO table write locks."
@@ -740,64 +748,60 @@ to guarantee that the state of database being dumped would be that of the moment
 and the subsequent changes to the database could not interfere with the dump."
 http://stackoverflow.com/a/5729386
 
+Performing a full, logical backup of the database using 16 parallel workers took **<5 hours** (with almost no system activity other than the backup):
 
-Test 1: Time and size for full pg_dump
-
-Started: 22.06.2015 15:54
-
-time pg_dumpall | gzip -c > /data/archive/adr_work/backup_sql18_adr_work_20160622.sql.gz
-
-time pg_dump -Fd -f /data/archive/adr_work/backup_sql18_adr_work_20160622 -j 16 adr
-
-
-
+```console
 postgres@bvr-sql18:~/data> time pg_dump -Fd -j 16 -f /data/archive/adr_work/backup_sql18_adr_work_20160622 adr
 
 real    261m57.490s
 user    1290m5.744s
 sys     35m5.512s
+```
 
+The full backup consists of 2500 files and 550GB:
+
+```console
 bvr-sql18:/home/oberstet # find /data/archive/adr_work/backup_sql18_adr_work_20160622/ | wc -l
 2360
 bvr-sql18:/home/oberstet # du -hs /data/archive/adr_work/backup_sql18_adr_work_20160622/
 543G    /data/archive/adr_work/backup_sql18_adr_work_20160622/
+```
 
+Creating a tar archive took 30 minutes:
+
+```console
 bvr-sql18:/data/archive/adr_work # time tar -cf backup_sql18_adr_work_20160622.tar backup_sql18_adr_work_20160622
 
 real    31m40.619s
 user    0m6.620s
 sys     13m53.636s
+```
 
+Create a log file with SHA256 fingerprints
 
-
+```console
 bvr-sql18:/data/archive/adr_work # time find /data/archive/adr_work/backup_sql18_adr_work_20160622/ -type f -exec openssl sha256 {} \; > backup_sql18_adr_work_20160622.log
 
 real    42m43.522s
 user    33m44.980s
 sys     7m55.192s
+```
 
+Create SHA256 fingerprint for tar archive:
 
+```console
 bvr-sql18:/data/archive/adr_work # time openssl sha256 backup_sql18_adr_work_20160622.tar
 SHA256(backup_sql18_adr_work_20160622.tar)= b9f8dddf1c71c13d62a9f591d4b70961a50b309c31e0d9187f1754559f4b6ce5
 
 real    42m22.338s
 user    32m43.436s
 sys     7m51.496s
+```
 
-
-
-
-
-The starting point can only be a business requirement and it is defined through the concept of retention policy.
- Usually, a company defines a disaster recovery plan within a business continuity plan, where it is clearly defined the period of retention of backup data. In the same documents we find both the recovery point objective (RPO) and the recovery time objective (RTO) definitions, the two key metrics that respectively measure the amount of data that a business can afford to lose and the maximum allowed time to recover from a disaster.
- 
- 
-  continuous archiving of WAL files through shipping 
+**Continuous archiving of WAL files through shipping**
   
 PostgreSQL 9.4 introduced the [pg_stat_archiver](http://blog.2ndquadrant.com/monitoring-wal-archiving-improves-postgresql-9-4-pg_stat_archiver/) **system view**
 which provides information on the WAL archival process.
-
-
 
 ## Work Database
 
@@ -813,7 +817,9 @@ This database resides on a RAID-0 NVMe SSD array with a net capacity of 15TB.
 [WAL level](http://www.postgresql.org/docs/9.4/static/runtime-config-wal.html#GUC-WAL-LEVEL) must be set to `archive`.
 [Archive mode](http://www.postgresql.org/docs/9.4/static/runtime-config-wal.html#GUC-ARCHIVE-MODE) must be enabled.
 
+```
 wal_level = archive
 archive_mode = on
 archive_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'  # Unix
 archive_timeout = 300
+```
