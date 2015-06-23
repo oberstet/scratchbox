@@ -1,0 +1,1740 @@
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:16:14 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:16:14 ... thread 0: (1048576,1048576) ops and (2574980.9,2574980.9) ops/second in (0.407217,0.407217) seconds
+2015/06/23-18:16:14 ... thread 0: (1048576,2097152) ops and (2929867.1,2740984.6) ops/second in (0.357892,0.765109) seconds
+2015/06/23-18:16:15 ... thread 0: (1048576,3145728) ops and (2934557.3,2802607.6) ops/second in (0.357320,1.122429) seconds
+2015/06/23-18:16:15 ... thread 0: (1048576,4194304) ops and (3478371.6,2945676.1) ops/second in (0.301456,1.423885) seconds
+2015/06/23-18:16:15 ... thread 0: (1048576,5242880) ops and (3465622.3,3036798.1) ops/second in (0.302565,1.726450) seconds
+2015/06/23-18:16:16 ... thread 0: (1048576,6291456) ops and (3468465.2,3101123.0) ops/second in (0.302317,2.028767) seconds
+2015/06/23-18:16:16 ... thread 0: (1048576,7340032) ops and (3506908.0,3153246.2) ops/second in (0.299003,2.327770) seconds
+2015/06/23-18:16:16 ... thread 0: (1048576,8388608) ops and (3472025.5,3189855.3) ops/second in (0.302007,2.629777) seconds
+2015/06/23-18:16:17 ... thread 0: (1048576,9437184) ops and (2700810.1,3126943.4) ops/second in (0.388245,3.018022) seconds
+2015/06/23-18:16:17 ... thread 0: (1048576,10485760) ops and (2421077.7,3038360.0) ops/second in (0.433103,3.451125) seconds
+2015/06/23-18:16:17 ... thread 0: (1048576,11534336) ops and (2857949.6,3021023.2) ops/second in (0.366898,3.818023) seconds
+2015/06/23-18:16:18 ... thread 0: (1048576,12582912) ops and (2736567.4,2995079.3) ops/second in (0.383172,4.201195) seconds
+2015/06/23-18:16:18 ... thread 0: (1048576,13631488) ops and (2699558.5,2970069.0) ops/second in (0.388425,4.589620) seconds
+2015/06/23-18:16:19 ... thread 0: (1048576,14680064) ops and (2749195.1,2953122.0) ops/second in (0.381412,4.971032) seconds
+2015/06/23-18:16:19 ... thread 0: (1048576,15728640) ops and (2908647.1,2950114.7) ops/second in (0.360503,5.331535) seconds
+2015/06/23-18:16:19 ... thread 0: (1048576,16777216) ops and (2942974.7,2949667.5) ops/second in (0.356298,5.687833) seconds
+2015/06/23-18:16:20 ... thread 0: (1048576,17825792) ops and (3318016.0,2969056.2) ops/second in (0.316025,6.003858) seconds
+2015/06/23-18:16:20 ... thread 0: (1048576,18874368) ops and (2868457.2,2963282.6) ops/second in (0.365554,6.369412) seconds
+2015/06/23-18:16:20 ... thread 0: (1048576,19922944) ops and (2601531.8,2941753.2) ops/second in (0.403061,6.772473) seconds
+2015/06/23-18:16:21 ... thread 0: (1048576,20971520) ops and (2592373.0,2922062.5) ops/second in (0.404485,7.176958) seconds
+2015/06/23-18:16:21 ... thread 0: (1048576,22020096) ops and (2674604.4,2909245.0) ops/second in (0.392049,7.569007) seconds
+2015/06/23-18:16:22 ... thread 0: (1048576,23068672) ops and (2658081.7,2896803.2) ops/second in (0.394486,7.963493) seconds
+2015/06/23-18:16:22 ... thread 0: (1048576,24117248) ops and (3322884.3,2913043.6) ops/second in (0.315562,8.279055) seconds
+2015/06/23-18:16:22 ... thread 0: (1048576,25165824) ops and (3129152.9,2921450.4) ops/second in (0.335099,8.614154) seconds
+2015/06/23-18:16:22 ... thread 0: (1048576,26214400) ops and (3418719.6,2938547.5) ops/second in (0.306716,8.920870) seconds
+2015/06/23-18:16:23 ... thread 0: (1048576,27262976) ops and (3415112.0,2954404.2) ops/second in (0.307040,9.227910) seconds
+2015/06/23-18:16:23 ... thread 0: (1048576,28311552) ops and (3143901.4,2961014.3) ops/second in (0.333527,9.561437) seconds
+2015/06/23-18:16:23 ... thread 0: (1048576,29360128) ops and (3468224.3,2976561.0) ops/second in (0.302338,9.863775) seconds
+2015/06/23-18:16:24 ... thread 0: (1048576,30408704) ops and (3475017.2,2991356.9) ops/second in (0.301747,10.165522) seconds
+2015/06/23-18:16:24 ... thread 0: (1048576,31457280) ops and (3512593.8,3006226.8) ops/second in (0.298519,10.464041) seconds
+2015/06/23-18:16:24 ... thread 0: (1048576,32505856) ops and (3535010.4,3020803.1) ops/second in (0.296626,10.760667) seconds
+2015/06/23-18:16:25 ... thread 0: (1048576,33554432) ops and (3564475.4,3035270.4) ops/second in (0.294174,11.054841) seconds
+2015/06/23-18:16:25 ... thread 0: (1048576,34603008) ops and (3558958.7,3048865.3) ops/second in (0.294630,11.349471) seconds
+2015/06/23-18:16:25 ... thread 0: (1048576,35651584) ops and (3181755.0,3052615.2) ops/second in (0.329559,11.679030) seconds
+2015/06/23-18:16:26 ... thread 0: (1048576,36700160) ops and (3572661.0,3065363.8) ops/second in (0.293500,11.972530) seconds
+2015/06/23-18:16:26 ... thread 0: (1048576,37748736) ops and (3560457.2,3077250.0) ops/second in (0.294506,12.267036) seconds
+2015/06/23-18:16:26 ... thread 0: (1048576,38797312) ops and (3560747.3,3088584.7) ops/second in (0.294482,12.561518) seconds
+2015/06/23-18:16:26 ... thread 0: (1048576,39845888) ops and (3575584.8,3099694.8) ops/second in (0.293260,12.854778) seconds
+2015/06/23-18:16:27 ... thread 0: (1048576,40894464) ops and (3593105.6,3110647.6) ops/second in (0.291830,13.146608) seconds
+2015/06/23-18:16:27 ... thread 0: (1048576,41943040) ops and (3578025.0,3120839.0) ops/second in (0.293060,13.439668) seconds
+2015/06/23-18:16:27 ... thread 0: (1048576,42991616) ops and (3600631.8,3131015.0) ops/second in (0.291220,13.730888) seconds
+2015/06/23-18:16:28 ... thread 0: (1048576,44040192) ops and (3623751.6,3141184.5) ops/second in (0.289362,14.020250) seconds
+2015/06/23-18:16:28 ... thread 0: (1048576,45088768) ops and (3618062.4,3150842.6) ops/second in (0.289817,14.310067) seconds
+2015/06/23-18:16:28 ... thread 0: (1048576,46137344) ops and (3604332.4,3159878.2) ops/second in (0.290921,14.600988) seconds
+2015/06/23-18:16:28 ... thread 0: (1048576,47185920) ops and (3635435.7,3169090.5) ops/second in (0.288432,14.889420) seconds
+2015/06/23-18:16:29 ... thread 0: (1048576,48234496) ops and (3611445.6,3177551.6) ops/second in (0.290348,15.179768) seconds
+2015/06/23-18:16:29 ... thread 0: (1048576,49283072) ops and (3628629.7,3185978.2) ops/second in (0.288973,15.468741) seconds
+2015/06/23-18:16:29 ... thread 0: (1048576,50331648) ops and (3627173.6,3194072.3) ops/second in (0.289089,15.757830) seconds
+2015/06/23-18:16:30 ... thread 0: (1048576,51380224) ops and (3622562.2,3201801.3) ops/second in (0.289457,16.047287) seconds
+2015/06/23-18:16:30 ... thread 0: (1048576,52428800) ops and (3619498.7,3209208.3) ops/second in (0.289702,16.336989) seconds
+2015/06/23-18:16:30 ... thread 0: (1048576,53477376) ops and (3612279.1,3216245.1) ops/second in (0.290281,16.627270) seconds
+2015/06/23-18:16:30 ... thread 0: (1048576,54525952) ops and (3624628.4,3223228.9) ops/second in (0.289292,16.916562) seconds
+2015/06/23-18:16:31 ... thread 0: (1048576,55574528) ops and (3622487.2,3229945.8) ops/second in (0.289463,17.206025) seconds
+2015/06/23-18:16:31 ... thread 0: (1048576,56623104) ops and (3601361.4,3236126.3) ops/second in (0.291161,17.497186) seconds
+2015/06/23-18:16:31 ... thread 0: (1048576,57671680) ops and (3605435.4,3242164.5) ops/second in (0.290832,17.788018) seconds
+2015/06/23-18:16:32 ... thread 0: (1048576,58720256) ops and (3086861.6,3239254.3) ops/second in (0.339690,18.127708) seconds
+2015/06/23-18:16:32 ... thread 0: (1048576,59768832) ops and (3059249.1,3235913.9) ops/second in (0.342756,18.470464) seconds
+2015/06/23-18:16:32 ... thread 0: (1048576,60817408) ops and (3072327.0,3232946.0) ops/second in (0.341297,18.811761) seconds
+2015/06/23-18:16:33 ... thread 0: (1048576,61865984) ops and (3021589.0,3229117.7) ops/second in (0.347028,19.158789) seconds
+2015/06/23-18:16:33 ... thread 0: (1048576,62914560) ops and (3083167.4,3226572.0) ops/second in (0.340097,19.498886) seconds
+2015/06/23-18:16:33 ... thread 0: (1048576,63963136) ops and (2653413.6,3215186.7) ops/second in (0.395180,19.894066) seconds
+2015/06/23-18:16:34 ... thread 0: (1048576,65011712) ops and (3075598.2,3212834.8) ops/second in (0.340934,20.235000) seconds
+2015/06/23-18:16:34 ... thread 0: (1048576,66060288) ops and (3059284.8,3210277.2) ops/second in (0.342752,20.577752) seconds
+2015/06/23-18:16:34 ... thread 0: (1048576,67108864) ops and (3066200.0,3207921.9) ops/second in (0.341979,20.919731) seconds
+2015/06/23-18:16:35 ... thread 0: (1048576,68157440) ops and (3073885.2,3205771.4) ops/second in (0.341124,21.260855) seconds
+2015/06/23-18:16:35 ... thread 0: (1048576,69206016) ops and (2917143.5,3200972.7) ops/second in (0.359453,21.620308) seconds
+2015/06/23-18:16:36 ... thread 0: (1048576,70254592) ops and (3059552.6,3198765.9) ops/second in (0.342722,21.963030) seconds
+2015/06/23-18:16:36 ... thread 0: (1048576,71303168) ops and (3096871.8,3197218.9) ops/second in (0.338592,22.301622) seconds
+2015/06/23-18:16:36 ... thread 0: (1048576,72351744) ops and (3036587.0,3194769.7) ops/second in (0.345314,22.646936) seconds
+2015/06/23-18:16:37 ... thread 0: (1048576,73400320) ops and (3053156.3,3192654.2) ops/second in (0.343440,22.990376) seconds
+2015/06/23-18:16:37 ... thread 0: (1048576,74448896) ops and (3072561.1,3190897.6) ops/second in (0.341271,23.331647) seconds
+2015/06/23-18:16:37 ... thread 0: (1048576,75497472) ops and (3074948.8,3189227.3) ops/second in (0.341006,23.672653) seconds
+2015/06/23-18:16:38 ... thread 0: (1048576,76546048) ops and (3084754.7,3187748.4) ops/second in (0.339922,24.012575) seconds
+2015/06/23-18:16:38 ... thread 0: (1048576,77594624) ops and (3072903.3,3186139.3) ops/second in (0.341233,24.353808) seconds
+2015/06/23-18:16:38 ... thread 0: (1048576,78643200) ops and (3084791.0,3184744.2) ops/second in (0.339918,24.693726) seconds
+2015/06/23-18:16:39 ... thread 0: (1048576,79691776) ops and (3072939.3,3183220.3) ops/second in (0.341229,25.034955) seconds
+2015/06/23-18:16:39 ... thread 0: (1048576,80740352) ops and (3080549.7,3181843.0) ops/second in (0.340386,25.375341) seconds
+2015/06/23-18:16:39 ... thread 0: (1048576,81788928) ops and (3085045.2,3180563.6) ops/second in (0.339890,25.715231) seconds
+2015/06/23-18:16:40 ... thread 0: (1048576,82837504) ops and (2907663.1,3176789.4) ops/second in (0.360625,26.075856) seconds
+2015/06/23-18:16:40 ... thread 0: (1048576,83886080) ops and (3087906.9,3175646.8) ops/second in (0.339575,26.415431) seconds
+2015/06/23-18:16:40 ... thread 0: (1048576,84934656) ops and (3052169.8,3174061.6) ops/second in (0.343551,26.758982) seconds
+2015/06/23-18:16:41 ... thread 0: (1048576,85983232) ops and (3220986.3,3174625.6) ops/second in (0.325545,27.084527) seconds
+2015/06/23-18:16:41 ... thread 0: (1048576,87031808) ops and (3078957.7,3173437.6) ops/second in (0.340562,27.425089) seconds
+2015/06/23-18:16:41 ... thread 0: (1048576,88080384) ops and (2926204.2,3170248.9) ops/second in (0.358340,27.783429) seconds
+2015/06/23-18:16:42 ... thread 0: (1048576,89128960) ops and (3075742.6,3169103.3) ops/second in (0.340918,28.124347) seconds
+2015/06/23-18:16:42 ... thread 0: (1048576,90177536) ops and (3184605.7,3169282.7) ops/second in (0.329264,28.453611) seconds
+2015/06/23-18:16:42 ... thread 0: (1048576,91226112) ops and (2978232.2,3166947.5) ops/second in (0.352080,28.805691) seconds
+2015/06/23-18:16:43 ... thread 0: (1048576,92274688) ops and (2977378.1,3164657.8) ops/second in (0.352181,29.157872) seconds
+2015/06/23-18:16:43 ... thread 0: (1048576,93323264) ops and (3096377.9,3163873.9) ops/second in (0.338646,29.496518) seconds
+2015/06/23-18:16:43 ... thread 0: (1048576,94371840) ops and (3149548.4,3163714.0) ops/second in (0.332929,29.829447) seconds
+2015/06/23-18:16:44 ... thread 0: (1048576,95420416) ops and (3038382.0,3162280.6) ops/second in (0.345110,30.174557) seconds
+2015/06/23-18:16:44 ... thread 0: (1048576,96468992) ops and (3036384.7,3160856.1) ops/second in (0.345337,30.519894) seconds
+2015/06/23-18:16:44 ... thread 0: (1048576,97517568) ops and (3270994.0,3162000.9) ops/second in (0.320568,30.840462) seconds
+2015/06/23-18:16:45 ... thread 0: (1048576,98566144) ops and (3019005.3,3160408.4) ops/second in (0.347325,31.187787) seconds
+2015/06/23-18:16:45 ... thread 0: (1048576,99614720) ops and (3114801.1,3159921.4) ops/second in (0.336643,31.524430) seconds
+fillseqbatch :       0.316 micros/op 3160638 ops/sec;  349.6 MB/s
+12580708	/data/work/tmp/testlmdb/dbbench_mdb-1
+12580708	/data/work/tmp/testlmdb
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=fillseqbatch --writemap=1"
+	User time (seconds): 19.34
+	System time (seconds): 13.90
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:33.28
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12583096
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 3151295
+	Voluntary context switches: 49
+	Involuntary context switches: 76
+	Swaps: 0
+	File system inputs: 9
+	File system outputs: 25162824
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+THREADS=1
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:16:47 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:16:52 ... thread 1: (1048576,1048576) ops and (189504.2,189504.2) ops/second in (5.533261,5.533261) seconds
+2015/06/23-18:16:57 ... thread 1: (1048576,2097152) ops and (251354.5,216090.7) ops/second in (4.171701,9.704962) seconds
+2015/06/23-18:17:01 ... thread 1: (1048576,3145728) ops and (224904.1,218950.7) ops/second in (4.662325,14.367287) seconds
+2015/06/23-18:17:04 ... thread 0: (1048576,1048576) ops and (61768.2,61768.2) ops/second in (16.975997,16.975997) seconds
+2015/06/23-18:17:05 ... thread 1: (1048576,4194304) ops and (277601.1,231160.4) ops/second in (3.777276,18.144563) seconds
+2015/06/23-18:17:10 ... thread 1: (1048576,5242880) ops and (220345.4,228913.3) ops/second in (4.758783,22.903346) seconds
+2015/06/23-18:17:14 ... thread 1: (1048576,6291456) ops and (250339.8,232226.0) ops/second in (4.188611,27.091957) seconds
+writer       :      16.314 micros/op 61295 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       4.280 micros/op 233646 ops/sec; (7009999 of 7009999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=1 --writemap=1 --duration=30"
+	User time (seconds): 40.68
+	System time (seconds): 21.09
+	Percent of CPU this job got: 194%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.82
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 11851080
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8080348
+	Voluntary context switches: 431
+	Involuntary context switches: 153
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 13024008
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12588520	/data/work/tmp/testlmdb/dbbench_mdb-1
+12588520	/data/work/tmp/testlmdb
+THREADS=2
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:17:19 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:17:23 ... thread 1: (1048576,1048576) ops and (252406.4,252406.4) ops/second in (4.154317,4.154317) seconds
+2015/06/23-18:17:23 ... thread 2: (1048576,1048576) ops and (222878.3,222878.3) ops/second in (4.704702,4.704702) seconds
+2015/06/23-18:17:27 ... thread 1: (1048576,2097152) ops and (237080.9,244503.7) ops/second in (4.422861,8.577178) seconds
+2015/06/23-18:17:29 ... thread 2: (1048576,2097152) ops and (203737.8,212878.7) ops/second in (5.146693,9.851395) seconds
+2015/06/23-18:17:31 ... thread 1: (1048576,3145728) ops and (285953.9,256917.5) ops/second in (3.666941,12.244119) seconds
+2015/06/23-18:17:34 ... thread 2: (1048576,3145728) ops and (199127.9,208088.8) ops/second in (5.265843,15.117238) seconds
+2015/06/23-18:17:35 ... thread 1: (1048576,4194304) ops and (249996.2,255151.5) ops/second in (4.194368,16.438487) seconds
+2015/06/23-18:17:37 ... thread 0: (1048576,1048576) ops and (56752.2,56752.2) ops/second in (18.476398,18.476398) seconds
+2015/06/23-18:17:39 ... thread 2: (1048576,4194304) ops and (198430.9,205587.3) ops/second in (5.284338,20.401576) seconds
+2015/06/23-18:17:40 ... thread 1: (1048576,5242880) ops and (211489.9,245034.1) ops/second in (4.958042,21.396529) seconds
+2015/06/23-18:17:45 ... thread 2: (1048576,5242880) ops and (187089.8,201600.8) ops/second in (5.604666,26.006242) seconds
+2015/06/23-18:17:45 ... thread 1: (1048576,6291456) ops and (213377.0,239121.4) ops/second in (4.914195,26.310724) seconds
+writer       :      17.314 micros/op 57755 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       2.263 micros/op 441909 ops/sec; (7129999 of 7129999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=2 --writemap=1 --duration=30"
+	User time (seconds): 63.72
+	System time (seconds): 28.06
+	Percent of CPU this job got: 288%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12489248
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 11249015
+	Voluntary context switches: 1052
+	Involuntary context switches: 223
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8587264
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12589752	/data/work/tmp/testlmdb/dbbench_mdb-1
+12589752	/data/work/tmp/testlmdb
+THREADS=4
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:17:51 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:17:55 ... thread 3: (1048576,1048576) ops and (248907.9,248907.9) ops/second in (4.212706,4.212706) seconds
+2015/06/23-18:17:55 ... thread 4: (1048576,1048576) ops and (247089.7,247089.7) ops/second in (4.243706,4.243706) seconds
+2015/06/23-18:17:55 ... thread 1: (1048576,1048576) ops and (232306.6,232306.6) ops/second in (4.513759,4.513759) seconds
+2015/06/23-18:17:56 ... thread 2: (1048576,1048576) ops and (211627.8,211627.8) ops/second in (4.954813,4.954813) seconds
+2015/06/23-18:17:59 ... thread 4: (1048576,2097152) ops and (250420.1,248743.7) ops/second in (4.187268,8.430974) seconds
+2015/06/23-18:17:59 ... thread 3: (1048576,2097152) ops and (246870.9,247885.2) ops/second in (4.247467,8.460173) seconds
+2015/06/23-18:18:00 ... thread 1: (1048576,2097152) ops and (234810.9,233552.0) ops/second in (4.465619,8.979378) seconds
+2015/06/23-18:18:00 ... thread 2: (1048576,2097152) ops and (232494.2,221570.8) ops/second in (4.510117,9.464930) seconds
+2015/06/23-18:18:03 ... thread 3: (1048576,3145728) ops and (296903.5,262321.5) ops/second in (3.531707,11.991880) seconds
+2015/06/23-18:18:03 ... thread 4: (1048576,3145728) ops and (288458.5,260708.5) ops/second in (3.635102,12.066076) seconds
+2015/06/23-18:18:04 ... thread 1: (1048576,3145728) ops and (251532.2,239252.8) ops/second in (4.168754,13.148132) seconds
+2015/06/23-18:18:04 ... thread 2: (1048576,3145728) ops and (234780.9,225805.8) ops/second in (4.466190,13.931120) seconds
+2015/06/23-18:18:07 ... thread 3: (1048576,4194304) ops and (264308.1,262815.3) ops/second in (3.967249,15.959129) seconds
+2015/06/23-18:18:07 ... thread 4: (1048576,4194304) ops and (252925.5,258718.2) ops/second in (4.145790,16.211866) seconds
+2015/06/23-18:18:08 ... thread 1: (1048576,4194304) ops and (275236.0,247336.8) ops/second in (3.809734,16.957866) seconds
+2015/06/23-18:18:09 ... thread 2: (1048576,4194304) ops and (218882.7,224034.3) ops/second in (4.790584,18.721704) seconds
+2015/06/23-18:18:10 ... thread 3: (1048576,5242880) ops and (284738.7,266925.7) ops/second in (3.682591,19.641720) seconds
+2015/06/23-18:18:10 ... thread 0: (1048576,1048576) ops and (53226.3,53226.3) ops/second in (19.700335,19.700335) seconds
+2015/06/23-18:18:11 ... thread 4: (1048576,5242880) ops and (278084.2,262372.5) ops/second in (3.770714,19.982580) seconds
+2015/06/23-18:18:12 ... thread 1: (1048576,5242880) ops and (254683.2,248772.0) ops/second in (4.117177,21.075043) seconds
+2015/06/23-18:18:14 ... thread 2: (1048576,5242880) ops and (231451.2,225479.4) ops/second in (4.530441,23.252145) seconds
+2015/06/23-18:18:14 ... thread 3: (1048576,6291456) ops and (269672.2,267379.6) ops/second in (3.888335,23.530055) seconds
+2015/06/23-18:18:14 ... thread 4: (1048576,6291456) ops and (272524.4,264011.7) ops/second in (3.847641,23.830221) seconds
+2015/06/23-18:18:16 ... thread 1: (1048576,6291456) ops and (239009.1,247089.8) ops/second in (4.387180,25.462223) seconds
+2015/06/23-18:18:18 ... thread 3: (1048576,7340032) ops and (260947.8,266441.4) ops/second in (4.018337,27.548392) seconds
+2015/06/23-18:18:18 ... thread 4: (1048576,7340032) ops and (261979.9,263719.5) ops/second in (4.002505,27.832726) seconds
+2015/06/23-18:18:19 ... thread 2: (1048576,6291456) ops and (207922.6,222350.2) ops/second in (5.043108,28.295253) seconds
+2015/06/23-18:18:20 ... thread 1: (1048576,7340032) ops and (243140.3,246517.8) ops/second in (4.312638,29.774861) seconds
+writer       :      18.489 micros/op 54085 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       1.002 micros/op 997734 ops/sec; (7398999 of 7398999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=4 --writemap=1 --duration=30"
+	User time (seconds): 111.67
+	System time (seconds): 40.21
+	Percent of CPU this job got: 474%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.01
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12591760
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16870744
+	Voluntary context switches: 2586
+	Involuntary context switches: 525
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 7922760
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12589752	/data/work/tmp/testlmdb/dbbench_mdb-1
+12589752	/data/work/tmp/testlmdb
+THREADS=8
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:18:23 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:18:27 ... thread 7: (1048576,1048576) ops and (256137.6,256137.6) ops/second in (4.093799,4.093799) seconds
+2015/06/23-18:18:27 ... thread 8: (1048576,1048576) ops and (251853.9,251853.9) ops/second in (4.163429,4.163429) seconds
+2015/06/23-18:18:27 ... thread 5: (1048576,1048576) ops and (249563.4,249563.4) ops/second in (4.201641,4.201641) seconds
+2015/06/23-18:18:27 ... thread 6: (1048576,1048576) ops and (248407.0,248407.0) ops/second in (4.221201,4.221201) seconds
+2015/06/23-18:18:27 ... thread 2: (1048576,1048576) ops and (244999.5,244999.5) ops/second in (4.279910,4.279910) seconds
+2015/06/23-18:18:27 ... thread 1: (1048576,1048576) ops and (239377.5,239377.5) ops/second in (4.380429,4.380429) seconds
+2015/06/23-18:18:27 ... thread 4: (1048576,1048576) ops and (232109.5,232109.5) ops/second in (4.517591,4.517591) seconds
+2015/06/23-18:18:27 ... thread 3: (1048576,1048576) ops and (218344.1,218344.1) ops/second in (4.802401,4.802401) seconds
+2015/06/23-18:18:31 ... thread 8: (1048576,2097152) ops and (260960.0,256326.1) ops/second in (4.018148,8.181577) seconds
+2015/06/23-18:18:31 ... thread 7: (1048576,2097152) ops and (254318.6,255224.9) ops/second in (4.123080,8.216879) seconds
+2015/06/23-18:18:31 ... thread 5: (1048576,2097152) ops and (258845.6,254119.8) ops/second in (4.050971,8.252612) seconds
+2015/06/23-18:18:31 ... thread 6: (1048576,2097152) ops and (256916.3,252590.0) ops/second in (4.081391,8.302592) seconds
+2015/06/23-18:18:31 ... thread 2: (1048576,2097152) ops and (258960.4,251786.6) ops/second in (4.049175,8.329085) seconds
+2015/06/23-18:18:32 ... thread 4: (1048576,2097152) ops and (236042.7,234059.6) ops/second in (4.442314,8.959905) seconds
+2015/06/23-18:18:32 ... thread 1: (1048576,2097152) ops and (226997.2,233023.0) ops/second in (4.619334,8.999763) seconds
+2015/06/23-18:18:32 ... thread 3: (1048576,2097152) ops and (242684.9,229872.0) ops/second in (4.320730,9.123131) seconds
+2015/06/23-18:18:34 ... thread 7: (1048576,3145728) ops and (329078.3,275861.6) ops/second in (3.186403,11.403282) seconds
+2015/06/23-18:18:34 ... thread 8: (1048576,3145728) ops and (318553.2,274179.1) ops/second in (3.291683,11.473260) seconds
+2015/06/23-18:18:34 ... thread 2: (1048576,3145728) ops and (315108.9,269863.3) ops/second in (3.327662,11.656747) seconds
+2015/06/23-18:18:35 ... thread 6: (1048576,3145728) ops and (289227.4,263725.7) ops/second in (3.625438,11.928030) seconds
+2015/06/23-18:18:35 ... thread 5: (1048576,3145728) ops and (264092.4,257359.2) ops/second in (3.970489,12.223101) seconds
+2015/06/23-18:18:36 ... thread 4: (1048576,3145728) ops and (263394.1,243083.8) ops/second in (3.981016,12.940921) seconds
+2015/06/23-18:18:36 ... thread 1: (1048576,3145728) ops and (263781.8,242446.7) ops/second in (3.975164,12.974927) seconds
+2015/06/23-18:18:36 ... thread 3: (1048576,3145728) ops and (235662.6,231770.3) ops/second in (4.449480,13.572611) seconds
+2015/06/23-18:18:37 ... thread 7: (1048576,4194304) ops and (306294.2,282888.4) ops/second in (3.423427,14.826709) seconds
+2015/06/23-18:18:37 ... thread 8: (1048576,4194304) ops and (305094.0,281305.2) ops/second in (3.436895,14.910155) seconds
+2015/06/23-18:18:38 ... thread 2: (1048576,4194304) ops and (301777.7,277191.9) ops/second in (3.474664,15.131411) seconds
+2015/06/23-18:18:38 ... thread 6: (1048576,4194304) ops and (309709.1,273892.1) ops/second in (3.385680,15.313710) seconds
+2015/06/23-18:18:38 ... thread 5: (1048576,4194304) ops and (290280.2,264869.0) ops/second in (3.612289,15.835390) seconds
+2015/06/23-18:18:39 ... thread 1: (1048576,4194304) ops and (278926.1,250641.7) ops/second in (3.759333,16.734260) seconds
+2015/06/23-18:18:39 ... thread 4: (1048576,4194304) ops and (266377.3,248516.7) ops/second in (3.936432,16.877353) seconds
+2015/06/23-18:18:40 ... thread 3: (1048576,4194304) ops and (244381.7,234799.5) ops/second in (4.290730,17.863341) seconds
+2015/06/23-18:18:41 ... thread 8: (1048576,5242880) ops and (302312.9,285269.9) ops/second in (3.468512,18.378667) seconds
+2015/06/23-18:18:41 ... thread 7: (1048576,5242880) ops and (290806.5,284437.3) ops/second in (3.605752,18.432461) seconds
+2015/06/23-18:18:41 ... thread 2: (1048576,5242880) ops and (301774.2,281782.6) ops/second in (3.474704,18.606115) seconds
+2015/06/23-18:18:41 ... thread 6: (1048576,5242880) ops and (295618.4,277978.1) ops/second in (3.547059,18.860769) seconds
+2015/06/23-18:18:42 ... thread 5: (1048576,5242880) ops and (306660.4,272290.5) ops/second in (3.419339,19.254729) seconds
+2015/06/23-18:18:43 ... thread 1: (1048576,5242880) ops and (306170.6,260075.5) ops/second in (3.424810,20.159070) seconds
+2015/06/23-18:18:43 ... thread 4: (1048576,5242880) ops and (302643.0,257735.7) ops/second in (3.464729,20.342082) seconds
+2015/06/23-18:18:43 ... thread 0: (1048576,1048576) ops and (51209.5,51209.5) ops/second in (20.476196,20.476196) seconds
+2015/06/23-18:18:44 ... thread 8: (1048576,6291456) ops and (319213.2,290416.7) ops/second in (3.284877,21.663544) seconds
+2015/06/23-18:18:44 ... thread 3: (1048576,5242880) ops and (271424.5,241311.9) ops/second in (3.863233,21.726574) seconds
+2015/06/23-18:18:45 ... thread 7: (1048576,6291456) ops and (296871.9,286436.9) ops/second in (3.532082,21.964543) seconds
+2015/06/23-18:18:45 ... thread 2: (1048576,6291456) ops and (312193.9,286432.9) ops/second in (3.358733,21.964848) seconds
+2015/06/23-18:18:45 ... thread 6: (1048576,6291456) ops and (320660.5,284284.8) ops/second in (3.270050,22.130819) seconds
+2015/06/23-18:18:46 ... thread 5: (1048576,6291456) ops and (284958.0,274323.0) ops/second in (3.679756,22.934485) seconds
+2015/06/23-18:18:46 ... thread 1: (1048576,6291456) ops and (287815.0,264321.4) ops/second in (3.643229,23.802299) seconds
+2015/06/23-18:18:47 ... thread 4: (1048576,6291456) ops and (278232.2,260939.4) ops/second in (3.768708,24.110790) seconds
+2015/06/23-18:18:48 ... thread 8: (1048576,7340032) ops and (318356.0,294104.0) ops/second in (3.293721,24.957265) seconds
+2015/06/23-18:18:48 ... thread 2: (1048576,7340032) ops and (316933.6,290425.7) ops/second in (3.308504,25.273352) seconds
+2015/06/23-18:18:48 ... thread 6: (1048576,7340032) ops and (332187.1,290264.4) ops/second in (3.156583,25.287402) seconds
+2015/06/23-18:18:48 ... thread 7: (1048576,7340032) ops and (313053.2,289958.7) ops/second in (3.349514,25.314057) seconds
+2015/06/23-18:18:48 ... thread 3: (1048576,6291456) ops and (279610.5,246949.4) ops/second in (3.750131,25.476705) seconds
+2015/06/23-18:18:49 ... thread 5: (1048576,7340032) ops and (322899.1,280347.9) ops/second in (3.247380,26.181865) seconds
+2015/06/23-18:18:50 ... thread 1: (1048576,7340032) ops and (297631.6,268616.1) ops/second in (3.523067,27.325366) seconds
+2015/06/23-18:18:50 ... thread 4: (1048576,7340032) ops and (304411.0,266373.7) ops/second in (3.444606,27.555396) seconds
+2015/06/23-18:18:51 ... thread 8: (1048576,8388608) ops and (333313.3,298493.2) ops/second in (3.145917,28.103182) seconds
+2015/06/23-18:18:51 ... thread 6: (1048576,8388608) ops and (335229.4,295214.1) ops/second in (3.127936,28.415338) seconds
+2015/06/23-18:18:51 ... thread 2: (1048576,8388608) ops and (331744.0,295018.8) ops/second in (3.160799,28.434151) seconds
+2015/06/23-18:18:51 ... thread 7: (1048576,8388608) ops and (309854.6,292304.9) ops/second in (3.384091,28.698148) seconds
+2015/06/23-18:18:52 ... thread 3: (1048576,7340032) ops and (290324.2,252335.0) ops/second in (3.611742,29.088447) seconds
+2015/06/23-18:18:52 ... thread 5: (1048576,8388608) ops and (330737.6,285790.7) ops/second in (3.170417,29.352282) seconds
+writer       :      19.018 micros/op 52581 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       0.440 micros/op 2272207 ops/sec; (8231999 of 8231999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=8 --writemap=1 --duration=30"
+	User time (seconds): 221.01
+	System time (seconds): 50.78
+	Percent of CPU this job got: 849%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12592792
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 18292389
+	Voluntary context switches: 6071
+	Involuntary context switches: 755
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 7584608
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12589896	/data/work/tmp/testlmdb/dbbench_mdb-1
+12589896	/data/work/tmp/testlmdb
+THREADS=16
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:18:55 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:18:59 ... thread 13: (1048576,1048576) ops and (240749.4,240749.4) ops/second in (4.355467,4.355467) seconds
+2015/06/23-18:18:59 ... thread 14: (1048576,1048576) ops and (240743.7,240743.7) ops/second in (4.355569,4.355569) seconds
+2015/06/23-18:18:59 ... thread 8: (1048576,1048576) ops and (239886.5,239886.5) ops/second in (4.371133,4.371133) seconds
+2015/06/23-18:18:59 ... thread 12: (1048576,1048576) ops and (238853.6,238853.6) ops/second in (4.390037,4.390037) seconds
+2015/06/23-18:18:59 ... thread 9: (1048576,1048576) ops and (237716.4,237716.4) ops/second in (4.411037,4.411037) seconds
+2015/06/23-18:19:00 ... thread 3: (1048576,1048576) ops and (195785.0,195785.0) ops/second in (5.355753,5.355753) seconds
+2015/06/23-18:19:00 ... thread 7: (1048576,1048576) ops and (192177.9,192177.9) ops/second in (5.456278,5.456278) seconds
+2015/06/23-18:19:00 ... thread 2: (1048576,1048576) ops and (187550.6,187550.6) ops/second in (5.590897,5.590897) seconds
+2015/06/23-18:19:00 ... thread 16: (1048576,1048576) ops and (183587.1,183587.1) ops/second in (5.711599,5.711599) seconds
+2015/06/23-18:19:01 ... thread 4: (1048576,1048576) ops and (172298.2,172298.2) ops/second in (6.085822,6.085822) seconds
+2015/06/23-18:19:01 ... thread 11: (1048576,1048576) ops and (171723.3,171723.3) ops/second in (6.106195,6.106195) seconds
+2015/06/23-18:19:01 ... thread 15: (1048576,1048576) ops and (170242.0,170242.0) ops/second in (6.159326,6.159326) seconds
+2015/06/23-18:19:01 ... thread 10: (1048576,1048576) ops and (166640.6,166640.6) ops/second in (6.292439,6.292439) seconds
+2015/06/23-18:19:01 ... thread 6: (1048576,1048576) ops and (165189.2,165189.2) ops/second in (6.347727,6.347727) seconds
+2015/06/23-18:19:01 ... thread 1: (1048576,1048576) ops and (164029.6,164029.6) ops/second in (6.392603,6.392603) seconds
+2015/06/23-18:19:01 ... thread 5: (1048576,1048576) ops and (163161.4,163161.4) ops/second in (6.426618,6.426618) seconds
+2015/06/23-18:19:03 ... thread 13: (1048576,2097152) ops and (258392.8,249259.3) ops/second in (4.058070,8.413537) seconds
+2015/06/23-18:19:04 ... thread 7: (1048576,2097152) ops and (264905.0,222755.6) ops/second in (3.958309,9.414587) seconds
+2015/06/23-18:19:04 ... thread 3: (1048576,2097152) ops and (257848.2,222571.1) ops/second in (4.066640,9.422393) seconds
+2015/06/23-18:19:04 ... thread 2: (1048576,2097152) ops and (268266.6,220762.0) ops/second in (3.908708,9.499605) seconds
+2015/06/23-18:19:04 ... thread 16: (1048576,2097152) ops and (263339.6,216347.6) ops/second in (3.981839,9.693438) seconds
+2015/06/23-18:19:04 ... thread 11: (1048576,2097152) ops and (282129.9,213497.6) ops/second in (3.716642,9.822837) seconds
+2015/06/23-18:19:04 ... thread 9: (1048576,2097152) ops and (192294.7,212606.6) ops/second in (5.452964,9.864001) seconds
+2015/06/23-18:19:05 ... thread 14: (1048576,2097152) ops and (188540.5,211468.0) ops/second in (5.561543,9.917112) seconds
+2015/06/23-18:19:05 ... thread 12: (1048576,2097152) ops and (189141.5,211110.5) ops/second in (5.543870,9.933907) seconds
+2015/06/23-18:19:05 ... thread 8: (1048576,2097152) ops and (187467.2,210462.0) ops/second in (5.593384,9.964517) seconds
+2015/06/23-18:19:05 ... thread 4: (1048576,2097152) ops and (257240.9,206370.7) ops/second in (4.076242,10.162064) seconds
+2015/06/23-18:19:05 ... thread 5: (1048576,2097152) ops and (280409.3,206289.4) ops/second in (3.739448,10.166066) seconds
+2015/06/23-18:19:05 ... thread 15: (1048576,2097152) ops and (250038.3,202564.9) ops/second in (4.193662,10.352988) seconds
+2015/06/23-18:19:05 ... thread 10: (1048576,2097152) ops and (253056.9,200952.2) ops/second in (4.143637,10.436076) seconds
+2015/06/23-18:19:05 ... thread 1: (1048576,2097152) ops and (253090.2,199052.1) ops/second in (4.143092,10.535695) seconds
+2015/06/23-18:19:05 ... thread 6: (1048576,2097152) ops and (245365.7,197448.7) ops/second in (4.273524,10.621251) seconds
+2015/06/23-18:19:06 ... thread 13: (1048576,3145728) ops and (312623.0,267319.8) ops/second in (3.354123,11.767660) seconds
+2015/06/23-18:19:07 ... thread 7: (1048576,3145728) ops and (332152.4,250227.0) ops/second in (3.156912,12.571499) seconds
+2015/06/23-18:19:07 ... thread 3: (1048576,3145728) ops and (329339.6,249536.8) ops/second in (3.183875,12.606268) seconds
+2015/06/23-18:19:07 ... thread 2: (1048576,3145728) ops and (333837.8,248859.5) ops/second in (3.140974,12.640579) seconds
+2015/06/23-18:19:07 ... thread 16: (1048576,3145728) ops and (336018.1,245490.9) ops/second in (3.120594,12.814032) seconds
+2015/06/23-18:19:08 ... thread 9: (1048576,3145728) ops and (324933.2,240296.0) ops/second in (3.227051,13.091052) seconds
+2015/06/23-18:19:08 ... thread 14: (1048576,3145728) ops and (327607.8,239805.8) ops/second in (3.200705,13.117817) seconds
+2015/06/23-18:19:08 ... thread 12: (1048576,3145728) ops and (324470.3,238936.1) ops/second in (3.231655,13.165562) seconds
+2015/06/23-18:19:08 ... thread 11: (1048576,3145728) ops and (313219.2,238845.1) ops/second in (3.347739,13.170576) seconds
+2015/06/23-18:19:08 ... thread 8: (1048576,3145728) ops and (326180.1,238688.3) ops/second in (3.214715,13.179232) seconds
+2015/06/23-18:19:08 ... thread 4: (1048576,3145728) ops and (328178.4,235508.0) ops/second in (3.195140,13.357204) seconds
+2015/06/23-18:19:08 ... thread 15: (1048576,3145728) ops and (338818.1,233921.5) ops/second in (3.094805,13.447793) seconds
+2015/06/23-18:19:08 ... thread 10: (1048576,3145728) ops and (339774.4,232634.8) ops/second in (3.086095,13.522171) seconds
+2015/06/23-18:19:08 ... thread 5: (1048576,3145728) ops and (309147.4,232021.8) ops/second in (3.391832,13.557898) seconds
+2015/06/23-18:19:08 ... thread 1: (1048576,3145728) ops and (345305.6,231774.6) ops/second in (3.036661,13.572356) seconds
+2015/06/23-18:19:08 ... thread 6: (1048576,3145728) ops and (339142.6,229395.9) ops/second in (3.091844,13.713095) seconds
+2015/06/23-18:19:09 ... thread 13: (1048576,4194304) ops and (361026.1,285869.5) ops/second in (2.904433,14.672093) seconds
+2015/06/23-18:19:10 ... thread 7: (1048576,4194304) ops and (354664.2,270111.8) ops/second in (2.956532,15.528031) seconds
+2015/06/23-18:19:10 ... thread 3: (1048576,4194304) ops and (353836.7,269388.6) ops/second in (2.963446,15.569714) seconds
+2015/06/23-18:19:10 ... thread 2: (1048576,4194304) ops and (349989.7,268236.3) ops/second in (2.996020,15.636599) seconds
+2015/06/23-18:19:10 ... thread 16: (1048576,4194304) ops and (351739.4,265543.8) ops/second in (2.981116,15.795148) seconds
+2015/06/23-18:19:11 ... thread 9: (1048576,4194304) ops and (366648.0,262950.1) ops/second in (2.859898,15.950950) seconds
+2015/06/23-18:19:11 ... thread 14: (1048576,4194304) ops and (368513.1,262747.6) ops/second in (2.845424,15.963241) seconds
+2015/06/23-18:19:11 ... thread 12: (1048576,4194304) ops and (363573.8,261333.2) ops/second in (2.884080,16.049642) seconds
+2015/06/23-18:19:11 ... thread 8: (1048576,4194304) ops and (363905.8,261153.6) ops/second in (2.881449,16.060681) seconds
+2015/06/23-18:19:11 ... thread 4: (1048576,4194304) ops and (350681.8,256574.6) ops/second in (2.990107,16.347311) seconds
+2015/06/23-18:19:11 ... thread 15: (1048576,4194304) ops and (357116.8,255999.7) ops/second in (2.936227,16.384020) seconds
+2015/06/23-18:19:11 ... thread 10: (1048576,4194304) ops and (360691.4,255294.2) ops/second in (2.907128,16.429299) seconds
+2015/06/23-18:19:11 ... thread 11: (1048576,4194304) ops and (319718.5,254968.8) ops/second in (3.279685,16.450261) seconds
+2015/06/23-18:19:11 ... thread 1: (1048576,4194304) ops and (357563.5,254124.5) ops/second in (2.932559,16.504915) seconds
+2015/06/23-18:19:12 ... thread 5: (1048576,4194304) ops and (293813.0,244897.8) ops/second in (3.568855,17.126753) seconds
+2015/06/23-18:19:12 ... thread 6: (1048576,4194304) ops and (301104.3,243918.3) ops/second in (3.482435,17.195530) seconds
+2015/06/23-18:19:12 ... thread 13: (1048576,5242880) ops and (366118.2,298975.9) ops/second in (2.864037,17.536130) seconds
+2015/06/23-18:19:13 ... thread 7: (1048576,5242880) ops and (358713.5,284148.6) ops/second in (2.923157,18.451188) seconds
+2015/06/23-18:19:13 ... thread 3: (1048576,5242880) ops and (356730.1,283259.2) ops/second in (2.939410,18.509124) seconds
+2015/06/23-18:19:13 ... thread 2: (1048576,5242880) ops and (362079.2,282900.6) ops/second in (2.895985,18.532584) seconds
+2015/06/23-18:19:13 ... thread 16: (1048576,5242880) ops and (354676.3,279596.7) ops/second in (2.956431,18.751579) seconds
+2015/06/23-18:19:13 ... thread 14: (1048576,5242880) ops and (370909.2,279020.8) ops/second in (2.827042,18.790283) seconds
+2015/06/23-18:19:13 ... thread 9: (1048576,5242880) ops and (367414.8,278804.2) ops/second in (2.853930,18.804880) seconds
+2015/06/23-18:19:14 ... thread 12: (1048576,5242880) ops and (364802.3,277049.1) ops/second in (2.874368,18.924010) seconds
+2015/06/23-18:19:14 ... thread 8: (1048576,5242880) ops and (366096.7,277036.3) ops/second in (2.864205,18.924886) seconds
+2015/06/23-18:19:14 ... thread 15: (1048576,5242880) ops and (362053.3,271930.6) ops/second in (2.896192,19.280212) seconds
+2015/06/23-18:19:14 ... thread 4: (1048576,5242880) ops and (354215.4,271545.0) ops/second in (2.960278,19.307589) seconds
+2015/06/23-18:19:14 ... thread 10: (1048576,5242880) ops and (362046.7,271292.8) ops/second in (2.896245,19.325544) seconds
+2015/06/23-18:19:14 ... thread 1: (1048576,5242880) ops and (362297.4,270263.3) ops/second in (2.894241,19.399156) seconds
+2015/06/23-18:19:14 ... thread 11: (1048576,5242880) ops and (348962.9,269486.2) ops/second in (3.004835,19.455096) seconds
+2015/06/23-18:19:15 ... thread 6: (1048576,5242880) ops and (346177.1,259233.5) ops/second in (3.029016,20.224546) seconds
+2015/06/23-18:19:15 ... thread 13: (1048576,6291456) ops and (362298.3,307946.3) ops/second in (2.894234,20.430364) seconds
+2015/06/23-18:19:15 ... thread 5: (1048576,5242880) ops and (297406.4,253861.9) ops/second in (3.525735,20.652488) seconds
+2015/06/23-18:19:16 ... thread 2: (1048576,6291456) ops and (368674.3,294312.8) ops/second in (2.844180,21.376764) seconds
+2015/06/23-18:19:16 ... thread 7: (1048576,6291456) ops and (357127.6,294167.5) ops/second in (2.936138,21.387326) seconds
+2015/06/23-18:19:16 ... thread 3: (1048576,6291456) ops and (356566.0,293309.5) ops/second in (2.940763,21.449887) seconds
+2015/06/23-18:19:16 ... thread 14: (1048576,6291456) ops and (369013.9,290842.3) ops/second in (2.841562,21.631845) seconds
+2015/06/23-18:19:16 ... thread 9: (1048576,6291456) ops and (363896.2,290110.6) ops/second in (2.881525,21.686405) seconds
+2015/06/23-18:19:16 ... thread 16: (1048576,6291456) ops and (355820.3,289948.8) ops/second in (2.946926,21.698505) seconds
+2015/06/23-18:19:16 ... thread 12: (1048576,6291456) ops and (366487.5,288795.5) ops/second in (2.861151,21.785161) seconds
+2015/06/23-18:19:16 ... thread 8: (1048576,6291456) ops and (365625.3,288694.5) ops/second in (2.867898,21.792784) seconds
+2015/06/23-18:19:17 ... thread 15: (1048576,6291456) ops and (362696.2,283766.1) ops/second in (2.891059,22.171271) seconds
+2015/06/23-18:19:17 ... thread 10: (1048576,6291456) ops and (359511.2,282861.0) ops/second in (2.916671,22.242215) seconds
+2015/06/23-18:19:17 ... thread 4: (1048576,6291456) ops and (354829.9,282600.3) ops/second in (2.955151,22.262740) seconds
+2015/06/23-18:19:17 ... thread 1: (1048576,6291456) ops and (363109.3,282293.6) ops/second in (2.887770,22.286926) seconds
+2015/06/23-18:19:17 ... thread 11: (1048576,6291456) ops and (366093.4,281883.8) ops/second in (2.864231,22.319327) seconds
+2015/06/23-18:19:18 ... thread 0: (1048576,1048576) ops and (45589.3,45589.3) ops/second in (23.000471,23.000471) seconds
+2015/06/23-18:19:18 ... thread 13: (1048576,7340032) ops and (368474.1,315346.4) ops/second in (2.845725,23.276089) seconds
+2015/06/23-18:19:18 ... thread 6: (1048576,6291456) ops and (336173.4,269514.1) ops/second in (3.119152,23.343698) seconds
+2015/06/23-18:19:18 ... thread 5: (1048576,6291456) ops and (323730.5,263334.2) ops/second in (3.239040,23.891528) seconds
+2015/06/23-18:19:19 ... thread 2: (1048576,7340032) ops and (364345.6,302622.6) ops/second in (2.877971,24.254735) seconds
+2015/06/23-18:19:19 ... thread 7: (1048576,7340032) ops and (358279.3,301884.7) ops/second in (2.926700,24.314026) seconds
+2015/06/23-18:19:19 ... thread 3: (1048576,7340032) ops and (363449.4,301625.1) ops/second in (2.885067,24.334954) seconds
+2015/06/23-18:19:19 ... thread 14: (1048576,7340032) ops and (368718.0,299890.7) ops/second in (2.843843,24.475688) seconds
+2015/06/23-18:19:19 ... thread 9: (1048576,7340032) ops and (370387.1,299380.1) ops/second in (2.831027,24.517432) seconds
+2015/06/23-18:19:19 ... thread 12: (1048576,7340032) ops and (370706.8,298208.6) ops/second in (2.828586,24.613747) seconds
+2015/06/23-18:19:19 ... thread 16: (1048576,7340032) ops and (359448.8,298185.2) ops/second in (2.917178,24.615683) seconds
+2015/06/23-18:19:19 ... thread 8: (1048576,7340032) ops and (369934.8,298044.9) ops/second in (2.834489,24.627273) seconds
+2015/06/23-18:19:20 ... thread 15: (1048576,7340032) ops and (361990.4,292805.2) ops/second in (2.896696,25.067967) seconds
+2015/06/23-18:19:20 ... thread 10: (1048576,7340032) ops and (360530.9,291842.8) ops/second in (2.908422,25.150637) seconds
+2015/06/23-18:19:20 ... thread 1: (1048576,7340032) ops and (363507.4,291600.5) ops/second in (2.884607,25.171533) seconds
+2015/06/23-18:19:20 ... thread 4: (1048576,7340032) ops and (355454.6,291124.4) ops/second in (2.949958,25.212698) seconds
+2015/06/23-18:19:20 ... thread 11: (1048576,7340032) ops and (339428.2,288880.2) ops/second in (3.089242,25.408569) seconds
+2015/06/23-18:19:21 ... thread 13: (1048576,8388608) ops and (375305.7,321772.3) ops/second in (2.793925,26.070014) seconds
+2015/06/23-18:19:21 ... thread 6: (1048576,7340032) ops and (326579.0,276414.0) ops/second in (3.210788,26.554486) seconds
+2015/06/23-18:19:22 ... thread 5: (1048576,7340032) ops and (330378.6,271196.2) ops/second in (3.173862,27.065390) seconds
+2015/06/23-18:19:22 ... thread 2: (1048576,8388608) ops and (364440.4,309178.1) ops/second in (2.877222,27.131957) seconds
+2015/06/23-18:19:22 ... thread 3: (1048576,8388608) ops and (367101.3,308503.1) ops/second in (2.856367,27.191321) seconds
+2015/06/23-18:19:22 ... thread 7: (1048576,8388608) ops and (361907.5,308275.7) ops/second in (2.897359,27.211385) seconds
+2015/06/23-18:19:22 ... thread 14: (1048576,8388608) ops and (373295.5,307447.8) ops/second in (2.808970,27.284658) seconds
+2015/06/23-18:19:22 ... thread 9: (1048576,8388608) ops and (373532.5,306998.2) ops/second in (2.807188,27.324620) seconds
+2015/06/23-18:19:22 ... thread 12: (1048576,8388608) ops and (375166.3,306056.3) ops/second in (2.794963,27.408710) seconds
+2015/06/23-18:19:22 ... thread 8: (1048576,8388608) ops and (373881.6,305798.2) ops/second in (2.804567,27.431840) seconds
+2015/06/23-18:19:22 ... thread 16: (1048576,8388608) ops and (361404.0,304851.0) ops/second in (2.901396,27.517079) seconds
+2015/06/23-18:19:23 ... thread 15: (1048576,8388608) ops and (366626.1,300365.1) ops/second in (2.860069,27.928036) seconds
+2015/06/23-18:19:23 ... thread 10: (1048576,8388608) ops and (366865.1,299498.6) ops/second in (2.858206,28.008843) seconds
+2015/06/23-18:19:23 ... thread 1: (1048576,8388608) ops and (368873.4,299441.5) ops/second in (2.842645,28.014178) seconds
+2015/06/23-18:19:23 ... thread 4: (1048576,8388608) ops and (361604.0,298394.4) ops/second in (2.899791,28.112489) seconds
+2015/06/23-18:19:23 ... thread 11: (1048576,8388608) ops and (353611.6,295645.2) ops/second in (2.965333,28.373902) seconds
+2015/06/23-18:19:23 ... thread 13: (1048576,9437184) ops and (381004.7,327428.2) ops/second in (2.752134,28.822148) seconds
+2015/06/23-18:19:24 ... thread 6: (1048576,8388608) ops and (332974.9,282410.5) ops/second in (3.149114,29.703600) seconds
+2015/06/23-18:19:25 ... thread 2: (1048576,9437184) ops and (368036.9,314771.5) ops/second in (2.849106,29.981063) seconds
+writer       :      21.439 micros/op 46644 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       0.204 micros/op 4908371 ops/sec; (9127999 of 9127999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=16 --writemap=1 --duration=30"
+	User time (seconds): 423.80
+	System time (seconds): 87.46
+	Percent of CPU this job got: 1599%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.96
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12592888
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 17961469
+	Voluntary context switches: 44812
+	Involuntary context switches: 1177
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 6129272
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12589896	/data/work/tmp/testlmdb/dbbench_mdb-1
+12589896	/data/work/tmp/testlmdb
+THREADS=32
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:19:27 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:19:30 ... thread 18: (1048576,1048576) ops and (279490.4,279490.4) ops/second in (3.751743,3.751743) seconds
+2015/06/23-18:19:35 ... thread 18: (1048576,2097152) ops and (232234.0,253680.2) ops/second in (4.515170,8.266913) seconds
+2015/06/23-18:19:35 ... thread 24: (1048576,1048576) ops and (125426.2,125426.2) ops/second in (8.360104,8.360104) seconds
+2015/06/23-18:19:35 ... thread 8: (1048576,1048576) ops and (124573.0,124573.0) ops/second in (8.417360,8.417360) seconds
+2015/06/23-18:19:35 ... thread 21: (1048576,1048576) ops and (121258.2,121258.2) ops/second in (8.647468,8.647468) seconds
+2015/06/23-18:19:35 ... thread 6: (1048576,1048576) ops and (120985.8,120985.8) ops/second in (8.666932,8.666932) seconds
+2015/06/23-18:19:35 ... thread 28: (1048576,1048576) ops and (120916.9,120916.9) ops/second in (8.671871,8.671871) seconds
+2015/06/23-18:19:35 ... thread 19: (1048576,1048576) ops and (120311.0,120311.0) ops/second in (8.715543,8.715543) seconds
+2015/06/23-18:19:35 ... thread 10: (1048576,1048576) ops and (119813.8,119813.8) ops/second in (8.751714,8.751714) seconds
+2015/06/23-18:19:35 ... thread 32: (1048576,1048576) ops and (119241.5,119241.5) ops/second in (8.793717,8.793717) seconds
+2015/06/23-18:19:35 ... thread 3: (1048576,1048576) ops and (118770.3,118770.3) ops/second in (8.828604,8.828604) seconds
+2015/06/23-18:19:35 ... thread 1: (1048576,1048576) ops and (118583.8,118583.8) ops/second in (8.842492,8.842492) seconds
+2015/06/23-18:19:35 ... thread 7: (1048576,1048576) ops and (117963.4,117963.4) ops/second in (8.888993,8.888993) seconds
+2015/06/23-18:19:35 ... thread 16: (1048576,1048576) ops and (117916.0,117916.0) ops/second in (8.892571,8.892571) seconds
+2015/06/23-18:19:35 ... thread 17: (1048576,1048576) ops and (117768.8,117768.8) ops/second in (8.903682,8.903682) seconds
+2015/06/23-18:19:36 ... thread 12: (1048576,1048576) ops and (116863.0,116863.0) ops/second in (8.972696,8.972696) seconds
+2015/06/23-18:19:36 ... thread 26: (1048576,1048576) ops and (116336.8,116336.8) ops/second in (9.013275,9.013275) seconds
+2015/06/23-18:19:36 ... thread 30: (1048576,1048576) ops and (116116.4,116116.4) ops/second in (9.030384,9.030384) seconds
+2015/06/23-18:19:36 ... thread 27: (1048576,1048576) ops and (115862.1,115862.1) ops/second in (9.050208,9.050208) seconds
+2015/06/23-18:19:36 ... thread 13: (1048576,1048576) ops and (115642.8,115642.8) ops/second in (9.067369,9.067369) seconds
+2015/06/23-18:19:36 ... thread 5: (1048576,1048576) ops and (115292.5,115292.5) ops/second in (9.094917,9.094917) seconds
+2015/06/23-18:19:36 ... thread 11: (1048576,1048576) ops and (115207.5,115207.5) ops/second in (9.101628,9.101628) seconds
+2015/06/23-18:19:36 ... thread 22: (1048576,1048576) ops and (115197.1,115197.1) ops/second in (9.102455,9.102455) seconds
+2015/06/23-18:19:36 ... thread 14: (1048576,1048576) ops and (114267.6,114267.6) ops/second in (9.176496,9.176496) seconds
+2015/06/23-18:19:36 ... thread 15: (1048576,1048576) ops and (113745.9,113745.9) ops/second in (9.218586,9.218586) seconds
+2015/06/23-18:19:36 ... thread 9: (1048576,1048576) ops and (108936.9,108936.9) ops/second in (9.625538,9.625538) seconds
+2015/06/23-18:19:36 ... thread 20: (1048576,1048576) ops and (108898.9,108898.9) ops/second in (9.628891,9.628891) seconds
+2015/06/23-18:19:36 ... thread 31: (1048576,1048576) ops and (108826.5,108826.5) ops/second in (9.635299,9.635299) seconds
+2015/06/23-18:19:36 ... thread 4: (1048576,1048576) ops and (108805.2,108805.2) ops/second in (9.637185,9.637185) seconds
+2015/06/23-18:19:36 ... thread 23: (1048576,1048576) ops and (108738.0,108738.0) ops/second in (9.643142,9.643142) seconds
+2015/06/23-18:19:36 ... thread 25: (1048576,1048576) ops and (108712.8,108712.8) ops/second in (9.645380,9.645380) seconds
+2015/06/23-18:19:36 ... thread 2: (1048576,1048576) ops and (108512.8,108512.8) ops/second in (9.663153,9.663153) seconds
+2015/06/23-18:19:36 ... thread 29: (1048576,1048576) ops and (108497.0,108497.0) ops/second in (9.664565,9.664565) seconds
+2015/06/23-18:19:38 ... thread 24: (1048576,2097152) ops and (341691.2,183495.7) ops/second in (3.068783,11.428887) seconds
+2015/06/23-18:19:38 ... thread 19: (1048576,2097152) ops and (342410.4,178058.5) ops/second in (3.062337,11.777880) seconds
+2015/06/23-18:19:38 ... thread 32: (1048576,2097152) ops and (343142.8,176982.1) ops/second in (3.055801,11.849518) seconds
+2015/06/23-18:19:38 ... thread 21: (1048576,2097152) ops and (321616.9,176115.9) ops/second in (3.260326,11.907794) seconds
+2015/06/23-18:19:38 ... thread 3: (1048576,2097152) ops and (339997.8,176043.8) ops/second in (3.084067,11.912671) seconds
+2015/06/23-18:19:38 ... thread 10: (1048576,2097152) ops and (331638.1,176031.2) ops/second in (3.161808,11.913522) seconds
+2015/06/23-18:19:38 ... thread 8: (1048576,2097152) ops and (299909.4,176029.1) ops/second in (3.496309,11.913669) seconds
+2015/06/23-18:19:38 ... thread 18: (1048576,3145728) ops and (287263.1,263966.6) ops/second in (3.650229,11.917142) seconds
+2015/06/23-18:19:39 ... thread 6: (1048576,2097152) ops and (318871.9,175415.7) ops/second in (3.288393,11.955325) seconds
+2015/06/23-18:19:39 ... thread 28: (1048576,2097152) ops and (316907.8,175045.0) ops/second in (3.308773,11.980644) seconds
+2015/06/23-18:19:39 ... thread 7: (1048576,2097152) ops and (337967.0,174885.2) ops/second in (3.102599,11.991592) seconds
+2015/06/23-18:19:39 ... thread 1: (1048576,2097152) ops and (331485.9,174678.9) ops/second in (3.163260,12.005752) seconds
+2015/06/23-18:19:39 ... thread 16: (1048576,2097152) ops and (336264.8,174604.4) ops/second in (3.118304,12.010875) seconds
+2015/06/23-18:19:39 ... thread 30: (1048576,2097152) ops and (346861.6,173988.1) ops/second in (3.023039,12.053423) seconds
+2015/06/23-18:19:39 ... thread 13: (1048576,2097152) ops and (343732.4,173061.9) ops/second in (3.050559,12.117928) seconds
+2015/06/23-18:19:39 ... thread 27: (1048576,2097152) ops and (340404.8,172881.3) ops/second in (3.080380,12.130588) seconds
+2015/06/23-18:19:39 ... thread 22: (1048576,2097152) ops and (340346.4,172132.4) ops/second in (3.080908,12.183363) seconds
+2015/06/23-18:19:39 ... thread 5: (1048576,2097152) ops and (338514.4,172003.5) ops/second in (3.097582,12.192499) seconds
+2015/06/23-18:19:39 ... thread 17: (1048576,2097152) ops and (316028.5,171593.0) ops/second in (3.317979,12.221661) seconds
+2015/06/23-18:19:39 ... thread 14: (1048576,2097152) ops and (343186.7,171449.3) ops/second in (3.055410,12.231906) seconds
+2015/06/23-18:19:39 ... thread 12: (1048576,2097152) ops and (321290.8,171387.3) ops/second in (3.263635,12.236331) seconds
+2015/06/23-18:19:39 ... thread 26: (1048576,2097152) ops and (319138.5,170515.1) ops/second in (3.285646,12.298921) seconds
+2015/06/23-18:19:39 ... thread 15: (1048576,2097152) ops and (337353.9,170129.2) ops/second in (3.108237,12.326823) seconds
+2015/06/23-18:19:39 ... thread 11: (1048576,2097152) ops and (322257.6,169734.7) ops/second in (3.253844,12.355472) seconds
+2015/06/23-18:19:39 ... thread 9: (1048576,2097152) ops and (321583.1,162743.9) ops/second in (3.260669,12.886207) seconds
+2015/06/23-18:19:39 ... thread 4: (1048576,2097152) ops and (322425.5,162704.4) ops/second in (3.252150,12.889335) seconds
+2015/06/23-18:19:39 ... thread 23: (1048576,2097152) ops and (322731.0,162668.1) ops/second in (3.249071,12.892213) seconds
+2015/06/23-18:19:39 ... thread 25: (1048576,2097152) ops and (320761.5,162388.6) ops/second in (3.269021,12.914401) seconds
+2015/06/23-18:19:39 ... thread 31: (1048576,2097152) ops and (319265.9,162322.9) ops/second in (3.284334,12.919633) seconds
+2015/06/23-18:19:39 ... thread 20: (1048576,2097152) ops and (318291.4,162277.1) ops/second in (3.294390,12.923281) seconds
+2015/06/23-18:19:40 ... thread 29: (1048576,2097152) ops and (319295.4,161959.8) ops/second in (3.284031,12.948596) seconds
+2015/06/23-18:19:40 ... thread 2: (1048576,2097152) ops and (317726.3,161774.8) ops/second in (3.300249,12.963402) seconds
+2015/06/23-18:19:41 ... thread 24: (1048576,3145728) ops and (356748.9,218937.7) ops/second in (2.939255,14.368142) seconds
+2015/06/23-18:19:41 ... thread 19: (1048576,3145728) ops and (357873.0,213880.1) ops/second in (2.930023,14.707903) seconds
+2015/06/23-18:19:41 ... thread 32: (1048576,3145728) ops and (358005.7,212859.1) ops/second in (2.928937,14.778455) seconds
+2015/06/23-18:19:41 ... thread 3: (1048576,3145728) ops and (356827.3,211815.3) ops/second in (2.938609,14.851280) seconds
+2015/06/23-18:19:41 ... thread 8: (1048576,3145728) ops and (351713.5,211193.5) ops/second in (2.981336,14.895005) seconds
+2015/06/23-18:19:41 ... thread 10: (1048576,3145728) ops and (348080.8,210755.3) ops/second in (3.012450,14.925972) seconds
+2015/06/23-18:19:41 ... thread 30: (1048576,3145728) ops and (362913.0,210518.6) ops/second in (2.889332,14.942755) seconds
+2015/06/23-18:19:42 ... thread 7: (1048576,3145728) ops and (351180.2,210030.9) ops/second in (2.985863,14.977455) seconds
+2015/06/23-18:19:42 ... thread 18: (1048576,4194304) ops and (341216.0,279803.1) ops/second in (3.073056,14.990198) seconds
+2015/06/23-18:19:42 ... thread 1: (1048576,3145728) ops and (349942.7,209684.8) ops/second in (2.996422,15.002174) seconds
+2015/06/23-18:19:42 ... thread 16: (1048576,3145728) ops and (349417.0,209550.3) ops/second in (3.000930,15.011805) seconds
+2015/06/23-18:19:42 ... thread 13: (1048576,3145728) ops and (358862.9,209159.3) ops/second in (2.921940,15.039868) seconds
+2015/06/23-18:19:42 ... thread 27: (1048576,3145728) ops and (360208.9,209135.1) ops/second in (2.911022,15.041610) seconds
+2015/06/23-18:19:42 ... thread 28: (1048576,3145728) ops and (339859.5,208797.0) ops/second in (3.085322,15.065966) seconds
+2015/06/23-18:19:42 ... thread 22: (1048576,3145728) ops and (353532.0,207647.5) ops/second in (2.966000,15.149363) seconds
+2015/06/23-18:19:42 ... thread 5: (1048576,3145728) ops and (351732.0,207314.8) ops/second in (2.981179,15.173678) seconds
+2015/06/23-18:19:42 ... thread 14: (1048576,3145728) ops and (356430.9,207313.4) ops/second in (2.941877,15.173783) seconds
+2015/06/23-18:19:42 ... thread 21: (1048576,3145728) ops and (316171.3,206625.8) ops/second in (3.316481,15.224275) seconds
+2015/06/23-18:19:42 ... thread 11: (1048576,3145728) ops and (365417.5,206615.9) ops/second in (2.869529,15.225001) seconds
+2015/06/23-18:19:42 ... thread 6: (1048576,3145728) ops and (315859.3,205938.5) ops/second in (3.319757,15.275082) seconds
+2015/06/23-18:19:42 ... thread 15: (1048576,3145728) ops and (355334.7,205902.2) ops/second in (2.950953,15.277776) seconds
+2015/06/23-18:19:42 ... thread 23: (1048576,3145728) ops and (368517.5,199886.1) ops/second in (2.845390,15.737603) seconds
+2015/06/23-18:19:42 ... thread 4: (1048576,3145728) ops and (367746.6,199846.9) ops/second in (2.851355,15.740690) seconds
+2015/06/23-18:19:42 ... thread 17: (1048576,3145728) ops and (297953.5,199843.9) ops/second in (3.519261,15.740922) seconds
+2015/06/23-18:19:42 ... thread 9: (1048576,3145728) ops and (365890.4,199703.1) ops/second in (2.865820,15.752027) seconds
+2015/06/23-18:19:42 ... thread 12: (1048576,3145728) ops and (296104.4,199379.8) ops/second in (3.541237,15.777568) seconds
+2015/06/23-18:19:42 ... thread 25: (1048576,3145728) ops and (365337.3,199291.5) ops/second in (2.870159,15.784560) seconds
+2015/06/23-18:19:42 ... thread 31: (1048576,3145728) ops and (363870.8,199079.6) ops/second in (2.881726,15.801359) seconds
+2015/06/23-18:19:42 ... thread 20: (1048576,3145728) ops and (363169.4,198963.6) ops/second in (2.887292,15.810573) seconds
+2015/06/23-18:19:42 ... thread 26: (1048576,3145728) ops and (297563.3,198809.9) ops/second in (3.523876,15.822797) seconds
+2015/06/23-18:19:42 ... thread 29: (1048576,3145728) ops and (364224.2,198750.5) ops/second in (2.878930,15.827526) seconds
+2015/06/23-18:19:42 ... thread 2: (1048576,3145728) ops and (361761.3,198319.3) ops/second in (2.898530,15.861932) seconds
+2015/06/23-18:19:44 ... thread 24: (1048576,4194304) ops and (365348.1,243314.3) ops/second in (2.870074,17.238216) seconds
+2015/06/23-18:19:44 ... thread 19: (1048576,4194304) ops and (371692.5,239278.2) ops/second in (2.821085,17.528988) seconds
+2015/06/23-18:19:44 ... thread 32: (1048576,4194304) ops and (371973.0,238347.8) ops/second in (2.818957,17.597412) seconds
+2015/06/23-18:19:44 ... thread 3: (1048576,4194304) ops and (366686.9,236820.8) ops/second in (2.859595,17.710875) seconds
+2015/06/23-18:19:44 ... thread 30: (1048576,4194304) ops and (371239.0,236068.9) ops/second in (2.824531,17.767286) seconds
+2015/06/23-18:19:44 ... thread 8: (1048576,4194304) ops and (362686.5,235818.7) ops/second in (2.891136,17.786141) seconds
+2015/06/23-18:19:44 ... thread 18: (1048576,5242880) ops and (369279.8,294053.0) ops/second in (2.839516,17.829714) seconds
+2015/06/23-18:19:44 ... thread 10: (1048576,4194304) ops and (360912.2,235221.2) ops/second in (2.905349,17.831321) seconds
+2015/06/23-18:19:44 ... thread 13: (1048576,4194304) ops and (367418.7,234400.3) ops/second in (2.853899,17.893767) seconds
+2015/06/23-18:19:44 ... thread 27: (1048576,4194304) ops and (367575.9,234393.4) ops/second in (2.852679,17.894289) seconds
+2015/06/23-18:19:44 ... thread 7: (1048576,4194304) ops and (358990.7,234340.2) ops/second in (2.920900,17.898355) seconds
+2015/06/23-18:19:44 ... thread 1: (1048576,4194304) ops and (360871.9,234216.0) ops/second in (2.905674,17.907848) seconds
+2015/06/23-18:19:44 ... thread 16: (1048576,4194304) ops and (361821.3,234189.7) ops/second in (2.898049,17.909854) seconds
+2015/06/23-18:19:45 ... thread 28: (1048576,4194304) ops and (361838.2,233485.4) ops/second in (2.897914,17.963880) seconds
+2015/06/23-18:19:45 ... thread 14: (1048576,4194304) ops and (368883.0,232805.4) ops/second in (2.842571,18.016354) seconds
+2015/06/23-18:19:45 ... thread 22: (1048576,4194304) ops and (362619.3,232486.9) ops/second in (2.891672,18.041035) seconds
+2015/06/23-18:19:45 ... thread 11: (1048576,4194304) ops and (370985.0,232352.5) ops/second in (2.826465,18.051466) seconds
+2015/06/23-18:19:45 ... thread 5: (1048576,4194304) ops and (359832.6,231886.5) ops/second in (2.914066,18.087744) seconds
+2015/06/23-18:19:45 ... thread 15: (1048576,4194304) ops and (364019.1,230985.1) ops/second in (2.880552,18.158328) seconds
+2015/06/23-18:19:45 ... thread 21: (1048576,4194304) ops and (349801.1,230179.2) ops/second in (2.997635,18.221910) seconds
+2015/06/23-18:19:45 ... thread 6: (1048576,4194304) ops and (337939.7,228225.0) ops/second in (3.102849,18.377931) seconds
+2015/06/23-18:19:45 ... thread 23: (1048576,4194304) ops and (374698.6,226278.1) ops/second in (2.798452,18.536055) seconds
+2015/06/23-18:19:45 ... thread 4: (1048576,4194304) ops and (372898.5,226075.7) ops/second in (2.811961,18.552651) seconds
+2015/06/23-18:19:45 ... thread 9: (1048576,4194304) ops and (371839.7,225840.3) ops/second in (2.819968,18.571995) seconds
+2015/06/23-18:19:45 ... thread 25: (1048576,4194304) ops and (371287.1,225394.5) ops/second in (2.824165,18.608725) seconds
+2015/06/23-18:19:45 ... thread 31: (1048576,4194304) ops and (370095.0,225081.3) ops/second in (2.833262,18.634621) seconds
+2015/06/23-18:19:45 ... thread 20: (1048576,4194304) ops and (369502.0,224915.2) ops/second in (2.837809,18.648382) seconds
+2015/06/23-18:19:45 ... thread 29: (1048576,4194304) ops and (370811.5,224831.6) ops/second in (2.827787,18.655313) seconds
+2015/06/23-18:19:45 ... thread 2: (1048576,4194304) ops and (366733.6,224040.8) ops/second in (2.859231,18.721163) seconds
+2015/06/23-18:19:45 ... thread 17: (1048576,4194304) ops and (336713.8,222449.7) ops/second in (3.114146,18.855068) seconds
+2015/06/23-18:19:46 ... thread 26: (1048576,4194304) ops and (328132.1,220539.4) ops/second in (3.195591,19.018388) seconds
+2015/06/23-18:19:46 ... thread 12: (1048576,4194304) ops and (323098.5,220486.6) ops/second in (3.245376,19.022944) seconds
+2015/06/23-18:19:47 ... thread 24: (1048576,5242880) ops and (371857.5,261385.3) ops/second in (2.819833,20.058049) seconds
+2015/06/23-18:19:47 ... thread 19: (1048576,5242880) ops and (373590.9,257816.1) ops/second in (2.806749,20.335737) seconds
+2015/06/23-18:19:47 ... thread 32: (1048576,5242880) ops and (369474.8,256558.3) ops/second in (2.838018,20.435430) seconds
+2015/06/23-18:19:47 ... thread 3: (1048576,5242880) ops and (367044.5,254908.6) ops/second in (2.856809,20.567684) seconds
+2015/06/23-18:19:47 ... thread 30: (1048576,5242880) ops and (372006.6,254682.0) ops/second in (2.818703,20.585989) seconds
+2015/06/23-18:19:47 ... thread 18: (1048576,6291456) ops and (368615.7,304312.2) ops/second in (2.844632,20.674346) seconds
+2015/06/23-18:19:47 ... thread 8: (1048576,5242880) ops and (362152.9,253505.3) ops/second in (2.895396,20.681537) seconds
+2015/06/23-18:19:47 ... thread 10: (1048576,5242880) ops and (359591.6,252701.3) ops/second in (2.916019,20.747340) seconds
+2015/06/23-18:19:47 ... thread 13: (1048576,5242880) ops and (367242.7,252680.7) ops/second in (2.855267,20.749034) seconds
+2015/06/23-18:19:47 ... thread 27: (1048576,5242880) ops and (366979.2,252649.4) ops/second in (2.857317,20.751606) seconds
+2015/06/23-18:19:47 ... thread 1: (1048576,5242880) ops and (361764.7,251984.6) ops/second in (2.898503,20.806351) seconds
+2015/06/23-18:19:47 ... thread 7: (1048576,5242880) ops and (359978.4,251925.4) ops/second in (2.912886,20.811241) seconds
+2015/06/23-18:19:47 ... thread 16: (1048576,5242880) ops and (361085.9,251894.3) ops/second in (2.903952,20.813806) seconds
+2015/06/23-18:19:47 ... thread 28: (1048576,5242880) ops and (356383.1,250781.7) ops/second in (2.942272,20.906152) seconds
+2015/06/23-18:19:47 ... thread 14: (1048576,5242880) ops and (362014.2,250701.3) ops/second in (2.896505,20.912859) seconds
+2015/06/23-18:19:48 ... thread 22: (1048576,5242880) ops and (360188.6,250230.3) ops/second in (2.911186,20.952221) seconds
+2015/06/23-18:19:48 ... thread 11: (1048576,5242880) ops and (357628.8,249857.4) ops/second in (2.932023,20.983489) seconds
+2015/06/23-18:19:48 ... thread 5: (1048576,5242880) ops and (360202.1,249675.0) ops/second in (2.911077,20.998821) seconds
+2015/06/23-18:19:48 ... thread 15: (1048576,5242880) ops and (366054.3,249389.4) ops/second in (2.864537,21.022865) seconds
+2015/06/23-18:19:48 ... thread 23: (1048576,5242880) ops and (370560.6,245387.0) ops/second in (2.829702,21.365757) seconds
+2015/06/23-18:19:48 ... thread 21: (1048576,5242880) ops and (333321.3,245364.1) ops/second in (3.145842,21.367752) seconds
+2015/06/23-18:19:48 ... thread 4: (1048576,5242880) ops and (367727.1,244946.8) ops/second in (2.851506,21.404157) seconds
+2015/06/23-18:19:48 ... thread 9: (1048576,5242880) ops and (368328.6,244778.8) ops/second in (2.846849,21.418844) seconds
+2015/06/23-18:19:48 ... thread 25: (1048576,5242880) ops and (368053.4,244335.6) ops/second in (2.848978,21.457703) seconds
+2015/06/23-18:19:48 ... thread 6: (1048576,5242880) ops and (339203.5,244204.5) ops/second in (3.091289,21.469220) seconds
+2015/06/23-18:19:48 ... thread 31: (1048576,5242880) ops and (365572.5,243821.6) ops/second in (2.868312,21.502933) seconds
+2015/06/23-18:19:48 ... thread 29: (1048576,5242880) ops and (366261.1,243648.3) ops/second in (2.862919,21.518232) seconds
+2015/06/23-18:19:48 ... thread 20: (1048576,5242880) ops and (364709.0,243588.8) ops/second in (2.875103,21.523485) seconds
+2015/06/23-18:19:48 ... thread 2: (1048576,5242880) ops and (362973.3,242613.4) ops/second in (2.888852,21.610015) seconds
+2015/06/23-18:19:49 ... thread 17: (1048576,5242880) ops and (330866.5,238050.3) ops/second in (3.169182,22.024250) seconds
+2015/06/23-18:19:49 ... thread 26: (1048576,5242880) ops and (331741.8,236387.2) ops/second in (3.160820,22.179208) seconds
+2015/06/23-18:19:49 ... thread 12: (1048576,5242880) ops and (330942.6,236257.3) ops/second in (3.168453,22.191397) seconds
+2015/06/23-18:19:50 ... thread 24: (1048576,6291456) ops and (363044.3,274181.3) ops/second in (2.888287,22.946336) seconds
+2015/06/23-18:19:50 ... thread 19: (1048576,6291456) ops and (367491.0,271311.2) ops/second in (2.853338,23.189075) seconds
+2015/06/23-18:19:50 ... thread 32: (1048576,6291456) ops and (367488.9,270149.6) ops/second in (2.853354,23.288784) seconds
+2015/06/23-18:19:50 ... thread 30: (1048576,6291456) ops and (366868.9,268359.1) ops/second in (2.858176,23.444165) seconds
+2015/06/23-18:19:50 ... thread 3: (1048576,6291456) ops and (360960.4,268033.5) ops/second in (2.904961,23.472645) seconds
+2015/06/23-18:19:50 ... thread 8: (1048576,6291456) ops and (357337.3,266407.0) ops/second in (2.934415,23.615952) seconds
+2015/06/23-18:19:50 ... thread 27: (1048576,6291456) ops and (364589.9,266275.2) ops/second in (2.876042,23.627648) seconds
+2015/06/23-18:19:50 ... thread 13: (1048576,6291456) ops and (364236.4,266272.7) ops/second in (2.878834,23.627868) seconds
+2015/06/23-18:19:50 ... thread 10: (1048576,6291456) ops and (355607.3,265506.7) ops/second in (2.948691,23.696031) seconds
+2015/06/23-18:19:50 ... thread 16: (1048576,6291456) ops and (358662.9,265044.3) ops/second in (2.923570,23.737376) seconds
+2015/06/23-18:19:50 ... thread 1: (1048576,6291456) ops and (357628.1,265033.1) ops/second in (2.932029,23.738380) seconds
+2015/06/23-18:19:50 ... thread 7: (1048576,6291456) ops and (358017.6,265014.1) ops/second in (2.928839,23.740080) seconds
+2015/06/23-18:19:50 ... thread 18: (1048576,7340032) ops and (335057.0,308354.3) ops/second in (3.129545,23.803891) seconds
+2015/06/23-18:19:50 ... thread 11: (1048576,6291456) ops and (363590.5,263600.0) ops/second in (2.883948,23.867437) seconds
+2015/06/23-18:19:50 ... thread 22: (1048576,6291456) ops and (357925.4,263441.3) ops/second in (2.929594,23.881815) seconds
+2015/06/23-18:19:50 ... thread 15: (1048576,6291456) ops and (363864.8,263189.8) ops/second in (2.881774,23.904639) seconds
+2015/06/23-18:19:50 ... thread 5: (1048576,6291456) ops and (357770.1,262914.3) ops/second in (2.930865,23.929686) seconds
+2015/06/23-18:19:51 ... thread 14: (1048576,6291456) ops and (344194.6,262589.1) ops/second in (3.046463,23.959322) seconds
+2015/06/23-18:19:51 ... thread 28: (1048576,6291456) ops and (338915.0,262143.2) ops/second in (3.093920,24.000072) seconds
+2015/06/23-18:19:51 ... thread 23: (1048576,6291456) ops and (370953.5,260058.5) ops/second in (2.826705,24.192462) seconds
+2015/06/23-18:19:51 ... thread 4: (1048576,6291456) ops and (368262.4,259425.2) ops/second in (2.847361,24.251518) seconds
+2015/06/23-18:19:51 ... thread 9: (1048576,6291456) ops and (366725.0,259140.8) ops/second in (2.859298,24.278142) seconds
+2015/06/23-18:19:51 ... thread 25: (1048576,6291456) ops and (369575.2,258961.5) ops/second in (2.837247,24.294950) seconds
+2015/06/23-18:19:51 ... thread 31: (1048576,6291456) ops and (366303.6,258211.4) ops/second in (2.862587,24.365520) seconds
+2015/06/23-18:19:51 ... thread 29: (1048576,6291456) ops and (367367.9,258137.2) ops/second in (2.854294,24.372526) seconds
+2015/06/23-18:19:51 ... thread 20: (1048576,6291456) ops and (365518.6,257928.8) ops/second in (2.868735,24.392220) seconds
+2015/06/23-18:19:51 ... thread 21: (1048576,6291456) ops and (338130.3,257121.0) ops/second in (3.101100,24.468852) seconds
+2015/06/23-18:19:51 ... thread 2: (1048576,6291456) ops and (366564.7,257103.0) ops/second in (2.860548,24.470563) seconds
+2015/06/23-18:19:51 ... thread 6: (1048576,6291456) ops and (337557.8,256004.4) ops/second in (3.106360,24.575580) seconds
+2015/06/23-18:19:52 ... thread 17: (1048576,6291456) ops and (338339.4,250421.8) ops/second in (3.099184,25.123434) seconds
+2015/06/23-18:19:52 ... thread 26: (1048576,6291456) ops and (338877.9,248935.2) ops/second in (3.094259,25.273467) seconds
+2015/06/23-18:19:52 ... thread 12: (1048576,6291456) ops and (337649.1,248704.5) ops/second in (3.105520,25.296917) seconds
+2015/06/23-18:19:52 ... thread 24: (1048576,7340032) ops and (371336.4,284827.2) ops/second in (2.823790,25.770126) seconds
+2015/06/23-18:19:53 ... thread 19: (1048576,7340032) ops and (374860.9,282457.6) ops/second in (2.797240,25.986315) seconds
+2015/06/23-18:19:53 ... thread 32: (1048576,7340032) ops and (375859.7,281458.2) ops/second in (2.789807,26.078591) seconds
+2015/06/23-18:19:53 ... thread 30: (1048576,7340032) ops and (376685.9,279856.4) ops/second in (2.783688,26.227853) seconds
+2015/06/23-18:19:53 ... thread 3: (1048576,7340032) ops and (370786.2,279082.0) ops/second in (2.827980,26.300625) seconds
+2015/06/23-18:19:53 ... thread 27: (1048576,7340032) ops and (373226.2,277640.9) ops/second in (2.809492,26.437140) seconds
+2015/06/23-18:19:53 ... thread 13: (1048576,7340032) ops and (372824.9,277606.9) ops/second in (2.812516,26.440384) seconds
+2015/06/23-18:19:53 ... thread 8: (1048576,7340032) ops and (367153.7,277276.2) ops/second in (2.855959,26.471911) seconds
+2015/06/23-18:19:53 ... thread 10: (1048576,7340032) ops and (365050.4,276268.8) ops/second in (2.872414,26.568445) seconds
+2015/06/23-18:19:53 ... thread 1: (1048576,7340032) ops and (367627.6,276038.0) ops/second in (2.852278,26.590658) seconds
+2015/06/23-18:19:53 ... thread 16: (1048576,7340032) ops and (366903.9,275990.0) ops/second in (2.857904,26.595280) seconds
+2015/06/23-18:19:53 ... thread 7: (1048576,7340032) ops and (367059.4,275974.5) ops/second in (2.856693,26.596773) seconds
+2015/06/23-18:19:53 ... thread 18: (1048576,8388608) ops and (371707.5,315066.7) ops/second in (2.820971,26.624862) seconds
+2015/06/23-18:19:53 ... thread 11: (1048576,7340032) ops and (372145.8,275061.2) ops/second in (2.817648,26.685085) seconds
+2015/06/23-18:19:53 ... thread 15: (1048576,7340032) ops and (370562.0,274554.6) ops/second in (2.829691,26.734330) seconds
+2015/06/23-18:19:53 ... thread 22: (1048576,7340032) ops and (367181.9,274521.4) ops/second in (2.855740,26.737555) seconds
+2015/06/23-18:19:53 ... thread 5: (1048576,7340032) ops and (366657.1,273989.0) ops/second in (2.859827,26.789513) seconds
+2015/06/23-18:19:53 ... thread 14: (1048576,7340032) ops and (369469.4,273908.6) ops/second in (2.838059,26.797381) seconds
+2015/06/23-18:19:53 ... thread 28: (1048576,7340032) ops and (361219.2,272833.7) ops/second in (2.902880,26.902952) seconds
+2015/06/23-18:19:54 ... thread 23: (1048576,7340032) ops and (375785.5,272026.1) ops/second in (2.790358,26.982820) seconds
+2015/06/23-18:19:54 ... thread 4: (1048576,7340032) ops and (375186.3,271387.3) ops/second in (2.794814,27.046332) seconds
+2015/06/23-18:19:54 ... thread 9: (1048576,7340032) ops and (373576.7,270999.9) ops/second in (2.806856,27.084998) seconds
+2015/06/23-18:19:54 ... thread 25: (1048576,7340032) ops and (374084.1,270869.9) ops/second in (2.803049,27.097999) seconds
+2015/06/23-18:19:54 ... thread 29: (1048576,7340032) ops and (372394.7,269970.3) ops/second in (2.815765,27.188291) seconds
+2015/06/23-18:19:54 ... thread 31: (1048576,7340032) ops and (370778.1,269918.0) ops/second in (2.828042,27.193562) seconds
+2015/06/23-18:19:54 ... thread 20: (1048576,7340032) ops and (369462.8,269553.5) ops/second in (2.838110,27.230330) seconds
+2015/06/23-18:19:54 ... thread 2: (1048576,7340032) ops and (367743.0,268649.7) ops/second in (2.851383,27.321946) seconds
+2015/06/23-18:19:54 ... thread 21: (1048576,7340032) ops and (344373.6,266777.1) ops/second in (3.044879,27.513731) seconds
+2015/06/23-18:19:54 ... thread 6: (1048576,7340032) ops and (345127.1,265810.2) ops/second in (3.038231,27.613811) seconds
+2015/06/23-18:19:54 ... thread 0: (1048576,1048576) ops and (37540.9,37540.9) ops/second in (27.931526,27.931526) seconds
+2015/06/23-18:19:55 ... thread 17: (1048576,7340032) ops and (338760.1,260111.7) ops/second in (3.095335,28.218769) seconds
+2015/06/23-18:19:55 ... thread 26: (1048576,7340032) ops and (341073.5,258927.7) ops/second in (3.074340,28.347807) seconds
+2015/06/23-18:19:55 ... thread 12: (1048576,7340032) ops and (338871.1,258531.6) ops/second in (3.094321,28.391238) seconds
+2015/06/23-18:19:55 ... thread 24: (1048576,8388608) ops and (368640.4,293158.7) ops/second in (2.844441,28.614567) seconds
+2015/06/23-18:19:55 ... thread 19: (1048576,8388608) ops and (371439.1,291176.8) ops/second in (2.823009,28.809324) seconds
+2015/06/23-18:19:55 ... thread 32: (1048576,8388608) ops and (369310.4,290083.9) ops/second in (2.839281,28.917872) seconds
+2015/06/23-18:19:56 ... thread 30: (1048576,8388608) ops and (368893.9,288562.4) ops/second in (2.842487,29.070340) seconds
+2015/06/23-18:19:56 ... thread 3: (1048576,8388608) ops and (363311.6,287411.1) ops/second in (2.886162,29.186787) seconds
+2015/06/23-18:19:56 ... thread 13: (1048576,8388608) ops and (365363.2,286199.6) ops/second in (2.869955,29.310339) seconds
+2015/06/23-18:19:56 ... thread 27: (1048576,8388608) ops and (364769.0,286185.7) ops/second in (2.874630,29.311770) seconds
+2015/06/23-18:19:56 ... thread 8: (1048576,8388608) ops and (362633.8,285681.8) ops/second in (2.891556,29.363467) seconds
+2015/06/23-18:19:56 ... thread 10: (1048576,8388608) ops and (363667.3,284825.1) ops/second in (2.883339,29.451784) seconds
+2015/06/23-18:19:56 ... thread 16: (1048576,8388608) ops and (361843.9,284425.7) ops/second in (2.897868,29.493148) seconds
+2015/06/23-18:19:56 ... thread 1: (1048576,8388608) ops and (359696.5,284303.4) ops/second in (2.915169,29.505827) seconds
+2015/06/23-18:19:56 ... thread 7: (1048576,8388608) ops and (359110.3,284198.7) ops/second in (2.919927,29.516700) seconds
+2015/06/23-18:19:56 ... thread 11: (1048576,8388608) ops and (365022.9,283804.3) ops/second in (2.872631,29.557716) seconds
+2015/06/23-18:19:56 ... thread 15: (1048576,8388608) ops and (362678.3,283154.7) ops/second in (2.891201,29.625531) seconds
+2015/06/23-18:19:56 ... thread 18: (1048576,9437184) ops and (347927.5,318408.1) ops/second in (3.013777,29.638639) seconds
+2015/06/23-18:19:56 ... thread 22: (1048576,8388608) ops and (358578.0,282808.3) ops/second in (2.924262,29.661817) seconds
+2015/06/23-18:19:56 ... thread 5: (1048576,8388608) ops and (356130.8,282123.0) ops/second in (2.944356,29.733869) seconds
+2015/06/23-18:19:56 ... thread 23: (1048576,8388608) ops and (369134.8,281275.6) ops/second in (2.840632,29.823452) seconds
+2015/06/23-18:19:56 ... thread 14: (1048576,8388608) ops and (340618.5,280782.4) ops/second in (3.078447,29.875828) seconds
+2015/06/23-18:19:56 ... thread 4: (1048576,8388608) ops and (369359.4,280694.1) ops/second in (2.838904,29.885236) seconds
+2015/06/23-18:19:56 ... thread 9: (1048576,8388608) ops and (367367.0,280187.2) ops/second in (2.854301,29.939299) seconds
+2015/06/23-18:19:57 ... thread 25: (1048576,8388608) ops and (367420.3,280069.4) ops/second in (2.853887,29.951886) seconds
+2015/06/23-18:19:57 ... thread 28: (1048576,8388608) ops and (340860.9,279814.2) ops/second in (3.076258,29.979210) seconds
+writer       :      26.230 micros/op 38124 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       0.110 micros/op 9049976 ops/sec; (8565999 of 8565999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=32 --writemap=1 --duration=30"
+	User time (seconds): 757.74
+	System time (seconds): 232.07
+	Percent of CPU this job got: 3102%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.90
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12593344
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 17965660
+	Voluntary context switches: 75252
+	Involuntary context switches: 1732
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 4903144
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12589896	/data/work/tmp/testlmdb/dbbench_mdb-1
+12589896	/data/work/tmp/testlmdb
+THREADS=48
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:19:58 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:20:02 ... thread 2: (1048576,1048576) ops and (266764.1,266764.1) ops/second in (3.930724,3.930724) seconds
+2015/06/23-18:20:02 ... thread 44: (1048576,1048576) ops and (262281.5,262281.5) ops/second in (3.997903,3.997903) seconds
+2015/06/23-18:20:02 ... thread 17: (1048576,1048576) ops and (260819.9,260819.9) ops/second in (4.020307,4.020307) seconds
+2015/06/23-18:20:03 ... thread 33: (1048576,1048576) ops and (259595.4,259595.4) ops/second in (4.039271,4.039271) seconds
+2015/06/23-18:20:03 ... thread 40: (1048576,1048576) ops and (238598.0,238598.0) ops/second in (4.394740,4.394740) seconds
+2015/06/23-18:20:03 ... thread 30: (1048576,1048576) ops and (234158.6,234158.6) ops/second in (4.478058,4.478058) seconds
+2015/06/23-18:20:03 ... thread 41: (1048576,1048576) ops and (233094.3,233094.3) ops/second in (4.498506,4.498506) seconds
+2015/06/23-18:20:03 ... thread 19: (1048576,1048576) ops and (227151.9,227151.9) ops/second in (4.616189,4.616189) seconds
+2015/06/23-18:20:03 ... thread 42: (1048576,1048576) ops and (222233.7,222233.7) ops/second in (4.718349,4.718349) seconds
+2015/06/23-18:20:03 ... thread 29: (1048576,1048576) ops and (221734.7,221734.7) ops/second in (4.728966,4.728966) seconds
+2015/06/23-18:20:03 ... thread 15: (1048576,1048576) ops and (221114.7,221114.7) ops/second in (4.742227,4.742227) seconds
+2015/06/23-18:20:03 ... thread 14: (1048576,1048576) ops and (219006.5,219006.5) ops/second in (4.787876,4.787876) seconds
+2015/06/23-18:20:03 ... thread 25: (1048576,1048576) ops and (215880.8,215880.8) ops/second in (4.857198,4.857198) seconds
+2015/06/23-18:20:03 ... thread 10: (1048576,1048576) ops and (215269.4,215269.4) ops/second in (4.870994,4.870994) seconds
+2015/06/23-18:20:03 ... thread 3: (1048576,1048576) ops and (213171.1,213171.1) ops/second in (4.918941,4.918941) seconds
+2015/06/23-18:20:03 ... thread 16: (1048576,1048576) ops and (210086.5,210086.5) ops/second in (4.991163,4.991163) seconds
+2015/06/23-18:20:04 ... thread 28: (1048576,1048576) ops and (206596.7,206596.7) ops/second in (5.075472,5.075472) seconds
+2015/06/23-18:20:04 ... thread 46: (1048576,1048576) ops and (204490.4,204490.4) ops/second in (5.127752,5.127752) seconds
+2015/06/23-18:20:04 ... thread 13: (1048576,1048576) ops and (201756.9,201756.9) ops/second in (5.197225,5.197225) seconds
+2015/06/23-18:20:04 ... thread 22: (1048576,1048576) ops and (201442.0,201442.0) ops/second in (5.205350,5.205350) seconds
+2015/06/23-18:20:04 ... thread 8: (1048576,1048576) ops and (201321.3,201321.3) ops/second in (5.208470,5.208470) seconds
+2015/06/23-18:20:04 ... thread 9: (1048576,1048576) ops and (199779.2,199779.2) ops/second in (5.248674,5.248674) seconds
+2015/06/23-18:20:04 ... thread 21: (1048576,1048576) ops and (199744.2,199744.2) ops/second in (5.249593,5.249593) seconds
+2015/06/23-18:20:04 ... thread 12: (1048576,1048576) ops and (199546.8,199546.8) ops/second in (5.254788,5.254788) seconds
+2015/06/23-18:20:04 ... thread 35: (1048576,1048576) ops and (195181.2,195181.2) ops/second in (5.372320,5.372320) seconds
+2015/06/23-18:20:04 ... thread 38: (1048576,1048576) ops and (190326.2,190326.2) ops/second in (5.509361,5.509361) seconds
+2015/06/23-18:20:04 ... thread 37: (1048576,1048576) ops and (188707.9,188707.9) ops/second in (5.556610,5.556610) seconds
+2015/06/23-18:20:04 ... thread 27: (1048576,1048576) ops and (188625.1,188625.1) ops/second in (5.559047,5.559047) seconds
+2015/06/23-18:20:04 ... thread 24: (1048576,1048576) ops and (188032.7,188032.7) ops/second in (5.576561,5.576561) seconds
+2015/06/23-18:20:04 ... thread 5: (1048576,1048576) ops and (187194.5,187194.5) ops/second in (5.601533,5.601533) seconds
+2015/06/23-18:20:04 ... thread 34: (1048576,1048576) ops and (185904.9,185904.9) ops/second in (5.640388,5.640388) seconds
+2015/06/23-18:20:04 ... thread 23: (1048576,1048576) ops and (182498.4,182498.4) ops/second in (5.745672,5.745672) seconds
+2015/06/23-18:20:04 ... thread 20: (1048576,1048576) ops and (178714.6,178714.6) ops/second in (5.867321,5.867321) seconds
+2015/06/23-18:20:04 ... thread 43: (1048576,1048576) ops and (177041.2,177041.2) ops/second in (5.922780,5.922780) seconds
+2015/06/23-18:20:04 ... thread 18: (1048576,1048576) ops and (175539.9,175539.9) ops/second in (5.973433,5.973433) seconds
+2015/06/23-18:20:04 ... thread 26: (1048576,1048576) ops and (174335.5,174335.5) ops/second in (6.014701,6.014701) seconds
+2015/06/23-18:20:05 ... thread 32: (1048576,1048576) ops and (172561.1,172561.1) ops/second in (6.076548,6.076548) seconds
+2015/06/23-18:20:05 ... thread 6: (1048576,1048576) ops and (169215.4,169215.4) ops/second in (6.196695,6.196695) seconds
+2015/06/23-18:20:05 ... thread 31: (1048576,1048576) ops and (168645.1,168645.1) ops/second in (6.217650,6.217650) seconds
+2015/06/23-18:20:05 ... thread 47: (1048576,1048576) ops and (167497.6,167497.6) ops/second in (6.260245,6.260245) seconds
+2015/06/23-18:20:05 ... thread 11: (1048576,1048576) ops and (167434.6,167434.6) ops/second in (6.262601,6.262601) seconds
+2015/06/23-18:20:05 ... thread 1: (1048576,1048576) ops and (167424.4,167424.4) ops/second in (6.262983,6.262983) seconds
+2015/06/23-18:20:05 ... thread 36: (1048576,1048576) ops and (167334.5,167334.5) ops/second in (6.266346,6.266346) seconds
+2015/06/23-18:20:05 ... thread 4: (1048576,1048576) ops and (166242.3,166242.3) ops/second in (6.307518,6.307518) seconds
+2015/06/23-18:20:05 ... thread 7: (1048576,1048576) ops and (164463.6,164463.6) ops/second in (6.375733,6.375733) seconds
+2015/06/23-18:20:05 ... thread 39: (1048576,1048576) ops and (164242.6,164242.6) ops/second in (6.384312,6.384312) seconds
+2015/06/23-18:20:05 ... thread 45: (1048576,1048576) ops and (163763.0,163763.0) ops/second in (6.403011,6.403011) seconds
+2015/06/23-18:20:05 ... thread 48: (1048576,1048576) ops and (161494.6,161494.6) ops/second in (6.492948,6.492948) seconds
+2015/06/23-18:20:05 ... thread 17: (1048576,2097152) ops and (362291.9,303293.7) ops/second in (2.894285,6.914592) seconds
+2015/06/23-18:20:06 ... thread 33: (1048576,2097152) ops and (341752.7,295061.8) ops/second in (3.068230,7.107501) seconds
+2015/06/23-18:20:06 ... thread 2: (1048576,2097152) ops and (317476.2,289919.2) ops/second in (3.302849,7.233573) seconds
+2015/06/23-18:20:06 ... thread 44: (1048576,2097152) ops and (321422.0,288855.7) ops/second in (3.262303,7.260206) seconds
+2015/06/23-18:20:06 ... thread 30: (1048576,2097152) ops and (367490.1,286050.6) ops/second in (2.853345,7.331403) seconds
+2015/06/23-18:20:06 ... thread 40: (1048576,2097152) ops and (350430.0,283897.9) ops/second in (2.992255,7.386995) seconds
+2015/06/23-18:20:06 ... thread 41: (1048576,2097152) ops and (332963.1,274218.8) ops/second in (3.149226,7.647732) seconds
+2015/06/23-18:20:06 ... thread 29: (1048576,2097152) ops and (356432.4,273393.1) ops/second in (2.941865,7.670831) seconds
+2015/06/23-18:20:06 ... thread 15: (1048576,2097152) ops and (344333.9,269298.7) ops/second in (3.045230,7.787457) seconds
+2015/06/23-18:20:06 ... thread 42: (1048576,2097152) ops and (333416.7,266701.6) ops/second in (3.144941,7.863290) seconds
+2015/06/23-18:20:06 ... thread 3: (1048576,2097152) ops and (346623.1,263989.9) ops/second in (3.025119,7.944060) seconds
+2015/06/23-18:20:06 ... thread 10: (1048576,2097152) ops and (338076.0,263045.2) ops/second in (3.101598,7.972592) seconds
+2015/06/23-18:20:07 ... thread 14: (1048576,2097152) ops and (321885.3,260662.0) ops/second in (3.257608,8.045484) seconds
+2015/06/23-18:20:07 ... thread 16: (1048576,2097152) ops and (321430.3,254096.1) ops/second in (3.262219,8.253382) seconds
+2015/06/23-18:20:07 ... thread 19: (1048576,2097152) ops and (286244.5,253297.4) ops/second in (3.663218,8.279407) seconds
+2015/06/23-18:20:07 ... thread 13: (1048576,2097152) ops and (338901.3,252935.0) ops/second in (3.094045,8.291270) seconds
+2015/06/23-18:20:07 ... thread 25: (1048576,2097152) ops and (304690.0,252710.0) ops/second in (3.441452,8.298650) seconds
+2015/06/23-18:20:07 ... thread 46: (1048576,2097152) ops and (330662.5,252702.7) ops/second in (3.171137,8.298889) seconds
+2015/06/23-18:20:07 ... thread 8: (1048576,2097152) ops and (336647.7,251963.8) ops/second in (3.114758,8.323228) seconds
+2015/06/23-18:20:07 ... thread 12: (1048576,2097152) ops and (336683.8,250579.4) ops/second in (3.114424,8.369212) seconds
+2015/06/23-18:20:07 ... thread 35: (1048576,2097152) ops and (340085.7,248019.6) ops/second in (3.083270,8.455590) seconds
+2015/06/23-18:20:07 ... thread 28: (1048576,2097152) ops and (302937.3,245659.2) ops/second in (3.461363,8.536835) seconds
+2015/06/23-18:20:07 ... thread 38: (1048576,2097152) ops and (341510.9,244430.0) ops/second in (3.070403,8.579764) seconds
+2015/06/23-18:20:07 ... thread 22: (1048576,2097152) ops and (310295.1,244291.3) ops/second in (3.379286,8.584636) seconds
+2015/06/23-18:20:07 ... thread 9: (1048576,2097152) ops and (301608.4,240353.3) ops/second in (3.476614,8.725288) seconds
+2015/06/23-18:20:07 ... thread 21: (1048576,2097152) ops and (295511.3,238368.6) ops/second in (3.548345,8.797938) seconds
+2015/06/23-18:20:07 ... thread 27: (1048576,2097152) ops and (320784.5,237561.4) ops/second in (3.268786,8.827833) seconds
+2015/06/23-18:20:07 ... thread 24: (1048576,2097152) ops and (310860.5,234326.5) ops/second in (3.373140,8.949701) seconds
+2015/06/23-18:20:07 ... thread 34: (1048576,2097152) ops and (310602.7,232594.9) ops/second in (3.375940,9.016328) seconds
+2015/06/23-18:20:08 ... thread 32: (1048576,2097152) ops and (353919.5,232003.8) ops/second in (2.962753,9.039301) seconds
+2015/06/23-18:20:08 ... thread 26: (1048576,2097152) ops and (344357.6,231480.8) ops/second in (3.045021,9.059722) seconds
+2015/06/23-18:20:08 ... thread 37: (1048576,2097152) ops and (293113.0,229598.7) ops/second in (3.577378,9.133988) seconds
+2015/06/23-18:20:08 ... thread 31: (1048576,2097152) ops and (359135.6,229513.7) ops/second in (2.919722,9.137372) seconds
+2015/06/23-18:20:08 ... thread 43: (1048576,2097152) ops and (321414.6,228319.6) ops/second in (3.262378,9.185158) seconds
+2015/06/23-18:20:08 ... thread 5: (1048576,2097152) ops and (291497.5,227982.6) ops/second in (3.597204,9.198737) seconds
+2015/06/23-18:20:08 ... thread 23: (1048576,2097152) ops and (303438.4,227918.6) ops/second in (3.455647,9.201319) seconds
+2015/06/23-18:20:08 ... thread 20: (1048576,2097152) ops and (314390.2,227887.1) ops/second in (3.335269,9.202590) seconds
+2015/06/23-18:20:08 ... thread 7: (1048576,2097152) ops and (362164.0,226204.6) ops/second in (2.895307,9.271040) seconds
+2015/06/23-18:20:08 ... thread 45: (1048576,2097152) ops and (357238.1,224576.8) ops/second in (2.935230,9.338241) seconds
+2015/06/23-18:20:08 ... thread 36: (1048576,2097152) ops and (319902.1,219731.7) ops/second in (3.277803,9.544149) seconds
+2015/06/23-18:20:08 ... thread 6: (1048576,2097152) ops and (313138.8,219705.4) ops/second in (3.348598,9.545293) seconds
+2015/06/23-18:20:08 ... thread 18: (1048576,2097152) ops and (282510.5,216534.5) ops/second in (3.711636,9.685069) seconds
+2015/06/23-18:20:08 ... thread 48: (1048576,2097152) ops and (321176.1,214921.7) ops/second in (3.264801,9.757749) seconds
+2015/06/23-18:20:09 ... thread 11: (1048576,2097152) ops and (276644.7,208610.9) ops/second in (3.790335,10.052936) seconds
+2015/06/23-18:20:09 ... thread 17: (1048576,3145728) ops and (327727.0,311023.0) ops/second in (3.199541,10.114133) seconds
+2015/06/23-18:20:09 ... thread 47: (1048576,2097152) ops and (270907.1,207006.4) ops/second in (3.870611,10.130856) seconds
+2015/06/23-18:20:09 ... thread 39: (1048576,2097152) ops and (275490.9,205794.4) ops/second in (3.806209,10.190521) seconds
+2015/06/23-18:20:09 ... thread 30: (1048576,3145728) ops and (365141.5,308311.0) ops/second in (2.871698,10.203101) seconds
+2015/06/23-18:20:09 ... thread 2: (1048576,3145728) ops and (352759.6,308221.3) ops/second in (2.972495,10.206068) seconds
+2015/06/23-18:20:09 ... thread 1: (1048576,2097152) ops and (255703.1,202354.8) ops/second in (4.100756,10.363739) seconds
+2015/06/23-18:20:09 ... thread 40: (1048576,3145728) ops and (342795.6,301145.0) ops/second in (3.058896,10.445891) seconds
+2015/06/23-18:20:09 ... thread 4: (1048576,2097152) ops and (245631.1,198285.6) ops/second in (4.268905,10.576423) seconds
+2015/06/23-18:20:09 ... thread 41: (1048576,3145728) ops and (357810.8,297376.6) ops/second in (2.930532,10.578264) seconds
+2015/06/23-18:20:09 ... thread 33: (1048576,3145728) ops and (298637.5,296244.1) ops/second in (3.511200,10.618701) seconds
+2015/06/23-18:20:09 ... thread 29: (1048576,3145728) ops and (342430.9,293089.8) ops/second in (3.062154,10.732985) seconds
+2015/06/23-18:20:09 ... thread 10: (1048576,3145728) ops and (366942.8,290459.1) ops/second in (2.857601,10.830193) seconds
+2015/06/23-18:20:09 ... thread 15: (1048576,3145728) ops and (341885.6,289808.8) ops/second in (3.067038,10.854495) seconds
+2015/06/23-18:20:09 ... thread 3: (1048576,3145728) ops and (357334.8,289169.4) ops/second in (2.934436,10.878496) seconds
+2015/06/23-18:20:09 ... thread 44: (1048576,3145728) ops and (286406.7,288034.7) ops/second in (3.661144,10.921350) seconds
+2015/06/23-18:20:09 ... thread 42: (1048576,3145728) ops and (336705.0,286561.0) ops/second in (3.114228,10.977518) seconds
+2015/06/23-18:20:09 ... thread 14: (1048576,3145728) ops and (350793.1,285077.5) ops/second in (2.989158,11.034642) seconds
+2015/06/23-18:20:10 ... thread 25: (1048576,3145728) ops and (358326.3,280243.9) ops/second in (2.926316,11.224966) seconds
+2015/06/23-18:20:10 ... thread 13: (1048576,3145728) ops and (354376.4,279615.2) ops/second in (2.958933,11.250203) seconds
+2015/06/23-18:20:10 ... thread 8: (1048576,3145728) ops and (355799.0,279115.9) ops/second in (2.947102,11.270330) seconds
+2015/06/23-18:20:10 ... thread 12: (1048576,3145728) ops and (358127.9,278453.3) ops/second in (2.927937,11.297149) seconds
+2015/06/23-18:20:10 ... thread 35: (1048576,3145728) ops and (360182.2,276746.3) ops/second in (2.911238,11.366828) seconds
+2015/06/23-18:20:10 ... thread 46: (1048576,3145728) ops and (315126.1,270568.4) ops/second in (3.327481,11.626370) seconds
+2015/06/23-18:20:10 ... thread 38: (1048576,3145728) ops and (343573.7,270443.6) ops/second in (3.051968,11.631732) seconds
+2015/06/23-18:20:10 ... thread 27: (1048576,3145728) ops and (356908.2,267362.6) ops/second in (2.937943,11.765776) seconds
+2015/06/23-18:20:10 ... thread 9: (1048576,3145728) ops and (343619.9,267111.2) ops/second in (3.051558,11.776846) seconds
+2015/06/23-18:20:10 ... thread 24: (1048576,3145728) ops and (365506.5,266169.1) ops/second in (2.868830,11.818531) seconds
+2015/06/23-18:20:10 ... thread 28: (1048576,3145728) ops and (318612.6,265958.2) ops/second in (3.291069,11.827904) seconds
+2015/06/23-18:20:10 ... thread 16: (1048576,3145728) ops and (292930.5,265843.9) ops/second in (3.579607,11.832989) seconds
+2015/06/23-18:20:10 ... thread 19: (1048576,3145728) ops and (282236.8,262261.1) ops/second in (3.715235,11.994642) seconds
+2015/06/23-18:20:10 ... thread 37: (1048576,3145728) ops and (363534.9,261743.2) ops/second in (2.884389,12.018377) seconds
+2015/06/23-18:20:11 ... thread 20: (1048576,3145728) ops and (362644.6,260105.2) ops/second in (2.891470,12.094060) seconds
+2015/06/23-18:20:11 ... thread 32: (1048576,3145728) ops and (337920.3,259071.2) ops/second in (3.103028,12.142329) seconds
+2015/06/23-18:20:11 ... thread 7: (1048576,3145728) ops and (361389.5,258428.0) ops/second in (2.901512,12.172552) seconds
+2015/06/23-18:20:11 ... thread 34: (1048576,3145728) ops and (330597.9,258098.6) ops/second in (3.171756,12.188084) seconds
+2015/06/23-18:20:11 ... thread 31: (1048576,3145728) ops and (335392.9,256505.5) ops/second in (3.126411,12.263783) seconds
+2015/06/23-18:20:11 ... thread 45: (1048576,3145728) ops and (356440.4,256165.9) ops/second in (2.941799,12.280040) seconds
+2015/06/23-18:20:11 ... thread 43: (1048576,3145728) ops and (333610.1,255163.7) ops/second in (3.143118,12.328276) seconds
+2015/06/23-18:20:11 ... thread 22: (1048576,3145728) ops and (274649.0,253636.4) ops/second in (3.817876,12.402512) seconds
+2015/06/23-18:20:11 ... thread 21: (1048576,3145728) ops and (286571.5,252527.4) ops/second in (3.659038,12.456976) seconds
+2015/06/23-18:20:11 ... thread 36: (1048576,3145728) ops and (358127.6,252221.4) ops/second in (2.927940,12.472089) seconds
+2015/06/23-18:20:11 ... thread 26: (1048576,3145728) ops and (305893.8,251907.5) ops/second in (3.427909,12.487631) seconds
+2015/06/23-18:20:11 ... thread 23: (1048576,3145728) ops and (307070.7,249342.5) ops/second in (3.414771,12.616090) seconds
+2015/06/23-18:20:11 ... thread 6: (1048576,3145728) ops and (336803.0,248504.9) ops/second in (3.113321,12.658614) seconds
+2015/06/23-18:20:12 ... thread 18: (1048576,3145728) ops and (312280.2,241183.7) ops/second in (3.357805,13.042874) seconds
+2015/06/23-18:20:12 ... thread 48: (1048576,3145728) ops and (314546.4,240290.4) ops/second in (3.333613,13.091362) seconds
+2015/06/23-18:20:12 ... thread 5: (1048576,3145728) ops and (265838.8,239343.7) ops/second in (3.944405,13.143142) seconds
+2015/06/23-18:20:12 ... thread 2: (1048576,4194304) ops and (356124.4,318946.9) ops/second in (2.944409,13.150477) seconds
+2015/06/23-18:20:12 ... thread 30: (1048576,4194304) ops and (352527.1,318291.5) ops/second in (2.974455,13.177556) seconds
+2015/06/23-18:20:12 ... thread 47: (1048576,3145728) ops and (335306.8,237268.9) ops/second in (3.127214,13.258070) seconds
+2015/06/23-18:20:12 ... thread 11: (1048576,3145728) ops and (321508.7,236265.8) ops/second in (3.261423,13.314359) seconds
+2015/06/23-18:20:12 ... thread 39: (1048576,3145728) ops and (326152.0,234659.3) ops/second in (3.214992,13.405513) seconds
+2015/06/23-18:20:12 ... thread 4: (1048576,3145728) ops and (342157.9,230608.0) ops/second in (3.064597,13.641020) seconds
+2015/06/23-18:20:12 ... thread 29: (1048576,4194304) ops and (357985.0,307003.1) ops/second in (2.929106,13.662091) seconds
+2015/06/23-18:20:12 ... thread 10: (1048576,4194304) ops and (364927.5,306073.7) ops/second in (2.873382,13.703575) seconds
+2015/06/23-18:20:12 ... thread 1: (1048576,3145728) ops and (310620.5,228955.3) ops/second in (3.375746,13.739485) seconds
+2015/06/23-18:20:12 ... thread 15: (1048576,4194304) ops and (362323.6,305073.0) ops/second in (2.894032,13.748527) seconds
+2015/06/23-18:20:12 ... thread 3: (1048576,4194304) ops and (364255.2,304881.1) ops/second in (2.878685,13.757181) seconds
+2015/06/23-18:20:12 ... thread 40: (1048576,4194304) ops and (316692.1,304886.9) ops/second in (3.311027,13.756918) seconds
+2015/06/23-18:20:12 ... thread 17: (1048576,4194304) ops and (275888.8,301426.4) ops/second in (3.800720,13.914853) seconds
+2015/06/23-18:20:13 ... thread 14: (1048576,4194304) ops and (345554.0,298121.3) ops/second in (3.034478,14.069120) seconds
+2015/06/23-18:20:13 ... thread 8: (1048576,4194304) ops and (360838.1,295867.8) ops/second in (2.905946,14.176276) seconds
+2015/06/23-18:20:13 ... thread 25: (1048576,4194304) ops and (346380.1,294291.5) ops/second in (3.027241,14.252207) seconds
+2015/06/23-18:20:13 ... thread 33: (1048576,4194304) ops and (288175.2,294184.8) ops/second in (3.638675,14.257376) seconds
+2015/06/23-18:20:13 ... thread 13: (1048576,4194304) ops and (347967.7,294055.8) ops/second in (3.013429,14.263632) seconds
+2015/06/23-18:20:13 ... thread 35: (1048576,4194304) ops and (354303.8,292768.2) ops/second in (2.959539,14.326367) seconds
+2015/06/23-18:20:13 ... thread 12: (1048576,4194304) ops and (341021.1,291839.3) ops/second in (3.074813,14.371962) seconds
+2015/06/23-18:20:13 ... thread 41: (1048576,4194304) ops and (273708.9,291084.0) ops/second in (3.830990,14.409254) seconds
+2015/06/23-18:20:13 ... thread 9: (1048576,4194304) ops and (361319.0,285736.5) ops/second in (2.902078,14.678924) seconds
+2015/06/23-18:20:13 ... thread 24: (1048576,4194304) ops and (359425.0,284631.6) ops/second in (2.917371,14.735902) seconds
+2015/06/23-18:20:13 ... thread 28: (1048576,4194304) ops and (353573.9,283522.4) ops/second in (2.965649,14.793553) seconds
+2015/06/23-18:20:13 ... thread 16: (1048576,4194304) ops and (347052.9,282361.8) ops/second in (3.021372,14.854361) seconds
+2015/06/23-18:20:13 ... thread 37: (1048576,4194304) ops and (363353.0,281417.4) ops/second in (2.885833,14.904210) seconds
+2015/06/23-18:20:13 ... thread 19: (1048576,4194304) ops and (356773.2,280861.7) ops/second in (2.939055,14.933697) seconds
+2015/06/23-18:20:13 ... thread 44: (1048576,4194304) ops and (259268.9,280261.0) ops/second in (4.044357,14.965707) seconds
+2015/06/23-18:20:13 ... thread 27: (1048576,4194304) ops and (327170.5,280166.4) ops/second in (3.204983,14.970759) seconds
+2015/06/23-18:20:14 ... thread 20: (1048576,4194304) ops and (348405.7,277700.4) ops/second in (3.009641,15.103701) seconds
+2015/06/23-18:20:14 ... thread 7: (1048576,4194304) ops and (355996.8,277437.4) ops/second in (2.945465,15.118017) seconds
+2015/06/23-18:20:14 ... thread 45: (1048576,4194304) ops and (355795.5,275448.7) ops/second in (2.947131,15.227171) seconds
+2015/06/23-18:20:14 ... thread 22: (1048576,4194304) ops and (367534.0,274936.9) ops/second in (2.853004,15.255516) seconds
+2015/06/23-18:20:14 ... thread 43: (1048576,4194304) ops and (355409.7,274521.4) ops/second in (2.950330,15.278606) seconds
+2015/06/23-18:20:14 ... thread 21: (1048576,4194304) ops and (368794.5,274133.4) ops/second in (2.843253,15.300229) seconds
+2015/06/23-18:20:14 ... thread 36: (1048576,4194304) ops and (351459.3,271378.0) ops/second in (2.983492,15.455581) seconds
+2015/06/23-18:20:14 ... thread 42: (1048576,4194304) ops and (232722.6,270893.7) ops/second in (4.505690,15.483208) seconds
+2015/06/23-18:20:14 ... thread 23: (1048576,4194304) ops and (349953.4,268651.8) ops/second in (2.996330,15.612420) seconds
+2015/06/23-18:20:14 ... thread 6: (1048576,4194304) ops and (353991.3,268508.2) ops/second in (2.962152,15.620766) seconds
+2015/06/23-18:20:14 ... thread 18: (1048576,4194304) ops and (367214.9,263820.0) ops/second in (2.855483,15.898357) seconds
+2015/06/23-18:20:15 ... thread 30: (1048576,5242880) ops and (356429.6,325251.9) ops/second in (2.941888,16.119444) seconds
+2015/06/23-18:20:15 ... thread 2: (1048576,5242880) ops and (351585.0,324980.6) ops/second in (2.982425,16.132902) seconds
+2015/06/23-18:20:15 ... thread 47: (1048576,4194304) ops and (363309.3,259801.7) ops/second in (2.886180,16.144250) seconds
+2015/06/23-18:20:15 ... thread 39: (1048576,4194304) ops and (364355.1,257581.4) ops/second in (2.877896,16.283409) seconds
+2015/06/23-18:20:15 ... thread 38: (1048576,4194304) ops and (225331.2,257552.8) ops/second in (4.653488,16.285220) seconds
+2015/06/23-18:20:15 ... thread 46: (1048576,4194304) ops and (224044.3,257215.3) ops/second in (4.680218,16.306588) seconds
+2015/06/23-18:20:15 ... thread 11: (1048576,4194304) ops and (340406.4,255832.5) ops/second in (3.080365,16.394724) seconds
+2015/06/23-18:20:15 ... thread 4: (1048576,4194304) ops and (363971.5,253862.5) ops/second in (2.880929,16.521949) seconds
+2015/06/23-18:20:15 ... thread 29: (1048576,5242880) ops and (357762.2,315969.0) ops/second in (2.930930,16.593021) seconds
+2015/06/23-18:20:15 ... thread 34: (1048576,4194304) ops and (238010.2,252765.2) ops/second in (4.405593,16.593677) seconds
+2015/06/23-18:20:15 ... thread 10: (1048576,5242880) ops and (360054.2,315534.9) ops/second in (2.912273,16.615848) seconds
+2015/06/23-18:20:15 ... thread 1: (1048576,4194304) ops and (362663.5,252200.9) ops/second in (2.891319,16.630804) seconds
+2015/06/23-18:20:15 ... thread 26: (1048576,4194304) ops and (252031.6,251938.5) ops/second in (4.160494,16.648125) seconds
+2015/06/23-18:20:15 ... thread 3: (1048576,5242880) ops and (358772.0,314323.9) ops/second in (2.922681,16.679862) seconds
+2015/06/23-18:20:15 ... thread 15: (1048576,5242880) ops and (356980.9,314210.7) ops/second in (2.937345,16.685872) seconds
+2015/06/23-18:20:15 ... thread 40: (1048576,5242880) ops and (355957.0,313893.9) ops/second in (2.945794,16.702712) seconds
+2015/06/23-18:20:15 ... thread 31: (1048576,4194304) ops and (236040.2,251063.6) ops/second in (4.442361,16.706144) seconds
+2015/06/23-18:20:15 ... thread 14: (1048576,5242880) ops and (360918.3,308869.5) ops/second in (2.905300,16.974420) seconds
+2015/06/23-18:20:15 ... thread 32: (1048576,4194304) ops and (215448.0,246589.1) ops/second in (4.866957,17.009286) seconds
+2015/06/23-18:20:16 ... thread 8: (1048576,5242880) ops and (359432.4,306716.2) ops/second in (2.917311,17.093587) seconds
+2015/06/23-18:20:16 ... thread 25: (1048576,5242880) ops and (355235.9,304748.1) ops/second in (2.951774,17.203981) seconds
+2015/06/23-18:20:16 ... thread 35: (1048576,5242880) ops and (362025.6,304415.4) ops/second in (2.896414,17.222781) seconds
+2015/06/23-18:20:16 ... thread 48: (1048576,4194304) ops and (252460.1,243221.4) ops/second in (4.153433,17.244795) seconds
+2015/06/23-18:20:16 ... thread 13: (1048576,5242880) ops and (339286.1,302110.7) ops/second in (3.090536,17.354168) seconds
+2015/06/23-18:20:16 ... thread 12: (1048576,5242880) ops and (343448.2,300881.9) ops/second in (3.053083,17.425045) seconds
+2015/06/23-18:20:16 ... thread 5: (1048576,4194304) ops and (240072.8,239525.5) ops/second in (4.367742,17.510884) seconds
+2015/06/23-18:20:16 ... thread 9: (1048576,5242880) ops and (366438.8,298902.2) ops/second in (2.861531,17.540455) seconds
+2015/06/23-18:20:16 ... thread 24: (1048576,5242880) ops and (361579.6,297284.7) ops/second in (2.899987,17.635889) seconds
+2015/06/23-18:20:16 ... thread 28: (1048576,5242880) ops and (368251.8,297198.6) ops/second in (2.847443,17.640996) seconds
+2015/06/23-18:20:16 ... thread 16: (1048576,5242880) ops and (361619.8,295306.6) ops/second in (2.899664,17.754025) seconds
+2015/06/23-18:20:16 ... thread 19: (1048576,5242880) ops and (366871.6,294678.7) ops/second in (2.858155,17.791852) seconds
+2015/06/23-18:20:16 ... thread 27: (1048576,5242880) ops and (359851.0,293149.3) ops/second in (2.913917,17.884676) seconds
+2015/06/23-18:20:16 ... thread 37: (1048576,5242880) ops and (346710.3,292431.6) ops/second in (3.024358,17.928568) seconds
+2015/06/23-18:20:16 ... thread 20: (1048576,5242880) ops and (364333.4,291566.4) ops/second in (2.878067,17.981768) seconds
+2015/06/23-18:20:16 ... thread 7: (1048576,5242880) ops and (363596.5,291240.1) ops/second in (2.883900,18.001917) seconds
+2015/06/23-18:20:16 ... thread 22: (1048576,5242880) ops and (378344.9,290834.9) ops/second in (2.771482,18.026998) seconds
+2015/06/23-18:20:17 ... thread 17: (1048576,5242880) ops and (248614.1,289142.1) ops/second in (4.217685,18.132538) seconds
+2015/06/23-18:20:17 ... thread 21: (1048576,5242880) ops and (367097.6,288758.5) ops/second in (2.856396,18.156625) seconds
+2015/06/23-18:20:17 ... thread 45: (1048576,5242880) ops and (356722.6,288599.3) ops/second in (2.939472,18.166643) seconds
+2015/06/23-18:20:17 ... thread 43: (1048576,5242880) ops and (359387.9,288129.3) ops/second in (2.917672,18.196278) seconds
+2015/06/23-18:20:17 ... thread 33: (1048576,5242880) ops and (255583.4,285559.1) ops/second in (4.102677,18.360053) seconds
+2015/06/23-18:20:17 ... thread 36: (1048576,5242880) ops and (348103.3,283892.5) ops/second in (3.012255,18.467836) seconds
+2015/06/23-18:20:17 ... thread 41: (1048576,5242880) ops and (258341.0,283887.9) ops/second in (4.058883,18.468137) seconds
+2015/06/23-18:20:17 ... thread 6: (1048576,5242880) ops and (347372.4,281280.1) ops/second in (3.018593,18.639359) seconds
+2015/06/23-18:20:17 ... thread 23: (1048576,5242880) ops and (345245.2,281125.4) ops/second in (3.037192,18.649612) seconds
+2015/06/23-18:20:17 ... thread 42: (1048576,5242880) ops and (312891.7,278366.5) ops/second in (3.351243,18.834451) seconds
+2015/06/23-18:20:17 ... thread 44: (1048576,5242880) ops and (268429.3,277811.9) ops/second in (3.906340,18.872047) seconds
+2015/06/23-18:20:17 ... thread 18: (1048576,5242880) ops and (342386.0,276509.9) ops/second in (3.062555,18.960912) seconds
+2015/06/23-18:20:17 ... thread 47: (1048576,5242880) ops and (372049.9,276484.9) ops/second in (2.818375,18.962625) seconds
+2015/06/23-18:20:17 ... thread 30: (1048576,6291456) ops and (368242.2,331706.1) ops/second in (2.847517,18.966961) seconds
+2015/06/23-18:20:17 ... thread 2: (1048576,6291456) ops and (362660.4,330707.2) ops/second in (2.891344,19.024246) seconds
+2015/06/23-18:20:18 ... thread 39: (1048576,5242880) ops and (342909.9,271072.0) ops/second in (3.057876,19.341285) seconds
+2015/06/23-18:20:18 ... thread 11: (1048576,5242880) ops and (354783.8,270946.2) ops/second in (2.955535,19.350259) seconds
+2015/06/23-18:20:18 ... thread 10: (1048576,6291456) ops and (370210.1,323497.6) ops/second in (2.832381,19.448229) seconds
+2015/06/23-18:20:18 ... thread 4: (1048576,5242880) ops and (356258.1,269345.6) ops/second in (2.943304,19.465253) seconds
+2015/06/23-18:20:18 ... thread 29: (1048576,6291456) ops and (360517.3,322613.1) ops/second in (2.908532,19.501553) seconds
+2015/06/23-18:20:18 ... thread 3: (1048576,6291456) ops and (371566.5,322607.3) ops/second in (2.822041,19.501903) seconds
+2015/06/23-18:20:18 ... thread 15: (1048576,6291456) ops and (369249.0,322215.3) ops/second in (2.839753,19.525625) seconds
+2015/06/23-18:20:18 ... thread 46: (1048576,5242880) ops and (315247.5,267047.2) ops/second in (3.326199,19.632787) seconds
+2015/06/23-18:20:18 ... thread 1: (1048576,5242880) ops and (335739.7,265408.7) ops/second in (3.123181,19.753985) seconds
+2015/06/23-18:20:18 ... thread 40: (1048576,6291456) ops and (339222.4,317849.4) ops/second in (3.091117,19.793829) seconds
+2015/06/23-18:20:18 ... thread 31: (1048576,5242880) ops and (339002.7,264801.8) ops/second in (3.093120,19.799264) seconds
+2015/06/23-18:20:18 ... thread 38: (1048576,5242880) ops and (290197.7,263480.7) ops/second in (3.613316,19.898536) seconds
+2015/06/23-18:20:18 ... thread 34: (1048576,5242880) ops and (316950.4,263434.8) ops/second in (3.308328,19.902005) seconds
+2015/06/23-18:20:19 ... thread 25: (1048576,6291456) ops and (368254.0,313766.3) ops/second in (2.847426,20.051407) seconds
+2015/06/23-18:20:19 ... thread 14: (1048576,6291456) ops and (332447.6,312564.1) ops/second in (3.154109,20.128529) seconds
+2015/06/23-18:20:19 ... thread 32: (1048576,5242880) ops and (329243.7,259624.5) ops/second in (3.184802,20.194088) seconds
+2015/06/23-18:20:19 ... thread 8: (1048576,6291456) ops and (335108.8,311109.4) ops/second in (3.129061,20.222648) seconds
+2015/06/23-18:20:19 ... thread 12: (1048576,6291456) ops and (361501.1,309532.7) ops/second in (2.900616,20.325661) seconds
+2015/06/23-18:20:19 ... thread 13: (1048576,6291456) ops and (348349.3,308945.4) ops/second in (3.010128,20.364296) seconds
+2015/06/23-18:20:19 ... thread 48: (1048576,5242880) ops and (333401.8,257131.5) ops/second in (3.145082,20.389877) seconds
+2015/06/23-18:20:19 ... thread 26: (1048576,5242880) ops and (278493.7,256836.5) ops/second in (3.765170,20.413295) seconds
+2015/06/23-18:20:19 ... thread 9: (1048576,6291456) ops and (356553.4,307180.2) ops/second in (2.940867,20.481322) seconds
+2015/06/23-18:20:19 ... thread 35: (1048576,6291456) ops and (315324.0,306180.8) ops/second in (3.325392,20.548173) seconds
+2015/06/23-18:20:19 ... thread 28: (1048576,6291456) ops and (355840.1,305592.1) ops/second in (2.946762,20.587758) seconds
+2015/06/23-18:20:19 ... thread 16: (1048576,6291456) ops and (363116.0,304792.9) ops/second in (2.887716,20.641741) seconds
+2015/06/23-18:20:19 ... thread 24: (1048576,6291456) ops and (348576.9,304758.8) ops/second in (3.008163,20.644052) seconds
+2015/06/23-18:20:19 ... thread 5: (1048576,5242880) ops and (321205.4,252360.2) ops/second in (3.264503,20.775387) seconds
+2015/06/23-18:20:19 ... thread 27: (1048576,6291456) ops and (357400.4,302204.0) ops/second in (2.933897,20.818573) seconds
+2015/06/23-18:20:19 ... thread 19: (1048576,6291456) ops and (340435.1,301431.1) ops/second in (3.080105,20.871957) seconds
+2015/06/23-18:20:19 ... thread 20: (1048576,6291456) ops and (358462.2,300926.2) ops/second in (2.925207,20.906975) seconds
+2015/06/23-18:20:19 ... thread 7: (1048576,6291456) ops and (351891.2,299853.8) ops/second in (2.979830,20.981747) seconds
+2015/06/23-18:20:20 ... thread 22: (1048576,6291456) ops and (346141.5,298791.7) ops/second in (3.029328,21.056326) seconds
+2015/06/23-18:20:20 ... thread 45: (1048576,6291456) ops and (357392.6,298164.7) ops/second in (2.933961,21.100604) seconds
+2015/06/23-18:20:20 ... thread 43: (1048576,6291456) ops and (359702.4,298012.3) ops/second in (2.915121,21.111399) seconds
+2015/06/23-18:20:20 ... thread 37: (1048576,6291456) ops and (324276.9,297297.6) ops/second in (3.233582,21.162150) seconds
+2015/06/23-18:20:20 ... thread 21: (1048576,6291456) ops and (345056.1,296830.1) ops/second in (3.038857,21.195482) seconds
+2015/06/23-18:20:20 ... thread 36: (1048576,6291456) ops and (356553.8,293873.8) ops/second in (2.940863,21.408699) seconds
+2015/06/23-18:20:20 ... thread 41: (1048576,6291456) ops and (350051.7,293121.8) ops/second in (2.995489,21.463626) seconds
+2015/06/23-18:20:20 ... thread 6: (1048576,6291456) ops and (362658.0,292208.3) ops/second in (2.891363,21.530722) seconds
+2015/06/23-18:20:20 ... thread 33: (1048576,6291456) ops and (330639.7,292199.0) ops/second in (3.171355,21.531408) seconds
+2015/06/23-18:20:20 ... thread 17: (1048576,6291456) ops and (305146.5,291691.9) ops/second in (3.436304,21.568842) seconds
+2015/06/23-18:20:20 ... thread 23: (1048576,6291456) ops and (352414.4,290934.1) ops/second in (2.975406,21.625018) seconds
+2015/06/23-18:20:20 ... thread 47: (1048576,6291456) ops and (360565.2,287665.0) ops/second in (2.908145,21.870770) seconds
+2015/06/23-18:20:20 ... thread 18: (1048576,6291456) ops and (355526.3,287146.4) ops/second in (2.949363,21.910275) seconds
+2015/06/23-18:20:20 ... thread 2: (1048576,7340032) ops and (357108.9,334237.3) ops/second in (2.936292,21.960538) seconds
+2015/06/23-18:20:20 ... thread 30: (1048576,7340032) ops and (349111.4,334085.5) ops/second in (3.003557,21.970518) seconds
+2015/06/23-18:20:21 ... thread 42: (1048576,6291456) ops and (327047.0,285447.9) ops/second in (3.206194,22.040645) seconds
+2015/06/23-18:20:21 ... thread 44: (1048576,6291456) ops and (319804.0,284027.7) ops/second in (3.278808,22.150855) seconds
+2015/06/23-18:20:21 ... thread 10: (1048576,7340032) ops and (356677.2,327854.5) ops/second in (2.939846,22.388075) seconds
+2015/06/23-18:20:21 ... thread 29: (1048576,7340032) ops and (362217.3,327732.2) ops/second in (2.894881,22.396434) seconds
+2015/06/23-18:20:21 ... thread 3: (1048576,7340032) ops and (359378.3,327392.8) ops/second in (2.917750,22.419653) seconds
+2015/06/23-18:20:21 ... thread 15: (1048576,7340032) ops and (359644.5,327078.2) ops/second in (2.915590,22.441215) seconds
+2015/06/23-18:20:21 ... thread 4: (1048576,6291456) ops and (348405.1,279932.6) ops/second in (3.009646,22.474899) seconds
+2015/06/23-18:20:21 ... thread 11: (1048576,6291456) ops and (332748.6,279601.4) ops/second in (3.151256,22.501515) seconds
+2015/06/23-18:20:21 ... thread 39: (1048576,6291456) ops and (330421.3,279437.2) ops/second in (3.173452,22.514737) seconds
+2015/06/23-18:20:21 ... thread 1: (1048576,6291456) ops and (341598.0,275655.7) ops/second in (3.069620,22.823605) seconds
+2015/06/23-18:20:21 ... thread 46: (1048576,6291456) ops and (323435.5,275039.0) ops/second in (3.241994,22.874781) seconds
+2015/06/23-18:20:21 ... thread 40: (1048576,7340032) ops and (335878.4,320305.5) ops/second in (3.121892,22.915721) seconds
+2015/06/23-18:20:21 ... thread 25: (1048576,7340032) ops and (363008.6,319966.8) ops/second in (2.888571,22.939978) seconds
+2015/06/23-18:20:21 ... thread 31: (1048576,6291456) ops and (329146.1,273720.0) ops/second in (3.185746,22.985010) seconds
+2015/06/23-18:20:21 ... thread 34: (1048576,6291456) ops and (337952.7,273485.3) ops/second in (3.102730,23.004735) seconds
+2015/06/23-18:20:21 ... thread 14: (1048576,7340032) ops and (361557.0,318734.1) ops/second in (2.900168,23.028697) seconds
+2015/06/23-18:20:22 ... thread 8: (1048576,7340032) ops and (361157.0,317392.7) ops/second in (2.903380,23.126028) seconds
+2015/06/23-18:20:22 ... thread 12: (1048576,7340032) ops and (361957.1,316072.5) ops/second in (2.896962,23.222623) seconds
+2015/06/23-18:20:22 ... thread 38: (1048576,6291456) ops and (315089.2,270875.1) ops/second in (3.327870,23.226406) seconds
+2015/06/23-18:20:22 ... thread 13: (1048576,7340032) ops and (362691.3,315627.1) ops/second in (2.891098,23.255394) seconds
+2015/06/23-18:20:22 ... thread 9: (1048576,7340032) ops and (370470.5,314864.6) ops/second in (2.830390,23.311712) seconds
+2015/06/23-18:20:22 ... thread 35: (1048576,7340032) ops and (374844.3,314408.4) ops/second in (2.797364,23.345537) seconds
+2015/06/23-18:20:22 ... thread 24: (1048576,7340032) ops and (376026.0,313239.9) ops/second in (2.788573,23.432625) seconds
+2015/06/23-18:20:22 ... thread 28: (1048576,7340032) ops and (363421.6,312700.4) ops/second in (2.885288,23.473046) seconds
+2015/06/23-18:20:22 ... thread 16: (1048576,7340032) ops and (361570.0,311787.1) ops/second in (2.900064,23.541805) seconds
+2015/06/23-18:20:22 ... thread 48: (1048576,6291456) ops and (330755.5,267038.3) ops/second in (3.170245,23.560122) seconds
+2015/06/23-18:20:22 ... thread 26: (1048576,6291456) ops and (333141.9,267030.3) ops/second in (3.147536,23.560831) seconds
+2015/06/23-18:20:22 ... thread 27: (1048576,7340032) ops and (366205.6,309942.4) ops/second in (2.863353,23.681926) seconds
+2015/06/23-18:20:22 ... thread 20: (1048576,7340032) ops and (374882.6,309653.0) ops/second in (2.797078,23.704053) seconds
+2015/06/23-18:20:22 ... thread 32: (1048576,6291456) ops and (293509.8,264718.1) ops/second in (3.572542,23.766630) seconds
+2015/06/23-18:20:22 ... thread 7: (1048576,7340032) ops and (375160.2,308706.2) ops/second in (2.795009,23.776756) seconds
+2015/06/23-18:20:22 ... thread 45: (1048576,7340032) ops and (376258.1,307275.6) ops/second in (2.786853,23.887457) seconds
+2015/06/23-18:20:22 ... thread 5: (1048576,6291456) ops and (335957.4,263278.9) ops/second in (3.121158,23.896545) seconds
+2015/06/23-18:20:22 ... thread 22: (1048576,7340032) ops and (366580.2,306899.2) ops/second in (2.860427,23.916753) seconds
+2015/06/23-18:20:22 ... thread 43: (1048576,7340032) ops and (371755.2,306703.6) ops/second in (2.820609,23.932008) seconds
+2015/06/23-18:20:22 ... thread 21: (1048576,7340032) ops and (374782.6,305920.0) ops/second in (2.797825,23.993307) seconds
+2015/06/23-18:20:22 ... thread 19: (1048576,7340032) ops and (332307.7,305486.0) ops/second in (3.155437,24.027394) seconds
+2015/06/23-18:20:23 ... thread 37: (1048576,7340032) ops and (345522.2,303345.9) ops/second in (3.034757,24.196907) seconds
+2015/06/23-18:20:23 ... thread 36: (1048576,7340032) ops and (366801.6,302464.7) ops/second in (2.858701,24.267400) seconds
+2015/06/23-18:20:23 ... thread 41: (1048576,7340032) ops and (368826.1,301976.5) ops/second in (2.843009,24.306635) seconds
+2015/06/23-18:20:23 ... thread 6: (1048576,7340032) ops and (371038.5,301354.8) ops/second in (2.826057,24.356779) seconds
+2015/06/23-18:20:23 ... thread 23: (1048576,7340032) ops and (370482.2,300140.5) ops/second in (2.830301,24.455319) seconds
+2015/06/23-18:20:23 ... thread 33: (1048576,7340032) ops and (344892.4,298718.8) ops/second in (3.040299,24.571707) seconds
+2015/06/23-18:20:23 ... thread 47: (1048576,7340032) ops and (376161.3,297669.3) ops/second in (2.787570,24.658340) seconds
+2015/06/23-18:20:23 ... thread 2: (1048576,8388608) ops and (365963.3,337899.0) ops/second in (2.865249,24.825787) seconds
+2015/06/23-18:20:23 ... thread 30: (1048576,8388608) ops and (364174.2,337571.9) ops/second in (2.879325,24.849843) seconds
+2015/06/23-18:20:23 ... thread 17: (1048576,7340032) ops and (316511.9,294996.6) ops/second in (3.312912,24.881754) seconds
+2015/06/23-18:20:23 ... thread 18: (1048576,7340032) ops and (347025.8,294403.4) ops/second in (3.021608,24.931883) seconds
+2015/06/23-18:20:24 ... thread 42: (1048576,7340032) ops and (342032.3,292357.4) ops/second in (3.065722,25.106367) seconds
+2015/06/23-18:20:24 ... thread 10: (1048576,8388608) ops and (377489.9,333333.2) ops/second in (2.777759,25.165834) seconds
+2015/06/23-18:20:24 ... thread 3: (1048576,8388608) ops and (375906.4,332760.9) ops/second in (2.789460,25.209113) seconds
+2015/06/23-18:20:24 ... thread 29: (1048576,8388608) ops and (372648.9,332745.6) ops/second in (2.813844,25.210278) seconds
+2015/06/23-18:20:24 ... thread 15: (1048576,8388608) ops and (371259.9,332017.1) ops/second in (2.824372,25.265587) seconds
+2015/06/23-18:20:24 ... thread 39: (1048576,7340032) ops and (367201.2,289315.6) ops/second in (2.855590,25.370327) seconds
+2015/06/23-18:20:24 ... thread 4: (1048576,7340032) ops and (357504.2,288887.3) ops/second in (2.933045,25.407944) seconds
+2015/06/23-18:20:24 ... thread 11: (1048576,7340032) ops and (347667.9,287646.5) ops/second in (3.016028,25.517543) seconds
+2015/06/23-18:20:24 ... thread 44: (1048576,7340032) ops and (309313.9,287383.9) ops/second in (3.390006,25.540861) seconds
+2015/06/23-18:20:24 ... thread 1: (1048576,7340032) ops and (373546.8,286376.7) ops/second in (2.807081,25.630686) seconds
+2015/06/23-18:20:24 ... thread 25: (1048576,8388608) ops and (373024.8,325758.7) ops/second in (2.811009,25.750987) seconds
+2015/06/23-18:20:24 ... thread 14: (1048576,8388608) ops and (373239.5,324660.5) ops/second in (2.809392,25.838089) seconds
+2015/06/23-18:20:24 ... thread 46: (1048576,7340032) ops and (349118.8,283636.8) ops/second in (3.003493,25.878274) seconds
+2015/06/23-18:20:24 ... thread 8: (1048576,8388608) ops and (370970.1,323228.0) ops/second in (2.826578,25.952606) seconds
+2015/06/23-18:20:24 ... thread 40: (1048576,8388608) ops and (338515.6,322473.9) ops/second in (3.097571,26.013292) seconds
+2015/06/23-18:20:25 ... thread 12: (1048576,8388608) ops and (372179.5,322143.0) ops/second in (2.817393,26.040016) seconds
+2015/06/23-18:20:25 ... thread 13: (1048576,8388608) ops and (373391.4,321850.9) ops/second in (2.808249,26.063643) seconds
+2015/06/23-18:20:25 ... thread 9: (1048576,8388608) ops and (376424.2,321435.4) ops/second in (2.785623,26.097335) seconds
+2015/06/23-18:20:25 ... thread 31: (1048576,7340032) ops and (334799.6,281044.6) ops/second in (3.131951,26.116961) seconds
+2015/06/23-18:20:25 ... thread 34: (1048576,7340032) ops and (333667.6,280718.4) ops/second in (3.142577,26.147312) seconds
+2015/06/23-18:20:25 ... thread 35: (1048576,8388608) ops and (372755.3,320682.9) ops/second in (2.813041,26.158578) seconds
+2015/06/23-18:20:25 ... thread 28: (1048576,8388608) ops and (376020.4,319424.1) ops/second in (2.788615,26.261661) seconds
+2015/06/23-18:20:25 ... thread 38: (1048576,7340032) ops and (337536.6,278739.3) ops/second in (3.106555,26.332961) seconds
+2015/06/23-18:20:25 ... thread 24: (1048576,8388608) ops and (348129.2,317213.7) ops/second in (3.012031,26.444656) seconds
+2015/06/23-18:20:25 ... thread 16: (1048576,8388608) ops and (360409.8,317135.2) ops/second in (2.909399,26.451204) seconds
+2015/06/23-18:20:25 ... thread 20: (1048576,8388608) ops and (378576.7,316864.1) ops/second in (2.769785,26.473838) seconds
+2015/06/23-18:20:25 ... thread 27: (1048576,8388608) ops and (371936.4,316537.4) ops/second in (2.819235,26.501161) seconds
+2015/06/23-18:20:25 ... thread 48: (1048576,7340032) ops and (345424.7,275985.3) ops/second in (3.035614,26.595736) seconds
+2015/06/23-18:20:25 ... thread 7: (1048576,8388608) ops and (366747.0,314936.4) ops/second in (2.859126,26.635882) seconds
+2015/06/23-18:20:25 ... thread 26: (1048576,7340032) ops and (332522.9,274761.2) ops/second in (3.153395,26.714226) seconds
+2015/06/23-18:20:25 ... thread 43: (1048576,8388608) ops and (376607.0,313988.6) ops/second in (2.784271,26.716279) seconds
+2015/06/23-18:20:25 ... thread 19: (1048576,8388608) ops and (384817.2,313566.3) ops/second in (2.724868,26.752262) seconds
+2015/06/23-18:20:25 ... thread 22: (1048576,8388608) ops and (364601.6,313093.0) ops/second in (2.875950,26.792703) seconds
+2015/06/23-18:20:25 ... thread 45: (1048576,8388608) ops and (355516.5,312577.4) ops/second in (2.949444,26.836901) seconds
+2015/06/23-18:20:25 ... thread 5: (1048576,7340032) ops and (349355.7,272883.9) ops/second in (3.001457,26.898002) seconds
+2015/06/23-18:20:25 ... thread 32: (1048576,7340032) ops and (334193.1,272820.4) ops/second in (3.137635,26.904265) seconds
+2015/06/23-18:20:25 ... thread 21: (1048576,8388608) ops and (359868.2,311762.1) ops/second in (2.913778,26.907085) seconds
+2015/06/23-18:20:26 ... thread 36: (1048576,8388608) ops and (373795.9,309855.9) ops/second in (2.805210,27.072610) seconds
+2015/06/23-18:20:26 ... thread 41: (1048576,8388608) ops and (374930.5,309504.4) ops/second in (2.796721,27.103356) seconds
+2015/06/23-18:20:26 ... thread 6: (1048576,8388608) ops and (378098.6,309199.7) ops/second in (2.773287,27.130066) seconds
+2015/06/23-18:20:26 ... thread 0: (1048576,1048576) ops and (38559.6,38559.6) ops/second in (27.193639,27.193639) seconds
+2015/06/23-18:20:26 ... thread 23: (1048576,8388608) ops and (377585.6,308038.1) ops/second in (2.777055,27.232374) seconds
+2015/06/23-18:20:26 ... thread 30: (1048576,9437184) ops and (382718.1,342055.2) ops/second in (2.739813,27.589656) seconds
+2015/06/23-18:20:26 ... thread 47: (1048576,8388608) ops and (356328.8,303923.4) ops/second in (2.942720,27.601060) seconds
+2015/06/23-18:20:26 ... thread 2: (1048576,9437184) ops and (374442.6,341603.3) ops/second in (2.800365,27.626152) seconds
+2015/06/23-18:20:26 ... thread 37: (1048576,8388608) ops and (297547.3,302608.7) ops/second in (3.524065,27.720972) seconds
+2015/06/23-18:20:26 ... thread 33: (1048576,8388608) ops and (331651.4,302473.2) ops/second in (3.161681,27.733388) seconds
+2015/06/23-18:20:26 ... thread 17: (1048576,8388608) ops and (352377.8,301126.0) ops/second in (2.975715,27.857469) seconds
+2015/06/23-18:20:26 ... thread 10: (1048576,9437184) ops and (383387.2,338239.8) ops/second in (2.735031,27.900865) seconds
+2015/06/23-18:20:26 ... thread 18: (1048576,8388608) ops and (345539.2,299952.1) ops/second in (3.034608,27.966491) seconds
+2015/06/23-18:20:26 ... thread 3: (1048576,9437184) ops and (377469.4,337198.6) ops/second in (2.777910,27.987023) seconds
+2015/06/23-18:20:26 ... thread 29: (1048576,9437184) ops and (377298.3,337169.4) ops/second in (2.779170,27.989448) seconds
+2015/06/23-18:20:26 ... thread 15: (1048576,9437184) ops and (379777.1,336722.2) ops/second in (2.761030,28.026617) seconds
+2015/06/23-18:20:27 ... thread 42: (1048576,8388608) ops and (353023.7,298775.4) ops/second in (2.970271,28.076638) seconds
+2015/06/23-18:20:27 ... thread 4: (1048576,8388608) ops and (376117.2,297512.2) ops/second in (2.787897,28.195841) seconds
+2015/06/23-18:20:27 ... thread 11: (1048576,8388608) ops and (373225.5,296134.3) ops/second in (2.809497,28.327040) seconds
+2015/06/23-18:20:27 ... thread 39: (1048576,8388608) ops and (353995.8,296077.8) ops/second in (2.962114,28.332441) seconds
+2015/06/23-18:20:27 ... thread 1: (1048576,8388608) ops and (366990.8,294462.0) ops/second in (2.857227,28.487913) seconds
+2015/06/23-18:20:27 ... thread 44: (1048576,8388608) ops and (354771.9,294373.3) ops/second in (2.955634,28.496495) seconds
+2015/06/23-18:20:27 ... thread 25: (1048576,9437184) ops and (376476.0,330708.9) ops/second in (2.785240,28.536227) seconds
+2015/06/23-18:20:27 ... thread 14: (1048576,9437184) ops and (377148.3,329759.7) ops/second in (2.780275,28.618364) seconds
+2015/06/23-18:20:27 ... thread 12: (1048576,9437184) ops and (375003.7,327268.7) ops/second in (2.796175,28.836191) seconds
+2015/06/23-18:20:27 ... thread 13: (1048576,9437184) ops and (376242.7,327105.2) ops/second in (2.786967,28.850610) seconds
+2015/06/23-18:20:27 ... thread 9: (1048576,9437184) ops and (379499.6,326994.4) ops/second in (2.763049,28.860384) seconds
+2015/06/23-18:20:27 ... thread 8: (1048576,9437184) ops and (355445.0,326516.3) ops/second in (2.950037,28.902643) seconds
+2015/06/23-18:20:27 ... thread 31: (1048576,8388608) ops and (372580.5,289949.0) ops/second in (2.814361,28.931322) seconds
+2015/06/23-18:20:27 ... thread 40: (1048576,9437184) ops and (358356.6,326102.0) ops/second in (2.926069,28.939361) seconds
+2015/06/23-18:20:27 ... thread 35: (1048576,9437184) ops and (376468.3,326051.2) ops/second in (2.785297,28.943875) seconds
+2015/06/23-18:20:27 ... thread 46: (1048576,8388608) ops and (341340.0,289759.8) ops/second in (3.071940,28.950214) seconds
+2015/06/23-18:20:28 ... thread 34: (1048576,8388608) ops and (351692.6,287983.1) ops/second in (2.981513,29.128825) seconds
+2015/06/23-18:20:28 ... thread 28: (1048576,9437184) ops and (365651.2,323975.0) ops/second in (2.867695,29.129356) seconds
+2015/06/23-18:20:28 ... thread 16: (1048576,9437184) ops and (381818.0,323219.2) ops/second in (2.746272,29.197476) seconds
+2015/06/23-18:20:28 ... thread 20: (1048576,9437184) ops and (377645.3,322633.8) ops/second in (2.776616,29.250454) seconds
+2015/06/23-18:20:28 ... thread 38: (1048576,8388608) ops and (358163.9,286686.1) ops/second in (2.927643,29.260604) seconds
+2015/06/23-18:20:28 ... thread 27: (1048576,9437184) ops and (374204.5,322051.8) ops/second in (2.802147,29.303308) seconds
+2015/06/23-18:20:28 ... thread 48: (1048576,8388608) ops and (370982.5,285111.3) ops/second in (2.826484,29.422220) seconds
+2015/06/23-18:20:28 ... thread 24: (1048576,9437184) ops and (349922.8,320542.9) ops/second in (2.996592,29.441248) seconds
+2015/06/23-18:20:28 ... thread 19: (1048576,9437184) ops and (385289.6,320189.0) ops/second in (2.721527,29.473789) seconds
+2015/06/23-18:20:28 ... thread 43: (1048576,9437184) ops and (378075.3,320015.9) ops/second in (2.773458,29.489737) seconds
+2015/06/23-18:20:28 ... thread 7: (1048576,9437184) ops and (357588.7,319166.3) ops/second in (2.932352,29.568234) seconds
+2015/06/23-18:20:28 ... thread 26: (1048576,8388608) ops and (364388.4,283476.9) ops/second in (2.877633,29.591859) seconds
+2015/06/23-18:20:28 ... thread 45: (1048576,9437184) ops and (377882.4,318697.0) ops/second in (2.774874,29.611775) seconds
+2015/06/23-18:20:28 ... thread 5: (1048576,8388608) ops and (369452.1,282100.9) ops/second in (2.838192,29.736194) seconds
+2015/06/23-18:20:28 ... thread 22: (1048576,9437184) ops and (356010.7,317343.7) ops/second in (2.945350,29.738053) seconds
+2015/06/23-18:20:28 ... thread 32: (1048576,8388608) ops and (359219.0,281276.9) ops/second in (2.919044,29.823309) seconds
+2015/06/23-18:20:28 ... thread 21: (1048576,9437184) ops and (356424.0,316164.0) ops/second in (2.941934,29.849019) seconds
+2015/06/23-18:20:28 ... thread 36: (1048576,9437184) ops and (373240.3,315815.0) ops/second in (2.809386,29.881996) seconds
+2015/06/23-18:20:28 ... thread 6: (1048576,9437184) ops and (377576.1,315549.0) ops/second in (2.777125,29.907191) seconds
+writer       :      25.850 micros/op 38684 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       0.066 micros/op 15084388 ops/sec; (8971999 of 8971999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=48 --writemap=1 --duration=30"
+	User time (seconds): 1223.89
+	System time (seconds): 168.80
+	Percent of CPU this job got: 4340%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.08
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 12916288
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 18278225
+	Voluntary context switches: 72246
+	Involuntary context switches: 16212
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 4272528
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+12912648	/data/work/tmp/testlmdb/dbbench_mdb-1
+12912648	/data/work/tmp/testlmdb
+THREADS=64
+LMDB:       version LMDB 0.9.15: (June 19, 2015)
+Date:       Tue Jun 23 18:20:31 2015
+CPU:        48 * Intel(R) Xeon(R) CPU E7-8857 v2 @ 3.00GHz
+CPUCache:   30720 KB
+Keys:       16 bytes each
+Values:     100 bytes each (50 bytes after compression)
+Entries:    100000000
+RawSize:    11062.6 MB (estimated)
+FileSize:   6294.3 MB (estimated)
+------------------------------------------------
+2015/06/23-18:20:34 ... thread 56: (1048576,1048576) ops and (276528.8,276528.8) ops/second in (3.791923,3.791923) seconds
+2015/06/23-18:20:35 ... thread 52: (1048576,1048576) ops and (266371.7,266371.7) ops/second in (3.936515,3.936515) seconds
+2015/06/23-18:20:35 ... thread 33: (1048576,1048576) ops and (263663.8,263663.8) ops/second in (3.976943,3.976943) seconds
+2015/06/23-18:20:35 ... thread 30: (1048576,1048576) ops and (261384.5,261384.5) ops/second in (4.011622,4.011622) seconds
+2015/06/23-18:20:35 ... thread 41: (1048576,1048576) ops and (260040.3,260040.3) ops/second in (4.032360,4.032360) seconds
+2015/06/23-18:20:35 ... thread 3: (1048576,1048576) ops and (259222.0,259222.0) ops/second in (4.045089,4.045089) seconds
+2015/06/23-18:20:35 ... thread 2: (1048576,1048576) ops and (239371.4,239371.4) ops/second in (4.380540,4.380540) seconds
+2015/06/23-18:20:35 ... thread 50: (1048576,1048576) ops and (237091.5,237091.5) ops/second in (4.422664,4.422664) seconds
+2015/06/23-18:20:35 ... thread 48: (1048576,1048576) ops and (224536.0,224536.0) ops/second in (4.669968,4.669968) seconds
+2015/06/23-18:20:35 ... thread 35: (1048576,1048576) ops and (217123.2,217123.2) ops/second in (4.829406,4.829406) seconds
+2015/06/23-18:20:35 ... thread 34: (1048576,1048576) ops and (215298.2,215298.2) ops/second in (4.870342,4.870342) seconds
+2015/06/23-18:20:36 ... thread 11: (1048576,1048576) ops and (206732.4,206732.4) ops/second in (5.072142,5.072142) seconds
+2015/06/23-18:20:36 ... thread 8: (1048576,1048576) ops and (201802.2,201802.2) ops/second in (5.196059,5.196059) seconds
+2015/06/23-18:20:36 ... thread 27: (1048576,1048576) ops and (198018.3,198018.3) ops/second in (5.295348,5.295348) seconds
+2015/06/23-18:20:37 ... thread 54: (1048576,1048576) ops and (175271.2,175271.2) ops/second in (5.982592,5.982592) seconds
+2015/06/23-18:20:37 ... thread 24: (1048576,1048576) ops and (171567.7,171567.7) ops/second in (6.111734,6.111734) seconds
+2015/06/23-18:20:37 ... thread 36: (1048576,1048576) ops and (171209.2,171209.2) ops/second in (6.124532,6.124532) seconds
+2015/06/23-18:20:37 ... thread 64: (1048576,1048576) ops and (168191.0,168191.0) ops/second in (6.234437,6.234437) seconds
+2015/06/23-18:20:37 ... thread 16: (1048576,1048576) ops and (167351.0,167351.0) ops/second in (6.265730,6.265730) seconds
+2015/06/23-18:20:37 ... thread 18: (1048576,1048576) ops and (166168.2,166168.2) ops/second in (6.310330,6.310330) seconds
+2015/06/23-18:20:37 ... thread 20: (1048576,1048576) ops and (161231.3,161231.3) ops/second in (6.503552,6.503552) seconds
+2015/06/23-18:20:37 ... thread 15: (1048576,1048576) ops and (157188.2,157188.2) ops/second in (6.670833,6.670833) seconds
+2015/06/23-18:20:37 ... thread 59: (1048576,1048576) ops and (156107.9,156107.9) ops/second in (6.716997,6.716997) seconds
+2015/06/23-18:20:37 ... thread 31: (1048576,1048576) ops and (154038.2,154038.2) ops/second in (6.807246,6.807246) seconds
+2015/06/23-18:20:37 ... thread 45: (1048576,1048576) ops and (151743.1,151743.1) ops/second in (6.910204,6.910204) seconds
+2015/06/23-18:20:37 ... thread 56: (1048576,2097152) ops and (334148.8,302620.5) ops/second in (3.138051,6.929974) seconds
+2015/06/23-18:20:38 ... thread 14: (1048576,1048576) ops and (150935.5,150935.5) ops/second in (6.947181,6.947181) seconds
+2015/06/23-18:20:38 ... thread 61: (1048576,1048576) ops and (148416.8,148416.8) ops/second in (7.065076,7.065076) seconds
+2015/06/23-18:20:38 ... thread 42: (1048576,1048576) ops and (139484.7,139484.7) ops/second in (7.517497,7.517497) seconds
+2015/06/23-18:20:38 ... thread 43: (1048576,1048576) ops and (139442.8,139442.8) ops/second in (7.519758,7.519758) seconds
+2015/06/23-18:20:38 ... thread 60: (1048576,1048576) ops and (137545.0,137545.0) ops/second in (7.623513,7.623513) seconds
+2015/06/23-18:20:38 ... thread 29: (1048576,1048576) ops and (137395.8,137395.8) ops/second in (7.631789,7.631789) seconds
+2015/06/23-18:20:38 ... thread 58: (1048576,1048576) ops and (137097.5,137097.5) ops/second in (7.648394,7.648394) seconds
+2015/06/23-18:20:38 ... thread 63: (1048576,1048576) ops and (136152.4,136152.4) ops/second in (7.701490,7.701490) seconds
+2015/06/23-18:20:38 ... thread 12: (1048576,1048576) ops and (136058.8,136058.8) ops/second in (7.706783,7.706783) seconds
+2015/06/23-18:20:38 ... thread 48: (1048576,2097152) ops and (330359.4,267357.0) ops/second in (3.174046,7.844014) seconds
+2015/06/23-18:20:38 ... thread 13: (1048576,1048576) ops and (133604.9,133604.9) ops/second in (7.848336,7.848336) seconds
+2015/06/23-18:20:38 ... thread 6: (1048576,1048576) ops and (132649.8,132649.8) ops/second in (7.904846,7.904846) seconds
+2015/06/23-18:20:39 ... thread 26: (1048576,1048576) ops and (129850.3,129850.3) ops/second in (8.075271,8.075271) seconds
+2015/06/23-18:20:39 ... thread 52: (1048576,2097152) ops and (241411.1,253277.9) ops/second in (4.343529,8.280044) seconds
+2015/06/23-18:20:39 ... thread 46: (1048576,1048576) ops and (125817.2,125817.2) ops/second in (8.334124,8.334124) seconds
+2015/06/23-18:20:39 ... thread 17: (1048576,1048576) ops and (125802.9,125802.9) ops/second in (8.335069,8.335069) seconds
+2015/06/23-18:20:39 ... thread 41: (1048576,2097152) ops and (241817.0,250597.8) ops/second in (4.336237,8.368597) seconds
+2015/06/23-18:20:39 ... thread 50: (1048576,2097152) ops and (263557.9,249625.1) ops/second in (3.978542,8.401206) seconds
+2015/06/23-18:20:39 ... thread 19: (1048576,1048576) ops and (123685.9,123685.9) ops/second in (8.477733,8.477733) seconds
+2015/06/23-18:20:39 ... thread 11: (1048576,2097152) ops and (287197.3,240410.7) ops/second in (3.651065,8.723207) seconds
+2015/06/23-18:20:39 ... thread 35: (1048576,2097152) ops and (257581.1,235628.1) ops/second in (4.070858,8.900264) seconds
+2015/06/23-18:20:39 ... thread 53: (1048576,1048576) ops and (117649.5,117649.5) ops/second in (8.912712,8.912712) seconds
+2015/06/23-18:20:39 ... thread 23: (1048576,1048576) ops and (117474.2,117474.2) ops/second in (8.926009,8.926009) seconds
+2015/06/23-18:20:40 ... thread 44: (1048576,1048576) ops and (116941.4,116941.4) ops/second in (8.966680,8.966680) seconds
+2015/06/23-18:20:40 ... thread 28: (1048576,1048576) ops and (116248.3,116248.3) ops/second in (9.020144,9.020144) seconds
+2015/06/23-18:20:40 ... thread 4: (1048576,1048576) ops and (116063.1,116063.1) ops/second in (9.034532,9.034532) seconds
+2015/06/23-18:20:40 ... thread 5: (1048576,1048576) ops and (115776.6,115776.6) ops/second in (9.056890,9.056890) seconds
+2015/06/23-18:20:40 ... thread 51: (1048576,1048576) ops and (115627.8,115627.8) ops/second in (9.068548,9.068548) seconds
+2015/06/23-18:20:40 ... thread 2: (1048576,2097152) ops and (223282.8,231047.4) ops/second in (4.696178,9.076718) seconds
+2015/06/23-18:20:40 ... thread 25: (1048576,1048576) ops and (114649.5,114649.5) ops/second in (9.145931,9.145931) seconds
+2015/06/23-18:20:40 ... thread 62: (1048576,1048576) ops and (113867.5,113867.5) ops/second in (9.208735,9.208735) seconds
+2015/06/23-18:20:40 ... thread 47: (1048576,1048576) ops and (113838.2,113838.2) ops/second in (9.211108,9.211108) seconds
+2015/06/23-18:20:40 ... thread 39: (1048576,1048576) ops and (113580.8,113580.8) ops/second in (9.231982,9.231982) seconds
+2015/06/23-18:20:40 ... thread 3: (1048576,2097152) ops and (200468.8,226090.8) ops/second in (5.230619,9.275708) seconds
+2015/06/23-18:20:40 ... thread 38: (1048576,1048576) ops and (111732.8,111732.8) ops/second in (9.384677,9.384677) seconds
+2015/06/23-18:20:40 ... thread 40: (1048576,1048576) ops and (111018.6,111018.6) ops/second in (9.445051,9.445051) seconds
+2015/06/23-18:20:40 ... thread 21: (1048576,1048576) ops and (110925.6,110925.6) ops/second in (9.452968,9.452968) seconds
+2015/06/23-18:20:40 ... thread 9: (1048576,1048576) ops and (110647.1,110647.1) ops/second in (9.476764,9.476764) seconds
+2015/06/23-18:20:40 ... thread 10: (1048576,1048576) ops and (110566.8,110566.8) ops/second in (9.483644,9.483644) seconds
+2015/06/23-18:20:40 ... thread 49: (1048576,1048576) ops and (109970.2,109970.2) ops/second in (9.535090,9.535090) seconds
+2015/06/23-18:20:40 ... thread 57: (1048576,1048576) ops and (109762.8,109762.8) ops/second in (9.553109,9.553109) seconds
+2015/06/23-18:20:40 ... thread 30: (1048576,2097152) ops and (187403.1,218296.0) ops/second in (5.595297,9.606919) seconds
+2015/06/23-18:20:40 ... thread 55: (1048576,1048576) ops and (108944.4,108944.4) ops/second in (9.624876,9.624876) seconds
+2015/06/23-18:20:40 ... thread 24: (1048576,2097152) ops and (296660.6,217404.1) ops/second in (3.534598,9.646332) seconds
+2015/06/23-18:20:40 ... thread 22: (1048576,1048576) ops and (108485.1,108485.1) ops/second in (9.665625,9.665625) seconds
+2015/06/23-18:20:40 ... thread 7: (1048576,1048576) ops and (108448.7,108448.7) ops/second in (9.668866,9.668866) seconds
+2015/06/23-18:20:40 ... thread 36: (1048576,2097152) ops and (290326.5,215396.4) ops/second in (3.611713,9.736245) seconds
+2015/06/23-18:20:40 ... thread 33: (1048576,2097152) ops and (180290.3,214148.4) ops/second in (5.816043,9.792986) seconds
+2015/06/23-18:20:40 ... thread 59: (1048576,2097152) ops and (327249.6,211380.8) ops/second in (3.204209,9.921206) seconds
+2015/06/23-18:20:41 ... thread 37: (1048576,1048576) ops and (103935.6,103935.6) ops/second in (10.088711,10.088711) seconds
+2015/06/23-18:20:41 ... thread 16: (1048576,2097152) ops and (272237.2,207281.1) ops/second in (3.851700,10.117430) seconds
+2015/06/23-18:20:41 ... thread 8: (1048576,2097152) ops and (208134.3,204919.3) ops/second in (5.037978,10.234037) seconds
+2015/06/23-18:20:41 ... thread 61: (1048576,2097152) ops and (322017.1,203185.8) ops/second in (3.256274,10.321350) seconds
+2015/06/23-18:20:41 ... thread 15: (1048576,2097152) ops and (281336.3,201688.8) ops/second in (3.727127,10.397960) seconds
+2015/06/23-18:20:41 ... thread 34: (1048576,2097152) ops and (187526.1,200454.8) ops/second in (5.591628,10.461970) seconds
+2015/06/23-18:20:41 ... thread 32: (1048576,1048576) ops and (99269.7,99269.7) ops/second in (10.562897,10.562897) seconds
+2015/06/23-18:20:41 ... thread 54: (1048576,2097152) ops and (224122.3,196709.2) ops/second in (4.678588,10.661180) seconds
+2015/06/23-18:20:41 ... thread 27: (1048576,2097152) ops and (195379.6,196690.1) ops/second in (5.366866,10.662214) seconds
+2015/06/23-18:20:41 ... thread 43: (1048576,2097152) ops and (311731.1,192691.3) ops/second in (3.363720,10.883478) seconds
+2015/06/23-18:20:42 ... thread 12: (1048576,2097152) ops and (314553.7,189953.9) ops/second in (3.333536,11.040319) seconds
+2015/06/23-18:20:42 ... thread 1: (1048576,1048576) ops and (94895.9,94895.9) ops/second in (11.049756,11.049756) seconds
+2015/06/23-18:20:42 ... thread 31: (1048576,2097152) ops and (242189.2,188308.0) ops/second in (4.329574,11.136820) seconds
+2015/06/23-18:20:42 ... thread 13: (1048576,2097152) ops and (280626.2,181024.7) ops/second in (3.736558,11.584894) seconds
+2015/06/23-18:20:42 ... thread 26: (1048576,2097152) ops and (298615.9,180996.1) ops/second in (3.511454,11.586725) seconds
+2015/06/23-18:20:42 ... thread 14: (1048576,2097152) ops and (223275.2,180113.2) ops/second in (4.696338,11.643519) seconds
+2015/06/23-18:20:42 ... thread 18: (1048576,2097152) ops and (195052.4,179455.5) ops/second in (5.375867,11.686197) seconds
+2015/06/23-18:20:42 ... thread 46: (1048576,2097152) ops and (308950.7,178814.1) ops/second in (3.393991,11.728115) seconds
+2015/06/23-18:20:42 ... thread 29: (1048576,2097152) ops and (250522.0,177463.8) ops/second in (4.185564,11.817353) seconds
+2015/06/23-18:20:43 ... thread 56: (1048576,3145728) ops and (208188.1,262874.6) ops/second in (5.036675,11.966649) seconds
+2015/06/23-18:20:43 ... thread 64: (1048576,2097152) ops and (181731.0,174699.0) ops/second in (5.769934,12.004371) seconds
+2015/06/23-18:20:43 ... thread 44: (1048576,2097152) ops and (320397.5,171344.1) ops/second in (3.272735,12.239415) seconds
+2015/06/23-18:20:43 ... thread 42: (1048576,2097152) ops and (220241.8,170798.5) ops/second in (4.761021,12.278518) seconds
+2015/06/23-18:20:43 ... thread 41: (1048576,3145728) ops and (265360.0,255332.6) ops/second in (3.951523,12.320120) seconds
+2015/06/23-18:20:43 ... thread 2: (1048576,3145728) ops and (318723.6,254372.1) ops/second in (3.289923,12.366641) seconds
+2015/06/23-18:20:43 ... thread 6: (1048576,2097152) ops and (233251.5,169120.8) ops/second in (4.495474,12.400320) seconds
+2015/06/23-18:20:43 ... thread 53: (1048576,2097152) ops and (296347.5,168431.8) ops/second in (3.538332,12.451044) seconds
+2015/06/23-18:20:43 ... thread 47: (1048576,2097152) ops and (319717.8,167895.7) ops/second in (3.279692,12.490800) seconds
+2015/06/23-18:20:43 ... thread 19: (1048576,2097152) ops and (260785.3,167791.3) ops/second in (4.020840,12.498573) seconds
+2015/06/23-18:20:43 ... thread 45: (1048576,2097152) ops and (186688.2,167411.5) ops/second in (5.616725,12.526929) seconds
+2015/06/23-18:20:43 ... thread 20: (1048576,2097152) ops and (171666.1,166285.1) ops/second in (6.108230,12.611782) seconds
+2015/06/23-18:20:43 ... thread 57: (1048576,2097152) ops and (342306.4,166224.6) ops/second in (3.063267,12.616376) seconds
+2015/06/23-18:20:43 ... thread 38: (1048576,2097152) ops and (303524.6,163338.0) ops/second in (3.454666,12.839343) seconds
+2015/06/23-18:20:43 ... thread 62: (1048576,2097152) ops and (286425.3,162953.4) ops/second in (3.660906,12.869641) seconds
+2015/06/23-18:20:43 ... thread 28: (1048576,2097152) ops and (272292.8,162935.5) ops/second in (3.850914,12.871058) seconds
+2015/06/23-18:20:43 ... thread 7: (1048576,2097152) ops and (321481.8,162185.7) ops/second in (3.261696,12.930562) seconds
+2015/06/23-18:20:44 ... thread 52: (1048576,3145728) ops and (225123.9,243142.1) ops/second in (4.657772,12.937816) seconds
+2015/06/23-18:20:44 ... thread 50: (1048576,3145728) ops and (220055.1,238923.3) ops/second in (4.765062,13.166268) seconds
+2015/06/23-18:20:44 ... thread 39: (1048576,2097152) ops and (263949.3,158819.5) ops/second in (3.972642,13.204624) seconds
+2015/06/23-18:20:44 ... thread 58: (1048576,2097152) ops and (188476.6,158733.0) ops/second in (5.563428,13.211822) seconds
+2015/06/23-18:20:44 ... thread 59: (1048576,3145728) ops and (314261.6,237273.0) ops/second in (3.336634,13.257840) seconds
+2015/06/23-18:20:44 ... thread 48: (1048576,3145728) ops and (193026.4,236943.0) ops/second in (5.432293,13.276307) seconds
+2015/06/23-18:20:44 ... thread 4: (1048576,2097152) ops and (243729.1,157246.1) ops/second in (4.302220,13.336752) seconds
+2015/06/23-18:20:44 ... thread 25: (1048576,2097152) ops and (249418.0,157089.8) ops/second in (4.204091,13.350022) seconds
+2015/06/23-18:20:44 ... thread 24: (1048576,3145728) ops and (280102.0,234933.2) ops/second in (3.743550,13.389882) seconds
+2015/06/23-18:20:44 ... thread 61: (1048576,3145728) ops and (338070.6,234353.6) ops/second in (3.101648,13.422998) seconds
+2015/06/23-18:20:44 ... thread 11: (1048576,3145728) ops and (217625.2,232303.3) ops/second in (4.818265,13.541472) seconds
+2015/06/23-18:20:44 ... thread 15: (1048576,3145728) ops and (327816.7,231360.9) ops/second in (3.198666,13.596626) seconds
+2015/06/23-18:20:44 ... thread 36: (1048576,3145728) ops and (261423.4,228825.6) ops/second in (4.011026,13.747271) seconds
+2015/06/23-18:20:44 ... thread 43: (1048576,3145728) ops and (359195.5,227906.5) ops/second in (2.919235,13.802713) seconds
+2015/06/23-18:20:44 ... thread 16: (1048576,3145728) ops and (283472.2,227679.5) ops/second in (3.699043,13.816473) seconds
+2015/06/23-18:20:44 ... thread 5: (1048576,2097152) ops and (217001.9,150993.8) ops/second in (4.832105,13.888995) seconds
+2015/06/23-18:20:44 ... thread 49: (1048576,2097152) ops and (238878.5,150607.0) ops/second in (4.389579,13.924669) seconds
+2015/06/23-18:20:45 ... thread 35: (1048576,3145728) ops and (207848.0,225578.1) ops/second in (5.044917,13.945181) seconds
+2015/06/23-18:20:45 ... thread 63: (1048576,2097152) ops and (167751.8,150309.3) ops/second in (6.250757,13.952247) seconds
+2015/06/23-18:20:45 ... thread 34: (1048576,3145728) ops and (293137.6,224069.9) ops/second in (3.577078,14.039048) seconds
+2015/06/23-18:20:45 ... thread 21: (1048576,2097152) ops and (228049.6,149253.0) ops/second in (4.598018,14.050986) seconds
+2015/06/23-18:20:45 ... thread 23: (1048576,2097152) ops and (200468.3,148139.1) ops/second in (5.230632,14.156641) seconds
+2015/06/23-18:20:45 ... thread 60: (1048576,2097152) ops and (160403.1,148097.2) ops/second in (6.537131,14.160644) seconds
+2015/06/23-18:20:45 ... thread 17: (1048576,2097152) ops and (179675.0,147988.7) ops/second in (5.835959,14.171028) seconds
+2015/06/23-18:20:45 ... thread 54: (1048576,3145728) ops and (293576.3,221017.9) ops/second in (3.571733,14.232913) seconds
+2015/06/23-18:20:45 ... thread 30: (1048576,3145728) ops and (223486.6,219999.2) ops/second in (4.691897,14.298816) seconds
+2015/06/23-18:20:45 ... thread 3: (1048576,3145728) ops and (208215.8,219800.9) ops/second in (5.036006,14.311714) seconds
+2015/06/23-18:20:45 ... thread 40: (1048576,2097152) ops and (211549.5,145618.4) ops/second in (4.956646,14.401697) seconds
+2015/06/23-18:20:45 ... thread 10: (1048576,2097152) ops and (212439.9,145438.5) ops/second in (4.935871,14.419515) seconds
+2015/06/23-18:20:45 ... thread 51: (1048576,2097152) ops and (195079.1,145195.1) ops/second in (5.375133,14.443681) seconds
+2015/06/23-18:20:45 ... thread 13: (1048576,3145728) ops and (361042.5,217108.5) ops/second in (2.904301,14.489195) seconds
+2015/06/23-18:20:45 ... thread 22: (1048576,2097152) ops and (214810.8,144163.7) ops/second in (4.881393,14.547018) seconds
+2015/06/23-18:20:45 ... thread 37: (1048576,2097152) ops and (232376.8,143629.7) ops/second in (4.512396,14.601107) seconds
+2015/06/23-18:20:45 ... thread 55: (1048576,2097152) ops and (207736.6,142930.8) ops/second in (5.047623,14.672499) seconds
+2015/06/23-18:20:45 ... thread 9: (1048576,2097152) ops and (197969.3,141954.4) ops/second in (5.296659,14.773423) seconds
+2015/06/23-18:20:45 ... thread 31: (1048576,3145728) ops and (286399.4,212577.1) ops/second in (3.661237,14.798057) seconds
+2015/06/23-18:20:45 ... thread 12: (1048576,3145728) ops and (272653.4,211319.3) ops/second in (3.845820,14.886139) seconds
+2015/06/23-18:20:45 ... thread 14: (1048576,3145728) ops and (320577.1,210918.6) ops/second in (3.270901,14.914420) seconds
+2015/06/23-18:20:46 ... thread 26: (1048576,3145728) ops and (312364.5,210506.4) ops/second in (3.356899,14.943624) seconds
+2015/06/23-18:20:46 ... thread 29: (1048576,3145728) ops and (326820.2,209355.5) ops/second in (3.208419,15.025772) seconds
+2015/06/23-18:20:46 ... thread 33: (1048576,3145728) ops and (199964.8,209202.1) ops/second in (5.243802,15.036788) seconds
+2015/06/23-18:20:46 ... thread 44: (1048576,3145728) ops and (360766.6,207694.5) ops/second in (2.906522,15.145937) seconds
+2015/06/23-18:20:46 ... thread 42: (1048576,3145728) ops and (359507.8,207020.9) ops/second in (2.916699,15.195217) seconds
+2015/06/23-18:20:46 ... thread 27: (1048576,3145728) ops and (230074.6,206687.1) ops/second in (4.557548,15.219762) seconds
+2015/06/23-18:20:46 ... thread 8: (1048576,3145728) ops and (206571.5,205467.1) ops/second in (5.076092,15.310129) seconds
+2015/06/23-18:20:46 ... thread 32: (1048576,2097152) ops and (216839.0,136190.8) ops/second in (4.835736,15.398633) seconds
+2015/06/23-18:20:46 ... thread 18: (1048576,3145728) ops and (280064.4,203867.6) ops/second in (3.744053,15.430250) seconds
+2015/06/23-18:20:46 ... thread 46: (1048576,3145728) ops and (272500.2,201958.7) ops/second in (3.847982,15.576097) seconds
+2015/06/23-18:20:46 ... thread 1: (1048576,2097152) ops and (225877.0,133644.7) ops/second in (4.642243,15.691999) seconds
+2015/06/23-18:20:46 ... thread 38: (1048576,3145728) ops and (357736.1,199469.3) ops/second in (2.931144,15.770487) seconds
+2015/06/23-18:20:46 ... thread 53: (1048576,3145728) ops and (315657.4,199438.5) ops/second in (3.321880,15.772924) seconds
+2015/06/23-18:20:46 ... thread 56: (1048576,4194304) ops and (267888.7,264110.5) ops/second in (3.914222,15.880871) seconds
+2015/06/23-18:20:46 ... thread 2: (1048576,4194304) ops and (296178.3,263676.7) ops/second in (3.540354,15.906995) seconds
+2015/06/23-18:20:47 ... thread 19: (1048576,3145728) ops and (299188.9,196567.4) ops/second in (3.504729,16.003302) seconds
+2015/06/23-18:20:47 ... thread 64: (1048576,3145728) ops and (252715.4,194738.4) ops/second in (4.149236,16.153607) seconds
+2015/06/23-18:20:47 ... thread 59: (1048576,4194304) ops and (359004.9,259249.7) ops/second in (2.920785,16.178625) seconds
+2015/06/23-18:20:47 ... thread 25: (1048576,3145728) ops and (366749.3,194071.4) ops/second in (2.859108,16.209130) seconds
+2015/06/23-18:20:47 ... thread 62: (1048576,3145728) ops and (311331.4,193730.2) ops/second in (3.368038,16.237679) seconds
+2015/06/23-18:20:47 ... thread 45: (1048576,3145728) ops and (279567.6,193254.6) ops/second in (3.750706,16.277635) seconds
+2015/06/23-18:20:47 ... thread 57: (1048576,3145728) ops and (285739.0,193154.5) ops/second in (3.669699,16.286075) seconds
+2015/06/23-18:20:47 ... thread 52: (1048576,4194304) ops and (310921.0,257156.8) ops/second in (3.372484,16.310300) seconds
+2015/06/23-18:20:47 ... thread 47: (1048576,3145728) ops and (272052.9,192456.8) ops/second in (3.854309,16.345109) seconds
+2015/06/23-18:20:47 ... thread 61: (1048576,4194304) ops and (356217.2,256271.5) ops/second in (2.943642,16.366640) seconds
+2015/06/23-18:20:47 ... thread 15: (1048576,4194304) ops and (363176.8,254449.2) ops/second in (2.887233,16.483859) seconds
+2015/06/23-18:20:47 ... thread 6: (1048576,3145728) ops and (256518.9,190788.5) ops/second in (4.087715,16.488035) seconds
+2015/06/23-18:20:47 ... thread 11: (1048576,4194304) ops and (355173.7,254296.4) ops/second in (2.952291,16.493763) seconds
+2015/06/23-18:20:47 ... thread 28: (1048576,3145728) ops and (281976.4,189619.1) ops/second in (3.718666,16.589724) seconds
+2015/06/23-18:20:47 ... thread 43: (1048576,4194304) ops and (352626.0,250013.1) ops/second in (2.973621,16.776334) seconds
+2015/06/23-18:20:47 ... thread 20: (1048576,3145728) ops and (248482.9,186893.1) ops/second in (4.219912,16.831694) seconds
+2015/06/23-18:20:48 ... thread 39: (1048576,3145728) ops and (275266.6,184891.3) ops/second in (3.809310,17.013934) seconds
+2015/06/23-18:20:48 ... thread 58: (1048576,3145728) ops and (268490.0,183775.0) ops/second in (3.905457,17.117279) seconds
+2015/06/23-18:20:48 ... thread 7: (1048576,3145728) ops and (244249.8,182640.5) ops/second in (4.293047,17.223609) seconds
+2015/06/23-18:20:48 ... thread 50: (1048576,4194304) ops and (252533.0,242186.3) ops/second in (4.152234,17.318502) seconds
+2015/06/23-18:20:48 ... thread 24: (1048576,4194304) ops and (266284.1,242057.9) ops/second in (3.937809,17.327691) seconds
+2015/06/23-18:20:48 ... thread 34: (1048576,4194304) ops and (308866.4,240582.3) ops/second in (3.394918,17.433966) seconds
+2015/06/23-18:20:48 ... thread 4: (1048576,3145728) ops and (254722.4,180236.9) ops/second in (4.116544,17.453296) seconds
+2015/06/23-18:20:48 ... thread 49: (1048576,3145728) ops and (294969.1,179966.3) ops/second in (3.554867,17.479536) seconds
+2015/06/23-18:20:48 ... thread 41: (1048576,4194304) ops and (199026.3,238466.5) ops/second in (5.268531,17.588651) seconds
+2015/06/23-18:20:48 ... thread 13: (1048576,4194304) ops and (324165.4,236646.9) ops/second in (3.234694,17.723889) seconds
+2015/06/23-18:20:48 ... thread 21: (1048576,3145728) ops and (280749.0,176866.3) ops/second in (3.734924,17.785910) seconds
+2015/06/23-18:20:49 ... thread 17: (1048576,3145728) ops and (277535.6,175257.3) ops/second in (3.778168,17.949196) seconds
+2015/06/23-18:20:49 ... thread 40: (1048576,3145728) ops and (289296.4,174508.0) ops/second in (3.624573,18.026270) seconds
+2015/06/23-18:20:49 ... thread 5: (1048576,3145728) ops and (252615.7,174376.4) ops/second in (4.150875,18.039870) seconds
+2015/06/23-18:20:49 ... thread 48: (1048576,4194304) ops and (214268.4,230836.1) ops/second in (4.893749,18.170056) seconds
+2015/06/23-18:20:49 ... thread 31: (1048576,4194304) ops and (309898.7,230688.7) ops/second in (3.383609,18.181666) seconds
+2015/06/23-18:20:49 ... thread 60: (1048576,3145728) ops and (259930.4,172892.5) ops/second in (4.034065,18.194709) seconds
+2015/06/23-18:20:49 ... thread 3: (1048576,4194304) ops and (266504.5,229871.9) ops/second in (3.934553,18.246267) seconds
+2015/06/23-18:20:49 ... thread 23: (1048576,3145728) ops and (253001.2,171886.5) ops/second in (4.144550,18.301191) seconds
+2015/06/23-18:20:49 ... thread 14: (1048576,4194304) ops and (306605.1,228767.2) ops/second in (3.419956,18.334376) seconds
+2015/06/23-18:20:49 ... thread 42: (1048576,4194304) ops and (332446.9,228580.7) ops/second in (3.154116,18.349333) seconds
+2015/06/23-18:20:49 ... thread 63: (1048576,3145728) ops and (237168.7,171210.3) ops/second in (4.421225,18.373472) seconds
+2015/06/23-18:20:49 ... thread 44: (1048576,4194304) ops and (324393.1,228219.7) ops/second in (3.232424,18.378361) seconds
+2015/06/23-18:20:49 ... thread 54: (1048576,4194304) ops and (250101.4,227635.6) ops/second in (4.192604,18.425517) seconds
+2015/06/23-18:20:49 ... thread 22: (1048576,3145728) ops and (268459.2,170473.2) ops/second in (3.905904,18.452922) seconds
+2015/06/23-18:20:49 ... thread 16: (1048576,4194304) ops and (222519.6,226367.2) ops/second in (4.712286,18.528759) seconds
+2015/06/23-18:20:49 ... thread 26: (1048576,4194304) ops and (289145.3,225863.4) ops/second in (3.626467,18.570091) seconds
+2015/06/23-18:20:49 ... thread 38: (1048576,4194304) ops and (360868.6,224580.3) ops/second in (2.905700,18.676187) seconds
+2015/06/23-18:20:49 ... thread 29: (1048576,4194304) ops and (281791.6,223733.5) ops/second in (3.721105,18.746877) seconds
+2015/06/23-18:20:49 ... thread 37: (1048576,3145728) ops and (252630.4,167756.6) ops/second in (4.150632,18.751739) seconds
+2015/06/23-18:20:49 ... thread 36: (1048576,4194304) ops and (205584.1,222536.1) ops/second in (5.100473,18.847744) seconds
+2015/06/23-18:20:49 ... thread 35: (1048576,4194304) ops and (213698.6,222486.1) ops/second in (4.906798,18.851979) seconds
+2015/06/23-18:20:49 ... thread 33: (1048576,4194304) ops and (272195.7,222049.2) ops/second in (3.852287,18.889075) seconds
+2015/06/23-18:20:50 ... thread 55: (1048576,3145728) ops and (240712.5,165315.5) ops/second in (4.356134,19.028633) seconds
+2015/06/23-18:20:50 ... thread 9: (1048576,3145728) ops and (245558.9,165185.7) ops/second in (4.270161,19.043584) seconds
+2015/06/23-18:20:50 ... thread 10: (1048576,3145728) ops and (223518.8,164605.3) ops/second in (4.691221,19.110736) seconds
+2015/06/23-18:20:50 ... thread 27: (1048576,4194304) ops and (265774.1,218850.8) ops/second in (3.945365,19.165127) seconds
+2015/06/23-18:20:50 ... thread 18: (1048576,4194304) ops and (274297.8,217851.8) ops/second in (3.822765,19.253015) seconds
+2015/06/23-18:20:50 ... thread 2: (1048576,5242880) ops and (306623.0,271275.8) ops/second in (3.419757,19.326752) seconds
+2015/06/23-18:20:50 ... thread 30: (1048576,4194304) ops and (208474.4,217000.2) ops/second in (5.029758,19.328574) seconds
+2015/06/23-18:20:50 ... thread 46: (1048576,4194304) ops and (278417.9,216846.3) ops/second in (3.766194,19.342291) seconds
+2015/06/23-18:20:50 ... thread 59: (1048576,5242880) ops and (328119.3,270609.5) ops/second in (3.195716,19.374341) seconds
+2015/06/23-18:20:50 ... thread 19: (1048576,4194304) ops and (306734.9,215958.4) ops/second in (3.418509,19.421811) seconds
+2015/06/23-18:20:50 ... thread 12: (1048576,4194304) ops and (230910.7,215898.7) ops/second in (4.541045,19.427184) seconds
+2015/06/23-18:20:50 ... thread 51: (1048576,3145728) ops and (209842.7,161811.9) ops/second in (4.996962,19.440643) seconds
+2015/06/23-18:20:50 ... thread 53: (1048576,4194304) ops and (285374.9,215675.3) ops/second in (3.674380,19.447304) seconds
+2015/06/23-18:20:50 ... thread 8: (1048576,4194304) ops and (253203.9,215630.4) ops/second in (4.141232,19.451361) seconds
+2015/06/23-18:20:50 ... thread 57: (1048576,4194304) ops and (324603.9,214911.8) ops/second in (3.230325,19.516400) seconds
+2015/06/23-18:20:50 ... thread 25: (1048576,4194304) ops and (316768.2,214879.2) ops/second in (3.310231,19.519361) seconds
+2015/06/23-18:20:50 ... thread 52: (1048576,5242880) ops and (323164.3,268109.2) ops/second in (3.244715,19.555015) seconds
+2015/06/23-18:20:50 ... thread 32: (1048576,3145728) ops and (249946.0,160546.8) ops/second in (4.195211,19.593844) seconds
+2015/06/23-18:20:50 ... thread 56: (1048576,5242880) ops and (271341.9,265525.7) ops/second in (3.864408,19.745279) seconds
+2015/06/23-18:20:50 ... thread 62: (1048576,4194304) ops and (298350.1,212345.5) ops/second in (3.514582,19.752261) seconds
+2015/06/23-18:20:50 ... thread 47: (1048576,4194304) ops and (306324.4,212174.3) ops/second in (3.423090,19.768199) seconds
+2015/06/23-18:20:50 ... thread 61: (1048576,5242880) ops and (306066.3,264890.7) ops/second in (3.425977,19.792617) seconds
+2015/06/23-18:20:51 ... thread 45: (1048576,4194304) ops and (283513.4,209965.7) ops/second in (3.698506,19.976141) seconds
+2015/06/23-18:20:51 ... thread 1: (1048576,3145728) ops and (242907.4,157217.4) ops/second in (4.316773,20.008772) seconds
+2015/06/23-18:20:51 ... thread 64: (1048576,4194304) ops and (260297.6,207824.2) ops/second in (4.028373,20.181980) seconds
+2015/06/23-18:20:51 ... thread 15: (1048576,5242880) ops and (281684.5,259466.6) ops/second in (3.722520,20.206379) seconds
+2015/06/23-18:20:51 ... thread 43: (1048576,5242880) ops and (305348.6,259415.4) ops/second in (3.434029,20.210363) seconds
+2015/06/23-18:20:51 ... thread 28: (1048576,4194304) ops and (288898.1,207440.7) ops/second in (3.629570,20.219294) seconds
+2015/06/23-18:20:51 ... thread 11: (1048576,5242880) ops and (280713.1,259174.3) ops/second in (3.735401,20.229164) seconds
+2015/06/23-18:20:51 ... thread 6: (1048576,4194304) ops and (277489.3,206954.1) ops/second in (3.778798,20.266833) seconds
+2015/06/23-18:20:51 ... thread 58: (1048576,4194304) ops and (317164.8,205367.9) ops/second in (3.306092,20.423371) seconds
+2015/06/23-18:20:51 ... thread 39: (1048576,4194304) ops and (292424.3,203609.6) ops/second in (3.585803,20.599737) seconds
+2015/06/23-18:20:51 ... thread 7: (1048576,4194304) ops and (302441.5,202715.0) ops/second in (3.467037,20.690646) seconds
+2015/06/23-18:20:51 ... thread 20: (1048576,4194304) ops and (264296.3,201657.8) ops/second in (3.967426,20.799120) seconds
+2015/06/23-18:20:52 ... thread 49: (1048576,4194304) ops and (301224.4,200104.4) ops/second in (3.481046,20.960582) seconds
+2015/06/23-18:20:52 ... thread 34: (1048576,5242880) ops and (275285.2,246804.8) ops/second in (3.809053,21.243019) seconds
+2015/06/23-18:20:52 ... thread 50: (1048576,5242880) ops and (260889.1,245709.2) ops/second in (4.019240,21.337742) seconds
+2015/06/23-18:20:52 ... thread 21: (1048576,4194304) ops and (288856.3,195849.0) ops/second in (3.630096,21.416006) seconds
+2015/06/23-18:20:52 ... thread 41: (1048576,5242880) ops and (270758.3,244293.6) ops/second in (3.872738,21.461389) seconds
+2015/06/23-18:20:52 ... thread 54: (1048576,5242880) ops and (329970.0,242688.7) ops/second in (3.177792,21.603309) seconds
+2015/06/23-18:20:52 ... thread 14: (1048576,5242880) ops and (315627.6,242091.9) ops/second in (3.322194,21.656570) seconds
+2015/06/23-18:20:52 ... thread 13: (1048576,5242880) ops and (266249.0,242028.8) ops/second in (3.938329,21.662218) seconds
+2015/06/23-18:20:52 ... thread 23: (1048576,4194304) ops and (311965.2,193621.5) ops/second in (3.361195,21.662386) seconds
+2015/06/23-18:20:52 ... thread 5: (1048576,4194304) ops and (289001.4,193570.1) ops/second in (3.628273,21.668143) seconds
+2015/06/23-18:20:52 ... thread 40: (1048576,4194304) ops and (284259.5,193151.8) ops/second in (3.688798,21.715068) seconds
+2015/06/23-18:20:52 ... thread 48: (1048576,5242880) ops and (293898.4,241186.4) ops/second in (3.567818,21.737874) seconds
+2015/06/23-18:20:52 ... thread 24: (1048576,5242880) ops and (234492.2,240505.9) ops/second in (4.471688,21.799379) seconds
+2015/06/23-18:20:52 ... thread 4: (1048576,4194304) ops and (239771.4,192165.4) ops/second in (4.373233,21.826529) seconds
+2015/06/23-18:20:52 ... thread 31: (1048576,5242880) ops and (286723.5,240072.2) ops/second in (3.657098,21.838764) seconds
+2015/06/23-18:20:52 ... thread 22: (1048576,4194304) ops and (301738.4,191275.8) ops/second in (3.475116,21.928038) seconds
+2015/06/23-18:20:53 ... thread 63: (1048576,4194304) ops and (290618.8,190810.2) ops/second in (3.608081,21.981553) seconds
+2015/06/23-18:20:53 ... thread 17: (1048576,4194304) ops and (259090.6,190681.9) ops/second in (4.047141,21.996337) seconds
+2015/06/23-18:20:53 ... thread 42: (1048576,5242880) ops and (282298.2,237624.0) ops/second in (3.714427,22.063760) seconds
+2015/06/23-18:20:53 ... thread 26: (1048576,5242880) ops and (293498.1,236776.1) ops/second in (3.572684,22.142775) seconds
+2015/06/23-18:20:53 ... thread 3: (1048576,5242880) ops and (268309.8,236652.4) ops/second in (3.908080,22.154347) seconds
+2015/06/23-18:20:53 ... thread 60: (1048576,4194304) ops and (261002.0,188828.7) ops/second in (4.017502,22.212211) seconds
+2015/06/23-18:20:53 ... thread 29: (1048576,5242880) ops and (293098.3,234849.4) ops/second in (3.577557,22.324434) seconds
+2015/06/23-18:20:53 ... thread 38: (1048576,5242880) ops and (285843.3,234638.0) ops/second in (3.668359,22.344546) seconds
+2015/06/23-18:20:53 ... thread 37: (1048576,4194304) ops and (286916.1,187192.4) ops/second in (3.654643,22.406382) seconds
+2015/06/23-18:20:53 ... thread 33: (1048576,5242880) ops and (287682.2,232665.5) ops/second in (3.644911,22.533986) seconds
+2015/06/23-18:20:53 ... thread 44: (1048576,5242880) ops and (251329.0,232495.2) ops/second in (4.172125,22.550486) seconds
+2015/06/23-18:20:53 ... thread 2: (1048576,6291456) ops and (310915.3,277165.2) ops/second in (3.372546,22.699298) seconds
+2015/06/23-18:20:53 ... thread 53: (1048576,5242880) ops and (319385.9,230654.9) ops/second in (3.283100,22.730404) seconds
+2015/06/23-18:20:53 ... thread 55: (1048576,4194304) ops and (281271.0,184311.3) ops/second in (3.727992,22.756625) seconds
+2015/06/23-18:20:53 ... thread 35: (1048576,5242880) ops and (264958.1,229855.2) ops/second in (3.957516,22.809495) seconds
+2015/06/23-18:20:53 ... thread 27: (1048576,5242880) ops and (284863.3,229486.8) ops/second in (3.680980,22.846107) seconds
+2015/06/23-18:20:54 ... thread 59: (1048576,6291456) ops and (288737.6,273471.1) ops/second in (3.631588,23.005929) seconds
+2015/06/23-18:20:54 ... thread 8: (1048576,5242880) ops and (294797.2,227869.1) ops/second in (3.556940,23.008301) seconds
+2015/06/23-18:20:54 ... thread 16: (1048576,5242880) ops and (233695.5,227795.9) ops/second in (4.486933,23.015692) seconds
+2015/06/23-18:20:54 ... thread 62: (1048576,5242880) ops and (314295.7,227077.2) ops/second in (3.336272,23.088533) seconds
+2015/06/23-18:20:54 ... thread 30: (1048576,5242880) ops and (278578.5,227037.3) ops/second in (3.764023,23.092597) seconds
+2015/06/23-18:20:54 ... thread 9: (1048576,4194304) ops and (258095.3,181521.9) ops/second in (4.062747,23.106331) seconds
+2015/06/23-18:20:54 ... thread 46: (1048576,5242880) ops and (269444.6,225656.4) ops/second in (3.891620,23.233911) seconds
+2015/06/23-18:20:54 ... thread 36: (1048576,5242880) ops and (235927.0,225091.3) ops/second in (4.444493,23.292237) seconds
+2015/06/23-18:20:54 ... thread 11: (1048576,6291456) ops and (341589.4,270032.8) ops/second in (3.069697,23.298861) seconds
+2015/06/23-18:20:54 ... thread 52: (1048576,6291456) ops and (278382.4,269768.4) ops/second in (3.766675,23.321690) seconds
+2015/06/23-18:20:54 ... thread 32: (1048576,4194304) ops and (281082.9,179825.3) ops/second in (3.730487,23.324331) seconds
+2015/06/23-18:20:54 ... thread 47: (1048576,5242880) ops and (294764.1,224769.9) ops/second in (3.557339,23.325538) seconds
+2015/06/23-18:20:54 ... thread 43: (1048576,6291456) ops and (331935.6,269218.4) ops/second in (3.158974,23.369337) seconds
+2015/06/23-18:20:54 ... thread 18: (1048576,5242880) ops and (253627.9,224176.1) ops/second in (4.134309,23.387324) seconds
+2015/06/23-18:20:54 ... thread 57: (1048576,5242880) ops and (269209.9,223945.5) ops/second in (3.895013,23.411413) seconds
+2015/06/23-18:20:54 ... thread 19: (1048576,5242880) ops and (258999.0,223382.8) ops/second in (4.048572,23.470383) seconds
+2015/06/23-18:20:54 ... thread 51: (1048576,4194304) ops and (254310.8,177997.4) ops/second in (4.123206,23.563849) seconds
+2015/06/23-18:20:54 ... thread 45: (1048576,5242880) ops and (292231.7,222492.4) ops/second in (3.588167,23.564308) seconds
+2015/06/23-18:20:54 ... thread 12: (1048576,5242880) ops and (252426.8,222333.4) ops/second in (4.153980,23.581164) seconds
+2015/06/23-18:20:54 ... thread 10: (1048576,4194304) ops and (233718.0,177745.6) ops/second in (4.486500,23.597236) seconds
+2015/06/23-18:20:54 ... thread 61: (1048576,6291456) ops and (271892.1,266032.5) ops/second in (3.856588,23.649205) seconds
+2015/06/23-18:20:54 ... thread 25: (1048576,5242880) ops and (251854.9,221379.5) ops/second in (4.163413,23.682774) seconds
+2015/06/23-18:20:54 ... thread 64: (1048576,5242880) ops and (293205.3,220676.4) ops/second in (3.576252,23.758232) seconds
+2015/06/23-18:20:54 ... thread 56: (1048576,6291456) ops and (256588.2,263993.2) ops/second in (4.086610,23.831889) seconds
+2015/06/23-18:20:55 ... thread 6: (1048576,5242880) ops and (274783.6,217701.9) ops/second in (3.816006,24.082839) seconds
+2015/06/23-18:20:55 ... thread 58: (1048576,5242880) ops and (276373.5,216492.1) ops/second in (3.794054,24.217425) seconds
+2015/06/23-18:20:55 ... thread 7: (1048576,5242880) ops and (294533.6,216194.4) ops/second in (3.560123,24.250769) seconds
+2015/06/23-18:20:55 ... thread 28: (1048576,5242880) ops and (254505.6,215407.6) ops/second in (4.120051,24.339345) seconds
+2015/06/23-18:20:55 ... thread 1: (1048576,4194304) ops and (241661.0,172266.2) ops/second in (4.339037,24.347809) seconds
+2015/06/23-18:20:55 ... thread 20: (1048576,5242880) ops and (291962.6,214955.0) ops/second in (3.591474,24.390594) seconds
+2015/06/23-18:20:55 ... thread 39: (1048576,5242880) ops and (269327.8,214055.9) ops/second in (3.893307,24.493044) seconds
+2015/06/23-18:20:55 ... thread 15: (1048576,6291456) ops and (241880.1,256360.0) ops/second in (4.335106,24.541485) seconds
+2015/06/23-18:20:55 ... thread 49: (1048576,5242880) ops and (276543.3,211813.8) ops/second in (3.791725,24.752307) seconds
+2015/06/23-18:20:56 ... thread 21: (1048576,5242880) ops and (282521.7,208651.1) ops/second in (3.711489,25.127495) seconds
+2015/06/23-18:20:56 ... thread 42: (1048576,6291456) ops and (331873.3,249430.1) ops/second in (3.159567,25.223327) seconds
+2015/06/23-18:20:56 ... thread 14: (1048576,6291456) ops and (288410.2,248750.0) ops/second in (3.635711,25.292281) seconds
+2015/06/23-18:20:56 ... thread 34: (1048576,6291456) ops and (256949.1,248439.6) ops/second in (4.080871,25.323890) seconds
+2015/06/23-18:20:56 ... thread 41: (1048576,6291456) ops and (264302.6,247415.4) ops/second in (3.967332,25.428721) seconds
+2015/06/23-18:20:56 ... thread 4: (1048576,5242880) ops and (290940.3,206164.0) ops/second in (3.604093,25.430622) seconds
+2015/06/23-18:20:56 ... thread 40: (1048576,5242880) ops and (281800.8,206120.0) ops/second in (3.720983,25.436051) seconds
+2015/06/23-18:20:56 ... thread 54: (1048576,6291456) ops and (273272.5,247301.6) ops/second in (3.837108,25.440417) seconds
+2015/06/23-18:20:56 ... thread 26: (1048576,6291456) ops and (311635.8,246651.0) ops/second in (3.364748,25.507523) seconds
+2015/06/23-18:20:56 ... thread 23: (1048576,5242880) ops and (265592.3,204716.4) ops/second in (3.948066,25.610452) seconds
+2015/06/23-18:20:56 ... thread 44: (1048576,6291456) ops and (340587.2,245479.8) ops/second in (3.078730,25.629216) seconds
+2015/06/23-18:20:56 ... thread 22: (1048576,5242880) ops and (281975.2,204426.9) ops/second in (3.718681,25.646719) seconds
+2015/06/23-18:20:56 ... thread 5: (1048576,5242880) ops and (260213.0,204020.4) ops/second in (4.029683,25.697826) seconds
+2015/06/23-18:20:56 ... thread 17: (1048576,5242880) ops and (281407.2,203824.5) ops/second in (3.726187,25.722524) seconds
+2015/06/23-18:20:56 ... thread 50: (1048576,6291456) ops and (239021.1,244568.7) ops/second in (4.386960,25.724702) seconds
+2015/06/23-18:20:56 ... thread 13: (1048576,6291456) ops and (254586.0,244034.9) ops/second in (4.118750,25.780968) seconds
+2015/06/23-18:20:56 ... thread 63: (1048576,5242880) ops and (274085.7,203155.1) ops/second in (3.825723,25.807276) seconds
+2015/06/23-18:20:56 ... thread 29: (1048576,6291456) ops and (299146.1,243574.8) ops/second in (3.505230,25.829664) seconds
+2015/06/23-18:20:56 ... thread 38: (1048576,6291456) ops and (297744.2,243230.0) ops/second in (3.521735,25.866281) seconds
+2015/06/23-18:20:57 ... thread 3: (1048576,6291456) ops and (272332.1,241935.3) ops/second in (3.850358,26.004705) seconds
+2015/06/23-18:20:57 ... thread 37: (1048576,5242880) ops and (287591.6,201243.3) ops/second in (3.646059,26.052441) seconds
+2015/06/23-18:20:57 ... thread 48: (1048576,6291456) ops and (241267.8,241200.0) ops/second in (4.346109,26.083983) seconds
+2015/06/23-18:20:57 ... thread 60: (1048576,5242880) ops and (268334.8,200723.4) ops/second in (3.907715,26.119926) seconds
+2015/06/23-18:20:57 ... thread 2: (1048576,7340032) ops and (296437.8,279763.6) ops/second in (3.537255,26.236553) seconds
+2015/06/23-18:20:57 ... thread 27: (1048576,6291456) ops and (305791.6,239445.0) ops/second in (3.429054,26.275161) seconds
+2015/06/23-18:20:57 ... thread 8: (1048576,6291456) ops and (319644.7,239321.3) ops/second in (3.280442,26.288743) seconds
+2015/06/23-18:20:57 ... thread 31: (1048576,6291456) ops and (230510.9,238423.9) ops/second in (4.548921,26.387685) seconds
+2015/06/23-18:20:57 ... thread 24: (1048576,6291456) ops and (227970.9,238321.9) ops/second in (4.599605,26.398984) seconds
+2015/06/23-18:20:57 ... thread 35: (1048576,6291456) ops and (292043.2,238312.9) ops/second in (3.590482,26.399977) seconds
+2015/06/23-18:20:57 ... thread 55: (1048576,5242880) ops and (281850.2,198016.7) ops/second in (3.720331,26.476956) seconds
+2015/06/23-18:20:57 ... thread 11: (1048576,7340032) ops and (327439.3,276969.7) ops/second in (3.202352,26.501213) seconds
+2015/06/23-18:20:57 ... thread 53: (1048576,6291456) ops and (265887.4,235864.0) ops/second in (3.943685,26.674089) seconds
+2015/06/23-18:20:57 ... thread 59: (1048576,7340032) ops and (278839.9,274225.4) ops/second in (3.760495,26.766424) seconds
+2015/06/23-18:20:57 ... thread 9: (1048576,5242880) ops and (281336.3,195385.9) ops/second in (3.727127,26.833458) seconds
+2015/06/23-18:20:57 ... thread 43: (1048576,7340032) ops and (297526.2,272928.1) ops/second in (3.524315,26.893652) seconds
+2015/06/23-18:20:58 ... thread 61: (1048576,7340032) ops and (317918.7,272383.1) ops/second in (3.298252,26.947457) seconds
+2015/06/23-18:20:58 ... thread 33: (1048576,6291456) ops and (227564.5,231799.5) ops/second in (4.607818,27.141804) seconds
+2015/06/23-18:20:58 ... thread 32: (1048576,5242880) ops and (272923.5,192991.7) ops/second in (3.842014,27.166345) seconds
+2015/06/23-18:20:58 ... thread 62: (1048576,6291456) ops and (253258.7,231058.3) ops/second in (4.140335,27.228868) seconds
+2015/06/23-18:20:58 ... thread 45: (1048576,6291456) ops and (284648.6,230895.5) ops/second in (3.683756,27.248064) seconds
+2015/06/23-18:20:58 ... thread 10: (1048576,5242880) ops and (283397.0,192066.2) ops/second in (3.700025,27.297261) seconds
+2015/06/23-18:20:58 ... thread 25: (1048576,6291456) ops and (288200.5,230278.0) ops/second in (3.638356,27.321130) seconds
+2015/06/23-18:20:58 ... thread 47: (1048576,6291456) ops and (260799.1,230067.2) ops/second in (4.020627,27.346165) seconds
+2015/06/23-18:20:58 ... thread 16: (1048576,6291456) ops and (241794.1,230015.3) ops/second in (4.336649,27.352341) seconds
+2015/06/23-18:20:58 ... thread 46: (1048576,6291456) ops and (252891.2,229780.7) ops/second in (4.146353,27.380264) seconds
+2015/06/23-18:20:58 ... thread 19: (1048576,6291456) ops and (263278.5,229170.7) ops/second in (3.982763,27.453146) seconds
+2015/06/23-18:20:58 ... thread 36: (1048576,6291456) ops and (250215.8,228922.4) ops/second in (4.190686,27.482923) seconds
+2015/06/23-18:20:58 ... thread 57: (1048576,6291456) ops and (251520.9,228113.7) ops/second in (4.168942,27.580355) seconds
+2015/06/23-18:20:58 ... thread 64: (1048576,6291456) ops and (273227.4,227984.6) ops/second in (3.837741,27.595973) seconds
+2015/06/23-18:20:58 ... thread 18: (1048576,6291456) ops and (246736.0,227645.2) ops/second in (4.249790,27.637114) seconds
+2015/06/23-18:20:58 ... thread 30: (1048576,6291456) ops and (229998.7,227525.5) ops/second in (4.559052,27.651649) seconds
+2015/06/23-18:20:58 ... thread 52: (1048576,7340032) ops and (240295.2,265122.9) ops/second in (4.363700,27.685390) seconds
+2015/06/23-18:20:58 ... thread 51: (1048576,5242880) ops and (245309.9,188333.0) ops/second in (4.274496,27.838345) seconds
+2015/06/23-18:20:58 ... thread 20: (1048576,6291456) ops and (302450.5,225844.0) ops/second in (3.466934,27.857528) seconds
+2015/06/23-18:20:58 ... thread 15: (1048576,7340032) ops and (315808.1,263444.5) ops/second in (3.320295,27.861780) seconds
+2015/06/23-18:20:59 ... thread 56: (1048576,7340032) ops and (253516.2,262443.8) ops/second in (4.136130,27.968019) seconds
+2015/06/23-18:20:59 ... thread 39: (1048576,6291456) ops and (300164.1,224804.2) ops/second in (3.493342,27.986386) seconds
+2015/06/23-18:20:59 ... thread 6: (1048576,6291456) ops and (268317.0,224768.6) ops/second in (3.907974,27.990813) seconds
+2015/06/23-18:20:59 ... thread 1: (1048576,5242880) ops and (275488.7,186221.2) ops/second in (3.806240,28.154049) seconds
+2015/06/23-18:20:59 ... thread 12: (1048576,6291456) ops and (223268.3,222488.7) ops/second in (4.696484,28.277648) seconds
+2015/06/23-18:20:59 ... thread 42: (1048576,7340032) ops and (339844.1,259284.6) ops/second in (3.085462,28.308789) seconds
+2015/06/23-18:20:59 ... thread 28: (1048576,6291456) ops and (263069.3,222114.6) ops/second in (3.985931,28.325276) seconds
+2015/06/23-18:20:59 ... thread 7: (1048576,6291456) ops and (237921.8,219535.8) ops/second in (4.407230,28.657999) seconds
+2015/06/23-18:20:59 ... thread 58: (1048576,6291456) ops and (231729.2,218890.9) ops/second in (4.525005,28.742430) seconds
+2015/06/23-18:20:59 ... thread 49: (1048576,6291456) ops and (262578.5,218866.1) ops/second in (3.993381,28.745688) seconds
+2015/06/23-18:20:59 ... thread 21: (1048576,6291456) ops and (279927.1,217898.1) ops/second in (3.745890,28.873385) seconds
+2015/06/23-18:20:59 ... thread 29: (1048576,7340032) ops and (344216.1,254192.0) ops/second in (3.046272,28.875936) seconds
+2015/06/23-18:21:00 ... thread 44: (1048576,7340032) ops and (315727.9,253538.6) ops/second in (3.321138,28.950354) seconds
+2015/06/23-18:21:00 ... thread 14: (1048576,7340032) ops and (285017.9,253355.6) ops/second in (3.678983,28.971264) seconds
+2015/06/23-18:21:00 ... thread 38: (1048576,7340032) ops and (337225.6,253316.8) ops/second in (3.109420,28.975701) seconds
+2015/06/23-18:21:00 ... thread 13: (1048576,7340032) ops and (320972.7,252687.7) ops/second in (3.266870,29.047838) seconds
+2015/06/23-18:21:00 ... thread 17: (1048576,6291456) ops and (301112.6,215425.0) ops/second in (3.482338,29.204862) seconds
+2015/06/23-18:21:00 ... thread 5: (1048576,6291456) ops and (293903.3,214978.0) ops/second in (3.567758,29.265584) seconds
+2015/06/23-18:21:00 ... thread 4: (1048576,6291456) ops and (271191.1,214746.1) ops/second in (3.866558,29.297180) seconds
+2015/06/23-18:21:00 ... thread 41: (1048576,7340032) ops and (270874.8,250514.8) ops/second in (3.871072,29.299793) seconds
+2015/06/23-18:21:00 ... thread 22: (1048576,6291456) ops and (286699.6,214695.3) ops/second in (3.657403,29.304122) seconds
+2015/06/23-18:21:00 ... thread 54: (1048576,7340032) ops and (265820.2,249787.6) ops/second in (3.944682,29.385099) seconds
+2015/06/23-18:21:00 ... thread 40: (1048576,6291456) ops and (265020.5,214048.7) ops/second in (3.956585,29.392636) seconds
+2015/06/23-18:21:00 ... thread 50: (1048576,7340032) ops and (276468.1,248667.5) ops/second in (3.792756,29.517458) seconds
+2015/06/23-18:21:00 ... thread 11: (1048576,8388608) ops and (340073.1,283546.5) ops/second in (3.083384,29.584597) seconds
+2015/06/23-18:21:00 ... thread 37: (1048576,6291456) ops and (296187.9,212601.8) ops/second in (3.540239,29.592680) seconds
+2015/06/23-18:21:00 ... thread 3: (1048576,7340032) ops and (287532.9,247543.3) ops/second in (3.646804,29.651509) seconds
+2015/06/23-18:21:00 ... thread 23: (1048576,6291456) ops and (258443.8,212064.0) ops/second in (4.057269,29.667721) seconds
+2015/06/23-18:21:00 ... thread 26: (1048576,7340032) ops and (243960.0,246262.9) ops/second in (4.298148,29.805671) seconds
+2015/06/23-18:21:00 ... thread 60: (1048576,6291456) ops and (283801.8,211018.8) ops/second in (3.694748,29.814674) seconds
+2015/06/23-18:21:00 ... thread 63: (1048576,6291456) ops and (257857.4,210601.3) ops/second in (4.066495,29.873771) seconds
+2015/06/23-18:21:01 ... thread 43: (1048576,8388608) ops and (338785.7,279725.1) ops/second in (3.095101,29.988753) seconds
+2015/06/23-18:21:01 ... thread 59: (1048576,8388608) ops and (324255.9,279618.3) ops/second in (3.233792,30.000216) seconds
+2015/06/23-18:21:01 ... thread 61: (1048576,8388608) ops and (340897.2,279402.5) ops/second in (3.075930,30.023387) seconds
+2015/06/23-18:21:01 ... thread 27: (1048576,7340032) ops and (276734.9,244144.8) ops/second in (3.789099,30.064260) seconds
+2015/06/23-18:21:01 ... thread 34: (1048576,7340032) ops and (218849.0,243731.7) ops/second in (4.791322,30.115212) seconds
+2015/06/23-18:21:01 ... thread 48: (1048576,7340032) ops and (256765.0,243307.0) ops/second in (4.083796,30.167779) seconds
+2015/06/23-18:21:01 ... thread 55: (1048576,6291456) ops and (281453.5,208308.9) ops/second in (3.725575,30.202531) seconds
+writer       :      38.737 micros/op 25815 ops/sec; (desired 0 ops/sec)
+readwhilewriting :       0.066 micros/op 15089147 ops/sec; (5761999 of 5761999 found)
+	Command being timed: "./db_bench_mdb --stats_interval=1048576 --num=100000000 --benchmarks=readwhilewriting --use_existing_db=1 --writes_per_second=0 --threads=64 --writemap=1 --duration=30"
+	User time (seconds): 1191.60
+	System time (seconds): 204.40
+	Percent of CPU this job got: 4319%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13031408
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 19120428
+	Voluntary context switches: 166943
+	Involuntary context switches: 68357
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3406616
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+13023244	/data/work/tmp/testlmdb/dbbench_mdb-1
+13023244	/data/work/tmp/testlmdb
