@@ -1,3 +1,8 @@
+## Benchmarking LMDB
+
+This folder contains a test of LMDB scalability that reproduces the [benchmark](http://symas.com/mdb/inmem/scaling.html) published by the LMDB developer team.
+
+
 ## Running the tests
 
 This folder contains a prebuilt `db_bench_mdb` binary (for building, see below). 
