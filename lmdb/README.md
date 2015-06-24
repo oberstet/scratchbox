@@ -49,6 +49,12 @@ This is very nice. LMDB is **tiny**.
 
 ## Building db_bench_mdb
 
+First, don't get fooled by the location/naming of the repo: "leveldb". The LMDB devs forked this, and gradually added more and more benchmarks for **many** embedded databases, not only LevelDB.
+
+Second, the benchmarks live on the **benches** branch (not master).
+
+Third, we are building [this](https://github.com/hyc/leveldb/commit/8cb4ce7ecdb47c2424d3e55d4f29bdcfe1b81947) commit, not HEAD, since after the previous commit, compression was added, and I can't get it to build (and have no time to fix the broken build system).
+
 The build system for this also a mess. The following should be considered "a hack":
 
 ```console
