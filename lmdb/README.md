@@ -1,3 +1,13 @@
+## Running the tests
+
+This folder contains a prebuilt `db_bench_mdb` binary (for building, see below). 
+
+`db_bench_mdb` has LMDB statically linked and is driven by the `cmdscale100M` shell script. The shell script is invoked from the `Makefile` and will (silently) produce a log file:
+
+```console
+make test_100M
+```
+This produces the [log file](cmdscale100M.log). The result are [here](lmdb_test1.pdf ).
 
 ## Building LMDB
 
