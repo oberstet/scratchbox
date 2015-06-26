@@ -35,6 +35,7 @@ lc.start(1)
 
 
 QUEUED_WRITES = True
+FORCE_REACTOR_ENTER = True
 
 
 class ByteSender(protocol.Protocol):
@@ -108,10 +109,14 @@ class ByteSender(protocol.Protocol):
     @inlineCallbacks
     def issue_calls(self):
         while not self._stop_calling:
-            #self.transport.write(b"\0")
+
             self.write(b"\0")
             self._cnt_outstanding += 1
-            yield sleep(0)
+
+            if FORCE_REACTOR_ENTER:
+                # force entering reactor loop.
+                yield sleep(0)
+
             if self._cnt_outstanding > self.UPPER_WATERMARK:
                 if self._debug:
                     print("high-watermark reached: stopping")
