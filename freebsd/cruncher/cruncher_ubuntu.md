@@ -19,4 +19,8 @@
 * Ubuntu 15.10        => October 2015 (Linux kernel 4.1.x)
 * Ubuntu 16.04 LTS    => April 2016
 
+## Null Block Device
 
+* [Null Block Device](https://www.kernel.org/doc/Documentation/block/null_blk.txt)
+* `/dev/nullb0`
+* `/sys/block/nullb0/...`
