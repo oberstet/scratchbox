@@ -3,6 +3,7 @@
 ## Multi-queue Block Device Layer
 
 * https://www.thomas-krenn.com/en/wiki/Linux_Multi-Queue_Block_IO_Queueing_Mechanism_%28blk-mq%29
+* http://bjorling.me/blkmq-slides.pdf
 * https://lwn.net/Articles/552904/
 * http://kernel.dk/systor13-final18.pdf
 * http://www.phoronix.com/scan.php?page=news_item&px=MTUxNDQ
