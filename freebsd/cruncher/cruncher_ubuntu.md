@@ -25,3 +25,15 @@
 * [Null Block Device](https://www.kernel.org/doc/Documentation/block/null_blk.txt)
 * `/dev/nullb0`
 * `/sys/block/nullb0/...`
+
+## DMIDecode
+
+* http://www.nongnu.org/dmidecode/
+* http://linux.die.net/man/8/dmidecode
+* 
+
+Get serial numbers of DIMMs:
+
+```console
+dmidecode -t 17
+```
