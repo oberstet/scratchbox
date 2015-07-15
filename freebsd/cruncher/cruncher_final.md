@@ -1355,3 +1355,16 @@ where status = 'LOADED' and archive_file_name is null
 ;
 -- 54.3 GB, 534 GB
 ```
+
+
+## Sensors
+
+```
+zypper search -s -i sensors
+
+sensors-detect
+
+chkconfig lm_sensors on
+
+systemctl restart lm_sensors
+```
