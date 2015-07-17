@@ -25,6 +25,7 @@ set t_Co=256
 
 silent! colorscheme kalisi
 set background=dark
+syntax on
 
 " always show the statusline
 set laststatus=2
