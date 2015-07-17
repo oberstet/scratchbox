@@ -1,27 +1,40 @@
+# Installation
 
-Install [Vundle](https://github.com/VundleVim/Vundle.vim):
+## Configure VIM
 
-```console
-mkdir -p ~/.vim
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
-
-
-Install bundles:
+You will need Git and VIM (with Python support). Clone this repo and do:
 
 ```console
-vim +PluginInstall +qall
+cd ~
+./scm/scratchbox/vim/install.sh
 ```
 
-or from within Vim:
+## VIM Installation
+
+You will need VIM with Python support.
+
+On **Ubuntu**, do:
+
+```
+sudo apt-get install vim
+```
+
+On **FreeBSD**, there are two packages: `vim` and `vim-lite`. The latter lacks Python support, and the former includes X stuff. Both are not what I want. Hence, build from ports:
 
 ```console
-:PluginInstall
+su
+portsnap fetch update
+cd /usr/ports/editors/vim
+make config
 ```
 
+Make sure to select "Python" and "Console" options. Then
 
+```console
+make install
+```
 
-# VIM
+# Usage
 
 * http://kien.github.io/ctrlp.vim/
 * http://geoff.greer.fm/2011/12/27/the-silver-searcher-better-than-ack/
@@ -122,58 +135,4 @@ Copy and paste is performed with the same steps except for step 4 where you woul
 
 d = delete = cut
 y = yank = copy
-```
-
-
-## vimrc
-
-```
-" http://stackoverflow.com/a/21323445/884770
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-    " Use filetype detection and file-based automatic indenting.
-    filetype plugin indent on
-
-    " Use actual tab chars in Makefiles.
-    autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
-endif
-
-" For everything else, use a tab width of 4 space chars.
-set tabstop=4       " The width of a TAB is set to 4.
-                    " Still it is a \t. It is just that
-                    " Vim will interpret it to be having
-                    " a width of 4.
-set shiftwidth=4    " Indents will have a width of 4.
-set softtabstop=4   " Sets the number of columns for a TAB.
-set expandtab       " Expand TABs to spaces.
-
-set foldmethod=indent
-set foldlevel=99
-
-set t_Co=256
-syntax on
-colorscheme kalisi
-"let g:airline_theme='kalisi'
-set background=dark
-
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-
-" Enable vim-airline
-"let g:airline#extensions#tabline#enabled = 1
-
-" Pylint configuration file
-"let g:pymode_lint_config = '$HOME/pylint.rc'
-
-" https://github.com/klen/python-mode/issues/466
-let g:pymode_options_colorcolumn = 0
-" set colorcolumn=0
-
-" http://stackoverflow.com/questions/9714302/configuration-setting-for-vim-pep-8-plugin-to-ignore-errors-and-warnings
-" let g:pep8_ignore="E501"
-let g:pymode_lint_ignore="E501,C901"
-
-" http://stackoverflow.com/a/7387750
-set path=$PWD/**
 ```
