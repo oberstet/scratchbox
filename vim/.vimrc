@@ -23,7 +23,7 @@ filetype plugin indent on
 
 set t_Co=256
 
-colorscheme kalisi
+silent! colorscheme kalisi
 set background=dark
 
 " always show the statusline
