@@ -1,5 +1,34 @@
+
+Install [Vundle](https://github.com/VundleVim/Vundle.vim):
+
+```console
+mkdir -p ~/.vim
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
+
+Install bundles:
+
+```console
+vim +PluginInstall +qall
+```
+
+or from within Vim:
+
+```console
+:PluginInstall
+```
+
+
+
 # VIM
 
+* http://kien.github.io/ctrlp.vim/
+* http://geoff.greer.fm/2011/12/27/the-silver-searcher-better-than-ack/
+* http://stackoverflow.com/questions/23579058/vim-python-mode-folding
+* https://github.com/rking/ag.vim
+* http://codeinthehole.com/writing/using-the-silver-searcher-with-vim/
+* http://thibaut.horel.org/blog/using-vim-as-a-python-ide.html
 * http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
 * https://github.com/tpope/vim-pathogen
 * https://github.com/freeo/vim-kalisi
