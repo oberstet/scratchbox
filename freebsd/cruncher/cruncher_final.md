@@ -515,11 +515,13 @@ Working Devices : 8
 
 ## Destroying an array
 
-Destroy the array:
+Destroy the NVMe array:
 
 ```console
-mdadm --stop /dev/md0
-mdadm --remove /dev/md0
+umount -f /data/work
+mdadm --stop /dev/md124
+mdadm --remove /dev/md124
+
 mdadm --zero-superblock /dev/nvme0n1
 mdadm --zero-superblock /dev/nvme1n1
 mdadm --zero-superblock /dev/nvme2n1
@@ -528,6 +530,45 @@ mdadm --zero-superblock /dev/nvme4n1
 mdadm --zero-superblock /dev/nvme5n1
 mdadm --zero-superblock /dev/nvme6n1
 mdadm --zero-superblock /dev/nvme7n1
+
+dd if=/dev/zero of=/dev/nvme0n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme1n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme2n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme3n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme4n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme5n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme6n1 bs=4096 count=1000
+dd if=/dev/zero of=/dev/nvme7n1 bs=4096 count=1000
+```
+
+Destroy the SSD array:
+
+```console
+umount -f /data/result
+mdadm --stop /dev/md123
+mdadm --remove /dev/md123
+
+mdadm --zero-superblock /dev/sdb
+mdadm --zero-superblock /dev/sdc
+mdadm --zero-superblock /dev/sde
+mdadm --zero-superblock /dev/sdf
+mdadm --zero-superblock /dev/sdg
+mdadm --zero-superblock /dev/sdh
+mdadm --zero-superblock /dev/sdi
+mdadm --zero-superblock /dev/sdj
+mdadm --zero-superblock /dev/sdk
+mdadm --zero-superblock /dev/sdl
+
+dd if=/dev/zero of=/dev/sdb bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdc bs=4096 count=1000
+dd if=/dev/zero of=/dev/sde bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdf bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdg bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdh bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdi bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdj bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdk bs=4096 count=1000
+dd if=/dev/zero of=/dev/sdl bs=4096 count=1000
 ```
 
 Pointers:
