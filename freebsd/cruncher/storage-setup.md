@@ -108,6 +108,12 @@ To create the storage area for **Work Database**:
 mdadm --create /dev/md124 --name work --level=0 --raid-devices=8 /dev/nvme[0-7]n1
 ```
 
+Check NUMA assignment:
+
+```console
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/device/numa_node; done
+```
+
 Check settings:
 
 ```console
@@ -823,3 +829,150 @@ archive_mode = on
 archive_command = 'test ! -f /mnt/server/archivedir/%f && cp %p /mnt/server/archivedir/%f'  # Unix
 archive_timeout = 300
 ```
+
+# NVMe
+
+## Related Mailing Lists
+
+* http://lists.infradead.org/mailman/listinfo/linux-nvme
+
+
+## Info
+
+Find Intel NVMe PCIe cards:
+
+```console
+root@bvr-sql18:~# lspci | grep "Non-Volatile memory controller"
+41:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+43:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+45:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+81:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+83:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+84:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+c1:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+c2:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01)
+```
+
+Show details for a single card:
+
+```console
+root@bvr-sql18:~# lspci -s 41:00.0 -v
+41:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01) (prog-if 02 [NVM Express])
+        Subsystem: Intel Corporation Device 3702
+        Physical Slot: 3
+        Flags: bus master, fast devsel, latency 0, IRQ 33
+        Memory at c6010000 (64-bit, non-prefetchable) [size=16K]
+        Expansion ROM at c6000000 [disabled] [size=64K]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI-X: Enable+ Count=32 Masked-
+        Capabilities: [60] Express Endpoint, MSI 00
+        Capabilities: [100] Advanced Error Reporting
+        Capabilities: [150] Virtual Channel
+        Capabilities: [180] Power Budgeting <?>
+        Capabilities: [190] Alternative Routing-ID Interpretation (ARI)
+        Capabilities: [270] Device Serial Number 55-cd-2e-40-4b-e8-29-e4
+        Capabilities: [2a0] #19
+        Kernel driver in use: nvme
+```
+
+Show insane amount of details:
+
+```console
+root@bvr-sql18:~# lspci -s 41:00.0 -vvv
+41:00.0 Non-Volatile memory controller: Intel Corporation Device 0953 (rev 01) (prog-if 02 [NVM Express])
+        Subsystem: Intel Corporation Device 3702
+        Physical Slot: 3
+        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx+
+        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+        Latency: 0, Cache Line Size: 32 bytes
+        Interrupt: pin A routed to IRQ 33
+        Region 0: Memory at c6010000 (64-bit, non-prefetchable) [size=16K]
+        Expansion ROM at c6000000 [disabled] [size=64K]
+        Capabilities: [40] Power Management version 3
+                Flags: PMEClk- DSI- D1- D2- AuxCurrent=0mA PME(D0-,D1-,D2-,D3hot-,D3cold-)
+                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+        Capabilities: [50] MSI-X: Enable+ Count=32 Masked-
+                Vector table: BAR=0 offset=00002000
+                PBA: BAR=0 offset=00003000
+        Capabilities: [60] Express (v2) Endpoint, MSI 00
+                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 <4us
+                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset+
+                DevCtl: Report errors: Correctable+ Non-Fatal+ Fatal+ Unsupported-
+                        RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+ FLReset-
+                        MaxPayload 256 bytes, MaxReadReq 512 bytes
+                DevSta: CorrErr+ UncorrErr- FatalErr- UnsuppReq+ AuxPwr- TransPend-
+                LnkCap: Port #0, Speed 8GT/s, Width x4, ASPM L0s L1, Exit Latency L0s <4us, L1 <4us
+                        ClockPM- Surprise- LLActRep- BwNot-
+                LnkCtl: ASPM Disabled; RCB 64 bytes Disabled- CommClk-
+                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt-
+                LnkSta: Speed 8GT/s, Width x4, TrErr- Train- SlotClk- DLActive- BWMgmt- ABWMgmt-
+                DevCap2: Completion Timeout: Range ABCD, TimeoutDis+, LTR-, OBFF Not Supported
+                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-, LTR-, OBFF Disabled
+                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
+                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                         Compliance De-emphasis: -6dB
+                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete+, EqualizationPhase1+
+                         EqualizationPhase2+, EqualizationPhase3+, LinkEqualizationRequest-
+        Capabilities: [100 v1] Advanced Error Reporting
+                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP- ECRC- UnsupReq- ACSViol-
+                UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+ ECRC- UnsupReq- ACSViol-
+                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- NonFatalErr+
+                AERCap: First Error Pointer: 00, GenCap+ CGenEn- ChkCap+ ChkEn-
+        Capabilities: [150 v1] Virtual Channel
+                Caps:   LPEVC=0 RefClk=100ns PATEntryBits=1
+                Arb:    Fixed- WRR32- WRR64- WRR128-
+                Ctrl:   ArbSelect=Fixed
+                Status: InProgress-
+                VC0:    Caps:   PATOffset=00 MaxTimeSlots=1 RejSnoopTrans-
+                        Arb:    Fixed- WRR32- WRR64- WRR128- TWRR128- WRR256-
+                        Ctrl:   Enable+ ID=0 ArbSelect=Fixed TC/VC=01
+                        Status: NegoPending- InProgress-
+        Capabilities: [180 v1] Power Budgeting <?>
+        Capabilities: [190 v1] Alternative Routing-ID Interpretation (ARI)
+                ARICap: MFVC- ACS-, Next Function: 0
+                ARICtl: MFVC- ACS-, Function Group: 0
+        Capabilities: [270 v1] Device Serial Number 55-cd-2e-40-4b-e8-29-e4
+        Capabilities: [2a0 v1] #19
+        Kernel driver in use: nvme
+```
+
+Show NVMe kernel driver details:
+
+```console
+root@bvr-sql18:~# modinfo nvme
+filename:       /lib/modules/3.19.0-15-generic/kernel/drivers/block/nvme.ko
+version:        1.0
+license:        GPL
+author:         Matthew Wilcox <willy@linux.intel.com>
+srcversion:     14567DC6FC941C827D9D73A
+alias:          pci:v*d*sv*sd*bc01sc08i02*
+depends:
+intree:         Y
+vermagic:       3.19.0-15-generic SMP mod_unload modversions
+signer:         Magrathea: Glacier signing key
+sig_key:        9E:64:80:70:92:F3:A6:A8:F6:6F:3B:7E:A4:CB:37:67:FD:FA:E0:8A
+sig_hashalgo:   sha512
+parm:           admin_timeout:timeout in seconds for admin commands (byte)
+parm:           io_timeout:timeout in seconds for I/O (byte)
+parm:           retry_time:time in seconds to retry failed I/O (byte)
+parm:           shutdown_timeout:timeout in seconds for controller shutdown (byte)
+parm:           nvme_major:int
+parm:           use_threaded_interrupts:int
+```
+
+List NVMe devices and partitions:
+
+```console
+root@bvr-sql18:~# cat /proc/partitions | grep nvme
+ 259        0 1953514584 nvme0n1
+ 259        1 1953514584 nvme1n1
+ 259        2 1953514584 nvme2n1
+ 259        3 1953514584 nvme3n1
+ 259        4 1953514584 nvme4n1
+ 259        5 1953514584 nvme5n1
+ 259        6 1953514584 nvme6n1
+ 259        7 1953514584 nvme7n1
+```
+
