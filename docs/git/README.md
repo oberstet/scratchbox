@@ -102,13 +102,17 @@ Cleanup
 
 ## Git on Windows
 
-1. SSH Schlüsselpaar erzeugen. Dazu Git Bash öffnen und folgendes Kommando eingeben:
+### Schlüssel erzeugen
+
+SSH Schlüsselpaar erzeugen. Dazu Git Bash öffnen und folgendes Kommando eingeben:
 
 	ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 Hierbei die Email Adresse anpassen sowie eine sichere Passphrase eingeben. Alles andere auf "Default lassen" (einfach RETURN drücken).
 
-2. SSH Agent aktivieren
+### SSH Agent
+
+SSH Agent aktivieren
 
 Die Datei ".bashrc" aus dem Folder hier in diesen Ordner auf Windows ablegen:
 
@@ -116,9 +120,11 @@ Die Datei ".bashrc" aus dem Folder hier in diesen Ordner auf Windows ablegen:
 
 Dann alle Git Bash Fenster schliessen und ein neues Git Bash öffnen. Der  Nutzer wird dann _einmalig_ (pro Systemboot) aufgefordert seine Passphrase einzugeben. Nachfolgend gehen alle Git Zugriffe ohne Passphrase (aber dennoch sicher).
 
-3. Public Key bei GitHub eintragen.
+### Public Key bei GitHub
 
-4. Git Konfiguration
+Public Key bei GitHub eintragen.
+
+### Git Konfiguration
 
 Git Bash öffnen und:
 
@@ -127,7 +133,7 @@ Git Bash öffnen und:
 	git config --global push.default simple
 	git config --global --bool pull.rebase true
 
-5. Repos klonen.
+### Repos klonen
 
 Git Bash öffnen, und das jeweilige Repo klonen:
 
