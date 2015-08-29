@@ -100,71 +100,37 @@ Cleanup
 ### Removing branches from history
 
 
-----
+## Git on Windows
 
-1. SSH Schlüsselpaar erzeugen
-Git Bash öffnen und folgendes Kommando eingeben:
+1. SSH Schlüsselpaar erzeugen. Dazu Git Bash öffnen und folgendes Kommando eingeben:
 
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+	ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
-Hierbei die Email Adresse anpassen sowie eine sichere Passphrase eingeben.
-
-Alles andere auf "Default lassen" (einfach RETURN drücken).
-
+Hierbei die Email Adresse anpassen sowie eine sichere Passphrase eingeben. Alles andere auf "Default lassen" (einfach RETURN drücken).
 
 2. SSH Agent aktivieren
 
-Die angehängte Datei ".bashrc" in diesen Ordner ablegen:
+Die Datei ".bashrc" aus dem Folder hier in diesen Ordner auf Windows ablegen:
 
-C:\Benutzer\<Windows Nutzername>\
+	C:\Benutzer\<Windows Nutzername>\
 
-Dann alle Git Bash Fenster schliessen und ein neues Git Bash öffnen. Der 
-Nutzer wird dann _einmalig_ (pro Systemboot) aufgefordert seine 
-Passphrase einzugeben. Nachfolgend gehen alle Git Zugriffe ohne 
-Passphrase (aber dennoch sicher).
+Dann alle Git Bash Fenster schliessen und ein neues Git Bash öffnen. Der  Nutzer wird dann _einmalig_ (pro Systemboot) aufgefordert seine Passphrase einzugeben. Nachfolgend gehen alle Git Zugriffe ohne Passphrase (aber dennoch sicher).
 
+3. Public Key bei GitHub eintragen.
 
-====
-
-An dieser Stelle muss ich Euren Public Key nun auf dem Server 
-hinterlegen. Erst wenn dies geschehen ist, könnt' Ihr auf Git zugreifen. 
-Siehe weitere Schritte:
-
-====
-
-
-4. Test
+4. Git Konfiguration
 
 Git Bash öffnen und:
 
-ssh -T git@bvr-sql18
+	git config --global user.name "Tobias Oberstein"
+	git config --global user.email "tobias.oberstein@tavendo.de"
+	git config --global push.default simple
+	git config --global --bool pull.rebase true
 
-eingeben. Ihr sollte eine Liste der Repositories sehen, jeweils mit den 
-Berechtigungen die Ihr habt.
-
-
-5. Repos klonen:
+5. Repos klonen.
 
 Git Bash öffnen, und das jeweilige Repo klonen:
 
-git clone git@bvr-sql18:RA
-git clone git@bvr-sql18:KPM
-git clone git@bvr-sql18:KPM_R
+	git clone git@github.com:crossbario/crossbarexamples.git
 
-
-Die Repo Klone sollten auf Eurer _lokalen_ Platte liegen, _nicht_ auf 
-Netzwerklaufwerken.
-
-
-6. Git konfigurieren:
-
-Git Bash öffnen und:
-
-git config --global user.name "Tobias Oberstein"
-git config --global user.email "tobias.oberstein@tavendo.de"
-git config --global push.default simple
-git config --global --bool pull.rebase true
-
-
-
-
+Die Repo Klone sollten auf Eurer _lokalen_ Platte liegen, _nicht_ auf Netzwerklaufwerken.
