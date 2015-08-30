@@ -1,0 +1,8 @@
+message = "lRDTAAAupj9xtuWAsGNvbS5zaGFycC53YW1wLjGRxIDEgFVx0td5dovKhDQunuX2s7Z6G9hPYNlRSJJsYnMX4cxUqP+LXl8g5a1xLDwLrrTccZ7+Ogz+3Nh7IIpFDBQYsqNo2fbmalVWWjUq3jSdRZrdkPHVGaa/VssmED7V2tiZWXmYo9S+9QZIp+DW1P6j3tvwaHwiQ5n8qIMrv1oWgX9d"
+
+import base64
+bytes = base64.b64decode(message)
+
+import msgpack
+deserialized = msgpack.unpackb(bytes)
+
