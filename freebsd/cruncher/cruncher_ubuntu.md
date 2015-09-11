@@ -30,10 +30,94 @@
 
 * http://www.nongnu.org/dmidecode/
 * http://linux.die.net/man/8/dmidecode
-* 
 
 Get serial numbers of DIMMs:
 
 ```console
 dmidecode -t 17
+```
+
+# Storage
+
+## Storage Setup
+
+```
+sudo mdadm --create /dev/md2 --chunk=8 --level=0 --raid-devices=8 \
+   /dev/nvme0n1 \
+   /dev/nvme1n1 \
+   /dev/nvme2n1 \
+   /dev/nvme3n1 \
+   /dev/nvme4n1 \
+   /dev/nvme5n1 \
+   /dev/nvme6n1 \
+   /dev/nvme7n1
+
+
+sudo mdadm --create /dev/md3 --chunk=8 --level=10 --raid-devices=10 \
+    /dev/sdb \
+    /dev/sdd \
+    /dev/sde \
+    /dev/sdf \
+    /dev/sdg \
+    /dev/sdh \
+    /dev/sdi \
+    /dev/sdag \
+    /dev/sdah \
+    /dev/sdai
+
+
+sudo mdadm --create /dev/md240 --level=6 --raid-devices=6 /dev/sd[m-r]
+
+
+http://unix.stackexchange.com/questions/129497/difference-between-uuid-from-blkid-and-mdadm
+
+
+System:
+
+/dev/sda
+/dev/sdc
+
+
+Internal (10 x 800GB):
+
+/dev/sdb 
+/dev/sdd 
+/dev/sde 
+/dev/sdf 
+/dev/sdg 
+/dev/sdh 
+/dev/sdi 
+/dev/sdag
+/dev/sdah
+/dev/sdai
+
+
+JBOD (24 x 6TB):
+
+/dev/sdj
+/dev/sdk
+/dev/sdl
+/dev/sdm
+/dev/sdn
+/dev/sdo
+
+/dev/sdp
+/dev/sdq
+/dev/sdr
+/dev/sds
+/dev/sdt
+/dev/sdu
+
+/dev/sdv
+/dev/sdw
+/dev/sdx
+/dev/sdy
+/dev/sdz
+/dev/sdaa
+
+/dev/sdab
+/dev/sdac
+/dev/sdad
+/dev/sdae
+/dev/sdaf
 ```
