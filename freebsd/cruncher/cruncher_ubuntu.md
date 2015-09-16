@@ -121,3 +121,16 @@ JBOD (24 x 6TB):
 /dev/sdae
 /dev/sdaf
 ```
+
+# PostgresXL
+
+The repo [here](http://git.postgresql.org/gitweb/?p=postgres-xl.git;a=summary) has recent developments - eg it's based on PG 9.5 already. It's the bleeding edge though.
+
+Clone the repo:
+
+```
+cd ~/scm/3rdparty
+git clone http://git.postgresql.org/git/postgres-xl.git
+```
+
+This will take a **long** time (we have to use HTTP, since native Git protocol is blocked by firewall).
