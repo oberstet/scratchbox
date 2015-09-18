@@ -37,19 +37,11 @@ sudo make install
 
 PostgresXL now is installed in `/opt/pgxl`.
 
-Expand PATH:
+Expand the PATH (do this here, because of the way that `pgxc_ctl` works):
 
-```
-echo "export PATH=/opt/pgxl/bin:${PATH}" >> ~/.profile
-source ~/.profile
-```
-
-Create a PostgresXL service user and prepare a config:
-
-```
-sudo adduser postgres
-pgxc_ctl prepare
-vim ~/pgxc_ctl/pgxc_ctl.conf
+```console
+postgres@bvr-sql18:~$ cat /etc/environment 
+PATH="/opt/pgxl/bin:/opt/crossbar/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
 ## Storage Setup
@@ -114,3 +106,41 @@ sudo mount -o defaults,noatime,discard,nobarrier /dev/nvme0n1p1 /data/pgxl/node1
 
 
 There is a Python script `postgresxl.py` to automate this.
+
+We will end up with 64 shards:
+
+```console
+oberstet@bvr-sql18:~$ mount | grep nvme
+/dev/nvme0n1p1 on /data/pgxl/node1/shard1 type xfs (rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+/dev/nvme0n1p2 on /data/pgxl/node1/shard2 type xfs (rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+/dev/nvme0n1p3 on /data/pgxl/node1/shard3 type xfs (rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+...
+rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+/dev/nvme7n1p7 on /data/pgxl/node8/shard7 type xfs (rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+/dev/nvme7n1p8 on /data/pgxl/node8/shard8 type xfs (rw,noatime,attr2,discard,nobarrier,inode64,noquota)
+```
+
+Change the owner of the root data directory:
+
+```
+sudo chown -R postgres:postgres /data/pgxl/
+```
+
+## Cluster Setup
+
+Create a PostgresXL service user and prepare a config:
+
+```
+sudo adduser postgres
+pgxc_ctl prepare
+vim ~/pgxc_ctl/pgxc_ctl.conf
+```
+
+```
+rm -rf /data/pgxl/gtm1
+rm -rf /data/pgxl/coord1
+rm -rf /data/node1/shard1
+rm -rf /data/node1/shard2
+rm -rf /data/node1/shard3
+rm -rf /data/node1/shard4
+```
