@@ -112,7 +112,7 @@ $ psql -d postgres
 psql (9.4.1)
 Type "help" for help.
 
-postgres=# ALTER USER pgsql WITH ENCRYPTED PASSWORD '123456';
+postgres=# ALTER USER postgres WITH ENCRYPTED PASSWORD '123456';
 ```
 
 # Listing database users
