@@ -128,19 +128,86 @@ sudo chown -R postgres:postgres /data/pgxl/
 
 ## Cluster Setup
 
-Create a PostgresXL service user and prepare a config:
+Postgres-XL comes with a special tool [pgxc_ctl](http://postgres-x2.github.io/presentation_docs/2014-05-07_pgxc_ctl_Primer/Pgxc_ctlprimer.pdf) which is used to create, manage and monitor a PG-XL cluster.
+
+The tool uses SSH connections to connect to nodes and setup/control stuff there. Therefor, you will need password-less SSH login for the PG-XL (usually `postgres`) user working.
+
+Further, the tool may open multiple SSH connections in parallel. By default, many SSH daemons are configured to deny too many parallel SSH connection attempts ("ssh_exchange_identification: Connection closed by remote host"). See [here](http://unix.stackexchange.com/questions/136693/maxstartups-and-maxsessions-configurations-parameter-for-ssh-connections). You likely will need to increase the limits:
+
+```
+sudo echo "MaxStartups 256" >> /etc/ssh/sshd_config
+sudo service sshd restart
+```
+
+Create a PostgresXL service user
 
 ```
 sudo adduser postgres
+```
+
+To prepare an default configuration
+
+```
 pgxc_ctl prepare
 vim ~/pgxc_ctl/pgxc_ctl.conf
 ```
+ 
+The configurations we tested can be found at `GIT/user/oberstet/pgxl/pgxc_ctl-8x.conf` and so on. To use one of these configs, copy over the config
 
 ```
-rm -rf /data/pgxl/gtm1
-rm -rf /data/pgxl/coord1
-rm -rf /data/node1/shard1
-rm -rf /data/node1/shard2
-rm -rf /data/node1/shard3
-rm -rf /data/node1/shard4
+cp ~/scm/parcit/RA/user/oberstet/pgxl/pgxc_ctl-8x.conf
+```
+
+Now initialize the cluster:
+
+```
+pgxc_ctl init all | tee pgxl_init.log
+```
+
+The tool can also work interactively:
+
+```
+postgres@bvr-sql18:~$ pgxc_ctl
+/bin/bash
+Installing pgxc_ctl_bash script as /home/postgres/pgxc_ctl/pgxc_ctl_bash.
+Installing pgxc_ctl_bash script as /home/postgres/pgxc_ctl/pgxc_ctl_bash.
+Reading configuration using /home/postgres/pgxc_ctl/pgxc_ctl_bash --home /home/postgres/pgxc_ctl --configuration /home/postgres/pgxc_ctl/pgxc_ctl.conf
+Finished to read configuration.
+   ******** PGXC_CTL START ***************
+
+Current directory: /home/postgres/pgxc_ctl
+PGXC monitor all
+Running: gtm master
+Running: coordinator master coord1
+Running: datanode master node1shard1
+Running: datanode master node1shard2
+Running: datanode master node2shard1
+Running: datanode master node2shard2
+Running: datanode master node3shard1
+Running: datanode master node3shard2
+Running: datanode master node4shard1
+Running: datanode master node4shard2
+Running: datanode master node5shard1
+Running: datanode master node5shard2
+Running: datanode master node6shard1
+Running: datanode master node6shard2
+Running: datanode master node7shard1
+Running: datanode master node7shard2
+Running: datanode master node8shard1
+Running: datanode master node8shard2
+PGXC
+```
+
+Login as DB superuser at the coordinator and do some stuff
+
+```
+postgres@bvr-sql18:~$ psql
+psql (PGXL 9.5alpha1, based on PG 9.5alpha1 (Postgres-XL 9.5alpha1))
+Type "help" for help.
+
+postgres=# ALTER USER postgres WITH ENCRYPTED PASSWORD '123456';
+ALTER ROLE
+postgres=# create database test1;
+CREATE DATABASE
+postgres=# \q
 ```
