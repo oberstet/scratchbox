@@ -37,6 +37,25 @@ Get serial numbers of DIMMs:
 dmidecode -t 17
 ```
 
+# Various
+
+## Interrupt Balancer Log Spam
+
+The IRQ balancer is spamming the system log:
+
+```
+Sep 24 12:54:37 bvr-sql18 /usr/sbin/irqbalance: irq 75 affinity_hint subset empty
+```
+
+To silence these log messages, add the following line to `/etc/default/irqbalance`:
+
+    OPTIONS="--hintpolicy=ignore"
+    
+and restart the service
+
+    sudo service irqbalance restart
+
+
 # Storage
 
 ## Storage Setup
