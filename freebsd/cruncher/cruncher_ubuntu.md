@@ -124,7 +124,8 @@ JBOD (24 x 6TB):
 
 # Memory Errors
 
-https://www.kernel.org/doc/Documentation/edac.txt
+* https://www.kernel.org/doc/Documentation/edac.txt
+* http://lambda-diode.com/opinion/ecc-memory
 
 ```
 Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129731] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
