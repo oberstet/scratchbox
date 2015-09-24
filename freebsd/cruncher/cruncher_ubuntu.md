@@ -121,3 +121,83 @@ JBOD (24 x 6TB):
 /dev/sdae
 /dev/sdaf
 ```
+
+# Memory Errors
+
+https://www.kernel.org/doc/Documentation/edac.txt
+
+```
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129731] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129740] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00014000010092
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129747] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129749] EDAC sbridge MC1: ADDR 2007e9ea100 EDAC sbridge MC1: MISC 4430b486
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129754] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130058] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130059] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130060] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130060] EDAC sbridge MC1: ADDR 2007eaaa100 EDAC sbridge MC1: MISC 54444486
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130063] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130483] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130485] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130485] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130486] EDAC sbridge MC1: ADDR 2007ebea100 EDAC sbridge MC1: MISC 546ed686
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130487] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131312] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131313] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131314] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131314] EDAC sbridge MC1: ADDR 2007e6aa100 EDAC sbridge MC1: MISC 444e0286
+Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131315] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272849] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272854] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272856] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272857] EDAC sbridge MC1: ADDR 2007dcaa100 EDAC sbridge MC1: MISC 5412be86
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272861] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273092] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273095] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00008000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273097] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273098] EDAC sbridge MC1: ADDR 2007fcee100 EDAC sbridge MC1: MISC 454441686
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273102] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273782] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273784] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273786] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273787] EDAC sbridge MC1: ADDR 2007f7aa100 EDAC sbridge MC1: MISC 45466c086
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273791] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273982] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273985] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00008000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273986] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273988] EDAC sbridge MC1: ADDR 2007f22e100 EDAC sbridge MC1: MISC 454122a86
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273991] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274245] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274247] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274249] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274251] EDAC sbridge MC1: ADDR 2007f8ea100 EDAC sbridge MC1: MISC 4541c0e86
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274254] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274697] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274700] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274702] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274703] EDAC sbridge MC1: ADDR 2007f56e100 EDAC sbridge MC1: MISC 454584486
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274707] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425642] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425646] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425649] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425653] EDAC sbridge MC1: ADDR 2007deaa100 EDAC sbridge MC1: MISC 442a2486
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425657] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426276] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426278] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426280] EDAC sbridge MC1: TSC 0
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426282] EDAC sbridge MC1: ADDR 2007dfaa100 EDAC sbridge MC1: MISC 5408d286
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426285] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426347] CMCI storm detected: switching to poll mode
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931578] EDAC MC1: 5 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007e9ea offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931598] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007eaaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931611] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007ebea offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931622] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007e6aa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931633] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007dcaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931645] EDAC MC1: 2 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007fcee offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931656] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f7aa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931667] EDAC MC1: 2 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f22e offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931678] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f8ea offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931689] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f56e offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931700] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007deaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931731] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007dfaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+```
