@@ -58,6 +58,11 @@ psql -c CHECKPOINT && pg_ctl stop -m fast
 systemctl stop postgresql
 ```
 
+Hard (!) killing all processes by user `postgres`:
+
+```console
+sudo pkill -9 -e -u postgres
+```
 
 
 # Tuning
