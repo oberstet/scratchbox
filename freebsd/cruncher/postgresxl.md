@@ -211,3 +211,11 @@ postgres=# create database test1;
 CREATE DATABASE
 postgres=# \q
 ```
+
+## Fixing after setup
+
+Here is a dirty quick trick to expand the PG config after the cluster has already been setup:
+
+```
+find /data/pgxl/ -type f -name "postgresql.conf" -exec sh -c 'echo "max_connections = 8192" >> {}' \;
+```
