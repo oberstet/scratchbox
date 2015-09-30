@@ -1,0 +1,72 @@
+LOG:  database system was shut down at 2015-09-29 18:21:12 CEST
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+LOG:  Producer stats: total 20 tuples, 20 tuples to self, 620 to other nodes
+LOG:  Producer p_1_13d0_1 is done
+LOG:  Tuplestore p_1_13d0_1 producer store did 20 writes and 20 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Producer stats: total 10000000 tuples, 312259 tuples to self, 9687741 to other nodes
+LOG:  Producer p_1_13d0_4 is done
+LOG:  Tuplestore p_1_13d0_4 producer store did 312259 writes and 312259 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_6 node 8 did 5 writes and 5 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+STATEMENT:  Remote Subplan
+LOG:  Tuplestore p_1_13d0_6 node 25 did 46 writes and 46 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+STATEMENT:  Remote Subplan
+LOG:  Tuplestore p_1_13d0_6 node 29 did 2 writes and 2 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+STATEMENT:  Remote Subplan
+LOG:  Producer stats: total 500000000 tuples, 15611351 tuples to self, 484388649 to other nodes
+LOG:  Producer p_1_13d0_6 is done
+LOG:  Tuplestore p_1_13d0_6 producer store did 15611351 writes and 15611351 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  failed to connect to Datanode
+WARNING:  can not connect to node 16413
+LOG:  failed to acquire connections
+STATEMENT:  Remote Subplan
+ERROR:  Failed to get pooled connections
+STATEMENT:  Remote Subplan
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+ERROR:  GTM generated global XID not available
+HINT:  Check if GTM/GTM-proxy is running @ localhost:6666 and reachable from this host. Your firewall could also block access to a host/port
+LOG:  Tuplestore p_1_13d0_a node 21 did 3536 writes and 3573 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_a node 13 did 5040 writes and 5094 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Producer p_1_13d0_a is done
+STATEMENT:  ROLLBACK TRANSACTION
+FATAL:  Timeout while waiting for Consumers finishing
+STATEMENT:  ROLLBACK TRANSACTION
+WARNING:  AbortTransaction while in ABORT state
+LOG:  Tuplestore p_1_13d0_a producer store did 6996 writes and 6996 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  incomplete startup packet
+LOG:  failed to connect to Datanode
+WARNING:  can not connect to node 16413
+LOG:  failed to acquire connections
+STATEMENT:  Remote Subplan
+ERROR:  Failed to get pooled connections
+STATEMENT:  Remote Subplan
+LOG:  Tuplestore p_1_13d0_e node 15 did 1092 writes and 1102 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 17 did 5240 writes and 5293 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 26 did 5397 writes and 5456 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 31 did 5626 writes and 5685 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 19 did 5011 writes and 5063 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 29 did 5531 writes and 5590 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 20 did 5623 writes and 5685 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 10 did 3441 writes and 3476 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 25 did 5998 writes and 6060 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_13d0_e node 13 did 5664 writes and 5724 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+ERROR:  GTM generated global XID not available
+HINT:  Check if GTM/GTM-proxy is running @ localhost:6666 and reachable from this host. Your firewall could also block access to a host/port
+LOG:  Producer p_1_13d0_e is done
+STATEMENT:  ROLLBACK TRANSACTION
+FATAL:  Timeout while waiting for Consumers finishing
+STATEMENT:  ROLLBACK TRANSACTION
+WARNING:  AbortTransaction while in ABORT state
+LOG:  Tuplestore p_1_13d0_e producer store did 6699 writes and 6699 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  incomplete startup packet
