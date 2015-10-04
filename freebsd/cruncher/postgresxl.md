@@ -222,12 +222,13 @@ find /data/pgxl/ -type f -name "postgresql.conf" -exec sh -c 'echo "max_connecti
 
 # Assessment
 
-| Variant | Accel. WHERE | Accel. JOIN | Accel. GROUP BY | Accel. DML | Transparent | Vanilla PG |
-|---------|--------------|-------------|-----------------|------------|-------------|------------|
-| PostgreSQL 9.5 + SQL Balancer | yes | yes | yes | yes | no | yes |
-| PostgreSQL 9.6 ([here](https://www.pgcon.org/2015/schedule/attachments/374_Parallel%20Seq%20Scan.pdf)) | yes | no | no | no | yes | yes |
-| Postgres-XL 9.5 | yes | yes | yes | yes | yes | no |
-| CitusDB | ? | ? | ? | ? | ? | no |
+| Variant | Accel. WHERE | Accel. JOIN | Accel. GROUP BY | Accel. DML | Transparent | Vanilla PG | "No unknown unknowns" |
+|---------|--------------|-------------|-----------------|------------|-------------|------------|--------|
+| PostgreSQL 9.5 + SQL Balancer | yes | yes | yes | yes | no | yes | yes |
+| PostgreSQL 9.6 ([here](https://www.pgcon.org/2015/schedule/attachments/374_Parallel%20Seq%20Scan.pdf)) | yes | no | no | no | yes | yes | yes |
+| Postgres-XL 9.5 | yes | yes | yes | yes | yes | no | no |
+| CitusDB | ? | ? | ? | ? | ? | no | no |
+
 
 
 
