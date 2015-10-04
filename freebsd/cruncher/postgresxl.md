@@ -219,3 +219,18 @@ Here is a dirty quick trick to expand the PG config after the cluster has alread
 ```
 find /data/pgxl/ -type f -name "postgresql.conf" -exec sh -c 'echo "max_connections = 8192" >> {}' \;
 ```
+
+# Assessment
+
+| Variant | Accel. WHERE | Accel. JOIN | Accel. GROUP BY | Accel. DML | Transparent | Vanilla PG |
+|---------|--------------|-------------|-----------------|------------|-------------|------------|
+| PostgreSQL 9.5 + SQL Balancer | yes | yes | yes | yes | no | yes |
+| PostgreSQL 9.6 | yes | no | no | no | yes | yes |
+| Postgres-XL 9.5 | yes | yes | yes | yes | yes | no |
+| CitusDB | ? | ? | ? | ? | ? | no |
+
+
+
+
+
+
