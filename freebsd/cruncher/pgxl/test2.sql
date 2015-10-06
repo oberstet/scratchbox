@@ -8,6 +8,12 @@
 -- CUSTOMER: wird nach customer_id gesharded. 10 Mio. Customers
 -- PURCHASE: wird nach customer_id gesharded. 500 Mio. Purchases
 
+select * from information_schema.tables where table_name like '%pgxc%';
+
+select * from pgxc_node;
+
+select * from pgxc_class;
+
 --
 -- Products
 --
@@ -105,10 +111,11 @@ FROM generate_series(0, 500000000-1) AS id
 -- 8 nodes auf 8 NVMes: 1971468 ms / 253k/s
 -- 16 nodes:            2243209 ms / 223k/s
 -- 32 nodes:            2416041 ms / 207k/s
--- 32 nodes:            2584005 ms 
+-- 32 nodes:            2584005 ms / 209k/s
+-- 32 nodes:            2549295 ms / 196k/s
+-- 32 nodes:            2391655 ms / 196k/s
 
 ANALYZE purchase;
-
 
 -------------------------------------------------------------------------------
 -- Query Performance auf Einzeltabellen
@@ -122,6 +129,7 @@ SELECT cnt, COUNT(*) FROM purchase GROUP BY cnt;
 --  8 nodes: Gesamtlaufzeit der Abfrage: 12031 ms. / 42 mio/s
 -- 16 nodes: Gesamtlaufzeit der Abfrage: 6402 ms. / 78 mio/s
 -- 32 nodes: Gesamtlaufzeit der Abfrage: 3277 ms. / 153 mio/s
+-- 32 nodes: Gesamtlaufzeit der Abfrage: 3182 ms. / 157 mio/s
 
 
 -------------------------------------------------------------------------------
