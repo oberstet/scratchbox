@@ -1,0 +1,87 @@
+postgres@bvr-sql18:~$ cat /data/pgxl/node4/shard1/data/pg_log/postgresql-2015-10-06_094125.log
+LOG:  database system was shut down at 2015-10-06 09:36:08 CEST
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+WARNING:  Expected to see a snapshot sent by the coordinator  - now taking a direct snapshot from GTM
+LOG:  failed to connect to Datanode
+WARNING:  can not connect to node 16415
+LOG:  failed to acquire connections
+STATEMENT:  Remote Subplan
+ERROR:  Failed to get pooled connections
+STATEMENT:  Remote Subplan
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+WARNING:  can not connect to GTM: Die Verbindung wurde vom Kommunikationspartner zurückgesetzt
+ERROR:  GTM generated global XID not available
+HINT:  Check if GTM/GTM-proxy is running @ localhost:20001 and reachable from this host. Your firewall could also block access to a host/port
+LOG:  Tuplestore p_1_322d_a node 24 did 5776 writes and 5836 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_322d_a node 16 did 4747 writes and 4797 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Tuplestore p_1_322d_a node 3 did 6881 writes and 6956 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+LOG:  Producer p_1_322d_a is done
+STATEMENT:  ROLLBACK TRANSACTION
+FATAL:  Timeout while waiting for Consumers finishing
+STATEMENT:  ROLLBACK TRANSACTION
+WARNING:  AbortTransaction while in ABORT state
+LOG:  Tuplestore p_1_322d_a producer store did 6897 writes and 6897 reads, it spilled to disk after 0 writes and 0 reads, now deleted 0 memtuples out of 1
+postgres@bvr-sql18:~$
+
+
+postgres@bvr-sql18:~$ cat /data/pgxl/gtm1/data/gtm.log
+1:139860428936960:2015-10-06 09:34:27.480 CEST -LOG:  Starting GTM server at (*:6666) -- control file /data/pgxl/gtm1/data/gtm.control
+LOCATION:  main, main.c:626
+1:139860428936960:2015-10-06 09:34:27.480 CEST -LOG:  Restoring last GXID to 2000
+
+LOCATION:  GTM_RestoreTxnInfo, gtm_txn.c:2740
+1:139860428936960:2015-10-06 09:34:27.480 CEST -LOG:  Started to run as GTM-Active.
+LOCATION:  main, main.c:700
+1:139860428936960:2015-10-06 09:34:28.480 CEST -LOG:  GTM shutting down.
+LOCATION:  ServerLoop, main.c:884
+Received signal 15
+1:139764400822016:2015-10-06 09:34:38.905 CEST -LOG:  Starting GTM server at (*:6666) -- control file /data/pgxl/gtm1/data/gtm.control
+LOCATION:  main, main.c:626
+1:139764400822016:2015-10-06 09:34:38.905 CEST -LOG:  Restoring last GXID to 3000
+
+LOCATION:  GTM_RestoreTxnInfo, gtm_txn.c:2740
+1:139764400822016:2015-10-06 09:34:38.905 CEST -LOG:  Started to run as GTM-Active.
+LOCATION:  main, main.c:700
+postgres@bvr-sql18:~$
+
+
+
+postgres@bvr-sql18:~$ head -n10 /data/pgxl/gtm_proxy1/data/gtm_proxy.log
+1:140553360365312:2015-10-06 09:35:05.187 CEST -LOG:  Starting GTM proxy at (*:20001)
+LOCATION:  main, proxy_main.c:813
+1:140553349822208:2015-10-06 09:43:15.909 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:16.209 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:16.449 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:17.208 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+postgres@bvr-sql18:~$ head -n20 /data/pgxl/gtm_proxy1/data/gtm_proxy.log
+1:140553360365312:2015-10-06 09:35:05.187 CEST -LOG:  Starting GTM proxy at (*:20001)
+LOCATION:  main, proxy_main.c:813
+1:140553349822208:2015-10-06 09:43:15.909 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:16.209 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:16.449 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:17.208 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:17.219 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:19.143 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:20.185 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:20.223 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+1:140553349822208:2015-10-06 09:43:21.799 CEST -LOG:  unexpected EOF on client connection
+LOCATION:  ReadCommand, proxy_main.c:2074
+postgres@bvr-sql18:~$
