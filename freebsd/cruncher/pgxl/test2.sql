@@ -202,7 +202,8 @@ GROUP BY gender
 --  4 nodes: 203837 ms /  2.5 mio/s
 --  8 nodes:  92614 ms /  5.4 mio/s
 -- 16 nodes:  44917 ms / 11.1 mio/s
--- 32 nodes: abgebrochen
+-- 32 nodes:  24690 ms / 20.3 mio/s
+
 
 -------------------------------------------------------------------------------
 -- ETL Performance
@@ -252,7 +253,7 @@ FROM
 --  4 nodes: 237553 ms / 2.1 mio/s
 --  8 nodes: 106664 ms / 4.7 mio/s
 -- 16 nodes:  56343 ms / 8.9 mio/s
--- 32 nodes: abgebrochen
+-- 32 nodes:  50993 ms, 38944 ms, 39058 ms / 12.8 mio/s
 
 ANALYZE purchase_customer_details;
 
