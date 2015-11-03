@@ -26,6 +26,47 @@
 * `/dev/nullb0`
 * `/sys/block/nullb0/...`
 
+## IPMI
+
+### Installation
+
+To install
+
+```
+sudo apt-get install -y ipmitool
+```
+
+and add the following to `/etc/modules`
+
+```
+ipmi_devintf
+ipmi_msghandler
+ipmi_poweroff
+ipmi_si
+ipmi_watchdog
+```
+
+To manually load the kernel modules
+
+```
+sudo modprobe ipmi_devintf
+sudo modprobe ipmi_msghandler
+sudo modprobe ipmi_poweroff
+sudo modprobe ipmi_si
+sudo modprobe ipmi_watchdog
+```
+
+### Usage
+
+See [here](http://www.openfusion.net/linux/ipmi_on_centos):
+
+```
+sudo ipmitool mc info
+sudo ipmitool sdr
+sudo ipmitool sensor
+sudo ipmitool sel list
+```
+
 ## DMIDecode
 
 * http://www.nongnu.org/dmidecode/
