@@ -99,6 +99,10 @@ and restart the service
 
 # Storage
 
+## XFS and PostgreSQL
+
+* http://de.slideshare.net/fuzzycz/postgresql-on-ext4-xfs-btrfs-and-zfs => Slide 49
+
 ## Storage Setup
 
 ```
