@@ -4,11 +4,18 @@
 
 * Intel(R) Xeon(R) CPU E3-1240 v3 @ 3.40GHz
 * Ubuntu 14.04.3 LTS
+* PyPy 4.0.0 and PyPy 2.6.1
 
 ## Requirements
 
 ```
 pip install autobahn[all]
+```
+
+## Testing
+
+```
+pypy speed.py
 ```
 
 ## Results: PyPy 4.0.0
