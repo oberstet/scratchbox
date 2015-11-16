@@ -4,7 +4,7 @@ from autobahn.wamp import message
 from time import time
 
 N = 1000000
-ROUNDS = 5
+ROUNDS = 10
 
 
 def test_serialize(ser, obj):
