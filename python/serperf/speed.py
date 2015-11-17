@@ -1,5 +1,5 @@
 import json
-from autobahn.wamp.serializer import JsonObjectSerializer, MsgPackObjectSerializer
+from autobahn.wamp.serializer import JsonObjectSerializer, MsgPackObjectSerializer, CBORObjectSerializer
 from autobahn.wamp import message
 from time import time
 
@@ -51,7 +51,12 @@ def test_unserialize(ser, obj):
 
 msg = message.Call(1, u'com.example.add2', args=(1, 2), kwargs={u'foo': 23, u'bar': u'baz'}, receive_progress=True)
 obj = msg.marshal()
-serializers = [JsonObjectSerializer(), MsgPackObjectSerializer()]
+
+serializers = [
+    JsonObjectSerializer(),
+    MsgPackObjectSerializer(),
+    CBORObjectSerializer()
+]
 
 res = {
     'ser': {},
