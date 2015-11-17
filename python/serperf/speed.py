@@ -30,7 +30,7 @@ def test_unserialize(ser, obj):
     last = time()
     loop = ROUNDS
     while True:
-        obj = ser.serialize(octets)
+        obj = ser.unserialize(octets)
         i += 1
         if i % N == 0:
             now = time()
