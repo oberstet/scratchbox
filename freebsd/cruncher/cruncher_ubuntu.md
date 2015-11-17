@@ -1,5 +1,58 @@
 # Cruncher / Ubuntu
 
+## Samba
+
+Install stuff:
+
+```
+sudo apt-get install samba
+sudo apt-get install smbclient
+```
+
+Edit smbd config (only the delta to default is shown):
+
+```
+sudo vim /etc/samba/smb.conf
+```
+
+with
+
+```
+[global]
+   workgroup = PARCIT
+   security = user
+
+[incoming]
+   comment = ADR Incoming
+   path = /files/rawdata/incoming
+   browsable = yes
+   guest ok = yes
+   read only = no
+   create mask = 0755
+```
+
+Adjust owner:
+
+```
+sudo chown -R nobody:nogroup /files/rawdata/incoming/
+```
+
+Restart smbd
+
+```
+sudo service smbd restart
+```
+
+List exported shares:
+
+```
+smbclient -L localhost
+```
+
+* https://help.ubuntu.com/lts/serverguide/samba-fileserver.html
+* https://help.ubuntu.com/community/Samba/SambaServerGuide
+* https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
+
 ## Multi-queue Block Device Layer
 
 * https://www.thomas-krenn.com/en/wiki/Linux_Multi-Queue_Block_IO_Queueing_Mechanism_%28blk-mq%29
