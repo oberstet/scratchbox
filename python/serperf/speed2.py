@@ -4,7 +4,7 @@ from autobahn.wamp import message
 from time import time
 
 
-def test_serialize(n, rounds, ser, obj):
+def test_serialize(count, rounds, ser, obj):
     print("serializing object {}".format(obj))
     i = 0
     last = time()
@@ -13,9 +13,9 @@ def test_serialize(n, rounds, ser, obj):
     while True:
         octets = ser.serialize(obj)
         i += 1
-        if i % n == 0:
+        if i % count == 0:
             now = time()
-            ops = float(N) / (now - last)
+            ops = float(count) / (now - last)
             res.append(ops)
             print("{} objs/sec".format(int(round(ops))))
             last = now
@@ -25,7 +25,7 @@ def test_serialize(n, rounds, ser, obj):
     return res
 
 
-def test_unserialize(n, rounds, ser, obj):
+def test_unserialize(count, rounds, ser, obj):
     octets = ser.serialize(obj)
     print("unserializing object {}".format(obj))
     i = 0
@@ -35,9 +35,9 @@ def test_unserialize(n, rounds, ser, obj):
     while True:
         obj = ser.unserialize(octets)
         i += 1
-        if i % n == 0:
+        if i % count == 0:
             now = time()
-            ops = float(N) / (now - last)
+            ops = float(count) / (now - last)
             res.append(ops)
             print("{} objs/sec".format(int(round(ops))))
             last = now
@@ -91,12 +91,12 @@ if __name__ == '__main__':
     msg = message.Call(1, u'com.example.add2', args=(1, 2), kwargs={u'foo': 23, u'bar': u'baz'}, receive_progress=True)
     obj = msg.marshal()
 
-    if options.mode == 'serialize':
+    if options.mode == 'ser':
         print("testing serializing using {}".format(ser.__class__))
-        ops = test_serialize(ser, obj)
-    elif options.mode == 'unserialize':
+        ops = test_serialize(options.count, options.rounds, ser, obj)
+    elif options.mode == 'unser':
         print("testing unserializing using {}".format(ser.__class__))
-        ops = test_unserialize(ser, obj)
+        ops = test_unserialize(options.count, options.rounds, ser, obj)
     else:
         raise Exception("logic error")
 
