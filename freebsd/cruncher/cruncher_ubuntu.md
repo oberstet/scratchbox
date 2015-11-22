@@ -244,78 +244,250 @@ JBOD (24 x 6TB):
 * https://www.kernel.org/doc/Documentation/edac.txt
 * http://lambda-diode.com/opinion/ecc-memory
 
+
+# PostgreSQL Backup
+
+## Backup at filesystem Level
+
+Install parallel compressor:
+
 ```
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129731] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129740] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00014000010092
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129747] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129749] EDAC sbridge MC1: ADDR 2007e9ea100 EDAC sbridge MC1: MISC 4430b486
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.129754] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130058] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130059] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130060] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130060] EDAC sbridge MC1: ADDR 2007eaaa100 EDAC sbridge MC1: MISC 54444486
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130063] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130483] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130485] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130485] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130486] EDAC sbridge MC1: ADDR 2007ebea100 EDAC sbridge MC1: MISC 546ed686
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.130487] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131312] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131313] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131314] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131314] EDAC sbridge MC1: ADDR 2007e6aa100 EDAC sbridge MC1: MISC 444e0286
-Sep 24 11:08:02 bvr-sql18 kernel: [1281891.131315] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085682 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272849] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272854] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272856] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272857] EDAC sbridge MC1: ADDR 2007dcaa100 EDAC sbridge MC1: MISC 5412be86
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.272861] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273092] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273095] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00008000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273097] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273098] EDAC sbridge MC1: ADDR 2007fcee100 EDAC sbridge MC1: MISC 454441686
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273102] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273782] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273784] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273786] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273787] EDAC sbridge MC1: ADDR 2007f7aa100 EDAC sbridge MC1: MISC 45466c086
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273791] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273982] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273985] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: cc00008000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273986] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273988] EDAC sbridge MC1: ADDR 2007f22e100 EDAC sbridge MC1: MISC 454122a86
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.273991] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274245] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274247] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274249] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274251] EDAC sbridge MC1: ADDR 2007f8ea100 EDAC sbridge MC1: MISC 4541c0e86
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274254] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274697] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274700] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274702] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274703] EDAC sbridge MC1: ADDR 2007f56e100 EDAC sbridge MC1: MISC 454584486
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.274707] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425642] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425646] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425649] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425653] EDAC sbridge MC1: ADDR 2007deaa100 EDAC sbridge MC1: MISC 442a2486
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.425657] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426276] EDAC sbridge MC1: HANDLING MCE MEMORY ERROR
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426278] EDAC sbridge MC1: CPU 24: Machine Check Event: 0 Bank 7: 8c00004000010092
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426280] EDAC sbridge MC1: TSC 0
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426282] EDAC sbridge MC1: ADDR 2007dfaa100 EDAC sbridge MC1: MISC 5408d286
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426285] EDAC sbridge MC1: PROCESSOR 0:306e7 TIME 1443085683 SOCKET 2 APIC 40
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.426347] CMCI storm detected: switching to poll mode
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931578] EDAC MC1: 5 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007e9ea offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931598] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007eaaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931611] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007ebea offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931622] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007e6aa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931633] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007dcaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931645] EDAC MC1: 2 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007fcee offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931656] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f7aa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931667] EDAC MC1: 2 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f22e offset:0x100 grain:32 syndrome:0x0 -  OVERFLOW area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931678] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f8ea offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931689] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007f56e offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931700] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007deaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
-Sep 24 11:08:03 bvr-sql18 kernel: [1281891.931731] EDAC MC1: 1 CE memory read error on CPU_SrcID#2_Channel#2_DIMM#0 (channel:2 slot:0 page:0x2007dfaa offset:0x100 grain:32 syndrome:0x0 -  area:DRAM err_code:0001:0092 socket:2 channel_mask:2 rank:0)
+sudo apt-get install pbzip2
+```
+
+Shutdown the database:
+
+```console
+pg_ctl stop -m fast
+```
+
+Tar up the backup in parallel mode:
+
+```console
+oberstet@bvr-sql18:~$ time sudo tar cf /result/backup/backup_data_20151121.tar.bz2 --use-compress-prog=pbzip2 /data
+tar: Entferne führende „/“ von Elementnamen
+
+real    167m18.408s
+user    7003m37.036s
+sys     461m41.076s
+```
+
+This produces a single backup archive file:
+
+```console
+postgres@bvr-sql18:/result/backup$ ls -la
+insgesamt 696759660
+drwx------ 3 postgres postgres           56 Nov 21 12:39 .
+drwxr-xr-x 3 root     root               19 Nov  7 14:19 ..
+drwxrwxr-x 3 postgres postgres           93 Nov 21 12:26 backup_1
+-rw-r--r-- 1 root     root     713481886989 Nov 21 15:26 backup_data_20151121.tar.bz2
+```
+
+Untar the backup in parallel mode:
+
+```console
+postgres@bvr-sql18:~$ cd / 
+postgres@bvr-sql18:/$ time tar xf /result/backup/backup_data_20151121.tar.bz2 --use-compress-prog=pbzip2
+real    131m50.738s
+user    2101m25.756s
+sys     689m39.092s
+```
+
+## Backup at database level
+
+> "Thanks to synchronized snapshots shared among the backends managed by the jobs, the dump is taken consistently ensuring that all the jobs share the same data view"
+
+Backup ADR database in parallel mode
+
+```console
+time pg_dump -Fd -f /result/backup/backup_adr_20151121 -j 16 adr
+```
+
+Backup postgres database
+
+```
+pg_dump -Fc -f /result/backup/backup_postgres_20151121.bak postgres
+```
+
+Backup cluster global stuff
+
+```
+pg_dumpall -g -f /result/backup/backup_20151121.bak
+```
+
+### Log
+
+Backup (16 workers):
+
+```
+postgres@bvr-sql18:/result/backup$ time pg_dump -Fd -f /result/backup/backup_adr_20151121 -j 16 adr
+
+real    52m42.936s
+user    743m45.272s
+sys     19m10.504s
+```
+
+Check the archive:
+
+```console
+postgres@bvr-sql18:/data/adr/pg_log$ ll /result/backup/
+insgesamt 148
+drwx------ 3 postgres postgres    93 Nov 21 12:25 ./
+drwxr-xr-x 3 root     root        19 Nov  7 14:19 ../
+-rw-rw-r-- 1 postgres postgres  5770 Nov 21 12:25 backup_20151121.bak
+drwx------ 2 postgres postgres 86016 Nov 21 12:15 backup_adr_20151121/
+-rw-rw-r-- 1 postgres postgres  2270 Nov 21 12:24 backup_postgres_20151121.bak
+postgres@bvr-sql18:/result/backup/backup_1$ pg_restore -l backup_adr_20151121/ | wc -l
+11631
+```
+
+# pgtune
+
+Due to [this](https://github.com/gregs1104/pgtune/issues/15) issue, we are using a [patched](https://github.com/gregs1104/pgtune/pull/16) version.
+
+
+# Intel SSDs
+
+## Intel SSD Data Center Tool
+
+* [Download](https://downloadcenter.intel.com/download/23931/Intel-Solid-State-Drive-Data-Center-Tool)
+* [Manual](https://downloadmirror.intel.com/23931/eng/Intel_SSD_Data_Center_Tool_2_3_x_User_Guide_331961-005.pdf)
+
+## Installation
+
+To install:
+
+```console
+sudo apt-get install alien dpkg-dev debhelper build-essential
+cd /tmp
+wget https://downloadmirror.intel.com/23931/eng/DataCenterTool_2_3_1_Linux.zip
+unzip DataCenterTool_2_3_1_Linux.zip
+sudo alien isdct-2.3.1.400-14.x86_64.rpm
+sudo dpkg -i isdct_2.3.1.400-15_amd64.deb
+```
+
+This provides:
+
+```
+oberstet@bvr-sql18:~$ which isdct
+/usr/bin/isdct
+oberstet@bvr-sql18:~$ isdct version
+- Version Information -
+Name: Intel(R) Data Center Tool
+Version: 2.3.1
+Description: Interact and configure Intel SSDs.
+
+
+oberstet@bvr-sql18:~$
+```
+
+List all Intel SSDs:
+
+```
+oberstet@bvr-sql18:~$ sudo isdct show -intelssd | grep ProductFamily
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC S3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+ProductFamily: Intel SSD DC P3700 Series
+```
+
+Check for updates:
+
+```console
+oberstet@bvr-sql18:~$ sudo isdct show -intelssd | grep Update
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+FirmwareUpdateAvailable: The selected Intel SSD contains current firmware as of this tool release.
+```
+
+Show all info for SSD #19
+
+```
+sudo isdct show -a -intelssd 19
+```
+
+## NVMe Tuning
+
+The Noop I/O scheduler implements a simple first-in first-out (FIFO) scheduling algorithm. Merging of requests happens at the generic block layer, but is a simple last-hit cache. If a system is CPU-bound and the storage is fast, this can be the best I/O scheduler to use.
+
+```
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/scheduler; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/add_random; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/rq_affinity; done
+for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/nr_requests; done
+```
+
+produces
+
+```console
+oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/scheduler; done
+none
+none
+none
+none
+none
+none
+none
+none
+oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/add_random; done
+0
+0
+0
+0
+0
+0
+0
+0
+oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/rq_affinity; done
+1
+1
+1
+1
+1
+1
+1
+1
+oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/nr_requests; done
+1023
+1023
+1023
+1023
+1023
+1023
+1023
+1023
+oberstet@bvr-sql18:~$
 ```
