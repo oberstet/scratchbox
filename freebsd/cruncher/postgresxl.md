@@ -44,6 +44,25 @@ postgres@bvr-sql18:~$ cat /etc/environment
 PATH="/opt/pgxl/bin:/opt/crossbar/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
+### GTM Proxy Patch
+
+```console
+oberstet@bvr-sql18:~/scm/3rdparty/postgres-xl$ git diff
+diff --git a/src/include/gtm/gtm_proxy.h b/src/include/gtm/gtm_proxy.h
+index 068d59e..fa20648 100644
+--- a/src/include/gtm/gtm_proxy.h
++++ b/src/include/gtm/gtm_proxy.h
+@@ -61,7 +61,7 @@ typedef struct GTMProxy_Connections
+ } GTMProxy_Connections;
+
+ #define ERRORDATA_STACK_SIZE  20
+-#define GTM_PROXY_MAX_CONNECTIONS      1024
++#define GTM_PROXY_MAX_CONNECTIONS      4096
+
+ typedef struct GTMProxy_ThreadInfo
+ {
+```
+
 ## Storage Setup
 
 Install the XFS filesystem utilities:
