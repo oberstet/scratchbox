@@ -232,3 +232,31 @@ oberstet=> select * from test1;
 
 oberstet=>
 ```
+
+# Autovacuum
+
+
+>  Hi,
+> after a server crash the following messages appear in the log file every
+> minute:
+>
+
+
+> 2013-06-25 15:02:15 CEST [::18264:1:] LOG:  autovacuum: found orphan temp
+> table "pg_temp_47"."est_backup_ids_temp" in database "estudis1314"
+> 2013-06-25 15:02:15 CEST [::18264:2:] LOG:  autovacuum: found orphan temp
+> table "pg_temp_47"."est_backup_files_temp" in database "estudis1314"
+
+
+select relname,nspname from pg_class join pg_namespace on (relnamespace=
+pg_namespace.oid) where pg_is_other_temp_schema(relnamespace);
+
+On finding you can drop those schemas,if you want to get rid of the
+messages, just do DROP SCHEMA pg_temp_NNN CASCADE;
+
+
+select distinct nspname from pg_class join pg_namespace on (relnamespace=
+pg_namespace.oid) where pg_is_other_temp_schema(relnamespace) order by 1;
+
+DROP SCHEMA pg_temp_2 CASCADE;
+
