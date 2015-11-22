@@ -621,3 +621,124 @@ Add fstab entry
 ```
 sudo echo "UUID=`blkid -s UUID -o value /dev/md2` /data/adr xfs defaults,noatime,discard,nobarrier 0 0" >> /etc/fstab 
 ```
+
+
+## Uninterruptible Sleep
+
+A process blocked in a system call is in uninterruptible sleep and does not receive signals.
+
+http://unix.stackexchange.com/a/5648
+
+ps -fl -u postgres
+
+
+http://blog.notreally.org/2008/02/10/tricks-to-diagnose-processes-blocked-on-strong-io-in-linux/
+http://bencane.com/2012/08/06/troubleshooting-high-io-wait-in-linux/
+
+ps aux | grep " D"
+
+
+https://danielmiessler.com/study/lsof/
+
+
+sudo lsof -a /data/adr/
+
+sudo lsof -u postgres /data/adr/
+
+
+## Building R
+
+http://www.r-bloggers.com/installing-r-on-ubuntu/
+
+sudo apt-get install build-essential gfortran libreadline6 libreadline6-dev
+sudo apt-get install xorg-dev
+
+cd ~/tarballs
+wget https://cran.r-project.org/src/base/R-3/R-3.2.2.tar.gz
+
+cd ~/build
+tar xvf ../tarballs/R-3.2.2.tar.gz
+cd R-3.2.2
+export CFLAGS="-O3 -march=native -mtune=native"
+export CXXFLAGS="-O3 -march=native -mtune=native"
+export FFLAGS="-O3 -march=native -mtune=native"
+export F90FLAGS="-O3 -march=native -mtune=native"
+#./configure --enable-R-shlib --with-x=no --prefix=/opt/R322
+./configure --enable-R-shlib --prefix=/opt/R322
+
+
+## Sortme
+
+sudo umount -f /data/pgxl/node1/shard1
+sudo umount -f /data/pgxl/node1/shard2
+sudo umount -f /data/pgxl/node1/shard3
+sudo umount -f /data/pgxl/node1/shard4
+sudo umount -f /data/pgxl/node2/shard1
+sudo umount -f /data/pgxl/node2/shard2
+sudo umount -f /data/pgxl/node2/shard3
+sudo umount -f /data/pgxl/node2/shard4
+sudo umount -f /data/pgxl/node3/shard1
+sudo umount -f /data/pgxl/node3/shard2
+sudo umount -f /data/pgxl/node3/shard3
+sudo umount -f /data/pgxl/node3/shard4
+sudo umount -f /data/pgxl/node4/shard1
+sudo umount -f /data/pgxl/node4/shard2
+sudo umount -f /data/pgxl/node4/shard3
+sudo umount -f /data/pgxl/node4/shard4
+sudo umount -f /data/pgxl/node5/shard1
+sudo umount -f /data/pgxl/node5/shard2
+sudo umount -f /data/pgxl/node5/shard3
+sudo umount -f /data/pgxl/node5/shard4
+sudo umount -f /data/pgxl/node6/shard1
+sudo umount -f /data/pgxl/node6/shard2
+sudo umount -f /data/pgxl/node6/shard3
+sudo umount -f /data/pgxl/node6/shard4
+sudo umount -f /data/pgxl/node7/shard1
+sudo umount -f /data/pgxl/node7/shard2
+sudo umount -f /data/pgxl/node7/shard3
+sudo umount -f /data/pgxl/node7/shard4
+sudo umount -f /data/pgxl/node8/shard1
+sudo umount -f /data/pgxl/node8/shard2
+sudo umount -f /data/pgxl/node8/shard3
+sudo umount -f /data/pgxl/node8/shard4
+
+
+sudo mdadm --zero-superblock /dev/nvme0n1
+sudo mdadm --zero-superblock /dev/nvme1n1
+sudo mdadm --zero-superblock /dev/nvme2n1
+sudo mdadm --zero-superblock /dev/nvme3n1
+sudo mdadm --zero-superblock /dev/nvme4n1
+sudo mdadm --zero-superblock /dev/nvme5n1
+sudo mdadm --zero-superblock /dev/nvme6n1
+sudo mdadm --zero-superblock /dev/nvme7n1
+
+sudo dd if=/dev/zero of=/dev/nvme0n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme1n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme2n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme3n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme4n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme5n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme6n1 bs=4096 count=10000
+sudo dd if=/dev/zero of=/dev/nvme7n1 bs=4096 count=10000
+
+# http://askubuntu.com/questions/42266/what-is-the-recommended-way-to-empty-a-ssd
+
+sudo blkdiscard /dev/nvme0n1
+sudo blkdiscard /dev/nvme1n1
+sudo blkdiscard /dev/nvme2n1
+sudo blkdiscard /dev/nvme3n1
+sudo blkdiscard /dev/nvme4n1
+sudo blkdiscard /dev/nvme5n1
+sudo blkdiscard /dev/nvme6n1
+sudo blkdiscard /dev/nvme7n1
+
+# FINAL CREATED:
+
+sudo umount -f /data/adr
+sudo dd if=/dev/zero of=/dev/md2 bs=4096 count=10000
+sudo partprobe
+sudo mkfs.xfs -f -K -L pg_adr /dev/md2
+sudo mkdir -p /data/adr
+sudo mount -o defaults,noatime,discard,nobarrier /dev/md2 /data/adr
+sudo chown -R postgres:postgres /data/adr
+sudo chmod 700 /data/adr
