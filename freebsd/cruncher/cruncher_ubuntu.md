@@ -491,3 +491,133 @@ oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queu
 1023
 oberstet@bvr-sql18:~$
 ```
+
+## SSD Tuning
+
+Show relevant tuning parameters
+
+```
+cat /sys/block/sdd/queue/scheduler
+cat /sys/block/sdd/device/queue_depth
+cat /sys/block/sdd/queue/add_random
+cat /sys/block/sdd/queue/rq_affinity
+cat /sys/block/sdd/queue/nr_requests
+cat /sys/block/sdd/queue/nomerges
+```
+
+Unoptimized default values:
+
+```console
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/queue/scheduler
+noop [deadline] cfq
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/device/queue_depth
+32
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/queue/add_random
+0
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/queue/rq_affinity
+1
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/queue/nr_requests
+128
+oberstet@bvr-sql18:~$ cat /sys/block/sdd/queue/nomerges
+0
+oberstet@bvr-sql18:~$
+```
+
+## Making changes permanent
+
+If you want to make sure this remains disabled after reboots, you can add the command above to `/etc/rc.local`
+
+```
+vim /etc/rc.local
+##Add this above "exit 0"##
+
+echo 0 > /sys/block/sda/queue/add_random
+exit 0
+```
+
+Save the file then make sure the file is executable
+
+```
+chmod +x /etc/rc.local
+```
+
+## Trim and Erase
+
+An SSD can be notified that a data range isn't needed anymore at different levels:
+
+1. hardware driver
+2. block device
+3. filesystem
+
+### Hardware Driver Level
+
+Pages can be trimmer using the Intel Datacenter SSD tool (see the [manual](https://downloadmirror.intel.com/23931/eng/Intel_SSD_Data_Center_Tool_2_3_x_User_Guide_331961-005.pdf)):
+
+```
+isdct -intelssd 19 delete
+```
+
+For SATA devices, this will issue an "ATA Secure Erase" if supported, or Sanitize erase if supported. For NVMe devices, this will issue an NVMe Format command with SecureEraseSetting = 2.
+
+Hence, above command should be equivalent to
+
+```
+isdct -intelssd 19 start Function=nvmeformat SecureEraseSetting=2
+```
+
+However, the latter command allows more control via `SecureEraseSetting`:
+
+* 0: No secure erase
+* 1: User data erase
+* 2: Crypto erase
+
+### Block Device Driver Level
+
+**WARNING: DO NOT DO THIS IF THERE IS DATA ON YOUR DISK!**
+
+Blocks can be trimmed at the block device level using [blkdiscard](http://man7.org/linux/man-pages/man8/blkdiscard.8.html)
+
+```
+sudo blkdiscard /dev//dev/nvme0n1
+```
+
+### Filesystem Level
+
+See [here](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/main-fs.html#idp4653632).
+
+*Discard unused blocks*
+
+Batch discard and online discard operations are features of mounted file systems that discard blocks which are not in use by the file system. These operations are useful for both solid-state drives and thinly-provisioned storage.
+
+Batch discard operations are run explicitly by the user with the fstrim command. This command discards all unused blocks in a file system that match the user's criteria. Both operation types are supported for use with the XFS and ext4 file systems in Red Hat Enterprise Linux 6.2 and later as long as the block device underlying the file system supports physical discard operations. Physical discard operations are supported if the value of /sys/block/device/queue/discard_max_bytes is not zero.
+
+Online discard operations are specified at mount time with the -o discard option (either in /etc/fstab or as part of the mount command), and run in realtime without user intervention. Online discard operations only discard blocks that are transitioning from used to free. Online discard operations are supported on ext4 file systems in Red Hat Enterprise Linux 6.2 and later, and on XFS file systems in Red Hat Enterprise Linux 6.4 and later.
+
+Red Hat recommends batch discard operations unless the system's workload is such that batch discard is not feasible, or online discard operations are necessary to maintain performance.
+
+```console
+oberstet@bvr-sql18:~$ for drive in {0..7}; do cat /sys/block/nvme${drive}n1/queue/discard_max_bytes; done
+2199023255040
+2199023255040
+2199023255040
+2199023255040
+2199023255040
+2199023255040
+2199023255040
+2199023255040
+```
+
+
+## Mounting
+
+Get persistent UUID for block device:
+
+```
+sudo blkid -s UUID -o value /dev/md2
+```
+
+Add fstab entry
+
+```
+sudo echo "UUID=`blkid -s UUID -o value /dev/md2` /data/adr xfs defaults,noatime,discard,nobarrier 0 0" >> /etc/fstab 
+```
