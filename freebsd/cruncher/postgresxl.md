@@ -22,11 +22,12 @@ sudo apt-get install -y libreadline6 libreadline6-dev
 sudo apt-get install -y flex bison
 ```
 
+### Building
+
 Build it:
 
 ```
 export CFLAGS="-O3 -march=native -mtune=native"
-#./configure --with-openssl --prefix=/opt/pgxl # FIXME: does not work
 ./configure --prefix=/opt/pgxl
 make -j8
 sudo make install
