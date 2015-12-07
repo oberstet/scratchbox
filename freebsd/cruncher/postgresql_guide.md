@@ -4,6 +4,8 @@
 
 ### Logging
 
+For logging configuration, see [here](http://www.postgresql.org/docs/current/static/runtime-config-logging.html).
+
 To get the current logging facility (see [here](http://blog.endpoint.com/2014/11/dear-postgresql-where-are-my-logs.html)):
 
 ```sql
