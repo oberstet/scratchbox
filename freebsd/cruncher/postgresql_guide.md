@@ -2,6 +2,21 @@
 
 ## Idioms
 
+### Logging
+
+To get the current logging facility (see [here](http://blog.endpoint.com/2014/11/dear-postgresql-where-are-my-logs.html)):
+
+```sql
+show log_destination;
+```
+
+For `syslog` logging:
+
+```sql
+show syslog_facility;
+show syslog_ident;
+```
+
 ### Database and Table Size
 
 Get size of a database:
