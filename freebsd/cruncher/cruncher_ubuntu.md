@@ -2,6 +2,37 @@
 
 ## Samba
 
+### Using network shares
+
+List network share on a machine:
+
+```console
+oberstet@bvr-sql18:~$ smbclient -U toob -L 10.200.1.110
+Enter toob's password:
+Domain=[PARCIT] OS=[Windows 5.0] Server=[Windows 2000 LAN Manager]
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        IPC$            IPC       Remote IPC
+        ETC$            Disk      Remote Administration
+        C$              Disk      Remote Administration
+        parcit_dfs_extern$ Disk
+        parcit_dfs_mazars$ Disk
+        parcit_dfs_backup$ Disk
+        parcit_dfs_gemeinsam$ Disk
+        parcit_dfs_entwicklung$ Disk
+        parcit_dfs_privat$ Disk
+        parcit_dfs_temp$ Disk
+        vol_cifs_parcit_rating$ Disk
+        parcit_dfs_rating$ Disk
+        vol_cifs_parcit_rating_rohdaten$ Disk
+        Rating_Rohdaten Disk
+Connection to 10.200.1.110 failed (Error NT_STATUS_IO_DEVICE_ERROR)
+NetBIOS over TCP disabled -- no workgroup available
+```
+
+### Providing network shares
+
 Install stuff:
 
 ```
