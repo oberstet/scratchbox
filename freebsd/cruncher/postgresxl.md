@@ -238,6 +238,7 @@ Here is a dirty quick trick to expand the PG config after the cluster has alread
 
 ```
 find /data/pgxl/ -type f -name "postgresql.conf" -exec sh -c 'echo "max_connections = 8192" >> {}' \;
+find /data/pgxl/node* -type f -name "postgresql.conf" -exec sh -c 'echo "max_prepared_transactions = 8192" >> {}' \;
 ```
 
 # Assessment
