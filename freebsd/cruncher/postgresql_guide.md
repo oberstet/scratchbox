@@ -55,6 +55,24 @@ END;
 $$
 ```
 
+or
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_rec RECORD;
+    l_sql TEXT;
+BEGIN
+    FOR l_rec IN (select schemaname || '.' || tablename AS tabname from pg_tables where schemaname = 'cleans' and tablename like 'tbl_%')
+    LOOP
+        l_sql := 'DROP TABLE ' || l_rec.tabname;
+        RAISE NOTICE '%', l_sql;
+    END LOOP;
+END;
+$$
+```
+
 ### Conditionals
 
 ```sql
