@@ -2,6 +2,14 @@
 
 ## Idioms
 
+### Kicking Users
+
+```sql
+select usename, count(*) from pg_stat_activity group by usename;
+
+SELECT pg_terminate_backend(pid) FROM pg_stat_activity where usename not in ('postgres', 'sqlbalancer_master', 'sqlbalancer_worker', 'petzoldm', 'oberstet', 'petrovb', 'wolfp', 'doroszs')
+```
+
 ### Logging
 
 For logging configuration, see [here](http://www.postgresql.org/docs/current/static/runtime-config-logging.html).
