@@ -64,6 +64,37 @@ index 068d59e..fa20648 100644
  {
 ```
 
+### PL/R
+
+To build PLR for XL:
+
+```console
+cd ~/tarballs
+wget http://www.joeconway.com/plr/plr-8.3.0.16.tar.gz
+cd ../build
+tar xvzf plr-8.3.0.16.tar.gz
+cd plr
+export USE_PGXS=1
+export PATH=/opt/pgxl/bin/:$PATH
+make
+sudo USE_PGXS=1 PATH=/opt/pgxl/bin/:$PATH make install
+```
+
+This will produce:
+
+```console
+oberstet@bvr-sql18:~/build/plr$ file /opt/pgxl/lib/postgresql/plr.so
+/opt/pgxl/lib/postgresql/plr.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=fe68e82d0220a996465a9d2e0e533542465e1b21, not stripped
+oberstet@bvr-sql18:~/build/plr$ ll /opt/pgxl/lib/postgresql/plr.so
+-rwxr-xr-x 1 root root 96224 Dez 15 16:34 /opt/pgxl/lib/postgresql/plr.so*
+```
+
+To activate the extension:
+
+```console
+psql --username=pgxl -h localhost -p 5431 --dbname=adr < /opt/pgxl/share/postgresql/extension/plr.sql
+```
+
 ## Storage Setup
 
 Install the XFS filesystem utilities:
