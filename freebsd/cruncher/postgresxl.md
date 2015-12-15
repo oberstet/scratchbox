@@ -89,10 +89,74 @@ oberstet@bvr-sql18:~/build/plr$ ll /opt/pgxl/lib/postgresql/plr.so
 -rwxr-xr-x 1 root root 96224 Dez 15 16:34 /opt/pgxl/lib/postgresql/plr.so*
 ```
 
-To activate the extension:
+To activate the extension, run the following against the **coordinator**:
 
 ```console
 psql --username=pgxl -h localhost -p 5431 --dbname=adr < /opt/pgxl/share/postgresql/extension/plr.sql
+```
+
+This will install the extension *also* into the **datanodes**:
+
+```console
+pgxl@bvr-sql18:~$ psql --username=pgxl -h localhost -p 5431 --dbname=test1 < /opt/pgxl/share/postgresql/extension/plr.sql
+CREATE FUNCTION
+CREATE LANGUAGE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TYPE
+CREATE FUNCTION
+REVOKE
+CREATE TYPE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TYPE
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+REVOKE
+CREATE FUNCTION
+pgxl@bvr-sql18:~$ psql --username=pgxl -h localhost -p 5431 --dbname=test1
+psql (PGXL 9.5alpha1, based on PG 9.5alpha1 (Postgres-XL 9.5alpha1))
+Type "help" for help.
+
+test1=# select * from plr_version();
+ plr_version
+-------------
+ 08.03.00.16
+(1 row)
+
+test1=# \q
+pgxl@bvr-sql18:~$ psql --username=pgxl -h localhost -p 5433 --dbname=test1
+psql (PGXL 9.5alpha1, based on PG 9.5alpha1 (Postgres-XL 9.5alpha1))
+Type "help" for help.
+
+test1=# select * from plr_version();
+ plr_version
+-------------
+ 08.03.00.16
+(1 row)
+
+test1=# ^C
+test1=# \q
+pgxl@bvr-sql18:~$ psql --username=pgxl -h localhost -p 5464 --dbname=test1
+psql (PGXL 9.5alpha1, based on PG 9.5alpha1 (Postgres-XL 9.5alpha1))
+Type "help" for help.
+
+test1=# select * from plr_version();
+ plr_version
+-------------
+ 08.03.00.16
+(1 row)
+
+test1=# \q
 ```
 
 ## Storage Setup
