@@ -1,5 +1,74 @@
 # Cruncher / Ubuntu
 
+## Networking
+
+List network interface cards and logical interface names:
+
+```console
+oberstet@bvr-sql18:~$ sudo lshw -class network
+  *-network:0
+       description: Ethernet interface
+       product: Ethernet Controller 10-Gigabit X540-AT2
+       vendor: Intel Corporation
+       physical id: 0
+       bus info: pci@0000:01:00.0
+       logical name: eth0
+       version: 01
+       serial: c4:54:44:92:73:d2
+       size: 1Gbit/s
+       capacity: 1Gbit/s
+       width: 64 bits
+       clock: 33MHz
+       capabilities: pm msi msix pciexpress bus_master cap_list rom ethernet physical tp 100bt-fd 1000bt-fd autonegotiation
+       configuration: autonegotiation=on broadcast=yes driver=ixgbe driverversion=4.0.1-k duplex=full firmware=0x80000314 ip=10.200.1.67 latency=0 link=yes multicast=yes port=twisted pair speed=1Gbit/s
+       resources: irq:24 memory:aaa00000-aabfffff ioport:4020(size=32) memory:aac04000-aac07fff memory:90000000-9007ffff memory:90100000-901fffff memory:90200000-902fffff
+  *-network:1 DISABLED
+       description: Ethernet interface
+       product: Ethernet Controller 10-Gigabit X540-AT2
+       vendor: Intel Corporation
+       physical id: 0.1
+       bus info: pci@0000:01:00.1
+       logical name: eth1
+       version: 01
+       serial: c4:54:44:92:73:d3
+       capacity: 1Gbit/s
+       width: 64 bits
+       clock: 33MHz
+       capabilities: pm msi msix pciexpress bus_master cap_list rom ethernet physical tp 100bt-fd 1000bt-fd autonegotiation
+       configuration: autonegotiation=on broadcast=yes driver=ixgbe driverversion=4.0.1-k firmware=0x80000314 latency=0 link=no multicast=yes port=twisted pair
+       resources: irq:184 memory:aa800000-aa9fffff ioport:4000(size=32) memory:aac00000-aac03fff memory:90080000-900fffff memory:90300000-903fffff memory:90400000-904fffff
+  *-network:0 DISABLED
+       description: Ethernet interface
+       product: 82599ES 10-Gigabit SFI/SFP+ Network Connection
+       vendor: Intel Corporation
+       physical id: 0
+       bus info: pci@0000:02:00.0
+       logical name: p11p1
+       version: 01
+       serial: 0c:c4:7a:1e:a9:6a
+       width: 64 bits
+       clock: 33MHz
+       capabilities: pm msi msix pciexpress vpd bus_master cap_list rom ethernet physical fibre
+       configuration: autonegotiation=off broadcast=yes driver=ixgbe driverversion=4.0.1-k firmware=0x80000208 latency=0 link=no multicast=yes
+       resources: irq:297 memory:90500000-9057ffff ioport:3020(size=32) memory:90600000-90603fff memory:abb80000-abbfffff memory:90604000-90703fff memory:90704000-90803fff
+  *-network:1 DISABLED
+       description: Ethernet interface
+       product: 82599ES 10-Gigabit SFI/SFP+ Network Connection
+       vendor: Intel Corporation
+       physical id: 0.1
+       bus info: pci@0000:02:00.1
+       logical name: p11p2
+       version: 01
+       serial: 0c:c4:7a:1e:a9:6b
+       width: 64 bits
+       clock: 33MHz
+       capabilities: pm msi msix pciexpress vpd bus_master cap_list rom ethernet physical fibre
+       configuration: autonegotiation=off broadcast=yes driver=ixgbe driverversion=4.0.1-k firmware=0x80000208 latency=0 link=no multicast=yes
+       resources: irq:474 memory:90580000-905fffff ioport:3000(size=32) memory:90804000-90807fff memory:abb00000-abb7ffff memory:90808000-90907fff memory:90908000-90a07fff
+oberstet@bvr-sql18:~$
+```
+
+
 ## Samba
 
 ### Using network shares
