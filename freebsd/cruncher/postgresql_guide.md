@@ -2,6 +2,17 @@
 
 ## Idioms
 
+### Anonymous Block
+
+```sql
+DO LANGUAGE plpgsql
+$$
+BEGIN
+    RAISE NOTICE 'Hello, world!';
+END;
+$$
+```
+
 ### Kicking Users
 
 ```sql
