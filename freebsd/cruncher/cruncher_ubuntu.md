@@ -68,6 +68,41 @@ oberstet@bvr-sql18:~$ sudo lshw -class network
 oberstet@bvr-sql18:~$
 ```
 
+Get info on IPMI:
+
+```console
+oberstet@bvr-sql18:~$ sudo ipmitool lan print
+Set in Progress         : Set Complete
+Auth Type Support       : NONE MD2 MD5 PASSWORD OEM
+Auth Type Enable        : Callback : NONE MD2 MD5 PASSWORD OEM
+                        : User     : NONE MD2 MD5 PASSWORD OEM
+                        : Operator : NONE MD2 MD5 PASSWORD OEM
+                        : Admin    : NONE MD2 MD5 PASSWORD OEM
+                        : OEM      :
+IP Address Source       : Static Address
+IP Address              : 10.200.1.71
+Subnet Mask             : 255.255.255.0
+MAC Address             : c4:54:44:61:5f:99
+SNMP Community String   : Quanta
+IP Header               : TTL=0x40 Flags=0x40 Precedence=0x00 TOS=0x10
+BMC ARP Control         : ARP Responses Enabled, Gratuitous ARP Disabled
+Gratituous ARP Intrvl   : 0.0 seconds
+Default Gateway IP      : 10.200.1.1
+Default Gateway MAC     : 00:00:00:00:00:00
+Backup Gateway IP       : 0.0.0.0
+Backup Gateway MAC      : 00:00:00:00:00:00
+802.1q VLAN ID          : Disabled
+802.1q VLAN Priority    : 0
+RMCP+ Cipher Suites     : 0,1,2,3,6,7,8,11,12
+Cipher Suite Priv Max   : caaaXXaaaXXaaXX
+                        :     X=Cipher Suite Unused
+                        :     c=CALLBACK
+                        :     u=USER
+                        :     o=OPERATOR
+                        :     a=ADMIN
+                        :     O=OEM
+oberstet@bvr-sql18:~$
+```
 
 ## Samba
 
