@@ -2,6 +2,15 @@
 
 ## Idioms
 
+### Size of all Schemata
+
+```sql
+select schemaname, pg_size_pretty(SUM(pg_table_size(schemaname || '.' || tablename))) from pg_tables
+where schemaname not like 'pg_temp%'
+group by schemaname
+order by 1
+```
+
 ### Anonymous Block
 
 ```sql
