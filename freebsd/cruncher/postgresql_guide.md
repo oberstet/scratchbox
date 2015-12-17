@@ -11,6 +11,29 @@ group by schemaname
 order by 1
 ```
 
+### Export Schemata to Flat-files
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_rec RECORD;
+    l_sql TEXT;
+BEGIN
+    FOR l_rec IN (
+        select schemaname || '.' || tablename as tabname from pg_tables
+        where schemaname in ('test_pk', 'test_pk_partitions')
+        order by 1
+    )
+    LOOP
+        l_sql := 'COPY ' || l_rec.tabname || ' TO PROGRAM ''/bin/bzip2 > /result/backup/adr_test_pk_export/' || l_rec.tabname || '.csv.bz2''';
+        EXECUTE(l_sql);
+        RAISE NOTICE '% exported', l_rec.tabname;
+    END LOOP;
+END;
+$$
+```
+
 ### Anonymous Block
 
 ```sql
