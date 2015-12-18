@@ -1,5 +1,14 @@
 # PostgresXL
 
+## Contacts
+
+* mason.sharp@gmail.com
+* nikkhils@gmail.com
+* pavan.deolasee@2ndquadrant.com
+* simon.riggs@2ndquadrant.com
+* harald.armin.massa@2ndquadrant.com
+* faiz.husain@2ndquadrant.com
+
 ## Installation
 
 The repo [here](http://git.postgresql.org/gitweb/?p=postgres-xl.git;a=summary) has recent developments - eg it's based on PG 9.5 already. It's the bleeding edge though.
