@@ -1,5 +1,70 @@
 # Cruncher / Ubuntu
 
+## systemd
+
+```console
+oberstet@bvr-sql18:~$ ls -la /etc/systemd/system
+insgesamt 68
+drwxr-xr-x 13 root root 4096 Dez  9 10:46 .
+drwxr-xr-x  5 root root 4096 Nov  3 14:30 ..
+-rw-r--r--  1 root root  307 Nov 13 01:43 crossbar.service
+drwxr-xr-x  2 root root 4096 Aug 18 17:03 default.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:03 getty.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 graphical.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 halt.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 kexec.target.wants
+-rw-r--r--  1 root root  318 Nov 18 16:51 livemon.service
+drwxr-xr-x  2 root root 4096 Nov 26 12:06 multi-user.target.wants
+lrwxrwxrwx  1 root root   47 Aug 18 17:12 plymouth-log.service -> /lib/systemd/system/plymouth-read-write.service
+lrwxrwxrwx  1 root root   41 Aug 18 17:12 plymouth.service -> /lib/systemd/system/plymouth-quit.service
+-rw-r--r--  1 root root  497 Nov 16 15:22 postgresql.service
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 poweroff.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 reboot.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:07 shutdown.target.wants
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 sockets.target.wants
+-rw-r--r--  1 root root  422 Dez  9 10:46 sqlbalancer.service
+lrwxrwxrwx  1 root root   31 Aug 18 17:12 sshd.service -> /lib/systemd/system/ssh.service
+drwxr-xr-x  2 root root 4096 Aug 18 17:12 sysinit.target.wants
+lrwxrwxrwx  1 root root   35 Aug 18 17:03 syslog.service -> /lib/systemd/system/rsyslog.service
+oberstet@bvr-sql18:~$ ls -la /lib/systemd/system/ssh.service
+-rw-r--r-- 1 root root 344 Mär 23  2015 /lib/systemd/system/ssh.service
+oberstet@bvr-sql18:~$ cat /lib/systemd/system/ssh.service
+[Unit]
+Description=OpenBSD Secure Shell server
+After=network.target auditd.service
+ConditionPathExists=!/etc/ssh/sshd_not_to_be_run
+
+[Service]
+EnvironmentFile=-/etc/default/ssh
+ExecStart=/usr/sbin/sshd -D $SSHD_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=sshd.service
+oberstet@bvr-sql18:~$ cat /etc/systemd/system/crossbar.service
+[Unit]
+Description=ADR Crossbar.io
+After=network.target
+
+[Service]
+Type=simple
+User=crossbar
+Group=crossbar
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+ExecStart=/opt/crossbar/bin/crossbar start --cbdir=/var/crossbar/node/.crossbar
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+oberstet@bvr-sql18:~$
+```
+
+
 ## Networking
 
 List network interface cards and logical interface names:
