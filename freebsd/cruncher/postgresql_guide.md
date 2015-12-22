@@ -2,6 +2,14 @@
 
 ## Idioms
 
+### Loop a statement from a shell script
+
+```
+#!/bin/sh
+
+while true; do psql -U oberstet -d adr -c "SELECT now()::text"; sleep 2; done
+```
+
 ### Size of all Schemata
 
 ```sql
