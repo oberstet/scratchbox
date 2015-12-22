@@ -4,7 +4,7 @@
 
 ### Loop a statement from a shell script
 
-```
+```shell
 #!/bin/sh
 
 while true; do psql -U oberstet -d adr -c "SELECT now()::text"; sleep 2; done
