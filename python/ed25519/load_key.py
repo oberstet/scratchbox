@@ -1,3 +1,5 @@
+
+import binascii
 from nacl.encoding import HexEncoder
 from nacl.signing import SigningKey
 
@@ -17,3 +19,8 @@ verify_key = signing_key.verify_key
 verify_key_hex = verify_key.encode(encoder=HexEncoder)
 
 print(verify_key_hex)
+
+# read and extract verify key from OpenSSH public key file
+with open('node_ed25519.pub', 'r') as f:
+    key_bytes = f.read().split()[1].strip()
+    print(binascii.b2a_hex(binascii.a2b_base64(key_bytes)[19:]))
