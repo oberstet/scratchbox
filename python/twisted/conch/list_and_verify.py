@@ -47,6 +47,7 @@ from cryptography.hazmat.primitives.serialization import load_ssh_public_key
 import struct
 from binascii import b2a_hex, b2a_base64
 
+
 # http://blog.oddbit.com/2011/05/08/converting-openssh-public-keys/
 def unpack(keydata):
     parts = []
@@ -72,6 +73,9 @@ def main(reactor, *argv):
 
     @inlineCallbacks
     def on_connect(agent):
+        # we are now connected to the locally running ssh-agent
+        # that agent might be the openssh-agent, or eg on Ubuntu 14.04 by
+        # default the gnome-keyring / ssh-askpass-gnome application
         print("connected to ssh-agent!")
 
         print("keys currently held in ssh-agent:\n")
@@ -81,28 +85,33 @@ def main(reactor, *argv):
             print("Key: {} {} 0x{} {}: 0x{} ..".format(comment, algo, b2a_hex(exponent), len(modulus), b2a_hex(modulus)[:16]))
             print(b2a_base64(blob))
 
-        print("sign some data:\n")
-        key_blob, key_comment = keys[0]
+        # we will now ask the ssh-agent to sign some data using the private
+        # key that corresponds to the public key that we selected
 
+        print("sign some data:\n")
+
+        # message to sign
         message = 'Hello, world!'
 
+        # the public key that corrsponds to the private key we ask the agent to sign with
+        key_blob, key_comment = keys[-1]
+
+        # now ask the agent
         signature_blob = yield agent.signData(key_blob, message)
         algo, signature = unpack(signature_blob)
         print(algo)
         print(b2a_base64(signature))
 
+        # we now verify the signature using cryptography.
+
         # https://cryptography.io/en/latest/hazmat/primitives/asymmetric/serialization/#cryptography.hazmat.primitives.serialization.load_ssh_public_key
         public_key = load_ssh_public_key("ssh-rsa {} {}".format(b2a_base64(key_blob), key_comment), backend=default_backend())
         isinstance(public_key, rsa.RSAPublicKey)
 
-        verifier = public_key.verifier(
-            signature,
-            padding.PKCS1v15(),
-            hashes.SHA1()
-        )
-
+        verifier = public_key.verifier(signature, padding.PKCS1v15(), hashes.SHA1())
         verifier.update(message)
 
+        # here we can provoke a failing signature to check that it actually works
         provoke_signature_failure = False
         if provoke_signature_failure:
             verifier.update('make the sig fail')
@@ -114,6 +123,7 @@ def main(reactor, *argv):
         else:
             print("Signature looks good.")
 
+        # that's it. say goodbye.
         print("disconnecting ..")
         agent.transport.loseConnection()
 
