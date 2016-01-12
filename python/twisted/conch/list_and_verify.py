@@ -81,9 +81,16 @@ def main(reactor, *argv):
         print("keys currently held in ssh-agent:\n")
         keys = yield agent.requestIdentities()
         for blob, comment in keys:
-            algo, exponent, modulus = unpack(blob)
-            print("Key: {} {} 0x{} {}: 0x{} ..".format(comment, algo, b2a_hex(exponent), len(modulus), b2a_hex(modulus)[:16]))
-            print(b2a_base64(blob))
+            print(comment)
+            raw = unpack(blob)
+            algo = raw[0]
+            if algo == u'ssh-rsa':
+                algo, exponent, modulus = raw
+                print("RSA key: {} {} 0x{} {}: 0x{} ..".format(comment, algo, b2a_hex(exponent), len(modulus), b2a_hex(modulus)[:16]))
+                print(b2a_base64(blob))
+            elif algo == u'ssh-ed25519':
+                algo, pubkey = raw
+                print("Ed25519 key: {} {} {}".format(comment, algo, b2a_hex(pubkey)))
 
         # we will now ask the ssh-agent to sign some data using the private
         # key that corresponds to the public key that we selected
