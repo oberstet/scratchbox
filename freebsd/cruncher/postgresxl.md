@@ -54,6 +54,25 @@ postgres@bvr-sql18:~$ cat /etc/environment
 PATH="/opt/pgxl/bin:/opt/crossbar/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
+### Aggregate Patch
+
+XL hat jetzt einen Stable Branch für 9.5:
+
+```
+oberstet@bvr-sql18:~/scm/3rdparty/postgres-xl$ git checkout XL9_5_STABLE
+Bereits auf 'XL9_5_STABLE'
+Ihr Branch ist auf dem selben Stand wie 'origin/XL9_5_STABLE'.
+```
+
+Der Patch von Pavan fasst folgende Files an:
+
+```
+oberstet@bvr-sql18:~/scm/3rdparty/postgres-xl$ patch -p1 < ~/xl_append_remoteplan.patch
+patching file src/backend/nodes/equalfuncs.c
+patching file src/backend/optimizer/util/pathnode.c
+patching file src/include/nodes/nodes.h
+```
+
 ### GTM Proxy Patch
 
 ```console
