@@ -1,6 +1,6 @@
 import binascii
 import struct
-
+import hashlib
 
 def unpack(keydata):
     parts = []
@@ -22,4 +22,9 @@ with open('/home/oberstet/.ssh/id_ed25519.pub', 'r') as f:
     algo, keydata, comment = d
     blob = binascii.a2b_base64(keydata)
     key = unpack(blob)[1]
+    m = hashlib.sha256()
+    m = hashlib.md5()
+    m.update(key)
+    fingerprint = m.hexdigest()
     print("algo={}, keylen={}, keydata={}.., comment={}".format(algo, len(key), keydata[:12], comment))
+    print(fingerprint)
