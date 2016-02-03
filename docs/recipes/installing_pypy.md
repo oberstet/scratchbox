@@ -48,10 +48,10 @@ Now modify your `PATH` (replacing the hash value with what you got):
 
 	vi ~/.bashrc
 
-      export PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/bin:${PATH}
-      export LD_LIBRARY_PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/lib:${LD_LIBRARY_PATH}
+        export PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/bin:${PATH}
+        export LD_LIBRARY_PATH=${HOME}/pypy-c-jit-67840-934879cb2719-linux64/lib:${LD_LIBRARY_PATH}
 
-   source ~/.bashrc
+        source ~/.bashrc
 
 and verify that the correct PyPy binary is found:
 
@@ -73,11 +73,20 @@ Get the deps (Ubuntu/Debian):
 
 Get the deps (FreeBSD):
 
-   freebsd-update fetch
-   freebsd-update install
+```
+freebsd-update fetch
+freebsd-update install
+```
 
-   env ASSUME_ALWAYS_YES=YES pkg bootstrap
+Then
 
+```
+env ASSUME_ALWAYS_YES=YES pkg bootstrap
+```
+
+Then
+
+```
    pkg install -y sudo
    pkg install -y bash-static
    pkg install -y ncurses
@@ -99,37 +108,47 @@ Get the deps (FreeBSD):
    pkg install -y libiconv
    pkg install -y libexecinfo
    pkg install -y vim-lite
+```
 
 Tweak your env (FreeBSD 10+):
 
+```
    MAKEFLAGS=-j8; export MAKEFLAGS
    CFLAGS="-I/usr/local/include -O3 -march=native"; export CFLAGS
    LDFLAGS="-L/usr/local/lib"; export LDFLAGS
+```
 
 On FreeBSD <10, if you want to use clang:
 
+```
 	CC=/usr/bin/clang; export CC
 	CXX=/usr/bin/clang++; export CXX
 	CPP=/usr/bin/clang-cpp; export CPP
+```
 
 Get the sources from a release tarball
 
+```
    cd /tmp
    wget --no-check-certificate https://bitbucket.org/pypy/pypy/downloads/pypy-2.4.0-src.tar.bz2
    tar xvjf pypy-2.4.0-src.tar.bz2
    cd pypy-2.4.0-src
+```
 
 or get the sources from a repo:
 
+```
 	cd ~/build
 	hg clone https://bitbucket.org/pypy/pypy
 	cd pypy/pypy/goal
 	pypy ../../rpython/bin/rpython -Ojit targetpypystandalone
+```
 
 Build the baby:
 
+```
    pypy rpython/bin/rpython --opt=jit pypy/goal/targetpypystandalone.py
-
+```
 
 > Note that we use PyPy - say an old version from your distro - to build a new PyPy. You can use a CPython to build PyPy also, but it will take much, much longer.
 >
