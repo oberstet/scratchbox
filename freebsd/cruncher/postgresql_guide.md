@@ -2,6 +2,27 @@
 
 ## Idioms
 
+### Catching exceptions
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_stats JSONB;
+BEGIN
+    BEGIN
+        SELECT svc_sqlbalancer.f_process_stats() INTO l_stats;
+    EXCEPTION
+        -- ERROR:  function svc_sqlbalancer.f_process_stats() does not exist
+        WHEN SQLSTATE '42883' THEN
+            NULL;
+        WHEN OTHERS THEN
+            RAISE;
+    END;
+END;
+$$
+```
+
 ### Loop a statement from a shell script
 
 ```shell
