@@ -2,6 +2,23 @@
 
 ## Idioms
 
+### Iterating over arrays
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    i INT;
+    arr INT[] := array[1, 2, 3];
+BEGIN
+   FOREACH i IN ARRAY arr
+   LOOP
+      RAISE NOTICE '%, %', i, arr[i];
+   END LOOP;
+END
+$$
+```
+
 ### Catching exceptions
 
 ```sql
