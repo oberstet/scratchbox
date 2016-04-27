@@ -2,6 +2,22 @@
 
 ## Idioms
 
+### JSONB manipulation
+
+```sql
+-- http://stackoverflow.com/a/23500670
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_res JSONB := '{}';
+BEGIN
+    l_res := l_res || jsonb '{"running_before": 23}';
+    l_res := l_res || jsonb '{"running_after": 0}';
+    RAISE NOTICE '%', l_res::text;
+END
+$$
+```
+
 ### Iterating over arrays
 
 ```sql
