@@ -1,5 +1,24 @@
 # PostgreSQL Programming
 
+## Control Flow
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_foo INT := 0;
+BEGIN
+    IF l_foo = 0 THEN
+        NULL;
+    ELSIF l_foo = 1 THEN
+        NULL;
+    ELSE
+        NULL;
+    END IF;
+END;
+$$
+```
+
 ## Idioms
 
 ### JSONB manipulation
