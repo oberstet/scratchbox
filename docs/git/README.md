@@ -2,6 +2,19 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Rebasing a branch of someone else to master
+
+```
+cd crossbar
+git checkout master
+git remote add w1z2g3 https://github.com/w1z2g3/crossbar.git
+git fetch --all
+git checkout -b patch-1 w1z2g3/patch-1
+git rebase master
+git branch --set-upstream-to origin patch-1
+git push origin patch-1
+```
+
 ### Delete remote branch
 
 	git push origin :mybranch

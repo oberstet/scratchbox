@@ -1,6 +1,79 @@
 # PostgreSQL Programming
 
+## Control Flow
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_foo INT := 0;
+BEGIN
+    IF l_foo = 0 THEN
+        NULL;
+    ELSIF l_foo = 1 THEN
+        NULL;
+    ELSE
+        NULL;
+    END IF;
+END;
+$$
+```
+
 ## Idioms
+
+### JSONB manipulation
+
+```sql
+-- http://stackoverflow.com/a/23500670
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_res JSONB := '{}';
+BEGIN
+    l_res := l_res || jsonb '{"running_before": 23}';
+    l_res := l_res || jsonb '{"running_after": 0}';
+    RAISE NOTICE '%', l_res::text;
+END
+$$
+```
+
+### Iterating over arrays
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    i INT;
+    arr INT[] := array[1, 2, 3];
+BEGIN
+   FOREACH i IN ARRAY arr
+   LOOP
+      RAISE NOTICE '%, %', i, arr[i];
+   END LOOP;
+END
+$$
+```
+
+### Catching exceptions
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_stats JSONB;
+BEGIN
+    BEGIN
+        SELECT svc_sqlbalancer.f_process_stats() INTO l_stats;
+    EXCEPTION
+        -- ERROR:  function svc_sqlbalancer.f_process_stats() does not exist
+        WHEN SQLSTATE '42883' THEN
+            NULL;
+        WHEN OTHERS THEN
+            RAISE;
+    END;
+END;
+$$
+```
 
 ### Loop a statement from a shell script
 
