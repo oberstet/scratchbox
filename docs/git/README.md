@@ -2,6 +2,28 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Write access to repo from behind firewall
+
+* 
+* https://help.github.com/articles/caching-your-github-password-in-git/
+
+To access a GitHub repo (public or private) from behind a corporate firewall, your best bet is over HTTPS.
+
+Now, when using HTTPS, and when you have 2-factor authentication enabled (which you should!), you will need to generate a so-called **personal access token**. See [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
+
+This will produce a PW like eg `09abf890...`. Copy that (and make sure NOT to have a trailing space or such).
+
+When pushing, you'll be asked for a username (`oberstet`) and password (use above **personal access token**).
+
+To avoid being asked for that every time you push, make Git save the PW (of course, take care!):
+
+```
+git config --global credential.helper 'cache --timeout=2592000'
+```
+
+See [here](https://www.maxoberberger.net/blog/2015/08/caching-git-credentials.html).
+
+
 ### Rebasing a branch of someone else to master
 
 ```
