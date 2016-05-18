@@ -4,9 +4,6 @@ Git is great, but I forget the more obscure spells all the time.
 
 ### Write access to repo from behind firewall
 
-* 
-* https://help.github.com/articles/caching-your-github-password-in-git/
-
 To access a GitHub repo (public or private) from behind a corporate firewall, your best bet is over HTTPS.
 
 Now, when using HTTPS, and when you have 2-factor authentication enabled (which you should!), you will need to generate a so-called **personal access token**. See [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
