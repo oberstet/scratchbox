@@ -18,6 +18,12 @@ To avoid being asked for that every time you push, make Git save the PW (of cour
 git config --global credential.helper 'cache --timeout=2592000'
 ```
 
+On Windows, do this:
+
+```
+git config --global credential.helper wincred 'cache --timeout=2592000'
+```
+
 See [here](https://www.maxoberberger.net/blog/2015/08/caching-git-credentials.html).
 
 
