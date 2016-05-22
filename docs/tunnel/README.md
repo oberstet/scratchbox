@@ -4,13 +4,29 @@
 
 ### Setup
 
-Install `autossh`:
+Install [autossh](http://www.harding.motd.ca/autossh/).
+
+On Ubuntu/Debian:
 
 ```console
 sudo apt-get install autossh
 ```
 
-In your `$HOME/.ssh/config`, add the following:
+On MacOSX (untested):
+
+```console
+cd ~
+wget http://www.harding.motd.ca/autossh/autossh-1.4e.tgz
+tar xvzf autossh-1.4e.tgz
+cd autossh-1.4e
+./configure
+make
+sudo make install
+```
+
+On Windows: please install a sane OS.
+
+Then, in your `$HOME/.ssh/config`, add the following:
 
 ```console
 # the following configures the forward SSH tunnels
@@ -145,6 +161,8 @@ psql -p 5532 -h localhost -d adr -U oberstet
 ```
 
 ## Administration
+
+See also [here](https://www.everythingcli.org/ssh-tunnelling-for-fun-and-profit-autossh/).
 
 On the remoting host (`bvr-sql18`), put the following into `$HOME/.ssh/config` **under tunnel adminstrator user**:
 
