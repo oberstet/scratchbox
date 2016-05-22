@@ -2,6 +2,8 @@
 
 ## Usage
 
+### Setup
+
 Install `autossh`:
 
 ```console
@@ -67,12 +69,6 @@ alias parcit_sql18='ssh -p 2222 oberstet@localhost'
 alias parcit_file1='ssh -p 2224 oberstet@localhost'
 ```
 
-Now start the forward tunnels (this should only be needed to be done once per system boot):
-
-```console
-parcit_tunnel
-```
-
 To keep alive the tunnels, save the following into `$HOME/parcit_keepalive.sh` (and `chmod +x $HOME/parcit_keepalive.sh`):
 
 ```shell
@@ -110,10 +106,42 @@ do
 done
 ```
 
+### Using
+
+Start the forward tunnels (this should only be needed to be done once per system boot):
+
+```console
+parcit_tunnel
+```
+
 Then, in a terminal window, run
 
 ```console
 ~/parcit_keepalive.sh
+```
+
+To clone a Git repo:
+
+```console
+git clone ssh://gituser@localhost:2223/RA
+``` 
+
+To log into `bvr-sql18`:
+
+```console
+parcit_sql18
+```
+
+To log into `bvr-file1`:
+
+```console
+parcit_file1
+```
+
+To log into the ADR DB:
+
+```console
+psql -p 5532 -h localhost -d adr -U oberstet
 ```
 
 ## Administration
