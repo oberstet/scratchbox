@@ -24,6 +24,21 @@ $$
 ### JSONB manipulation
 
 ```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    l_res JSONB := jsonb_build_object('foo', 'bar');
+    l_val JSONB := 23;
+BEGIN
+    l_res := l_res || jsonb_build_object('baz', l_val);
+    RAISE NOTICE '%', l_res::text;
+END
+$$
+```
+
+or 
+
+```sql
 -- http://stackoverflow.com/a/23500670
 DO LANGUAGE plpgsql
 $$
