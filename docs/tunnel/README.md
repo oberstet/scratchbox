@@ -85,13 +85,15 @@ alias parcit_sql18='ssh -p 2222 oberstet@localhost'
 alias parcit_file1='ssh -p 2224 oberstet@localhost'
 ```
 
-To keep alive the tunnels, save the following into `$HOME/parcit_keepalive.sh` (and `chmod +x $HOME/parcit_keepalive.sh`):
+To keep alive the tunnels, save the following into `$HOME/parcit_keepalive.sh`. Make sure to replace **oberstet** with your login name. Don't forget to make the file executable: `chmod +x $HOME/parcit_keepalive.sh`.
 
 ```shell
 #!/bin/sh
 
 while [ 1 ]
 do
+    clear
+
     echo "TUNNEL KEEP ALIVE **********************************"
     date
     echo
@@ -100,20 +102,26 @@ do
     # listening on the jump host
     ssh -t ec2-user@jumper.tavendo.de "netstat -lnt | grep 127"
 
-    # check ADR database connection
-    psql -p 5532 -h localhost -d postgres -U postgres -c "select now()"
+    # check remote login to bvr-sql18
+    ssh -p 2222 oberstet@localhost "date"
 
-    # check ADR test cluster database connection
-    psql -p 5522 -h localhost -d postgres -U postgres -c "select now()"
+    # check remote login to bvr-file1
+    ssh -p 2224 oberstet@localhost "date"
 
     # check Git
     ssh -T -p 2223 gituser@localhost
 
+    # check ADR database connection
+    psql -p 5532 -h localhost -d postgres -U oberstet -c "select now()"
+
+    # check ADR test cluster database connection
+    psql -p 5522 -h localhost -d postgres -U oberstet  -c "select now()"
+
     # check Web services
-    curl localhost:8090 > /dev/null
-    curl localhost:8091 > /dev/null
-    curl localhost:8092 > /dev/null
-    curl localhost:8093 > /dev/null
+    curl -o /dev/null --silent --head --write-out '%{http_code}\n' localhost:8090
+    curl -o /dev/null --silent --head --write-out '%{http_code}\n' localhost:8091
+    curl -o /dev/null --silent --head --write-out '%{http_code}\n' localhost:8092
+    curl -o /dev/null --silent --head --write-out '%{http_code}\n' localhost:8093
 
     echo "**********************************"
     echo
