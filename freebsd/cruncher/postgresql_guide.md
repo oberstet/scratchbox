@@ -21,6 +21,25 @@ $$
 
 ## Idioms
 
+### Check for prolang
+
+```sql
+DO LANGUAGE plpgsql
+$$
+DECLARE
+    _has_plpythonu BOOLEAN;
+BEGIN
+    SELECT EXISTS (SELECT 1 FROM pg_language WHERE lanname = 'plpythonu') INTO _has_plpythonu;
+
+    IF _has_plpythonu THEN
+        RAISE NOTICE 'Awesome! You have PL/Python installed.';
+    ELSE
+        RAISE WARNING 'PL/Python not installed.';
+    END IF;
+END;
+$$;
+```
+
 ### JSONB manipulation
 
 ```sql
