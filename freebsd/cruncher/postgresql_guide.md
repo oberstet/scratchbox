@@ -21,6 +21,34 @@ $$
 
 ## Idioms
 
+### Use of dynamic delimiters
+
+```sql
+DO LANGUAGE plpgsql
+$body$
+DECLARE
+    _do_it BOOLEAN := TRUE;
+BEGIN
+    IF _do_it THEN
+        EXECUTE
+        $foo$
+            CREATE OR REPLACE FUNCTION test_square (x INT) RETURNS INT
+            LANGUAGE plpgsql
+            AS
+            $test_square$
+            BEGIN
+                RETURN x * x;
+            END;
+            $test_square$;
+        $foo$;
+        RAISE NOTICE 'Done!';
+    ELSE
+        RAISE WARNING 'Skipped.';
+    END IF;
+END;
+$body$;
+```
+
 ### Check for prolang
 
 ```sql
