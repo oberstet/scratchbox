@@ -1,5 +1,19 @@
 # PostgreSQL Programming
 
+## Check cluster directory
+
+```
+postgres@bvr-sql18:~$ psql -p 5422
+psql (9.5.0)
+Type "help" for help.
+
+postgres=# select setting from pg_settings where name = 'data_directory';
+       setting
+---------------------
+ /data/adrana/testdb
+(1 row)
+```
+
 ## Spacer
 
 To prevent to run into a situation where the storage underlying the database gets 100% full, and where the database cannot operate anymore (and you can't even drop tables then!), it seems wise to have a little bit of reserve:
