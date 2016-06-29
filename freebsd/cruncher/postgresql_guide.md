@@ -1,5 +1,14 @@
 # PostgreSQL Programming
 
+## Spacer
+
+To prevent to run into a situation where the storage underlying the database gets 100% full, and where the database cannot operate anymore (and you can't even drop tables then!), it seems wise to have a little bit of reserve:
+
+```
+dd if=/dev/zero of=/data/adr/spacer.dat bs=1M count=1000
+dd if=/dev/zero of=/data/adrana/spacer.dat bs=1M count=1000
+```
+
 ## Single-user Mode
 
 Start Postgres in single-user mode:
