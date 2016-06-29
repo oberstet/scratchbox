@@ -1,5 +1,13 @@
 # PostgreSQL Programming
 
+## DB and Tablespace sizes
+
+```
+SELECT datname, pg_size_pretty(pg_database_size(datname)) FROM pg_database;
+
+SELECT spcname, pg_size_pretty(pg_tablespace_size(spcname)) FROM pg_tablespace;
+```
+
 ## Tablespaces
 
 Login as `postgres` and create a tablespace directory on the respective storage (filesystem):
