@@ -29,6 +29,8 @@ Now create and test the tablespace:
 ```
 CREATE TABLESPACE ext1 LOCATION '/data/adrana/adr_tablespace_ext1';
 
+GRANT CREATE ON TABLESPACE ext1 TO adr_devops;
+
 SELECT * FROM pg_tablespace;
 
 CREATE TABLE test (f1 int) TABLESPACE ext1;
