@@ -1,5 +1,44 @@
 # PostgreSQL Programming
 
+## Single-user Mode
+
+Start Postgres in single-user mode:
+
+```
+postgres --single postgres /data/adr/
+```
+
+Then login
+
+```
+postgres@bvr-sql18:~$ postgres --single postgres /data/adr/
+FATAL:  postgres: invalid command-line argument: /data/adr/
+HINT:  Try "postgres --help" for more information.
+postgres@bvr-sql18:~$ postgres --single postgres -D /data/adr/
+2016-06-29 08:21:28 EDT   LOG:  database system was interrupted; last known up at 2016-06-29 06:27:0
+2016-06-29 08:21:30 EDT   LOG:  database system was not properly shut down; automatic recovery in pr
+2016-06-29 08:21:30 EDT   LOG:  redo starts at 34B1/536C9C98
+2016-06-29 08:28:24 EDT   LOG:  redo done at 34BB/F6FFFED0
+2016-06-29 08:28:24 EDT   LOG:  last completed transaction was at log time 2016-06-29 12:31:12.677112+02
+
+PostgreSQL stand-alone backend 9.5.0
+backend> select now();
+         1: now (typeid = 1184, len = 8, typmod = -1, byval = t)
+        ----
+         1: now = "2016-06-29 14:29:46.083192+02"       (typeid = 1184, len = 8, typmod = -1, byval = t)
+        ----
+backend> drop table work_petzoldm.t_kunde_all2_agrspreadknd;
+2016-06-29 08:30:11 EDT   ERROR:  schema "work_petzoldm" does not exist
+2016-06-29 08:30:11 EDT   STATEMENT:  drop table work_petzoldm.t_kunde_all2_agrspreadknd;
+
+backend>
+drop table work_petzoldm.t_kunde_all2_agrspreadkndclosebackend> ;
+2016-06-29 08:30:21 EDT   ERROR:  schema "work_petzoldm" does not exist
+2016-06-29 08:30:21 EDT   STATEMENT:  drop table work_petzoldm.t_kunde_all2_agrspreadkndclose;
+
+backend>
+```
+
 ## Control Flow
 
 ```sql
