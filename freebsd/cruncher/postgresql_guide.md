@@ -1,5 +1,37 @@
 # PostgreSQL Programming
 
+## Tablespaces
+
+Login as `postgres` and create a tablespace directory on the respective storage (filesystem):
+
+```
+postgres@bvr-sql18:/data/adrana$ mkdir adr_tablespace_ext1
+postgres@bvr-sql18:/data/adrana$ chmod 700 adr_tablespace_ext1
+postgres@bvr-sql18:/data/adrana$ ll
+insgesamt 1024008
+drwx------  4 postgres postgres         78 Jun 29 15:31 ./
+drwxrwxrwx  5 root     root           4096 Apr 14 12:19 ../
+drwx------  2 postgres postgres          6 Jun 29 15:31 adr_tablespace_ext1/
+-rw-rw-r--  1 postgres postgres 1048576000 Jun 29 15:22 spacer.dat
+drwx------ 19 postgres postgres       4096 Jun 29 15:23 testdb/
+```
+
+Now create and test the tablespace:
+
+```
+CREATE TABLESPACE ext1 LOCATION '/data/adrana/adr_tablespace_ext1';
+
+SELECT * FROM pg_tablespace;
+
+CREATE TABLE test (f1 int) TABLESPACE ext1;
+
+INSERT INTO test (f1) VALUES (23);
+
+SELECT * FROM test;
+
+DROP TABLE test;
+```
+
 ## Check cluster directory
 
 ```
