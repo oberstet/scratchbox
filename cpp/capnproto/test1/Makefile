@@ -13,12 +13,17 @@ compile: generate
 
 link_dynamic:
 	g++ test.o -lcapnp -lkj -o test
+	file ./test
 	ldd ./test
 
 link_static:
 	#g++ test.o -Wl,-Bstatic -lcapnp -lkj -o test
-	g++ test.o /usr/lib/x86_64-linux-gnu/libcapnp.a /usr/lib/x86_64-linux-gnu/libkj.a -o test
-	ldd ./test
+	#g++ test.o /usr/lib/x86_64-linux-gnu/libcapnp.a /usr/lib/x86_64-linux-gnu/libkj.a -o test
+	#g++ -static -static-libgcc -static-libstdc++ test.o -lcapnp -lkj -o test
+	g++ -static test.o -lcapnp -lkj -o test
+	file ./test
+	-ldd ./test
+	nm ./test | grep " U "
 
 build_dynamic: compile link_dynamic
 
@@ -29,3 +34,5 @@ clean:
 	rm -f addressbook.capnp.h
 	rm -f test
 	rm -f test.o
+
+build: clean build_static build_dynamic

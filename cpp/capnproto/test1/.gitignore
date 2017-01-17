@@ -1,0 +1,5 @@
+*.o
+test
+*.capnp.c++
+*.capnp.h
+
