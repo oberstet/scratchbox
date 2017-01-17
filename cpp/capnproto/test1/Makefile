@@ -1,24 +1,32 @@
 version:
-	g++ --version
+	gcc --version
+	clang --version
 	capnp --version
 
 requirements:
 	sudo apt install -y capnproto libcapnp-dev
 	sudo apt install -y cmake clang libclang-dev llvm llvm-dev libc++1 libc++-dev libc++abi-dev
 
-build_cpppypy_clang:
+build_cppyy_clang_libcpp:
 	CC=`which clang` \
 	CXX=`which clang` \
 	CXXFLAGS="-std=c++11 -stdlib=libc++" \
 	LDFLAGS="-stdlib=libc++" \
 	MAKE_NPROCS=4 \
-	~/pypy-5.6-linux_x86_64-portable/bin/pip install --verbose PyPy-cppyy-backend
+	~/pypy-5.6-linux_x86_64-portable/bin/pip install --no-cache-dir --verbose PyPy-cppyy-backend
 
-build_cpppypy_gcc:
+build_cppyy_clang:
+	CC=`which clang` \
+	CXX=`which clang` \
+	CXXFLAGS="-std=c++11" \
+	MAKE_NPROCS=4 \
+	~/pypy-5.6-linux_x86_64-portable/bin/pip install --no-cache-dir --verbose PyPy-cppyy-backend
+
+build_cppyy_gcc:
 	CC=`which gcc-4.9` \
 	CXX=`which g++-4.9` \
 	MAKE_NPROCS=4 \
-	~/pypy-5.6-linux_x86_64-portable/bin/pip install --verbose PyPy-cppyy-backend
+	~/pypy-5.6-linux_x86_64-portable/bin/pip install -no-cache-dir --verbose PyPy-cppyy-backend
 
 generate:
 	capnp compile -oc++ addressbook.capnp
@@ -47,7 +55,11 @@ build_static: compile link_static
 clean:
 	rm -f addressbook.capnp.c++
 	rm -f addressbook.capnp.h
+	rm -f addressbook.dat
 	rm -f test
 	rm -f test.o
+	rm -f MyClass_rflx.cpp
+	rm -f MyClass_rflx_rdict.pcm
 
 build: clean build_static build_dynamic
+
