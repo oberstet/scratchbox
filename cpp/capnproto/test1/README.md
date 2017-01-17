@@ -17,11 +17,29 @@ export LD_LIBRARY_PATH=${CPPYYHOME}/lib:${LD_LIBRARY_PATH}
 export PATH=${CPPYYHOME}/bin:${PATH}
 ```
 
+Now build the library:
+
 ```console
 genreflex MyClass.h
 g++-4.9 -std=c++11 -fPIC -rdynamic -O2 -shared -I$CPPYYHOME/include MyClass_rflx.cpp -o libMyClassDict.so -L$CPPYYHOME/lib -lCling
+```
 
+Check that the library has no unresolved deps/symbols:
+
+```console
+ldd libMyClassDict.so
+nm libMyClassDict.so | grep " U "
+```
+
+Then
+
+```console
 export LD_LIBRARY_PATH=${PWD}:${LD_LIBRARY_PATH}
 export PATH=${HOME}/pypy-5.6-linux_x86_64-portable/bin:${PATH}
 ```
 
+and test:
+
+```console
+pypy MyClass.py
+```
