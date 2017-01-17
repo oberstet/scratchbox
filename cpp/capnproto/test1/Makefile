@@ -6,12 +6,16 @@ requirements:
 	sudo apt install -y capnproto libcapnp-dev
 	sudo apt install -y cmake clang libclang-dev llvm llvm-dev libc++1 libc++-dev libc++abi-dev
 
-cpppypy:
+build_cpppypy_clang:
 	CC=`which clang` \
 		CXX=`which clang` \
 		CXXFLAGS="-std=c++11 -stdlib=libc++" \
 		LDFLAGS="-stdlib=libc++" \
 		MAKE_NPROCS=4 \
+		~/pypy-5.6-linux_x86_64-portable/bin/pip install --verbose PyPy-cppyy-backend
+
+build_cpppypy_gcc:
+	MAKE_NPROCS=4 \
 		~/pypy-5.6-linux_x86_64-portable/bin/pip install --verbose PyPy-cppyy-backend
 
 generate:
