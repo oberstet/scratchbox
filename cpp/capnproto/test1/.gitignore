@@ -2,4 +2,4 @@
 test
 *.capnp.c++
 *.capnp.h
-
+*.dat

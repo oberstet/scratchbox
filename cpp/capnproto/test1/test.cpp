@@ -1,3 +1,5 @@
+#include <fcntl.h>
+
 #include "addressbook.capnp.h"
 #include <capnp/message.h>
 #include <capnp/serialize-packed.h>
@@ -73,5 +75,12 @@ void printAddressBook(int fd) {
 }
 
 int main (int argc, char** argv) {
+  if (false) {
+    int fd = open("addressbook.dat", O_RDWR | O_CREAT | O_TRUNC);
+    writeAddressBook(fd);
+  } else {
+    int fd = open("addressbook.dat", O_RDONLY);
+    printAddressBook(fd);
+  }
   return 0;
 }
