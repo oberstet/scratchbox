@@ -64,6 +64,7 @@ build_dynamic: compile link_dynamic
 build_static: compile link_static
 
 clean:
+	rm ./*.so
 	rm -f addressbook.capnp.c++
 	rm -f addressbook.capnp.h
 	rm -f addressbook.dat

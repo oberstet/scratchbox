@@ -3,3 +3,5 @@ test
 *.capnp.c++
 *.capnp.h
 *.dat
+*_rflx.cpp
+*_rflx_rdict.pcm
