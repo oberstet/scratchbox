@@ -7,7 +7,16 @@ requirements:
 	sudo apt install -y capnproto libcapnp-dev
 	sudo apt install -y cmake clang libclang-dev llvm llvm-dev libc++1 libc++-dev libc++abi-dev
 
-build_cppyy_clang_libcpp:
+# no explicit selection of c++ stdlib
+build_cppyy_clang:
+	CC=`which clang` \
+	CXX=`which clang` \
+	CXXFLAGS="-std=c++11" \
+	MAKE_NPROCS=4 \
+	~/pypy-5.6-linux_x86_64-portable/bin/pip install --no-cache-dir --verbose PyPy-cppyy-backend
+
+# explicit selection of new libc++ c++ stdlib
+build_cppyy_clang_libc:
 	CC=`which clang` \
 	CXX=`which clang` \
 	CXXFLAGS="-std=c++11 -stdlib=libc++" \
@@ -15,10 +24,12 @@ build_cppyy_clang_libcpp:
 	MAKE_NPROCS=4 \
 	~/pypy-5.6-linux_x86_64-portable/bin/pip install --no-cache-dir --verbose PyPy-cppyy-backend
 
-build_cppyy_clang:
+# explicit selection of GNU c++ stdlib
+build_cppyy_clang_stdc:
 	CC=`which clang` \
 	CXX=`which clang` \
-	CXXFLAGS="-std=c++11" \
+	CXXFLAGS="-std=c++11 -stdlib=libstdc++" \
+	LDFLAGS="-stdlib=libstdc++" \
 	MAKE_NPROCS=4 \
 	~/pypy-5.6-linux_x86_64-portable/bin/pip install --no-cache-dir --verbose PyPy-cppyy-backend
 
