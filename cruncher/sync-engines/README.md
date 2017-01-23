@@ -111,3 +111,9 @@ The driver is [test.sh](test.sh) and the FIO control files are [individual-nvmes
 * [md-nvmes-pvsync2-hipri-512](md-nvmes-pvsync2-hipri-512.log)
 * [md-nvmes-pvsync2-hipri-1024](md-nvmes-pvsync2-hipri-1024.log)
 * [md-nvmes-pvsync2-hipri-2048](md-nvmes-pvsync2-hipri-2048.log)
+
+# TODO
+
+* low-level reformat NVMe devices to 4k sector size using isdct and retest
+* test at XFS level (1 FS over 1 MD, and 16 XFSs over 16 individual NVMes)
+* write to PG hackers about this stuff and [this thread](https://www.postgresql.org/message-id/flat/CABUevEzZ%3DCGdmwSZwW9oNuf4pQZMExk33jcNO7rseqrAgKzj5Q%40mail.gmail.com#CABUevEzZ=CGdmwSZwW9oNuf4pQZMExk33jcNO7rseqrAgKzj5Q@mail.gmail.com)
