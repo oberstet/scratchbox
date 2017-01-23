@@ -1,0 +1,110 @@
+oberstet@svr-psql19:~/scm/parcit/RA/adr/system/docs$ sudo fio postgresql_storage_workload.fio
+randread: (g=0): rw=randread, bs=8K-8K/8K-8K/8K-8K, ioengine=sync, iodepth=1
+...
+randwrite: (g=1): rw=randwrite, bs=8K-8K/8K-8K/8K-8K, ioengine=sync, iodepth=1
+...
+randreadwrite7030: (g=2): rw=randrw, bs=8K-8K/8K-8K/8K-8K, ioengine=sync, iodepth=1
+...
+fio-2.1.11
+Starting 1056 threads
+Jobs: 256 (f=4096): [_(800),m(256)] [35.2% done] [6882MB/2961MB/0KB /s] [881K/379K/0 iops] [eta 11m:07s]
+randread: (groupid=0, jobs=768): err= 0: pid=8435: Sun Jan 22 17:05:53 2017
+  read : io=3213.1GB, bw=27418MB/s, iops=3509.5K, runt=120003msec
+    clat (usec): min=46, max=11074, avg=216.06, stdev=105.30
+     lat (usec): min=46, max=11075, avg=216.22, stdev=105.30
+    clat percentiles (usec):
+     |  1.00th=[  120],  5.00th=[  133], 10.00th=[  143], 20.00th=[  157],
+     | 30.00th=[  169], 40.00th=[  181], 50.00th=[  195], 60.00th=[  211],
+     | 70.00th=[  229], 80.00th=[  258], 90.00th=[  310], 95.00th=[  366],
+     | 99.00th=[  516], 99.50th=[  596], 99.90th=[ 1464], 99.95th=[ 2320],
+     | 99.99th=[ 2992]
+    bw (KB  /s): min=10464, max=57216, per=0.13%, avg=36567.53, stdev=1503.00
+    lat (usec) : 50=0.01%, 100=0.03%, 250=77.66%, 500=21.18%, 750=0.91%
+    lat (usec) : 1000=0.08%
+    lat (msec) : 2=0.07%, 4=0.07%, 10=0.01%, 20=0.01%
+  cpu          : usr=0.96%, sys=7.94%, ctx=421194889, majf=0, minf=1536
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=421146001/w=0/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+randwrite: (groupid=1, jobs=32): err= 0: pid=9263: Sun Jan 22 17:05:53 2017
+  write: io=1070.3GB, bw=9132.5MB/s, iops=1168.1K, runt=120001msec
+    clat (usec): min=12, max=56259, avg=26.50, stdev=230.51
+     lat (usec): min=12, max=56260, avg=26.62, stdev=230.52
+    clat percentiles (usec):
+     |  1.00th=[   15],  5.00th=[   17], 10.00th=[   18], 20.00th=[   19],
+     | 30.00th=[   21], 40.00th=[   21], 50.00th=[   22], 60.00th=[   23],
+     | 70.00th=[   25], 80.00th=[   26], 90.00th=[   30], 95.00th=[   33],
+     | 99.00th=[   45], 99.50th=[   55], 99.90th=[   88], 99.95th=[  131],
+     | 99.99th=[ 7008]
+    bw (KB  /s): min=61728, max=393328, per=3.13%, avg=292846.80, stdev=69984.35
+    lat (usec) : 20=20.01%, 50=79.26%, 100=0.66%, 250=0.03%, 500=0.01%
+    lat (usec) : 750=0.01%, 1000=0.01%
+    lat (msec) : 2=0.01%, 4=0.01%, 10=0.02%, 20=0.01%, 50=0.01%
+    lat (msec) : 100=0.01%
+  cpu          : usr=3.24%, sys=25.54%, ctx=141441188, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=0/w=140275956/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+randreadwrite7030: (groupid=2, jobs=256): err= 0: pid=9924: Sun Jan 22 17:05:53 2017
+  read : io=847721MB, bw=7062.6MB/s, iops=904009, runt=120030msec
+    clat (usec): min=39, max=36111, avg=270.33, stdev=484.61
+     lat (usec): min=39, max=36111, avg=270.38, stdev=484.61
+    clat percentiles (usec):
+     |  1.00th=[   92],  5.00th=[  101], 10.00th=[  108], 20.00th=[  113],
+     | 30.00th=[  118], 40.00th=[  127], 50.00th=[  131], 60.00th=[  141],
+     | 70.00th=[  159], 80.00th=[  199], 90.00th=[  334], 95.00th=[ 1176],
+     | 99.00th=[ 2704], 99.50th=[ 2896], 99.90th=[ 3152], 99.95th=[ 3280],
+     | 99.99th=[ 6368]
+    bw (KB  /s): min=12566, max=33840, per=0.39%, avg=28278.05, stdev=1534.71
+  write: io=363326MB, bw=3026.1MB/s, iops=387450, runt=120030msec
+    clat (usec): min=13, max=34534, avg=26.06, stdev=135.21
+     lat (usec): min=13, max=34534, avg=26.28, stdev=135.21
+    clat percentiles (usec):
+     |  1.00th=[   16],  5.00th=[   18], 10.00th=[   19], 20.00th=[   20],
+     | 30.00th=[   21], 40.00th=[   22], 50.00th=[   23], 60.00th=[   23],
+     | 70.00th=[   24], 80.00th=[   26], 90.00th=[   29], 95.00th=[   32],
+     | 99.00th=[   46], 99.50th=[   55], 99.90th=[  157], 99.95th=[ 1064],
+     | 99.99th=[ 5536]
+    bw (KB  /s): min= 5168, max=15665, per=0.39%, avg=12119.57, stdev=829.63
+    lat (usec) : 20=4.41%, 50=25.36%, 100=3.13%, 250=55.74%, 500=5.66%
+    lat (usec) : 750=1.01%, 1000=0.85%
+    lat (msec) : 2=1.79%, 4=2.03%, 10=0.03%, 20=0.01%, 50=0.01%
+  cpu          : usr=0.62%, sys=3.48%, ctx=156257223, majf=0, minf=0
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued    : total=r=108508268/w=46505664/d=0, short=r=0/w=0/d=0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: io=3213.1GB, aggrb=27418MB/s, minb=27418MB/s, maxb=27418MB/s, mint=120003msec, maxt=120003msec
+
+Run status group 1 (all jobs):
+  WRITE: io=1070.3GB, aggrb=9132.5MB/s, minb=9132.5MB/s, maxb=9132.5MB/s, mint=120001msec, maxt=120001msec
+
+Run status group 2 (all jobs):
+   READ: io=847721MB, aggrb=7062.6MB/s, minb=7062.6MB/s, maxb=7062.6MB/s, mint=120030msec, maxt=120030msec
+  WRITE: io=363326MB, aggrb=3026.1MB/s, minb=3026.1MB/s, maxb=3026.1MB/s, mint=120030msec, maxt=120030msec
+
+Disk stats (read/write):
+  nvme0n1: ios=33099379/11670351, merge=0/0, ticks=6970496/221248, in_queue=7275024, util=90.61%
+  nvme1n1: ios=33098754/11670977, merge=0/0, ticks=6929944/217760, in_queue=7416840, util=90.96%
+  nvme2n1: ios=33099045/11670569, merge=0/0, ticks=6853268/217808, in_queue=7345560, util=90.89%
+  nvme3n1: ios=33098666/11670896, merge=0/0, ticks=6822924/218384, in_queue=7123764, util=90.65%
+  nvme4n1: ios=33100266/11669160, merge=0/0, ticks=6851288/217572, in_queue=7361660, util=91.15%
+  nvme5n1: ios=33097273/11671985, merge=0/0, ticks=6857956/216500, in_queue=7165320, util=90.64%
+  nvme6n1: ios=33097876/11671380, merge=0/0, ticks=6828924/218740, in_queue=7128512, util=90.68%
+  nvme7n1: ios=33098511/11670568, merge=0/0, ticks=6835960/217592, in_queue=7146300, util=90.94%
+  nvme8n1: ios=33095885/11673081, merge=0/0, ticks=7106824/219152, in_queue=7408756, util=90.67%
+  nvme9n1: ios=33098569/11670338, merge=0/0, ticks=7125652/216264, in_queue=7593484, util=90.94%
+  nvme10n1: ios=33098655/11670206, merge=0/0, ticks=7040736/214932, in_queue=7331524, util=90.62%
+  nvme11n1: ios=33094505/11674307, merge=0/0, ticks=7196556/218932, in_queue=7703632, util=91.06%
+  nvme12n1: ios=33096660/11672102, merge=0/0, ticks=6859828/219408, in_queue=7155940, util=90.85%
+  nvme13n1: ios=33099019/11669569, merge=0/0, ticks=6940396/218400, in_queue=7413972, util=91.23%
+  nvme14n1: ios=33097519/11670886, merge=0/0, ticks=7003888/218960, in_queue=7297752, util=90.79%
+  nvme15n1: ios=33097883/11670468, merge=0/0, ticks=7258132/216500, in_queue=7566552, util=90.77%
+oberstet@svr-psql19:~/scm/parcit/RA/adr/system/docs$
