@@ -1,0 +1,34 @@
+randread-individual-nvmes: (g=0): rw=randread, bs=4096B-4096B,4096B-4096B,4096B-4096B, ioengine=pvsync2, iodepth=1
+...
+fio-2.17-17-g9cf1
+Starting 2048 threads
+
+randread-individual-nvmes: (groupid=0, jobs=2048): err= 0: pid=99013: Mon Jan 23 23:52:55 2017
+   read: IOPS=1698k, BW=6633MiB/s (6955MB/s)(195GiB/30085msec)
+  cpu          : usr=0.04%, sys=8.41%, ctx=1430681, majf=0, minf=2045
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwt: total=51087296,0,0, short=0,0,0, dropped=0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=6633MiB/s (6955MB/s), 6633MiB/s-6633MiB/s (6955MB/s-6955MB/s), io=195GiB (209GB), run=30085-30085msec
+
+Disk stats (read/write):
+  nvme0n1: ios=3179646/0, merge=0/0, ticks=298236/0, in_queue=309872, util=98.62%
+  nvme1n1: ios=3193212/0, merge=0/0, ticks=319380/0, in_queue=400588, util=100.00%
+  nvme2n1: ios=3193212/0, merge=0/0, ticks=316132/0, in_queue=398280, util=100.00%
+  nvme3n1: ios=3193212/0, merge=0/0, ticks=311432/0, in_queue=327492, util=98.74%
+  nvme4n1: ios=3193212/0, merge=0/0, ticks=319112/0, in_queue=413112, util=100.00%
+  nvme5n1: ios=3193212/0, merge=0/0, ticks=305032/0, in_queue=319100, util=99.11%
+  nvme6n1: ios=3193212/0, merge=0/0, ticks=300512/0, in_queue=314624, util=98.82%
+  nvme7n1: ios=3193212/0, merge=0/0, ticks=306980/0, in_queue=321796, util=99.11%
+  nvme8n1: ios=3193212/0, merge=0/0, ticks=316796/0, in_queue=330736, util=98.92%
+  nvme9n1: ios=3193212/0, merge=0/0, ticks=324828/0, in_queue=424072, util=100.00%
+  nvme10n1: ios=3193212/0, merge=0/0, ticks=304408/0, in_queue=320128, util=99.46%
+  nvme11n1: ios=3193212/0, merge=0/0, ticks=332900/0, in_queue=428964, util=100.00%
+  nvme12n1: ios=3193212/0, merge=0/0, ticks=312072/0, in_queue=329136, util=100.00%
+  nvme13n1: ios=3193212/0, merge=0/0, ticks=313808/0, in_queue=395952, util=100.00%
+  nvme14n1: ios=3191164/0, merge=0/0, ticks=320964/0, in_queue=338060, util=100.00%
+  nvme15n1: ios=3191164/0, merge=0/0, ticks=331724/0, in_queue=350316, util=99.86%

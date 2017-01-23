@@ -41,3 +41,5 @@ sudo /opt/fio/bin/fio --ioengine=pvsync2 --hipri=1 --numjobs=512  --output=md-nv
 sudo /opt/fio/bin/fio --ioengine=pvsync2 --hipri=1 --numjobs=1024 --output=md-nvmes-pvsync2-hipri-1024.log md-nvmes.fio
 sudo /opt/fio/bin/fio --ioengine=pvsync2 --hipri=1 --numjobs=2048 --output=md-nvmes-pvsync2-hipri-2048.log md-nvmes.fio
 
+
+sudo chown oberstet:oberstet *.log
