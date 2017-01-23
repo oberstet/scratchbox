@@ -1,0 +1,55 @@
+30s run on RAID-0 Linux MD over NVMe devices
+============================================
+
+oberstet@svr-psql19:~/scm/parcit/RA/adr/system/docs$ sudo perf record /opt/fio/bin/fio postgresql_storage_workload.fio
+randread: (g=0): rw=randread, bs=4096B-4096B,4096B-4096B,4096B-4096B, ioengine=sync, iodepth=1
+...
+fio-2.17-17-g9cf1
+Starting 1024 threads
+Jobs: 1024 (f=1024): [r(1024)][100.0%][r=5750MiB/s,w=0KiB/s][r=1472k,w=0 IOPS][eta 00m:00s]
+randread: (groupid=0, jobs=1024): err= 0: pid=178313: Mon Jan 23 18:39:58 2017
+   read: IOPS=1467k, BW=5729MiB/s (6008MB/s)(168GiB/30078msec)
+    clat (usec): min=33, max=14663, avg=123.76, stdev=88.09
+     lat (usec): min=33, max=14663, avg=123.84, stdev=88.09
+    clat percentiles (usec):
+     |  1.00th=[   84],  5.00th=[   91], 10.00th=[   93], 20.00th=[   96],
+     | 30.00th=[  101], 40.00th=[  108], 50.00th=[  111], 60.00th=[  114],
+     | 70.00th=[  120], 80.00th=[  131], 90.00th=[  155], 95.00th=[  211],
+     | 99.00th=[  306], 99.50th=[  370], 99.90th=[ 1624], 99.95th=[ 2320],
+     | 99.99th=[ 2896]
+    lat (usec) : 50=0.02%, 100=27.20%, 250=70.66%, 500=1.88%, 750=0.07%
+    lat (usec) : 1000=0.03%
+    lat (msec) : 2=0.07%, 4=0.07%, 10=0.01%, 20=0.01%
+  cpu          : usr=0.22%, sys=10.01%, ctx=45159432, majf=0, minf=1024
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwt: total=44116371,0,0, short=0,0,0, dropped=0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=5729MiB/s (6008MB/s), 5729MiB/s-5729MiB/s (6008MB/s-6008MB/s), io=168GiB (181GB), run=30078-30078msec
+
+Disk stats (read/write):
+    md1: ios=43845697/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=2757273/0, aggrmerge=0/0, aggrticks=280104/0, aggrin_queue=282911, aggrutil=98.17%
+  nvme15n1: ios=2757018/0, merge=0/0, ticks=299568/0, in_queue=301420, util=97.65%
+  nvme6n1: ios=2756788/0, merge=0/0, ticks=267820/0, in_queue=269140, util=97.74%
+  nvme9n1: ios=2757539/0, merge=0/0, ticks=290140/0, in_queue=294584, util=97.80%
+  nvme11n1: ios=2758198/0, merge=0/0, ticks=295352/0, in_queue=300280, util=98.11%
+  nvme2n1: ios=2756465/0, merge=0/0, ticks=285608/0, in_queue=290972, util=97.95%
+  nvme14n1: ios=2757733/0, merge=0/0, ticks=285284/0, in_queue=287416, util=98.01%
+  nvme5n1: ios=2757202/0, merge=0/0, ticks=272968/0, in_queue=274792, util=98.01%
+  nvme8n1: ios=2758223/0, merge=0/0, ticks=287004/0, in_queue=288688, util=97.87%
+  nvme10n1: ios=2759596/0, merge=0/0, ticks=271048/0, in_queue=271952, util=97.77%
+  nvme1n1: ios=2755678/0, merge=0/0, ticks=283968/0, in_queue=287732, util=98.11%
+  nvme13n1: ios=2756604/0, merge=0/0, ticks=283288/0, in_queue=287544, util=98.17%
+  nvme4n1: ios=2757979/0, merge=0/0, ticks=275488/0, in_queue=280644, util=97.85%
+  nvme7n1: ios=2756008/0, merge=0/0, ticks=269400/0, in_queue=271892, util=98.12%
+  nvme0n1: ios=2757304/0, merge=0/0, ticks=269864/0, in_queue=271364, util=97.92%
+  nvme12n1: ios=2756485/0, merge=0/0, ticks=273984/0, in_queue=275304, util=97.94%
+  nvme3n1: ios=2757551/0, merge=0/0, ticks=270892/0, in_queue=272856, util=98.06%
+[ perf record: Woken up 1315 times to write data ]
+Warning:
+1 out of order events recorded.
+[ perf record: Captured and wrote 599.433 MB perf.data (15622960 samples) ]
+oberstet@svr-psql19:~/scm/parcit/RA/adr/system/docs$
