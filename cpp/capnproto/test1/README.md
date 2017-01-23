@@ -98,3 +98,24 @@ Successfully installed PyPy-cppyy-backend-6.6.9.0
 Cleaning up...
 oberstet@thinkpad-t430s:~/scm/oberstet/scratchbox/cpp/capnproto/test1/PyPy-cppyy-backend-6.6.9.0$
 ```
+
+# Test
+
+import cppyy
+cppyy.gbl.gInterpreter.Declare("""
+class MyClass {
+public:
+    MyClass(int i = -99) : m_myint(i) {}
+    int GetMyInt() { return m_myint; }
+    void SetMyInt(int i) { m_myint = i; }
+public:
+    int m_myint;
+};""")
+
+
+True
+>>>> from cppyy.gbl import MyClass
+>>>> m = MyClass(42)
+>>>> print m.m_myint
+42
+
