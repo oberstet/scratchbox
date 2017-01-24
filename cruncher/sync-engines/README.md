@@ -116,4 +116,11 @@ The driver is [test.sh](test.sh) and the FIO control files are [individual-nvmes
 
 * low-level reformat NVMe devices to 4k sector size using isdct and retest
 * test at XFS level (1 FS over 1 MD, and 16 XFSs over 16 individual NVMes)
+* rerun Linux perf on above tests
+* double check PG 9.6 (still) uses lseek/read/write
 * write to PG hackers about this stuff and [this thread](https://www.postgresql.org/message-id/flat/CABUevEzZ%3DCGdmwSZwW9oNuf4pQZMExk33jcNO7rseqrAgKzj5Q%40mail.gmail.com#CABUevEzZ=CGdmwSZwW9oNuf4pQZMExk33jcNO7rseqrAgKzj5Q@mail.gmail.com)
+
+# Questions
+
+* why is the difference between engines largish for MD, but not individual disks?
+* what is that **hipri** thing anyways?
