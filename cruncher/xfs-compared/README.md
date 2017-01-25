@@ -279,8 +279,8 @@ sudo dd if=/dev/zero of=/dev/nvme15n1 bs=4096 count=1000 conv=notrunc
 
 ## ioengine=sync
 
-* user: %
-* system: %
+* user: 3.5%
+* system: 96.5%
 
 ```console
 oberstet@svr-psql19:~/scm/parcit/RA/user/oberstet/sync-engines-perf$ sudo /opt/fio/bin/fio xfs-md-nvmes-sync.fio
@@ -288,44 +288,43 @@ randread-md-nvmes: (g=0): rw=randread, bs=4096B-4096B,4096B-4096B,4096B-4096B, i
 ...
 fio-2.17-17-g9cf1
 Starting 1024 threads
-randread-md-nvmes: Laying out IO file(s) (1 file(s) / 30720MiB)
-Jobs: 1024 (f=1024): [r(1024)][100.0%][r=10.8GiB/s,w=0KiB/s][r=2802k,w=0 IOPS][eta 00m:00s]
-randread-md-nvmes: (groupid=0, jobs=1024): err= 0: pid=126172: Wed Jan 25 13:28:38 2017
-   read: IOPS=2790k, BW=10.7GiB/s (11.5GB/s)(320GiB/30055msec)
-  cpu          : usr=0.54%, sys=16.57%, ctx=83925701, majf=0, minf=1024
+Jobs: 1024 (f=1024): [r(1024)][100.0%][r=11.2GiB/s,w=0KiB/s][r=2887k,w=0 IOPS][eta 00m:00s]
+randread-md-nvmes: (groupid=0, jobs=1024): err= 0: pid=143097: Wed Jan 25 14:40:44 2017
+   read: IOPS=2880k, BW=10.2GiB/s (11.8GB/s)(660GiB/60042msec)
+  cpu          : usr=0.58%, sys=16.50%, ctx=173014130, majf=0, minf=1024
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued rwt: total=83856256,0,0, short=0,0,0, dropped=0,0,0
+     issued rwt: total=172943424,0,0, short=0,0,0, dropped=0,0,0
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: bw=10.7GiB/s (11.5GB/s), 10.7GiB/s-10.7GiB/s (11.5GB/s-11.5GB/s), io=320GiB (343GB), run=30055-30055msec
+   READ: bw=10.2GiB/s (11.8GB/s), 10.2GiB/s-10.2GiB/s (11.8GB/s-11.8GB/s), io=660GiB (708GB), run=60042-60042msec
 
 Disk stats (read/write):
-    md1: ios=83487876/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=5241016/0, aggrmerge=0/0, aggrticks=602417/0, aggrin_queue=631630, aggrutil=100.00%
-  nvme15n1: ios=5241792/0, merge=0/0, ticks=605236/0, in_queue=620568, util=100.00%
-  nvme6n1: ios=5237340/0, merge=0/0, ticks=600988/0, in_queue=616300, util=100.00%
-  nvme9n1: ios=5240508/0, merge=0/0, ticks=603920/0, in_queue=651944, util=100.00%
-  nvme11n1: ios=5243099/0, merge=0/0, ticks=609252/0, in_queue=667892, util=100.00%
-  nvme2n1: ios=5239941/0, merge=0/0, ticks=600368/0, in_queue=652348, util=100.00%
-  nvme14n1: ios=5241849/0, merge=0/0, ticks=599476/0, in_queue=613908, util=100.00%
-  nvme5n1: ios=5241983/0, merge=0/0, ticks=604812/0, in_queue=618460, util=100.00%
-  nvme8n1: ios=5238803/0, merge=0/0, ticks=602536/0, in_queue=618860, util=100.00%
-  nvme10n1: ios=5237541/0, merge=0/0, ticks=604248/0, in_queue=619348, util=100.00%
-  nvme1n1: ios=5245675/0, merge=0/0, ticks=600920/0, in_queue=653516, util=100.00%
-  nvme13n1: ios=5242526/0, merge=0/0, ticks=598364/0, in_queue=648596, util=100.00%
-  nvme4n1: ios=5239735/0, merge=0/0, ticks=600044/0, in_queue=655164, util=100.00%
-  nvme7n1: ios=5241613/0, merge=0/0, ticks=605536/0, in_queue=621932, util=100.00%
-  nvme0n1: ios=5243492/0, merge=0/0, ticks=595352/0, in_queue=611380, util=100.00%
-  nvme12n1: ios=5237618/0, merge=0/0, ticks=604612/0, in_queue=616196, util=100.00%
-  nvme3n1: ios=5242741/0, merge=0/0, ticks=603020/0, in_queue=619668, util=100.00%
+    md1: ios=172699047/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=10808964/0, aggrmerge=0/0, aggrticks=1267392/0, aggrin_queue=1335648, aggrutil=100.00%
+  nvme15n1: ios=10813464/0, merge=0/0, ticks=1266856/0, in_queue=1302112, util=100.00%
+  nvme6n1: ios=10812756/0, merge=0/0, ticks=1270708/0, in_queue=1304924, util=100.00%
+  nvme9n1: ios=10811863/0, merge=0/0, ticks=1274088/0, in_queue=1392044, util=100.00%
+  nvme11n1: ios=10809962/0, merge=0/0, ticks=1269460/0, in_queue=1389376, util=100.00%
+  nvme2n1: ios=10813030/0, merge=0/0, ticks=1268572/0, in_queue=1393992, util=100.00%
+  nvme14n1: ios=10807324/0, merge=0/0, ticks=1262044/0, in_queue=1296956, util=100.00%
+  nvme5n1: ios=10809891/0, merge=0/0, ticks=1276392/0, in_queue=1307896, util=100.00%
+  nvme8n1: ios=10807743/0, merge=0/0, ticks=1272348/0, in_queue=1304380, util=100.00%
+  nvme10n1: ios=10803385/0, merge=0/0, ticks=1279124/0, in_queue=1312712, util=100.00%
+  nvme1n1: ios=10801628/0, merge=0/0, ticks=1256624/0, in_queue=1378312, util=100.00%
+  nvme13n1: ios=10814900/0, merge=0/0, ticks=1259740/0, in_queue=1380972, util=100.00%
+  nvme4n1: ios=10809390/0, merge=0/0, ticks=1270428/0, in_queue=1405368, util=100.00%
+  nvme7n1: ios=10806474/0, merge=0/0, ticks=1265372/0, in_queue=1303728, util=100.00%
+  nvme0n1: ios=10806302/0, merge=0/0, ticks=1260700/0, in_queue=1298000, util=100.00%
+  nvme12n1: ios=10811902/0, merge=0/0, ticks=1257756/0, in_queue=1292164, util=100.00%
+  nvme3n1: ios=10803410/0, merge=0/0, ticks=1268064/0, in_queue=1307440, util=100.00%
 ```
 
 ## ioengine=psync
 
-* user: %
-* system: %
+* user: 3.3%
+* system: 96.7%
 
 ```console
 oberstet@svr-psql19:~/scm/parcit/RA/user/oberstet/sync-engines-perf$ sudo /opt/fio/bin/fio xfs-md-nvmes-psync.fio
@@ -333,35 +332,35 @@ randread-md-nvmes: (g=0): rw=randread, bs=4096B-4096B,4096B-4096B,4096B-4096B, i
 ...
 fio-2.17-17-g9cf1
 Starting 1024 threads
-Jobs: 1024 (f=1024): [r(1024)][100.0%][r=10.9GiB/s,w=0KiB/s][r=2842k,w=0 IOPS][eta 00m:00s]
-randread-md-nvmes: (groupid=0, jobs=1024): err= 0: pid=127476: Wed Jan 25 13:31:08 2017
-   read: IOPS=2830k, BW=10.9GiB/s (11.6GB/s)(324GiB/30036msec)
-  cpu          : usr=0.52%, sys=16.59%, ctx=85084174, majf=0, minf=1024
+Jobs: 1024 (f=1024): [r(1024)][100.0%][r=11.3GiB/s,w=0KiB/s][r=2952k,w=0 IOPS][eta 00m:00s]
+randread-md-nvmes: (groupid=0, jobs=1024): err= 0: pid=141856: Wed Jan 25 14:38:51 2017
+   read: IOPS=2946k, BW=11.3GiB/s (12.7GB/s)(675GiB/60039msec)
+  cpu          : usr=0.55%, sys=16.56%, ctx=177055647, majf=0, minf=1024
   IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
      submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
      complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
-     issued rwt: total=85009664,0,0, short=0,0,0, dropped=0,0,0
+     issued rwt: total=176899840,0,0, short=0,0,0, dropped=0,0,0
      latency   : target=0, window=0, percentile=100.00%, depth=1
 
 Run status group 0 (all jobs):
-   READ: bw=10.9GiB/s (11.6GB/s), 10.9GiB/s-10.9GiB/s (11.6GB/s-11.6GB/s), io=324GiB (348GB), run=30036-30036msec
+   READ: bw=11.3GiB/s (12.7GB/s), 11.3GiB/s-11.3GiB/s (12.7GB/s-12.7GB/s), io=675GiB (725GB), run=60039-60039msec
 
 Disk stats (read/write):
-    md1: ios=84568651/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=5313104/0, aggrmerge=0/0, aggrticks=622202/0, aggrin_queue=653534, aggrutil=100.00%
-  nvme15n1: ios=5313352/0, merge=0/0, ticks=618496/0, in_queue=634004, util=100.00%
-  nvme6n1: ios=5311908/0, merge=0/0, ticks=622952/0, in_queue=638404, util=100.00%
-  nvme9n1: ios=5312879/0, merge=0/0, ticks=628548/0, in_queue=684116, util=100.00%
-  nvme11n1: ios=5312275/0, merge=0/0, ticks=623672/0, in_queue=680976, util=100.00%
-  nvme2n1: ios=5309485/0, merge=0/0, ticks=624416/0, in_queue=680408, util=100.00%
-  nvme14n1: ios=5313963/0, merge=0/0, ticks=617492/0, in_queue=633020, util=100.00%
-  nvme5n1: ios=5309183/0, merge=0/0, ticks=626120/0, in_queue=638892, util=100.00%
-  nvme8n1: ios=5311896/0, merge=0/0, ticks=627840/0, in_queue=642136, util=100.00%
-  nvme10n1: ios=5313984/0, merge=0/0, ticks=629168/0, in_queue=643884, util=100.00%
-  nvme1n1: ios=5313044/0, merge=0/0, ticks=616332/0, in_queue=674092, util=100.00%
-  nvme13n1: ios=5315159/0, merge=0/0, ticks=619672/0, in_queue=675616, util=100.00%
-  nvme4n1: ios=5311828/0, merge=0/0, ticks=622312/0, in_queue=685520, util=100.00%
-  nvme7n1: ios=5315150/0, merge=0/0, ticks=620752/0, in_queue=638996, util=100.00%
-  nvme0n1: ios=5314921/0, merge=0/0, ticks=615984/0, in_queue=632400, util=100.00%
-  nvme12n1: ios=5316256/0, merge=0/0, ticks=617796/0, in_queue=633860, util=100.00%
-  nvme3n1: ios=5314381/0, merge=0/0, ticks=623684/0, in_queue=640220, util=100.00%
+    md1: ios=176561933/0, merge=0/0, ticks=0/0, in_queue=0, util=0.00%, aggrios=11056240/0, aggrmerge=0/0, aggrticks=1334011/0, aggrin_queue=1408627, aggrutil=100.00%
+  nvme15n1: ios=11055707/0, merge=0/0, ticks=1330132/0, in_queue=1364228, util=100.00%
+  nvme6n1: ios=11055332/0, merge=0/0, ticks=1338104/0, in_queue=1371792, util=100.00%
+  nvme9n1: ios=11053046/0, merge=0/0, ticks=1348328/0, in_queue=1492628, util=100.00%
+  nvme11n1: ios=11056001/0, merge=0/0, ticks=1335772/0, in_queue=1481508, util=100.00%
+  nvme2n1: ios=11052721/0, merge=0/0, ticks=1335964/0, in_queue=1470292, util=100.00%
+  nvme14n1: ios=11053308/0, merge=0/0, ticks=1320064/0, in_queue=1356604, util=100.00%
+  nvme5n1: ios=11057295/0, merge=0/0, ticks=1345752/0, in_queue=1383352, util=100.00%
+  nvme8n1: ios=11055659/0, merge=0/0, ticks=1341524/0, in_queue=1376052, util=100.00%
+  nvme10n1: ios=11058520/0, merge=0/0, ticks=1351304/0, in_queue=1386444, util=100.00%
+  nvme1n1: ios=11058887/0, merge=0/0, ticks=1327880/0, in_queue=1453008, util=100.00%
+  nvme13n1: ios=11051854/0, merge=0/0, ticks=1324848/0, in_queue=1458192, util=100.00%
+  nvme4n1: ios=11053614/0, merge=0/0, ticks=1335016/0, in_queue=1484228, util=100.00%
+  nvme7n1: ios=11060943/0, merge=0/0, ticks=1330780/0, in_queue=1368016, util=100.00%
+  nvme0n1: ios=11060606/0, merge=0/0, ticks=1319916/0, in_queue=1356332, util=100.00%
+  nvme12n1: ios=11054826/0, merge=0/0, ticks=1321720/0, in_queue=1360304, util=100.00%
+  nvme3n1: ios=11061521/0, merge=0/0, ticks=1337084/0, in_queue=1375060, util=100.00%
 ```
