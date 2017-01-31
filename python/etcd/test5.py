@@ -1,4 +1,4 @@
-from time import sleep
+hfrom time import sleep
 import etcd3
 
 etcd = etcd3.client()

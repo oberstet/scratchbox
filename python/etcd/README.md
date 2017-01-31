@@ -1,3 +1,12 @@
+# etcd
+
+## Resources
+
+* https://www.heise.de/developer/artikel/Verteilte-Systeme-mit-Etcd-in-der-Praxis-2845358.html
+* https://coreos.com/etcd/docs/latest/rfc/v3api.html
+* https://github.com/coreos/etcd/tree/master/contrib/recipes
+* https://github.com/coreos/etcd/blob/master/Documentation/dev-guide/api_grpc_gateway.md
+
 
 ## Installation
 
