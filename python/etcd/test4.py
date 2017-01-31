@@ -1,19 +1,33 @@
 from twisted.internet.task import react
 from twisted.internet.defer import inlineCallbacks
+
 from autobahn.twisted.util import sleep
+
 import etcd
 
 
 @inlineCallbacks
 def main(reactor):
-    # etcd client
+
+    # a Twisted etcd client
     client = etcd.Client(reactor, b'http://localhost:2379')
 
-    # get a key
-    value = yield client.get(b'/foo/bar')
-    print(value)
+    # get value for a key
+    try:
+        value = yield client.get(b'/cf/foo')
+        print('value={}'.format(value))
+    except IndexError:
+        print('no such key =(')
 
-    # iterate over key range
+    # iterate over key range (maybe an async iter in the future?)
+    pairs = yield client.get(b'/cf/foo01', b'/cf/foo05')
+    for key, value in pairs.items():
+        print('key={}: {}'.format(key, value))
+
+    # iterate over keys with given prefix
+    pairs = yield client.get(b'/cf/foo0', prefix=True)
+    for key, value in pairs.items():
+        print('key={}: {}'.format(key, value))
 
     # watch keys for change events
     prefixes = [b'/cf/', b'/foo/']
@@ -22,12 +36,18 @@ def main(reactor):
     def on_watch(key, value):
         print(key, value)
 
-    d = client.start_watching(prefixes, on_watch)
+    d = client.watch(prefixes, on_watch)
 
-    # sleep for 10 seconds and cancel watching
-    yield sleep(10)
+    # sleep for n seconds and cancel watching
+    delay = 10
+    print('watching {} for {} seconds ..'.format(prefixes, delay))
+    yield sleep(delay)
     yield d.cancel()
 
     # submit transaction
+
+    # create lease
+
+    # get etcd status
 
 react(main)
