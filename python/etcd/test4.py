@@ -12,6 +12,10 @@ def main(reactor):
     # a Twisted etcd client
     client = etcd.Client(reactor, b'http://localhost:2379')
 
+    # get etcd status
+    status = yield client.status()
+    print(status)
+
     # get value for a key
     try:
         value = yield client.get(b'/cf/foo')
@@ -53,6 +57,5 @@ def main(reactor):
 
     # create lease
 
-    # get etcd status
 
 react(main)

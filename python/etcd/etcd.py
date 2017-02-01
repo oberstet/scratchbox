@@ -97,6 +97,71 @@ class _StreamingReceiver(protocol.Protocol):
             self._done = None
 
 
+class Header(object):
+    """
+    u'header':
+    {
+        u'raft_term': u'2',
+        u'revision': u'285',
+        u'cluster_id': u'243774308834426361',
+        u'member_id': u'17323375927490080838'
+    }
+    """
+    def __init__(self, raft_term, revision, cluster_id, member_id):
+        self.raft_term = raft_term
+        self.revision = revision
+        self.cluster_id = cluster_id
+        self.member_id = member_id
+
+    @staticmethod
+    def parse(obj):
+        raft_term = int(obj['raft_term']) if 'raft_term' in obj else None
+        revision = int(obj['revision']) if 'revision' in obj else None
+        cluster_id = int(obj['cluster_id']) if 'cluster_id' in obj else None
+        member_id = int(obj['member_id']) if 'member_id' in obj else None
+        return Header(raft_term, revision, cluster_id, member_id)
+
+    def __str__(self):
+        return u'Header(raft_term={}, revision={}, cluster_id={}, member_id={})'.format(self.raft_term, self.revision, self.cluster_id, self.member_id)
+
+class Status(object):
+    """
+    {
+        u'raftTerm': u'2',
+        u'header':
+        {
+            u'raft_term': u'2',
+            u'revision': u'285',
+            u'cluster_id': u'243774308834426361',
+            u'member_id': u'17323375927490080838'
+        },
+        u'version': u'3.1.0',
+        u'raftIndex': u'288',
+        u'dbSize': u'57344',
+        u'leader': u'17323375927490080838'
+    }
+    """
+    def __init__(self, version, dbSize, leader, header, raftTerm, raftIndex):
+        self.version = version
+        self.dbSize = dbSize
+        self.leader = leader
+        self.header = header
+        self.raftTerm = raftTerm
+        self.raftIndex = raftIndex
+
+    @staticmethod
+    def parse(obj):
+        version = obj['version'] if 'version' in obj else None
+        dbSize = int(obj['dbSize']) if 'dbSize' in obj else None
+        leader = int(obj['leader']) if 'leader' in obj else None
+        header = Header.parse(obj['header']) if 'header' in obj else None
+        raftTerm = int(obj['raftTerm']) if 'raftTerm' in obj else None
+        raftIndex = int(obj['raftIndex']) if 'raftIndex' in obj else None
+        return Status(version, dbSize, leader, header, raftTerm, raftIndex)
+
+    def __str__(self):
+        return u'Status(version={}, dbSize={}, leader={}, header={}, raftTerm={}, raftIndex={})'.format(self.version, self.dbSize, self.leader, self.header, self.raftTerm, self.raftIndex)
+
 class Value(object):
     """
     etcd rich value object.
@@ -159,6 +224,23 @@ class Client(object):
         self._url = url
         self._pool = pool or HTTPConnectionPool(reactor, persistent=True)
         self._agent = Agent(reactor, connectTimeout=10, pool=self._pool)
+
+    @inlineCallbacks
+    def status(self):
+        """
+        Get etcd status.
+        """
+        url = b'{}/v3alpha/maintenance/status'.format(self._url)
+        obj = {
+        }
+        data = json.dumps(obj).encode('utf8')
+
+        response = yield treq.post(url, data, headers=self.REQ_HEADERS)
+        obj = yield treq.json_content(response)
+
+        status = Status.parse(obj)
+
+        returnValue(status)
 
     @inlineCallbacks
     def set(self, key, value):
