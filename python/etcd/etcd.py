@@ -1,61 +1,13 @@
 from __future__ import print_function
 
 import json
+import binascii
 
-from pprint import pprint
-
-from zope.interface import implements
-
-from twisted.web.iweb import IBodyProducer, UNKNOWN_LENGTH
-from twisted.internet import defer
-from twisted.web.client import Agent
-from twisted.web.http_headers import Headers
-import urllib
-
-from twisted.internet.task import react
-
-from autobahn.twisted.util import sleep
-
-from twisted.internet.defer import succeed, inlineCallbacks
-from twisted.internet.task import react
-
-from autobahn.twisted.util import sleep
-
+from twisted.internet.defer import Deferred, succeed, inlineCallbacks, returnValue
 from twisted.internet import protocol
-
-from twisted.web.client import HTTPConnectionPool
-
-from twisted.internet.defer import Deferred
-
-import binascii
-
-import binascii
-from twisted.web.client import HTTPConnectionPool
-
+from twisted.web.client import Agent, HTTPConnectionPool
 from twisted.web.iweb import IBodyProducer, UNKNOWN_LENGTH
-from twisted.internet import defer
-from twisted.web.client import Agent
 from twisted.web.http_headers import Headers
-
-#self._session.register(self.set, u'crossbar.fabric.etcd.set')
-#self._session.register(self.set, u'crossbar.fabric.etcd.run')
-
-from twisted.internet.defer import succeed, CancelledError, returnValue
-from twisted.web.client import Agent, readBody
-
-# Crossbar.io/etcd integration:
-#    - persistent map in etcd:
-#        WAMP URI -> serialized args/kwargs
-#    - generic setter/getter/watcher
-#    - transaction API
-#
-# Using LMDB as a persistent local cache for etcd
-#
-# The app is using LMDB API exclusively for read ops
-# and etcd transactions directly to etcd for write ops.
-#
-
-#operator --> etcd --> (full replication) --> LMDB --> Python
 
 
 __all__ = ('Value', 'Client')
@@ -77,7 +29,7 @@ class _BufferedSender(object):
 
     def startProducing(self, consumer):
         consumer.write(self.body)
-        return defer.succeed(None)
+        return succeed(None)
 
     def pauseProducing(self):
         pass
@@ -145,8 +97,22 @@ class _StreamingReceiver(protocol.Protocol):
 
 
 class Value(object):
+    """
+    etcd rich value object.
+    """
 
     def __init__(self, value, version=None, create_revision=None, mod_revision=None):
+        """
+
+        :param value: The actual value.
+        :type value: bytes
+        :param version:
+        :type version:
+        :param create_revision:
+        :type create_revision:
+        :param mod_revision:
+        :type mod_revision
+        """
         self.value = value
         self.version = version
         self.create_revision = create_revision
@@ -157,13 +123,37 @@ class Value(object):
 
 
 class Client(object):
+    """
+    etcd client that talks to the gRPC endpoint of etcd v3.
+
+    See: https://coreos.com/etcd/docs/latest/dev-guide/apispec/swagger/rpc.swagger.json
+    """
 
     def __init__(self, reactor, url, pool=None):
+        """
+
+        :param rector:
+        :type reactor:
+        :param url:
+        :type url:
+        :param pool:
+        :type pool:
+        """
         self._url = url
         self._pool = pool or HTTPConnectionPool(reactor, persistent=True)
         self._agent = Agent(reactor, pool=self._pool)
 
     def get(self, key, range_end=None, prefix=None):
+        """
+        Retrieve value for key from etcd.
+
+        :param key:
+        :type key:
+        :param range_end:
+        :type range_end:
+        :param prefix:
+        :type prefix:
+        """
         headers = dict()
         url = b'{}/v3alpha/kv/range'.format(self._url)
 
@@ -187,7 +177,7 @@ class Client(object):
         @inlineCallbacks
         def handle_response(response):
             if response.code == 200:
-                body_received = defer.Deferred()
+                body_received = Deferred()
                 response.deliverBody(_BufferedReceiver(body_received))
                 body = yield body_received
                 obj = json.loads(body)
@@ -220,6 +210,16 @@ class Client(object):
         return d
 
     def watch(self, prefixes, on_watch, start_revision=None):
+        """
+        Watch one or more key prefixes and invoke a callback.
+
+        :param prefixes: The prefixes to watch.
+        :type prefixes: list of bytes
+        :param on_watch: The callback to invoke upon receiving a watch event.
+        :type on_watch: callable
+        :param start_revision: Watch beginning from this revision.
+        :type start_revision: int
+        """
         d = self._start_watching(prefixes, on_watch, start_revision)
 
         def on_err(err):
@@ -258,9 +258,9 @@ class Client(object):
 
         def handle_response(response):
             if response.code == 204:
-                done = defer.succeed('')
+                done = succeed('')
             else:
-                done = defer.Deferred()
+                done = Deferred()
                 response.deliverBody(_StreamingReceiver(on_watch, done))
             return done
 
@@ -268,4 +268,7 @@ class Client(object):
         return d
 
     def submit(self, txn):
+        """
+        Submit a etcd transaction.
+        """
         pass
