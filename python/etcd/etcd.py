@@ -9,6 +9,7 @@ from twisted.web.client import Agent, HTTPConnectionPool
 from twisted.web.iweb import IBodyProducer, UNKNOWN_LENGTH
 from twisted.web.http_headers import Headers
 
+import treq
 
 __all__ = ('Value', 'Client')
 
@@ -126,8 +127,24 @@ class Client(object):
     """
     etcd client that talks to the gRPC endpoint of etcd v3.
 
+    /v3alpha/maintenance/status
+
+    /v3alpha/kv/put
+    /v3alpha/kv/range
+    /v3alpha/kv/deleterange
+    /v3alpha/kv/txn
+
+    /v3alpha/watch
+
+    /v3alpha/lease/grant
+    /v3alpha/lease/keepalive
+
+    /v3alpha/kv/lease/revoke
+    /v3alpha/kv/lease/timetolive
+
     See: https://coreos.com/etcd/docs/latest/dev-guide/apispec/swagger/rpc.swagger.json
     """
+    REQ_HEADERS = {'Content-Type': ['application/json']}
 
     def __init__(self, reactor, url, pool=None):
         """
@@ -141,8 +158,32 @@ class Client(object):
         """
         self._url = url
         self._pool = pool or HTTPConnectionPool(reactor, persistent=True)
-        self._agent = Agent(reactor, pool=self._pool)
+        self._agent = Agent(reactor, connectTimeout=10, pool=self._pool)
 
+    @inlineCallbacks
+    def set(self, key, value):
+        """
+        Set a value on a key in etcd.
+
+        :param key:
+        :type key:
+        :param value:
+        :key value:
+        """
+        url = b'{}/v3alpha/kv/put'.format(self._url)
+        obj = {
+            'key': binascii.b2a_base64(key),
+            'value': binascii.b2a_base64(value)
+        }
+        data = json.dumps(obj).encode('utf8')
+
+        response = yield treq.post(url, data, headers=self.REQ_HEADERS)
+        obj = yield treq.json_content(response)
+
+        revision = obj['header']['revision']
+        returnValue(revision)
+
+    @inlineCallbacks
     def get(self, key, range_end=None, prefix=None):
         """
         Retrieve value for key from etcd.
@@ -154,60 +195,41 @@ class Client(object):
         :param prefix:
         :type prefix:
         """
-        headers = dict()
         url = b'{}/v3alpha/kv/range'.format(self._url)
-
         obj = {
             'key': binascii.b2a_base64(key)
         }
-
         if not range_end and prefix is True:
             range_end = _increment_last_byte(key)
-
         if range_end:
             obj['range_end'] = binascii.b2a_base64(range_end)
-
         data = json.dumps(obj).encode('utf8')
 
-        d = self._agent.request('POST',
-                                url,
-                                Headers(headers),
-                                _BufferedSender(data))
+        response = yield treq.post(url, data, headers=self.REQ_HEADERS)
+        obj = yield treq.json_content(response)
 
-        @inlineCallbacks
-        def handle_response(response):
-            if response.code == 200:
-                body_received = Deferred()
-                response.deliverBody(_BufferedReceiver(body_received))
-                body = yield body_received
-                obj = json.loads(body)
-                count = int(obj.get('count', 0))
-                if count == 0:
-                    raise Exception('no such key')
-                else:
-                    if count > 1:
-                        values = {}
-                        for kv in obj['kvs']:
-                            key = binascii.a2b_base64(kv['key'])
-                            value = binascii.a2b_base64(kv['value'])
-                            mod_revision = int(kv['mod_revision'])
-                            create_revision = int(kv['create_revision'])
-                            version = int(kv['version'])
-                            values[key] = Value(value, version=version, create_revision=create_revision, mod_revision=mod_revision)
-                        returnValue(values)
-                    else:
-                        kv = obj['kvs'][0]
-                        value = binascii.a2b_base64(kv['value'])
-                        mod_revision = int(kv['mod_revision'])
-                        create_revision = int(kv['create_revision'])
-                        version = int(kv['version'])
-                        value = Value(value, version=version, create_revision=create_revision, mod_revision=mod_revision)
-                        returnValue(value)
+        count = int(obj.get('count', 0))
+        if count == 0:
+            raise Exception('no such key')
+        else:
+            if count > 1:
+                values = {}
+                for kv in obj['kvs']:
+                    key = binascii.a2b_base64(kv['key'])
+                    value = binascii.a2b_base64(kv['value'])
+                    mod_revision = int(kv['mod_revision'])
+                    create_revision = int(kv['create_revision'])
+                    version = int(kv['version'])
+                    values[key] = Value(value, version=version, create_revision=create_revision, mod_revision=mod_revision)
+                returnValue(values)
             else:
-                print('unexpected response code {}'.format(response.code))
-
-        d.addCallback(handle_response)
-        return d
+                kv = obj['kvs'][0]
+                value = binascii.a2b_base64(kv['value'])
+                mod_revision = int(kv['mod_revision'])
+                create_revision = int(kv['create_revision'])
+                version = int(kv['version'])
+                value = Value(value, version=version, create_revision=create_revision, mod_revision=mod_revision)
+                returnValue(value)
 
     def watch(self, prefixes, on_watch, start_revision=None):
         """

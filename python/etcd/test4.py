@@ -20,8 +20,9 @@ def main(reactor):
         print('no such key =(')
 
     # set a value for a key
-    #for i in range(3):
-    #    yield client.set(b'/cf/foo0{}'.format(i), 'woa;)')
+    for i in range(3):
+        rev = yield client.set(b'/cf/foo0{}'.format(i), b'woa;)')
+        print('value set, revision={}'.format(rev))
 
     # iterate over key range (maybe an async iter in the future?)
     pairs = yield client.get(b'/cf/foo01', b'/cf/foo05')

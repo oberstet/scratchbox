@@ -81,3 +81,9 @@ Watch a key beginning from a revision:
 ```console
 curl -L http://localhost:2379/v3alpha/watch -X POST -d '{"create_request": {"key": "Zm9v", "start_revision": 1}}'
 ```
+
+Get cluster status:
+
+```console
+curl -L http://localhost:2379/v3alpha/maintenance/status -X POST -d '{}'
+```
