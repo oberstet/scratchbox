@@ -28,6 +28,10 @@ def main(reactor):
         rev = yield client.set(b'/cf/foo0{}'.format(i), b'woa;)')
         print('value set, revision={}'.format(rev))
 
+    # delete key
+    rev = yield client.delete(b'/cf/foo02')
+    print(rev)
+
     # iterate over key range (maybe an async iter in the future?)
     pairs = yield client.get(b'/cf/foo01', b'/cf/foo05')
     for key, value in pairs.items():
@@ -45,12 +49,15 @@ def main(reactor):
     def on_watch(key, value):
         print('watch callback fired for key {}: {}'.format(key, value))
 
+    # start watching on given key prefixes
     d = client.watch(prefixes, on_watch)
 
-    # sleep for n seconds and cancel watching
+    # sleep for n seconds ..
     delay = 10
     print('watching {} for {} seconds ..'.format(prefixes, delay))
     yield sleep(delay)
+
+    # .. and stop watching
     yield d.cancel()
 
     # submit transaction
