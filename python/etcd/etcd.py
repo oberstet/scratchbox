@@ -465,6 +465,7 @@ class Client(object):
                 pass
             else:
                 return err
+
         d.addErrback(on_err)
 
         return d

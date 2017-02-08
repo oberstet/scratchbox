@@ -53,7 +53,7 @@ def main(reactor):
     d = client.watch(prefixes, on_watch)
 
     # sleep for n seconds ..
-    delay = 10
+    delay = 1
     print('watching {} for {} seconds ..'.format(prefixes, delay))
     yield sleep(delay)
 
