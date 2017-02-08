@@ -4,13 +4,14 @@ from twisted.internet.defer import inlineCallbacks
 from autobahn.twisted.util import sleep
 
 import etcd
+import txaio
 
 
 @inlineCallbacks
 def main(reactor):
 
     # a Twisted etcd client
-    client = etcd.Client(reactor, b'http://localhost:2379')
+    client = etcd.Client(reactor, u'http://localhost:2379')
 
     # get etcd status
     status = yield client.status()
@@ -23,13 +24,14 @@ def main(reactor):
     except IndexError:
         print('no such key =(')
 
-    # set a value for a key
+    # set a value for some keys
     for i in range(3):
-        rev = yield client.set(b'/cf/foo0{}'.format(i), b'woa;)')
+        rev = yield client.set('/cf/foo0{}'.format(i).encode(), b'woa;)')
         print('value set, revision={}'.format(rev))
 
     # delete key
-    rev = yield client.delete(b'/cf/foo02')
+    key = u'/cf/foo02'.encode()
+    rev = yield client.delete(key)
     print(rev)
 
     # iterate over key range (maybe an async iter in the future?)
@@ -53,7 +55,7 @@ def main(reactor):
     d = client.watch(prefixes, on_watch)
 
     # sleep for n seconds ..
-    delay = 1
+    delay = 10
     print('watching {} for {} seconds ..'.format(prefixes, delay))
     yield sleep(delay)
 
@@ -64,5 +66,6 @@ def main(reactor):
 
     # create lease
 
-
-react(main)
+if __name__ == '__main__':
+    txaio.start_logging(level='info')
+    react(main)
