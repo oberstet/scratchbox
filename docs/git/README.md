@@ -29,6 +29,22 @@ See [here](https://www.maxoberberger.net/blog/2015/08/caching-git-credentials.ht
 
 ### Rebasing a branch of someone else to master
 
+Example 1
+
+```
+git checkout master
+git fetch --all
+git pull
+git merge uptream/master
+
+git checkout -b ticket944-meta-events meejah/ticket944-meta-events
+git rebase master
+git branch --set-upstream-to origin ticket944-meta-events
+git push origin ticket944-meta-events
+```
+
+Example 2
+
 ```
 cd crossbar
 git checkout master
