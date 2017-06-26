@@ -1,5 +1,34 @@
 # WebDAV
 
+## Usage
+
+Mount the Mailbox.org share to **~/files**:
+
+```
+files_mount
+```
+
+Synchronize the cloud to the local persistent folder **~/Documents**:
+
+```
+files_down
+```
+
+Synchronize the local persistent folder **~/Documents** to the cloud:
+
+```
+files_up
+```
+
+Unmount (after WebDAV syncing) the Mailbox.org share:
+
+```
+files_umount
+```
+
+
+## Setup
+
 Install WebDAV user-mode filesystem
 
 ```console
@@ -65,12 +94,10 @@ Here are some shortcuts:
 vim ~/.bashrc
 
 alias files_mount='mount ${HOME}/files'
-alias files_umount='umount -f ${HOME}/files'
+alias files_umount='sync -f ${HOME}/files && umount ${HOME}/files'
 alias files_down='rsync -rutv ${HOME}/files/ ${HOME}/Dokumente/'
 alias files_up='rsync -rutv ${HOME}/Dokumente/ ${HOME}/files/'
 ```
-
-
 
 References:
 
