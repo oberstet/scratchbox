@@ -88,7 +88,7 @@ and add the follwoing line
 https://dav.mailbox.org/servlet/webdav.infostore /home/oberstet/files/ davfs noauto,user 0 0
 ```
 
-Here are some shortcuts:
+Now setup our shortcuts:
 
 ```console
 vim ~/.bashrc
@@ -99,7 +99,8 @@ alias files_down='rsync -rutv ${HOME}/files/ ${HOME}/Dokumente/'
 alias files_up='rsync -rutv ${HOME}/Dokumente/ ${HOME}/files/'
 ```
 
-References:
+
+## References
 
 * https://support-en.mailbox.org/knowledge-base/article/webdav-linux
 * http://ajclarkson.co.uk/blog/auto-mount-webdav-raspberry-pi/
