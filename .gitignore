@@ -6,3 +6,5 @@
 *.so
 *.a
 *.pid
+key.priv
+key.pub
