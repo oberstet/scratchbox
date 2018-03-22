@@ -51,15 +51,10 @@
         },
         {
             "type": "container",
-            "options": {
-                "pythonpath": [
-                    ".."
-                ]
-            },
             "components": [
                 {
                     "type": "class",
-                    "classname": "app1.MySession",
+                    "classname": "crossbar.worker.sample.logging.LogTester",
                     "realm": "realm1",
                     "transport": {
                         "type": "websocket",

@@ -3,11 +3,6 @@
     "workers": [
         {
             "type": "router",
-            "options": {
-                "pythonpath": [
-                    ".."
-                ]
-            },
             "realms": [
                 {
                     "name": "realm1",
@@ -56,7 +51,7 @@
             "components": [
                 {
                     "type": "class",
-                    "classname": "app1.MySession",
+                    "classname": "crossbar.worker.sample.logging.LogTester",
                     "realm": "realm1",
                     "extra": {
                         "iterations": 300,
