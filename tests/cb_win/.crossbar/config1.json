@@ -51,7 +51,7 @@
             "components": [
                 {
                     "type": "class",
-                    "classname": "crossbar.worker.sample.logging.LogTester",
+                    "classname": "crossbar.worker.sample.LogTester",
                     "realm": "realm1",
                     "extra": {
                         "iterations": 300,
