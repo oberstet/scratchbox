@@ -1,3 +1,5 @@
+.qemu
+.build
 *.pyc
 *.sublime-workspace
 .sconsign.dblite
