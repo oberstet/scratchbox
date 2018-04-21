@@ -2,6 +2,29 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Squashing
+
+within current branch, squashes all commits that are ahead of master down into one
+useful if you merged with upstream in the middle of your commits (rebase could get very ugly if this is the case)
+ 
+commit any working changes on branch "mybranchname", then...
+
+	git checkout master
+	git checkout -b mybranchname_temp
+	git merge --squash mybranchname
+	git commit -am "Message describing all squashed commits"
+	git branch -m mybranchname mybranchname_unsquashed
+	git branch -m mybranchname
+ 
+optional, not recommended if you want to keep the unsquashed history around for a bit longer
+
+	git branch -D mybranchname_unsquashed
+ 
+if squashing already-pushed commits...
+
+	git push --force
+
+
 ### Write access to repo from behind firewall
 
 To access a GitHub repo (public or private) from behind a corporate firewall, your best bet is over HTTPS.
