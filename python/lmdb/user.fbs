@@ -12,6 +12,7 @@ table Rating {
     name: string (key, required);
     rating: float;
 }
+
 table User {
     name: string;
     authid: string (required);
