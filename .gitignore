@@ -10,3 +10,4 @@
 *.pid
 key.priv
 key.pub
+.idea
