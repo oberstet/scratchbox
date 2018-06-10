@@ -33,10 +33,13 @@ class PersistentMap(MutableMapping):
         cursor = self._txn._txn.cursor()
         cnt = 0
         if cursor.set_range(key_from):
-            while cursor.key() < key_to:
+            key = cursor.key()
+            while key < key_to:
                 if not cursor.delete(dupdata=True):
                     break
                 cnt += 1
+                self._txn._dels += 1
+                self._txn._log.append((BaseTransaction.DEL, key))
         if rebuild_indexes:
             deleted, _ = self.rebuild_indexes()
             cnt += deleted
@@ -71,8 +74,7 @@ class PersistentMap(MutableMapping):
                         _key = struct.pack('<H', index_map._slot) + index_map._serialize_key(index_key(value))
                         _data = index_map._serialize_value(value.oid)
 
-                        self._txn._txn.put(_key, _data)
-                        self._txn._puts += 1
+                        self._txn.put(_key, _data)
                         inserted += 1
                     if not cursor.next():
                         break
@@ -91,7 +93,7 @@ class PersistentMap(MutableMapping):
 
     def __getitem__(self, key):
         _key = struct.pack('<H', self._slot) + self._serialize_key(key)
-        _data = self._txn._txn.get(_key)
+        _data = self._txn.get(_key)
         if _data:
             return self._deserialize_value(_data)
         else:
@@ -100,19 +102,16 @@ class PersistentMap(MutableMapping):
     def __setitem__(self, key, value):
         _key = struct.pack('<H', self._slot) + self._serialize_key(key)
         _data = self._serialize_value(value)
-        self._txn._txn.put(_key, _data)
-        self._txn._puts += 1
+        self._txn.put(_key, _data)
 
         for index_key, index_map in self._indexes.values():
             _key = struct.pack('<H', index_map._slot) + index_map._serialize_key(index_key(value))
             _data = index_map._serialize_value(key)
-            self._txn._txn.put(_key, _data)
-            self._txn._puts += 1
+            self._txn.put(_key, _data)
 
     def __delitem__(self, key):
         _key = struct.pack('<H', self._slot) + self._serialize_key(key)
-        self._txn._txn.delete(_key)
-        self._txn._dels += 1
+        self._txn.delete(_key)
 
     def __iter__(self):
         raise Exception('not implemented')
@@ -176,12 +175,29 @@ class MapOidPickle(PersistentMap):
 
 class BaseTransaction(object):
 
+    PUT = 1
+    DEL = 2
+
     def __init__(self, env, write=False):
         self._env = env
         self._write = write
         self._txn = None
+        self._log = []
         self._puts = 0
         self._dels = 0
+
+    def get(self, key):
+        return self._txn.get(key)
+
+    def put(self, key, data):
+        self._puts += 1
+        self._log.append((BaseTransaction.PUT, key))
+        return self._txn.put(key, data)
+
+    def delete(self, key):
+        self._dels += 1
+        self._log.append((BaseTransaction.DEL, key))
+        return self._txn.delete(key)
 
     def attach(self):
         raise Exception('not implemented')
@@ -197,8 +213,14 @@ class BaseTransaction(object):
         # https://docs.python.org/3/reference/datamodel.html#object.__exit__
         # If the context was exited without an exception, all three arguments will be None.
         if exc_type is None:
+            cnt = 0
+            for op, key in self._log:
+                _key = struct.pack('<H', 0)
+                _data = struct.pack('<H', op) + key
+                self._txn.put(_key, _data)
+                cnt += 1
             self._txn.commit()
-            print('LMDB transaction committed', self._puts, self._dels)
+            print('LMDB transaction committed: {} logs records, {} puts, {} deletes'.format(cnt, self._puts, self._dels))
         else:
             self._txn.abort()
             print('LMDB transaction aborted', exc_type, exc_value, traceback)

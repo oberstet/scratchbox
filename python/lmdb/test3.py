@@ -4,6 +4,11 @@ import lmdb
 from schema import User, Transaction
 
 
+def test_txn(env):
+    with Transaction(env) as txn:
+        print(txn._txn.id())
+
+
 def test_insert1(env):
     users = []
 
@@ -49,6 +54,26 @@ def test_insert1(env):
             else:
                 print('user loaded', _user)
 
+def test_insert2(env):
+    with Transaction(env, write=True) as txn:
+        for i in range(100):
+            user = User()
+            user.oid = i + 10
+            user.name = 'Test {}'.format(i)
+            user.authid = 'test-{}'.format(i)
+            user.email = '{}@example.com'.format(user.authid)
+            for j in range(10):
+                user.ratings['test-rating-{}'.format(j)] = random.random()
+
+            _user = txn.users[user.oid]
+            if not _user:
+                txn.users[user.oid] = user
+                #txn.users_by_authid[user.authid] = user.oid
+                print('user stored', user, user.oid, user.authid)
+            else:
+                print('user loaded', _user, _user.oid, _user.authid)
+
+
 def test_insert3(env):
     oid = 4
 
@@ -69,26 +94,6 @@ def test_insert3(env):
             print('user stored', user)
         else:
             print('user loaded', user)
-
-
-def test_insert2(env):
-    with Transaction(env, write=True) as txn:
-        for i in range(100):
-            user = User()
-            user.oid = i + 10
-            user.name = 'Test {}'.format(i)
-            user.authid = 'test-{}'.format(i)
-            user.email = '{}@example.com'.format(user.authid)
-            for j in range(10):
-                user.ratings['test-rating-{}'.format(j)] = random.random()
-
-            _user = txn.users[user.oid]
-            if not _user:
-                txn.users[user.oid] = user
-                #txn.users_by_authid[user.authid] = user.oid
-                print('user stored', user, user.oid, user.authid)
-            else:
-                print('user loaded', _user, _user.oid, _user.authid)
 
 
 def test_by_auth(env):
@@ -141,14 +146,14 @@ def test_rebuild_all(env):
 
 env = lmdb.open('.db4')
 
+#test_txn(env)
+test_insert1(env)
+test_insert2(env)
 test_insert3(env)
-#test_insert1(env)
-#test_insert2(env)
-#test_by_auth(env)
-#test_by_email(env)
-#test_rebuild_all(env)
-
-#test_truncate_table(env)
+test_by_auth(env)
+test_by_email(env)
+test_rebuild_all(env)
+test_truncate_table(env)
 #test_by_email(env)
 #test_rebuild(env)
 #test(env)
