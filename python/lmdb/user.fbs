@@ -6,15 +6,15 @@ struct Date {
     day: uint8;
 }
 
-enum Tag : byte { GEEK = 1, VIP }
+enum Tag : byte { GEEK, VIP }
 
 table Rating {
-    name: string (key);
+    name: string (key, required);
     rating: float;
 }
 table User {
     name: string;
-    authid: string;
+    authid: string (required);
     email: string;
     birthday: Date;
     is_friendly: bool;
