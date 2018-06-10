@@ -1,3 +1,7 @@
+##
+## generic part ("library")
+##
+
 import os
 import shutil
 import random
@@ -5,6 +9,8 @@ import lmdb
 from collections.abc import MutableMapping
 import struct
 import cbor2
+import pickle
+import datetime
 
 
 class PersistentMap(MutableMapping):
@@ -71,21 +77,30 @@ class MapOidCbor(PersistentMap):
         return cbor2.loads(data)
 
 
+class MapOidPickle(PersistentMap):
+
+    def _serialize_key(self, key):
+        return struct.pack('<Q', key)
+
+    def _serialize_value(self, value):
+        return pickle.dumps(value, protocol=4)
+
+    def _deserialize_value(self, data):
+        return pickle.loads(data)
+
+
 
 class Transaction(object):
 
     def __init__(self, write=False):
-        self._txn = None
         self._write = write
-        self.users_by_authid = MapStringOid(1, self)
-        self.users = MapOidCbor(2, self)
+        self._txn = None
 
     def __enter__(self):
         self._txn = lmdb.Transaction(env, write=self._write)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        print('__exit__', exc_type, exc_value, traceback)
         # https://docs.python.org/3/reference/datamodel.html#object.__exit__
         # If the context was exited without an exception, all three arguments will be None.
         if exc_type is None:
@@ -93,8 +108,23 @@ class Transaction(object):
             print('LMDB transaction committed')
         else:
             self._txn.abort()
-            print('LMDB transaction aborted')
+            print('LMDB transaction aborted', exc_type, exc_value, traceback)
 
+
+##
+## app code: variant 1, using CBOR
+##
+
+
+class AppTx(Transaction):
+    """
+    Definition of application database schema
+    """
+
+    def __init__(self, write=False):
+        Transaction.__init__(self, write=write)
+        self.users_by_authid = MapStringOid(1, self)
+        self.users = MapOidCbor(2, self)
 
 
 env = lmdb.open('.db3')
@@ -118,10 +148,66 @@ user = {
     'tags': ['geek', 'vip']
 }
 
-with Transaction(write=True) as txn:
-    user_oid = txn.users_by_authid[user_authid]
-    if user_oid:
-        user = txn.users[user_oid]
+with AppTx(write=True) as txn:
+
+    _user_oid = txn.users_by_authid[user_authid]
+
+    if _user_oid:
+        user = txn.users[_user_oid]
+        print('user loaded', user)
+    else:
+        txn.users_by_authid[user_authid] = user_oid
+        txn.users[user_oid] = user
+        print('user stored', user)
+
+
+
+##
+## app code: variant 2, using native Python object
+##
+
+env = lmdb.open('.db4')
+
+user_oid = 1
+user_authid = 'joe50xyz'
+
+class User(object):
+
+    def __init__(self):
+        self.name = 'joe'
+        self.authid = user_authid
+        self.email = 'joe.doe@digital.com'
+        self.birthday = datetime.date(1950, 12, 24)
+        self.ratings = {
+            'dawn-of-the-dead': 6.9,
+            'day-of-the-dead': 7.5,
+            'land-of-the-dead': 8.9
+        }
+        self.tags = ('geek', 'vip')
+
+user = User()
+
+class AppTx2(Transaction):
+    """
+    Definition of application database schema
+    """
+
+    def __init__(self, write=False):
+        Transaction.__init__(self, write=write)
+
+        # index: string -> oid
+        self.users_by_authid = MapStringOid(1, self)
+
+        # table: oid -> user
+        self.users = MapOidPickle(2, self)
+
+
+with AppTx2(write=True) as txn:
+
+    _user_oid = txn.users_by_authid[user_authid]
+
+    if _user_oid:
+        user = txn.users[_user_oid]
         print('user loaded', user)
     else:
         txn.users_by_authid[user_authid] = user_oid
