@@ -24,14 +24,19 @@ class Transaction(dbutil.BaseTransaction):
     Definition of application database schema
     """
 
-    users_by_authid: dbutil.MapStringOid = dbutil.MapStringOid(slot=1)
+    users: dbutil.MapOidPickle = dbutil.MapOidPickle(slot=1)
+    """
+    Maps user OID to user object (in pickle format).
+    """
+
+    users_by_authid: dbutil.MapStringOid = dbutil.MapStringOid(slot=2)
     """
     Maps user authid to user OID.
     """
 
-    users: dbutil.MapOidPickle = dbutil.MapOidPickle(slot=2)
+    users_by_email: dbutil.MapStringOid = dbutil.MapStringOid(slot=3)
     """
-    Maps user OID to user object (in pickle format).
+    Maps user email to user OID.
     """
 
     def attach(self):
@@ -40,7 +45,8 @@ class Transaction(dbutil.BaseTransaction):
 
         # index: authid -> oid-user
         self.users_by_authid.attach(self)
-        self.users.set_index('idx1',
-                             lambda user: user.authid,
-                             self.users_by_authid,
-                             build=False)
+        self.users.set_index('idx1', lambda user: user.authid, self.users_by_authid)
+
+        # index: email -> oid-user
+        self.users_by_email.attach(self)
+        self.users.set_index('idx2', lambda user: user.email, self.users_by_email)

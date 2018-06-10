@@ -57,6 +57,7 @@ with Transaction(env, write=True) as txn:
         user.oid = i + 10
         user.name = 'Test {}'.format(i)
         user.authid = 'test-{}'.format(i)
+        user.email = '{}@example.com'.format(user.authid)
         for j in range(10):
             user.ratings['test-rating-{}'.format(j)] = random.random()
 
@@ -68,7 +69,7 @@ with Transaction(env, write=True) as txn:
         else:
             print('user loaded', _user, _user.oid, _user.authid)
 
-def test(env):
+def test_by_auth(env):
     with Transaction(env) as txn:
         for i in range(100):
             authid = 'test-{}'.format(i)
@@ -78,6 +79,17 @@ def test(env):
                 print('success: user "{}" loaded by authid "{}"'.format(oid, authid))
             else:
                 print('failure: user not found for authid "{}"'.format(authid))
+
+def test_by_email(env):
+    with Transaction(env) as txn:
+        for i in range(100):
+            email = 'test-{}@example.com'.format(i)
+            oid = txn.users_by_email[email]
+            if oid:
+                user = txn.users[oid]
+                print('success: user "{}" loaded by email "{}"'.format(oid, email))
+            else:
+                print('failure: user not found for email "{}"'.format(email))
 
 def test_truncate(env):
     with Transaction(env, write=True) as txn:
@@ -89,9 +101,17 @@ def test_rebuild(env):
         rows = txn.users.rebuild_index('idx1')
         print('users_by_authid rebuilt: {} rows'.format(rows))
 
-test(env)
-test_truncate(env)
-test_rebuild(env)
-test(env)
-test_rebuild(env)
-test(env)
+def test_rebuild_all(env):
+    with Transaction(env, write=True) as txn:
+        rows = txn.users.rebuild_indexes()
+        print('indexes rebuilt: {} rows'.format(rows))
+
+test_by_auth(env)
+test_by_email(env)
+test_rebuild_all(env)
+
+#test_truncate(env)
+#test_rebuild(env)
+#test(env)
+#test_rebuild(env)
+#test(env)

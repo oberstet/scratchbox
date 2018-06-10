@@ -34,10 +34,14 @@ class PersistentMap(MutableMapping):
                 cnt += 1
         return cnt
 
-    def set_index(self, index_name, index_key, index_map, build=True):
+    def set_index(self, index_name, index_key, index_map):
         self._indexes[index_name] = (index_key, index_map)
-        if build:
-            return self.rebuild_index(index_name)
+
+    def rebuild_indexes(self):
+        cnt = 0
+        for index_name in sorted(self._indexes.keys()):
+            cnt += self.rebuild_index(index_name)
+        return cnt
 
     def rebuild_index(self, index_name):
         if index_name in self._indexes:
