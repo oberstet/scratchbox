@@ -15,9 +15,55 @@ class PersistentMap(MutableMapping):
 
     def __init__(self, *args, **kwargs):
         self._slot = kwargs.pop('slot', 0)
+        self._indexes = {}
 
     def attach(self, txn):
+        #print('LMDB transaction attached', dir(txn))
         self._txn = txn
+
+    def truncate(self):
+        #print('TRUNCATE on map')
+        key_from = struct.pack('<H', self._slot)
+        key_to = struct.pack('<H', self._slot + 1)
+        cursor = self._txn._txn.cursor()
+        cnt = 0
+        if cursor.set_range(key_from):
+            while cursor.key() < key_to:
+                if not cursor.delete(dupdata=True):
+                    break
+                cnt += 1
+        return cnt
+
+    def set_index(self, index_name, index_key, index_map, build=True):
+        self._indexes[index_name] = (index_key, index_map)
+        if build:
+            return self.rebuild_index(index_name)
+
+    def rebuild_index(self, index_name):
+        if index_name in self._indexes:
+            index_key, index_map = self._indexes[index_name]
+
+            index_map.truncate()
+
+            key_from = struct.pack('<H', self._slot)
+            key_to = struct.pack('<H', self._slot + 1)
+            cursor = self._txn._txn.cursor()
+            cnt = 0
+            if cursor.set_range(key_from):
+                while cursor.key() < key_to:
+                    data = cursor.value()
+                    if data:
+                        value = self._deserialize_value(data)
+
+                        _key = struct.pack('<H', index_map._slot) + index_map._serialize_key(index_key(value))
+                        _data = index_map._serialize_value(value.oid)
+
+                        self._txn._txn.put(_key, _data)
+                        self._txn._puts += 1
+                        cnt += 1
+                    if not cursor.next():
+                        break
+            return cnt
 
     def _serialize_key(self, key):
         raise Exception('not implemented')
@@ -41,6 +87,12 @@ class PersistentMap(MutableMapping):
         _data = self._serialize_value(value)
         self._txn._txn.put(_key, _data)
         self._txn._puts += 1
+
+        for index_key, index_map in self._indexes.values():
+            _key = struct.pack('<H', index_map._slot) + index_map._serialize_key(index_key(value))
+            _data = index_map._serialize_value(key)
+            self._txn._txn.put(_key, _data)
+            self._txn._puts += 1
 
     def __delitem__(self, key):
         _key = struct.pack('<H', self._slot) + self._serialize_key(key)

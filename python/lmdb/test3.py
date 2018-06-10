@@ -1,43 +1,7 @@
-import lmdb
-import random
 import datetime
-from typing import Optional, List, Dict
-
-import dbutil
-
-
-class User(object):
-
-    oid: int
-    name: str
-    authid: str
-    email: str
-    birthday: datetime.date
-    is_friendly: bool
-    tags: Optional[List[str]]
-    ratings: Dict[str, float] = {}
-    friends: List[int] = []
-    referred_by: int = None
-
-
-class Transaction(dbutil.BaseTransaction):
-    """
-    Definition of application database schema
-    """
-
-    users_by_authid: dbutil.MapStringOid = dbutil.MapStringOid(slot=1)
-    """
-    Maps user authid to user OID.
-    """
-
-    users: dbutil.MapOidPickle = dbutil.MapOidPickle(slot=2)
-    """
-    Maps user OID to user object (in pickle format).
-    """
-
-    def attach(self):
-        self.users.attach(self)
-        self.users_by_authid.attach(self)
+import random
+import lmdb
+from schema import User, Transaction
 
 
 users = []
@@ -82,14 +46,13 @@ with Transaction(env, write=True) as txn:
         _user = txn.users[user.oid]
         if not _user:
             txn.users[user.oid] = user
-            txn.users_by_authid[user.authid] = user.oid
+            #txn.users_by_authid[user.authid] = user.oid
             print('user stored', user)
         else:
             print('user loaded', _user)
 
 with Transaction(env, write=True) as txn:
     for i in range(100):
-
         user = User()
         user.oid = i + 10
         user.name = 'Test {}'.format(i)
@@ -100,7 +63,35 @@ with Transaction(env, write=True) as txn:
         _user = txn.users[user.oid]
         if not _user:
             txn.users[user.oid] = user
-            txn.users_by_authid[user.authid] = user.oid
+            #txn.users_by_authid[user.authid] = user.oid
             print('user stored', user, user.oid, user.authid)
         else:
             print('user loaded', _user, _user.oid, _user.authid)
+
+def test(env):
+    with Transaction(env) as txn:
+        for i in range(100):
+            authid = 'test-{}'.format(i)
+            oid = txn.users_by_authid[authid]
+            if oid:
+                user = txn.users[oid]
+                print('success: user "{}" loaded by authid "{}"'.format(oid, authid))
+            else:
+                print('failure: user not found for authid "{}"'.format(authid))
+
+def test_truncate(env):
+    with Transaction(env, write=True) as txn:
+        rows = txn.users_by_authid.truncate()
+        print('users_by_authid truncated: {} rows'.format(rows))
+
+def test_rebuild(env):
+    with Transaction(env, write=True) as txn:
+        rows = txn.users.rebuild_index('idx1')
+        print('users_by_authid rebuilt: {} rows'.format(rows))
+
+test(env)
+test_truncate(env)
+test_rebuild(env)
+test(env)
+test_rebuild(env)
+test(env)
