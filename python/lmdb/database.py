@@ -10,18 +10,23 @@ import datetime
 
 # https://github.com/google/flatbuffers/blob/master/docs/source/CppUsage.md#access-of-untrusted-buffers
 
-
 class PersistentMap(MutableMapping):
+    """
+    Abstract base class for persistent maps stored in LMDB.
+    """
 
     def __init__(self, *args, **kwargs):
         self._slot = kwargs.pop('slot', 0)
         self._indexes = {}
 
-    def attach(self, txn):
+    def attach_transaction(self, txn):
         #print('LMDB transaction attached', dir(txn))
         self._txn = txn
 
-    def truncate(self):
+    def attach_index(self, index_name, index_key, index_map):
+        self._indexes[index_name] = (index_key, index_map)
+
+    def truncate(self, rebuild_indexes=True):
         #print('TRUNCATE on map')
         key_from = struct.pack('<H', self._slot)
         key_to = struct.pack('<H', self._slot + 1)
@@ -32,27 +37,31 @@ class PersistentMap(MutableMapping):
                 if not cursor.delete(dupdata=True):
                     break
                 cnt += 1
+        if rebuild_indexes:
+            deleted, _ = self.rebuild_indexes()
+            cnt += deleted
         return cnt
-
-    def set_index(self, index_name, index_key, index_map):
-        self._indexes[index_name] = (index_key, index_map)
 
     def rebuild_indexes(self):
-        cnt = 0
+        total_deleted = 0
+        total_inserted = 0
         for index_name in sorted(self._indexes.keys()):
-            cnt += self.rebuild_index(index_name)
-        return cnt
+            deleted, inserted = self.rebuild_index(index_name)
+            total_deleted += deleted
+            total_inserted += inserted
+            print('rebuilt index "{}": {} deleted, {} inserted'.format(index_name, deleted, inserted))
+        return total_deleted, total_inserted
 
     def rebuild_index(self, index_name):
         if index_name in self._indexes:
             index_key, index_map = self._indexes[index_name]
 
-            index_map.truncate()
+            deleted = index_map.truncate()
 
             key_from = struct.pack('<H', self._slot)
             key_to = struct.pack('<H', self._slot + 1)
             cursor = self._txn._txn.cursor()
-            cnt = 0
+            inserted = 0
             if cursor.set_range(key_from):
                 while cursor.key() < key_to:
                     data = cursor.value()
@@ -64,10 +73,12 @@ class PersistentMap(MutableMapping):
 
                         self._txn._txn.put(_key, _data)
                         self._txn._puts += 1
-                        cnt += 1
+                        inserted += 1
                     if not cursor.next():
                         break
-            return cnt
+            return deleted, inserted
+        else:
+            raise Exception('no index "{}" attached'.format(index_name))
 
     def _serialize_key(self, key):
         raise Exception('not implemented')
@@ -111,6 +122,11 @@ class PersistentMap(MutableMapping):
 
 
 class MapStringOid(PersistentMap):
+    """
+    Persistent map with string (utf8) keys and OID (uint64) values.
+
+    This is used eg for string->OID indexes.
+    """
 
     def _serialize_key(self, key):
         return key.encode('utf8')
@@ -123,6 +139,13 @@ class MapStringOid(PersistentMap):
 
 
 class MapOidCbor(PersistentMap):
+    """
+    Persistent map with OID (uint64) keys and CBOR values.
+
+    This is used eg for transparent storage of dynamically typed data
+    in object tables in a language neutral, flexible and binary transparent
+    format.
+    """
 
     def _serialize_key(self, key):
         return struct.pack('<Q', key)
@@ -135,6 +158,11 @@ class MapOidCbor(PersistentMap):
 
 
 class MapOidPickle(PersistentMap):
+    """
+    Persistent map with OID (uint64) keys and Python pickle values.
+
+    This is used eg for transparent storage of native Python object tables.
+    """
 
     def _serialize_key(self, key):
         return struct.pack('<Q', key)
@@ -144,7 +172,6 @@ class MapOidPickle(PersistentMap):
 
     def _deserialize_value(self, data):
         return pickle.loads(data)
-
 
 
 class BaseTransaction(object):
