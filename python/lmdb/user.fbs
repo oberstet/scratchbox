@@ -1,0 +1,25 @@
+namespace crossbarfx;
+
+struct Date {
+    year: uint16;
+    month: uint8;
+    day: uint8;
+}
+
+enum Tag : byte { GEEK = 1, VIP }
+
+table Rating {
+    name: string (key);
+    rating: float;
+}
+table User {
+    name: string;
+    authid: string;
+    email: string;
+    birthday: Date;
+    is_friendly: bool;
+    tags: [Tag];
+    ratings: [Rating];
+}
+
+root_type User;
