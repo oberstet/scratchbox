@@ -73,7 +73,7 @@ def test():
 import timeit
 
 N = 1000
-M = 1000
+M = 1000000
 
 for i in range(N):
     secs = timeit.timeit(test, number=M)
