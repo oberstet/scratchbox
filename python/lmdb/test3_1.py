@@ -1,46 +1,58 @@
 import datetime
-from typing import Optional
+import pickle
+from typing import Optional, List, Dict
+
+RESULT = {
+    'objects': 0,
+    'bytes': 0
+}
+
+
+class Tag(object):
+    GEEK = 1
+    VIP = 2
+
 
 class User(object):
 
-    def __init__(self, oid, name, authid, email, birthday=None, is_friendly=True, tags=None, ratings=None, friends=None):
-        self.oid = oid
-        self.name = name
-        self.authid = authid
-        self.email = email
-        self.birthday = birthday
-        self.is_friendly = is_friendly
-        self.tags = tags or []
-        self.ratings = ratings or {}
-        self.friends = friends or []
-        self.referred_by: Optional[User] = None
+    oid: int
+    name: str
+    authid: str
+    email: str
+    birthday: datetime.date
+    is_friendly: bool
+    tags: Optional[List[str]]
+    ratings: Dict[str, float] = {}
+    friends: List[int] = []
+    referred_by: int = None
 
 
-users = []
+def test():
+    global RESULT
 
-user = User(oid=1,
-            name='Homer Simpson',
-            authid='homer',
-            email='homer.simpson@example.com',
-            birthday=datetime.date(1950, 12, 24),
-            is_friendly=True,
-            tags=['relaxed', 'beerfan'])
-users.append(user)
+    user = User()
+    user.oid = 23
+    user.name = 'Homer Simpson'
+    user.authid = 'homer'
+    user.email = 'homer.simpson@example.com'
 
-user = User(oid=2,
-            name='Crocodile Dundee',
-            authid='crocoboss',
-            email='croco@example.com',
-            birthday=datetime.date(1960, 2, 4),
-            is_friendly=False,
-            tags=['red', 'yellow'])
-users.append(user)
+    user.birthday = datetime.date(1950, 12, 24)
+    user.is_friendly = True
+    user.tags = [Tag.GEEK, Tag.VIP]
 
-user = User(oid=3,
-            name='Foobar Space',
-            authid='foobar',
-            email='foobar@example.com',
-            birthday=datetime.date(1970, 5, 7),
-            is_friendly=True,
-            tags=['relaxed', 'beerfan'])
-users.append(user)
+    data = pickle.dumps(user, protocol=4)
+
+    RESULT['objects'] += 1
+    RESULT['bytes'] += len(data)
+
+
+import timeit
+
+N = 1000
+M = 1000000
+
+for i in range(N):
+    secs = timeit.timeit(test, number=M)
+    ops = round(float(M) / secs, 1)
+    print('{} objects/sec'.format(ops))
+    print(RESULT)
