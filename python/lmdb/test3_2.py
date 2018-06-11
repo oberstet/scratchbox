@@ -1,7 +1,15 @@
 import flatbuffers
 from _gen.crossbarfx import User, Date, Tag, Rating
 
+RESULT = {
+    'objects': 0,
+    'bytes': 0
+}
+
+
 def test():
+    global RESULT
+
     builder = flatbuffers.Builder(0)
 
     name = builder.CreateString('Homer Simpson')
@@ -55,7 +63,11 @@ def test():
 
     buf = builder.Output()
 
-    return len(buf)
+    #data = bytes(buf)
+
+    RESULT['objects'] += 1
+    RESULT['bytes'] += len(buf)
+#    RESULT['bytes'] += len(data)
 
 
 import timeit
@@ -67,3 +79,4 @@ for i in range(N):
     secs = timeit.timeit(test, number=M)
     ops = round(float(M) / secs, 1)
     print('{} objects/sec'.format(ops))
+    print(RESULT)
