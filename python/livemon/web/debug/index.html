@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>ADR Livemon DEBUG UI</h1>
+      <p>Open JavaScript console to watch output.</p>
+      <script>AUTOBAHN_DEBUG = false;</script>
+      <script src="js/autobahn.min.js"></script>
+
+      <script>
+         var connection = new autobahn.Connection({
+            url: "ws://bvr-sql18.local.parcit/ws",
+            realm: "livemon"
+         });
+
+         connection.onopen = function (session, details) {
+            console.log("Connected");
+
+/*
+            session.subscribe("de.parcit.adr.livemon.on_cpu_stats", function (args) {
+               var cpu_stats = args[0];
+               console.log(JSON.stringify(cpu_stats, null, 2));
+            });
+
+            session.subscribe("de.parcit.adr.livemon.on_io_stats", function (args) {
+               var io_stats = args[0];
+               console.log(JSON.stringify(io_stats, null, 2));
+            });
+*/
+
+            session.subscribe("de.parcit.adr.livemon.on_hw_stats", function (args) {
+               var stats = args[0];
+               console.log(JSON.stringify(stats, null, 2));
+            });
+
+/*
+            session.subscribe("de.parcit.adr.livemon.on_proc_stats", function (args) {
+               var proc_stats = args[0];
+               //console.log(proc_stats);
+               for (var id in proc_stats.processes) {                  
+                  (function (id) {
+                     var proc = proc_stats.processes[id];
+                     console.log(
+                        " id=" + id,
+                        " name=" + proc.name,
+                        " cpu_user=" + proc.cpu_user,
+                        " cpu_user_per_sec=" + proc.cpu_user_per_sec,
+                        " cpu_system=" + proc.cpu_system,
+                        " cpu_system_per_sec=" + proc.cpu_system_per_sec,
+                        " read_bytes=" + proc.read_bytes,
+                        " read_bytes_per_sec=" + proc.read_bytes_per_sec,
+                        " write_bytes=" + proc.write_bytes,
+                        " write_bytes_per_sec=" + proc.write_bytes_per_sec,
+                        " read_ios=" + proc.read_ios,
+                        " read_ios_per_sec=" + proc.read_ios_per_sec,
+                        " write_ios=" + proc.write_ios,
+                        " write_ios_per_sec=" + proc.write_ios_per_sec
+                     );
+                  })(id);
+               }
+               //console.log(JSON.stringify(proc_stats, null, 2));
+            });
+*/            
+         };
+
+         connection.onclose = function (reason, details) {
+            console.log("Connection lost: " + reason);
+         }
+
+         connection.open();
+      </script>
+   </body>
+</html>
