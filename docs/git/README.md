@@ -2,6 +2,12 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Roll back a pushed change
+
+Force the remote reference to "master" to point to a previous commit:
+
+	git push origin +519be89d1bff49e8a9e264150af2a528e0519abc^:master
+
 ### Squashing
 
 within current branch, squashes all commits that are ahead of master down into one
