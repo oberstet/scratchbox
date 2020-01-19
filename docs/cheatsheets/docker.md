@@ -1,3 +1,11 @@
+# Prune everything
+
+```
+docker system prune --volumes
+```
+
+See [here](https://docs.docker.com/config/pruning/).
+
 # Remove all images
 
 ```
