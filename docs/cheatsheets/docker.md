@@ -1,7 +1,7 @@
 # Prune everything
 
 ```
-docker system prune --volumes
+docker system prune --volumes --force
 ```
 
 See [here](https://docs.docker.com/config/pruning/).
