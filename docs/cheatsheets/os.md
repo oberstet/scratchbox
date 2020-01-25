@@ -31,6 +31,16 @@ pct rescued:  100.00%, read errors:        0,  remaining time:         n/a
 Finished                                     
 ```
 
+Now use gparted to enlarge the root partition to include the new free disk space.
+
+Check free space
+
+```
+oberstet@intel-nuci7:~$ df -h /
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/nvme0n1p2  469G    108G  342G   24% /
+```
+
 ## Profiling
  * https://wiki.freebsd.org/DTrace
  * https://wiki.freebsd.org/PmcTools
