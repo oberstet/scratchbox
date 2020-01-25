@@ -12,7 +12,7 @@ partition:
   /dev/nvme0n1p2       Partition
 ```
 
-Copy block device **from** `/dev/nvme0n1` **to** `/dev/nvme10n1`:
+Copy block device **from** `/dev/nvme0n1` **to** `/dev/nvme1n1`:
 
 ```
 oberstet@intel-nuci7:~$ sudo ddrescue -vf /dev/nvme0n1 /dev/nvme1n1
