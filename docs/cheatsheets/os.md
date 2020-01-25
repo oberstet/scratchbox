@@ -1,3 +1,22 @@
+## Clone disk
+
+Identify source and target block device:
+
+```
+oberstet@intel-nuci7:~$ hwinfo --block --short
+disk:                                                           
+  /dev/nvme0n1         Intel Disk
+  /dev/nvme1n1         Intel Disk
+partition:
+  /dev/nvme0n1p1       Partition
+  /dev/nvme0n1p2       Partition
+```
+
+Copy block device **from ** `/dev/nvme0n1` **to** `/dev/nvme10n1`:
+
+```
+time sudo ddrescue -vf /dev/nvme0n1 /dev/nvme1n1
+```
 
 ## Profiling
  * https://wiki.freebsd.org/DTrace
