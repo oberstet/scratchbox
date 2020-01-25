@@ -15,7 +15,20 @@ partition:
 Copy block device **from ** `/dev/nvme0n1` **to** `/dev/nvme10n1`:
 
 ```
-time sudo ddrescue -vf /dev/nvme0n1 /dev/nvme1n1
+oberstet@intel-nuci7:~$ sudo ddrescue -vf /dev/nvme0n1 /dev/nvme1n1
+GNU ddrescue 1.22
+About to copy 128035 MBytes from '/dev/nvme0n1' to '/dev/nvme1n1'
+    Starting positions: infile = 0 B,  outfile = 0 B
+    Copy block size: 128 sectors       Initial skip size: 2560 sectors
+Sector size: 512 Bytes
+
+     ipos:  128035 MB, non-trimmed:        0 B,  current rate:  23683 kB/s
+     opos:  128035 MB, non-scraped:        0 B,  average rate:    128 MB/s
+non-tried:        0 B,  bad-sector:        0 B,    error rate:       0 B/s
+  rescued:  128035 MB,   bad areas:        0,        run time:     16m 32s
+pct rescued:  100.00%, read errors:        0,  remaining time:         n/a
+                              time since last successful read:         n/a
+Finished                                     
 ```
 
 ## Profiling
