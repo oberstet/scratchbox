@@ -12,6 +12,17 @@ partition:
   /dev/nvme0n1p2       Partition
 ```
 
+Update the system and reboot into **single-user mode**:
+
+```
+sudo apt update
+sudo apt dist-upgrade
+sudo ap autoremove
+sudo reboot
+```
+
+> You want to do the disk copy in single-user mode, since the copy is not synchronized with filesystem writes. This might result in a corrupt root filesystem, which may in turn require first booting into single-user/recovery mode to do a 'fsck /dev/nvme0p2` or similar.
+
 Copy block device **from** `/dev/nvme0n1` **to** `/dev/nvme1n1`:
 
 ```
