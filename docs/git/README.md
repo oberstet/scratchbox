@@ -2,6 +2,22 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Fix files that should be on LFS
+
+When one uploads files to a GitHub repo via their web interface, and that repo has LFS enabled, you will run into:
+
+```
+Encountered 12 file(s) that should have been pointers, but weren't:
+```
+
+See [here](https://github.com/git-lfs/git-lfs/issues/1939).
+
+To fix this (works almost/most of the time):
+
+```
+git lfs migrate import
+```
+
 ### Roll back a pushed change
 
 Force the remote reference to "master" to point to a previous commit:
