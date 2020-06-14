@@ -1,3 +1,56 @@
+## Clone disk
+
+Identify source and target block device:
+
+```
+oberstet@intel-nuci7:~$ hwinfo --block --short
+disk:                                                           
+  /dev/nvme0n1         Intel Disk
+  /dev/nvme1n1         Intel Disk
+partition:
+  /dev/nvme0n1p1       Partition
+  /dev/nvme0n1p2       Partition
+```
+
+Update the system and reboot into **single-user mode**:
+
+```
+sudo apt update
+sudo apt dist-upgrade
+sudo ap autoremove
+sudo reboot
+```
+
+> You want to do the disk copy in single-user mode, since the copy is not synchronized with filesystem writes. This might result in a corrupt root filesystem, which may in turn require first booting into single-user/recovery mode to do a 'fsck /dev/nvme0p2` or similar.
+
+Copy block device **from** `/dev/nvme0n1` **to** `/dev/nvme1n1`:
+
+```
+oberstet@intel-nuci7:~$ sudo ddrescue -vf /dev/nvme0n1 /dev/nvme1n1
+GNU ddrescue 1.22
+About to copy 128035 MBytes from '/dev/nvme0n1' to '/dev/nvme1n1'
+    Starting positions: infile = 0 B,  outfile = 0 B
+    Copy block size: 128 sectors       Initial skip size: 2560 sectors
+Sector size: 512 Bytes
+
+     ipos:  128035 MB, non-trimmed:        0 B,  current rate:  23683 kB/s
+     opos:  128035 MB, non-scraped:        0 B,  average rate:    128 MB/s
+non-tried:        0 B,  bad-sector:        0 B,    error rate:       0 B/s
+  rescued:  128035 MB,   bad areas:        0,        run time:     16m 32s
+pct rescued:  100.00%, read errors:        0,  remaining time:         n/a
+                              time since last successful read:         n/a
+Finished                                     
+```
+
+Now use gparted to enlarge the root partition to include the new free disk space.
+
+Check free space
+
+```
+oberstet@intel-nuci7:~$ df -h /
+Dateisystem    Größe Benutzt Verf. Verw% Eingehängt auf
+/dev/nvme0n1p2  469G    108G  342G   24% /
+```
 
 ## Profiling
  * https://wiki.freebsd.org/DTrace

@@ -2,6 +2,28 @@
 
 Git is great, but I forget the more obscure spells all the time.
 
+### Fix files that should be on LFS
+
+When one uploads files to a GitHub repo via their web interface, and that repo has LFS enabled, you will run into:
+
+```
+Encountered 12 file(s) that should have been pointers, but weren't:
+```
+
+See [here](https://github.com/git-lfs/git-lfs/issues/1939).
+
+To fix this (works almost/most of the time):
+
+```
+git lfs migrate import
+```
+
+### Roll back a pushed change
+
+Force the remote reference to "master" to point to a previous commit:
+
+	git push origin +519be89d1bff49e8a9e264150af2a528e0519abc^:master
+
 ### Squashing
 
 within current branch, squashes all commits that are ahead of master down into one
@@ -62,7 +84,7 @@ git merge uptream/master
 
 git checkout -b ticket944-meta-events meejah/ticket944-meta-events
 git rebase master
-git branch --set-upstream-to origin ticket944-meta-events
+git branch --set-upstream-to origin/ticket944-meta-events
 git push origin ticket944-meta-events
 ```
 
