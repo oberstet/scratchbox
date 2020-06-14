@@ -1,0 +1,40 @@
+[global]
+group_reporting
+
+# put the dataset file on the fast storage
+#filename=/data/scratch8k/test.dat
+filename=/tmp/test.dat
+
+# ideally dataset should be at least 4x RAM
+#size=512G
+size=32G
+
+# PostgreSQL does all IO 8k-sync
+ioengine=sync
+bs=8k
+iodepth=1
+
+# this should be at least #core/HTs (possibly higher, test)
+#numjobs=32
+numjobs=8
+
+time_based=1
+randrepeat=0
+norandommap=1
+
+# ideally, first burn for an hour to get the flash controller into steady state
+ramp_time=240
+runtime=120
+
+[randread]
+stonewall
+rw=randread
+
+[randwrite]
+stonewall
+rw=randwrite
+
+[randreadwrite7030]
+stonewall
+rw=randrw
+rwmixread=70
