@@ -84,8 +84,7 @@ git merge uptream/master
 
 git checkout -b ticket944-meta-events meejah/ticket944-meta-events
 git rebase master
-git branch --set-upstream-to origin/ticket944-meta-events
-git push origin ticket944-meta-events
+git push -u origin ticket944-meta-events
 ```
 
 Example 2
