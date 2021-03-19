@@ -1,9 +1,15 @@
-import 'package:connectanum/connectanum.dart';
-import 'package:connectanum/json.dart';
+import 'package:../../../connectanum-dart/lib/connectanum.dart';
+import 'package:../../../connectanum-dart/lib/src/authentication/cryptosign_authentication.dart';
+import 'package:../../../connectanum-dart/lib/json.dart';
+
+// import 'package:connectanum/connectanum.dart';
+// import 'package:connectanum/src/authentication/cryptosign_authentication.dart';
+// import 'package:connectanum/json.dart';
+
 import 'package:pedantic/pedantic.dart';
 
 import 'dart:io';
-import 'package:connectanum/src/authentication/cryptosign_authentication.dart';
+
 
 
 void main() async {
