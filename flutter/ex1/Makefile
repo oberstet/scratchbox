@@ -3,7 +3,7 @@ install:
 	# flutter pub get
 
 run:
-	dart test_client.dart
+	dart test_client_wampcs.dart
 
 clean:
 	-rm -rf ./.packages
