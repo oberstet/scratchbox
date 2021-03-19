@@ -11,7 +11,7 @@ void main() async {
   print(cskey_hex.length);
 
   final client1 = Client(
-      realm: null,
+      realm: 'xbrnetwork',
       authenticationMethods: [
         CryptosignAuthentication.fromHex(cskey_hex)
       ],
