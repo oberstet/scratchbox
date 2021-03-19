@@ -2,17 +2,27 @@ import 'package:connectanum/connectanum.dart';
 import 'package:connectanum/json.dart';
 import 'package:pedantic/pedantic.dart';
 
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:connectanum/src/authentication/cryptosign_authentication.dart';
+//import 'package:connectanum/src/message/challenge.dart';
+//import 'package:connectanum/src/message/details.dart';
+//import 'package:pinenacl/signing.dart';
+
+
 void main() async {
   final client1 = Client(
-      // The realm to connect to
-      realm: 'demo.connectanum.receive',
+      // The realm to connect to: crossbar will auto-select this based on pubkey
+      // only (it _can_ be overridden when the pubkey has access to multiple realms)
+      realm: null,
       // Add the authmethods
       authenticationMethods: [
-        CryptosignAuthentication.fromHex('ffaa2233fff22334433231412515')
+        CryptosignAuthentication.fromHex('0000000000000000000000000000000000000000000000000000000000000000')
       ],
       // We choose WebSocket transport
       transport: WebSocketTransport(
-        'wss://www.connectanum.com/wamp',
+        'ws://thingcloud-box-aws.sthngs.crossbario.com:8090/ws',
         // if you want to use msgpack instead of JSON just import the serializer
         // from package:connectanum/msgpack.dart and use WebSocketSerialization.SERIALIZATION_MSGPACK
         Serializer(),
