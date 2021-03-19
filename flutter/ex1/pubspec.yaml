@@ -5,4 +5,4 @@ environment:
   sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
-  connectanum: ^1.1.0
+  connectanum: ^1.1.2
