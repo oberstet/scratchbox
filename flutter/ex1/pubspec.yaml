@@ -1,8 +1,12 @@
 name: test_client
-version: 0.0.1
+version: 0.0.2
 
 environment:
   sdk: '>=2.10.0 <3.0.0'
 
 dependencies:
-  connectanum: ^1.1.2
+    connectanum:
+      path: ../../../connectanum-dart/
+      # git:
+      #   url: https://github.com/oberstet/connectanum-dart.git
+      #   ref: master
