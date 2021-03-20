@@ -49,10 +49,6 @@ void main() async {
 
     print(ethkey_adr.length);
 
-    // This does not work .. why?
-    // final result = await session1.call('xbr.network.is_member', arguments: [ethkey_adr]);
-    // print(result);
-
     // This works, but I get sick from the syntax .. callback nesting hell.
     session1.call('xbr.network.is_member', arguments: [ethkey_adr]).listen(
       (result) => print(result.arguments[0]),
@@ -61,9 +57,15 @@ void main() async {
         print(error.error);
       });
 
+    // This does not work .. why?
+    final result = await session1.call('xbr.network.is_member', arguments: [ethkey_adr]).first;
+    final bool is_member = result.arguments[0];
+    print(is_member);
 
     //print(result);
     print('----------------');
+
+    unawaited(session1.close());
 
     // final bool is_member = result.arguments[0];
 
