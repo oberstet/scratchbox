@@ -6,6 +6,7 @@ environment:
 
 dependencies:
     convert: ^3.0.0
+    uuid: ^3.0.1
     connectanum:
       path: ../../../connectanum-dart/
       # git:
