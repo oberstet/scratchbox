@@ -47,7 +47,40 @@ void main() async {
 
     // This works, but I get sick from the syntax .. callback nesting hell.
     session1.call('xbr.network.is_member', arguments: [ethkey_adr]).listen(
-      (result) => print('is_member: ${result.arguments[0]}'),
+      (result) {
+        final bool is_member = result.arguments[0];
+        if (is_member) {
+          print('Address 0x${hex.encode(ethkey_adr)} already is a member in the network:');
+          session1.call('xbr.network.get_member_by_wallet', arguments: [ethkey_adr]).listen(
+            (result) {
+              print(result.arguments[0]);
+              // {oid: [147, 83, 131, 8, 138, 67, 67, 197, 164, 17, 174, 59, 75, 221, 91, 215],
+              //  address: [227, 226, 94, 163, 69, 56, 31, 165, 205, 134, 113, 92, 120, 214, 77, 136, 4, 215, 220, 245],
+              //  level: 1, profile: QmUEM5UuSUMeET2Zo8YQtDMK74Fr2SJGEyTokSYzT3uD94,
+              //  eula: QmRgTwgj9b4j2DMZ9iGWkkFGY4gT6VBwYEE8KAfueE3S8p,
+              //  balance: {
+              //     xbr: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              //     eth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+              //  email: tobias.oberstein@gmail.com,
+              //  username: oberstet,
+              //  created: 1614827037973698512,
+              //  markets: 0,
+              //  catalogs: 0,
+              // domains: 0}
+
+              // does not work. wtf. how to access a map item?
+              // final oid = result.arguments[0]['oid'];
+
+              // does Dart have UUIDs? uint256? Unix time ns to native timestamp?
+            },
+            onError: (e) {
+              var error = e as Error; // type cast necessary
+              print(error.error);
+            });
+        } else {
+          print('Address 0x${hex.encode(ethkey_adr)} is NOT yet a member in the network!');
+        }
+      },
       onError: (e) {
         var error = e as Error; // type cast necessary
         print(error.error);
