@@ -41,7 +41,7 @@ void main() async {
         .first;
 
     print('authentication successful, session joined!');
-    print('realm="${session1.realm}", session=${session1.id}, authmethod="${session1.authMethod}", authid="${session1.authId}", authrole="${session1.authRole}"');
+    print('\nrealm="${session1.realm}"\nsession=${session1.id}\nauthmethod="${session1.authMethod}"\nauthid="${session1.authId}"\nauthrole="${session1.authRole}"');
 
     // 2) How to load Eth private key and compute public address?
     final ethkey_adr = hex.decode('e3E25EA345381FA5cD86715c78D64D8804D7DcF5');
@@ -52,24 +52,9 @@ void main() async {
       (result) {
         final bool is_member = result.arguments[0];
         if (is_member) {
-          print('Address 0x${hex.encode(ethkey_adr)} already is a member in the network:');
+          print('\naddress 0x${hex.encode(ethkey_adr)} already is a member in the network:');
           session1.call('xbr.network.get_member_by_wallet', arguments: [ethkey_adr]).listen(
             (result) {
-              print('\n${result.arguments[0]}\n');
-              // {oid: [147, 83, 131, 8, 138, 67, 67, 197, 164, 17, 174, 59, 75, 221, 91, 215],
-              //  address: [227, 226, 94, 163, 69, 56, 31, 165, 205, 134, 113, 92, 120, 214, 77, 136, 4, 215, 220, 245],
-              //  level: 1, profile: QmUEM5UuSUMeET2Zo8YQtDMK74Fr2SJGEyTokSYzT3uD94,
-              //  eula: QmRgTwgj9b4j2DMZ9iGWkkFGY4gT6VBwYEE8KAfueE3S8p,
-              //  balance: {
-              //     xbr: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-              //     eth: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
-              //  email: tobias.oberstein@gmail.com,
-              //  username: oberstet,
-              //  created: 1614827037973698512,
-              //  markets: 0,
-              //  catalogs: 0,
-              // domains: 0}
-
               // cast the generic Dart object into a dynamic map. awesome. whatever. this is required:
               final Map<dynamic, dynamic> m = result.arguments[0];
 
@@ -92,14 +77,14 @@ void main() async {
               // nanoseconds, so the timestamp can be wrong +/-1ms
               final DateTime created = DateTime.fromMicrosecondsSinceEpoch((m['created'] / 1000).toInt(), isUtc: true);
 
-              print('oid=${oid}, created=${created}, address=${address}, level=${level}, profile=${profile}, eula=${eula}, email=${email}, username=${username}, eth=${eth}');
+              print('\noid=${oid}\ncreated=${created}\naddress=${address}\nlevel=${level}\nprofile=${profile}\neula=${eula}\nemail=${email}\nusername=${username}\neth=${eth}');
             },
             onError: (e) {
               var error = e as Error; // type cast necessary
               print(error.error);
             });
         } else {
-          print('Address 0x${hex.encode(ethkey_adr)} is NOT yet a member in the network!');
+          print('\naddress 0x${hex.encode(ethkey_adr)} is NOT yet a member in the network!');
         }
       },
       onError: (e) {
@@ -108,16 +93,14 @@ void main() async {
       });
 
     // This does not work .. why?
-    final result = await session1.call('xbr.network.is_member', arguments: [ethkey_adr]).first;
-    print('RPC result: ${result}');
-
-    final bool is_member = result.arguments[0];
-    if (is_member) {
-      print('Address ${ethkey_adr} already is a member in the network:');
-      // final member_data = await session1.call('xbr.network.get_member_by_wallet', ethkey_adr);
-    } else {
-      print('Address ${ethkey_adr} is NOT yet a member in the network!');
-    }
+    // final result = await session1.call('xbr.network.is_member', arguments: [ethkey_adr]).first;
+    // print('RPC result: ${result}');
+    // final bool is_member = result.arguments[0];
+    // if (is_member) {
+    //   print('Address ${ethkey_adr} already is a member in the network:');
+    // } else {
+    //   print('Address ${ethkey_adr} is NOT yet a member in the network!');
+    // }
 
     // How to leave session and disconnect?
     // session1.close();
