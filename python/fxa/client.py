@@ -1,3 +1,6 @@
+# http://www.lothar.com/presentations/fxa-rwc2014/
+# https://www.youtube.com/watch?v=G16rOGmpBUc
+
 import os
 from uuid import UUID
 from binascii import b2a_hex
