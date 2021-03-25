@@ -1,5 +1,5 @@
 name: test_client
-version: 0.0.3
+version: 0.1.0
 
 environment:
   sdk: '>=2.10.0 <3.0.0'
@@ -12,9 +12,9 @@ dependencies:
       # ^1.1.5
 
       # load from local path dependency
-      path: ../../../connectanum-dart/
+      # path: ../../../connectanum-dart/
 
       # load from upstream GH
-      # git:
-      #   url: https://github.com/oberstet/connectanum-dart.git
-      #   ref: master
+      git:
+        url: https://github.com/konsultaner/connectanum-dart.git
+        ref: master
