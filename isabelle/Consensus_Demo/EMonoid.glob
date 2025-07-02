@@ -1,0 +1,85 @@
+DIGEST 5f5d0adaa350797fdf995562df1e0933
+FEMonoid
+R68:76 Coq.Classes.Morphisms <> <> lib
+R78:86 Coq.Relations.Relations <> <> lib
+rec 97:103 <> EMonoid
+proj 162:166 <> E_rel
+proj 192:203 <> E_dot_proper
+proj 248:258 <> E_dot_assoc
+proj 322:331 <> E_one_left
+proj 368:378 <> E_one_right
+binder 106:106 <> A:1
+R120:127 Coq.Relations.Relation_Definitions <> relation def
+R130:130 EMonoid <> A:1 var
+binder 114:117 <> E_eq:2
+R140:141 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R139:139 EMonoid <> A:1 var
+R143:144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R142:142 EMonoid <> A:1 var
+R145:145 EMonoid <> A:1 var
+binder 133:135 <> dot:3
+R154:154 EMonoid <> A:1 var
+binder 148:150 <> one:4
+R171:181 Coq.Classes.RelationClasses <> Equivalence class
+R183:186 EMonoid <> E_eq:2 var
+R208:213 Coq.Classes.Morphisms <> Proper class
+R240:242 EMonoid <> dot:3 var
+R220:224 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R216:219 EMonoid <> E_eq:2 var
+R229:233 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R225:228 EMonoid <> E_eq:2 var
+R234:237 EMonoid <> E_eq:2 var
+R275:275 EMonoid <> A:1 var
+binder 269:269 <> x:8
+binder 271:271 <> y:9
+binder 273:273 <> z:10
+R278:281 EMonoid <> E_eq:2 var
+R284:286 EMonoid <> dot:3 var
+R291:293 EMonoid <> dot:3 var
+R297:297 EMonoid <> z:10 var
+R295:295 EMonoid <> y:9 var
+R288:288 EMonoid <> x:8 var
+R302:304 EMonoid <> dot:3 var
+R316:316 EMonoid <> z:10 var
+R307:309 EMonoid <> dot:3 var
+R313:313 EMonoid <> y:9 var
+R311:311 EMonoid <> x:8 var
+binder 342:342 <> x:12
+R345:348 EMonoid <> E_eq:2 var
+R351:353 EMonoid <> dot:3 var
+R360:360 EMonoid <> x:12 var
+R355:357 EMonoid <> one:4 var
+R363:363 EMonoid <> x:12 var
+binder 389:389 <> x:14
+R392:395 EMonoid <> E_eq:2 var
+R398:400 EMonoid <> dot:3 var
+R405:407 EMonoid <> one:4 var
+R402:402 EMonoid <> x:14 var
+R410:410 EMonoid <> x:14 var
+def 466:471 <> Epower
+R478:484 EMonoid <> EMonoid class
+binder 475:475 <> M:20
+R490:490 EMonoid <> A:16 var
+binder 488:488 <> a:21
+R495:497 Coq.Init.Datatypes <> nat ind
+binder 493:493 <> n:22
+R511:511 EMonoid <> n:22 var
+R527:529 EMonoid <> one:19 var
+R546:546 Coq.Init.Datatypes <> S constr
+R553:555 EMonoid <> dot:18 var
+R557:557 EMonoid <> a:21 var
+R560:565 EMonoid <> Epower:23 def
+R567:567 EMonoid <> a:21 var
+rec 586:600 <> Abelian_EMonoid
+proj 622:630 <> Edot_comm
+R606:612 EMonoid <> EMonoid class
+binder 604:604 <> M:29
+binder 641:641 <> x:31
+binder 643:643 <> y:32
+R646:649 EMonoid <> E_eq:26 var
+R652:654 EMonoid <> dot:27 var
+R656:656 EMonoid <> x:31 var
+R659:659 EMonoid <> y:32 var
+R664:666 EMonoid <> dot:27 var
+R668:668 EMonoid <> y:32 var
+R671:671 EMonoid <> x:31 var

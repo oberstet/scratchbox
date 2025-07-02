@@ -1,0 +1,870 @@
+DIGEST 8fd2e0b0ce96a4ca8781ec5bea97d582
+FLost_in_NY
+R101:104 Coq.Lists.List <> <> lib
+R107:112 Coq.ZArith.ZArith <> <> lib
+R115:118 Coq.Bool.Bool <> <> lib
+R156:164 Coq.Relations.Relations <> <> lib
+R167:172 Coq.Setoids.Setoid <> <> lib
+R175:183 Coq.Classes.Morphisms <> <> lib
+R186:200 Coq.Classes.RelationClasses <> <> lib
+R218:224 EMonoid <> <> lib
+R242:244 Coq.micromega.Lia <> <> lib
+ind 318:326 <> direction
+constr 338:342 <> North
+constr 346:349 <> East
+constr 353:357 <> South
+constr 361:364 <> West
+def 378:382 <> route
+R387:390 Coq.Init.Datatypes <> list ind
+R392:400 Lost_in_NY <> direction ind
+rec 411:415 <> Point
+proj 429:435 <> Point_x
+proj 444:450 <> Point_y
+R439:439 Coq.Numbers.BinNums <> Z ind
+R454:454 Coq.Numbers.BinNums <> Z ind
+def 470:476 <> Point_O
+R481:491 Lost_in_NY <> Build_Point constr
+def 510:518 <> translate
+R527:527 Coq.Numbers.BinNums <> Z ind
+binder 521:522 <> dx:6
+binder 524:525 <> dy:7
+R535:539 Lost_in_NY <> Point rec
+binder 531:531 <> P:8
+R547:557 Lost_in_NY <> Build_Point constr
+R569:571 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R560:566 Lost_in_NY <> Point_x proj
+R568:568 Lost_in_NY <> P:8 var
+R572:573 Lost_in_NY <> dx:6 var
+R586:588 Coq.ZArith.BinInt <> ::Z_scope:x_'+'_x not
+R577:583 Lost_in_NY <> Point_y proj
+R585:585 Lost_in_NY <> P:8 var
+R589:590 Lost_in_NY <> dy:7 var
+def 644:652 <> Point_eqb
+R660:664 Lost_in_NY <> Point rec
+binder 655:655 <> P:9
+binder 657:658 <> P':10
+R706:712 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R673:680 Coq.ZArith.Zbool <> Zeq_bool def
+R683:689 Lost_in_NY <> Point_x proj
+R691:691 Lost_in_NY <> P:9 var
+R695:701 Lost_in_NY <> Point_x proj
+R703:704 Lost_in_NY <> P':10 var
+R713:720 Coq.ZArith.Zbool <> Zeq_bool def
+R723:729 Lost_in_NY <> Point_y proj
+R731:731 Lost_in_NY <> P:9 var
+R735:741 Lost_in_NY <> Point_y proj
+R743:744 Lost_in_NY <> P':10 var
+prf 797:813 <> Point_eqb_correct
+binder 824:824 <> p:11
+binder 826:827 <> p':12
+R851:894 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R844:846 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R830:838 Lost_in_NY <> Point_eqb def
+R840:840 Lost_in_NY <> p:11 var
+R842:843 Lost_in_NY <> p':12 var
+R847:850 Coq.Init.Datatypes <> true constr
+R896:898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R895:895 Lost_in_NY <> p:11 var
+R899:900 Lost_in_NY <> p':12 var
+R958:966 Lost_in_NY <> Point_eqb def
+R984:996 Coq.Bool.Bool <> andb_true_iff thm
+R984:996 Coq.Bool.Bool <> andb_true_iff thm
+R984:996 Coq.Bool.Bool <> andb_true_iff thm
+R1033:1046 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1033:1046 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1033:1046 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1033:1046 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1130:1138 Lost_in_NY <> Point_eqb def
+R1160:1172 Coq.Bool.Bool <> andb_true_iff thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1160:1172 Coq.Bool.Bool <> andb_true_iff thm
+R1160:1172 Coq.Bool.Bool <> andb_true_iff thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+R1192:1205 Coq.ZArith.Zbool <> Zeq_is_eq_bool thm
+def 1290:1293 <> move
+R1298:1302 Lost_in_NY <> route def
+binder 1296:1296 <> r:13
+R1308:1312 Lost_in_NY <> Point rec
+binder 1306:1306 <> P:14
+R1317:1321 Lost_in_NY <> Point rec
+R1333:1333 Lost_in_NY <> r:13 var
+R1343:1345 Coq.Init.Datatypes <> nil constr
+R1350:1350 Lost_in_NY <> P:14 var
+R1360:1363 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1355:1359 Lost_in_NY <> North constr
+R1370:1373 Lost_in_NY <> move:15 def
+R1379:1387 Lost_in_NY <> translate def
+R1393:1393 Lost_in_NY <> P:14 var
+R1403:1406 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1399:1402 Lost_in_NY <> East constr
+R1413:1416 Lost_in_NY <> move:15 def
+R1422:1430 Lost_in_NY <> translate def
+R1436:1436 Lost_in_NY <> P:14 var
+R1448:1451 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1443:1447 Lost_in_NY <> South constr
+R1458:1461 Lost_in_NY <> move:15 def
+R1467:1475 Lost_in_NY <> translate def
+R1484:1484 Lost_in_NY <> P:14 var
+R1494:1497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1490:1493 Lost_in_NY <> West constr
+R1504:1507 Lost_in_NY <> move:15 def
+R1513:1521 Lost_in_NY <> translate def
+R1530:1530 Lost_in_NY <> P:14 var
+def 1730:1740 <> route_equiv
+R1744:1751 Coq.Relations.Relation_Definitions <> relation def
+R1753:1757 Lost_in_NY <> route def
+binder 1768:1768 <> r:17
+binder 1770:1771 <> r':18
+R1785:1789 Lost_in_NY <> Point rec
+binder 1783:1783 <> P:19
+R1801:1803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1793:1796 Lost_in_NY <> move def
+R1798:1798 Lost_in_NY <> r:17 var
+R1800:1800 Lost_in_NY <> P:19 var
+R1804:1807 Lost_in_NY <> move def
+R1810:1811 Lost_in_NY <> r':18 var
+R1813:1813 Lost_in_NY <> P:19 var
+R1832:1842 Lost_in_NY <> route_equiv def
+not 1823:1823 <> ::type_scope:x_'=r='_x
+def 1879:1881 <> Ex1
+R1920:1924 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R1889:1890 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1885:1888 Lost_in_NY <> East constr
+R1896:1897 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1891:1895 Lost_in_NY <> North constr
+R1902:1903 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1898:1901 Lost_in_NY <> West constr
+R1909:1910 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1904:1908 Lost_in_NY <> South constr
+R1915:1916 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1911:1914 Lost_in_NY <> East constr
+R1917:1919 Coq.Init.Datatypes <> nil constr
+R1929:1930 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1925:1928 Lost_in_NY <> East constr
+R1931:1933 Coq.Init.Datatypes <> nil constr
+R1977:1987 Lost_in_NY <> route_equiv def
+R1990:1998 Lost_in_NY <> translate def
+prf 2033:2048 <> route_equiv_refl
+R2052:2060 Coq.Relations.Relation_Definitions <> reflexive def
+R2064:2074 Lost_in_NY <> route_equiv def
+prf 2121:2135 <> route_equiv_sym
+R2139:2147 Coq.Relations.Relation_Definitions <> symmetric def
+R2151:2161 Lost_in_NY <> route_equiv def
+prf 2219:2235 <> route_equiv_trans
+R2239:2248 Coq.Relations.Relation_Definitions <> transitive def
+R2252:2262 Lost_in_NY <> route_equiv def
+inst 2342:2358 <> route_equiv_Equiv
+R2362:2372 Coq.Classes.RelationClasses <> Equivalence class
+R2375:2385 Lost_in_NY <> route_equiv def
+R2415:2430 Lost_in_NY <> route_equiv_refl thm
+R2440:2454 Lost_in_NY <> route_equiv_sym thm
+R2470:2486 Lost_in_NY <> route_equiv_trans thm
+R2415:2430 Lost_in_NY <> route_equiv_refl thm
+R2440:2454 Lost_in_NY <> route_equiv_sym thm
+R2470:2486 Lost_in_NY <> route_equiv_trans thm
+prf 2563:2572 <> route_cons
+binder 2583:2583 <> r:20
+binder 2585:2586 <> r':21
+binder 2588:2588 <> d:22
+R2599:2602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2592:2596 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R2591:2591 Lost_in_NY <> r:20 var
+R2597:2598 Lost_in_NY <> r':21 var
+R2607:2611 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R2604:2605 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2603:2603 Lost_in_NY <> d:22 var
+R2606:2606 Lost_in_NY <> r:20 var
+R2613:2614 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2612:2612 Lost_in_NY <> d:22 var
+R2615:2616 Lost_in_NY <> r':21 var
+def 2700:2702 <> Ex2
+R2749:2753 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R2712:2713 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2707:2711 Lost_in_NY <> South constr
+R2718:2719 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2714:2717 Lost_in_NY <> East constr
+R2725:2726 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2720:2724 Lost_in_NY <> North constr
+R2731:2732 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2727:2730 Lost_in_NY <> West constr
+R2738:2739 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2733:2737 Lost_in_NY <> South constr
+R2744:2745 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2740:2743 Lost_in_NY <> East constr
+R2746:2748 Coq.Init.Datatypes <> nil constr
+R2759:2760 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2754:2758 Lost_in_NY <> South constr
+R2765:2766 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2761:2764 Lost_in_NY <> East constr
+R2767:2769 Coq.Init.Datatypes <> nil constr
+R2785:2794 Lost_in_NY <> route_cons thm
+R2802:2804 Lost_in_NY <> Ex1 ex
+R2785:2794 Lost_in_NY <> route_cons thm
+R2802:2804 Lost_in_NY <> Ex1 ex
+inst 2832:2848 <> cons_route_Proper
+R2853:2861 Lost_in_NY <> direction ind
+binder 2851:2851 <> d:23
+R2870:2875 Coq.Classes.Morphisms <> Proper class
+R2908:2911 Coq.Init.Datatypes <> cons constr
+R2913:2913 Lost_in_NY <> d:23 var
+R2889:2893 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R2878:2888 Lost_in_NY <> route_equiv def
+R2894:2904 Lost_in_NY <> route_equiv def
+R2952:2961 Lost_in_NY <> route_cons thm
+R2952:2961 Lost_in_NY <> route_cons thm
+def 3096:3097 <> SW
+binder 3108:3108 <> r:24
+binder 3110:3111 <> r':25
+R3122:3143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3115:3119 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R3114:3114 Lost_in_NY <> r:24 var
+R3120:3121 Lost_in_NY <> r':25 var
+R3158:3162 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R3149:3150 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3144:3148 Lost_in_NY <> South constr
+R3155:3156 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3151:3154 Lost_in_NY <> West constr
+R3157:3157 Lost_in_NY <> r:24 var
+R3168:3169 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3163:3167 Lost_in_NY <> South constr
+R3174:3175 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3170:3173 Lost_in_NY <> West constr
+R3176:3177 Lost_in_NY <> r':25 var
+inst 3244:3254 <> move_Proper
+R3261:3266 Coq.Classes.Morphisms <> Proper class
+R3310:3313 Lost_in_NY <> move def
+R3280:3284 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3269:3279 Lost_in_NY <> route_equiv def
+R3294:3298 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3286:3287 Coq.Init.Logic <> eq ind
+R3289:3293 Lost_in_NY <> Point rec
+R3300:3301 Coq.Init.Logic <> eq ind
+R3303:3307 Lost_in_NY <> Point rec
+def 3393:3409 <> length_not_Proper
+R3413:3413 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3414:3419 Coq.Classes.Morphisms <> Proper class
+R3449:3454 Coq.Init.Datatypes <> length def
+R3433:3437 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3422:3432 Lost_in_NY <> route_equiv def
+R3439:3440 Coq.Init.Logic <> eq ind
+R3442:3444 Coq.Init.Datatypes <> nat ind
+R3497:3498 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3492:3496 Lost_in_NY <> North constr
+R3504:3505 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3499:3503 Lost_in_NY <> South constr
+R3506:3508 Coq.Init.Datatypes <> nil constr
+R3511:3513 Coq.Init.Datatypes <> nil constr
+R3497:3498 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3492:3496 Lost_in_NY <> North constr
+R3504:3505 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3499:3503 Lost_in_NY <> South constr
+R3506:3508 Coq.Init.Datatypes <> nil constr
+R3511:3513 Coq.Init.Datatypes <> nil constr
+R3587:3595 Lost_in_NY <> translate def
+prf 3638:3650 <> route_compose
+binder 3661:3661 <> r:26
+binder 3663:3664 <> r':27
+binder 3666:3666 <> P:28
+R3683:3685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3669:3672 Lost_in_NY <> move def
+R3676:3677 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3675:3675 Lost_in_NY <> r:26 var
+R3678:3679 Lost_in_NY <> r':27 var
+R3682:3682 Lost_in_NY <> P:28 var
+R3686:3689 Lost_in_NY <> move def
+R3691:3692 Lost_in_NY <> r':27 var
+R3695:3698 Lost_in_NY <> move def
+R3700:3700 Lost_in_NY <> r:26 var
+R3702:3702 Lost_in_NY <> P:28 var
+inst 3822:3837 <> app_route_Proper
+R3843:3848 Coq.Classes.Morphisms <> Proper class
+R3900:3902 Coq.Init.Datatypes <> app def
+R3904:3912 Lost_in_NY <> direction ind
+R3862:3864 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3851:3861 Lost_in_NY <> route_equiv def
+R3876:3880 Coq.Classes.Morphisms ProperNotations ::signature_scope:x_'==>'_x not
+R3865:3875 Lost_in_NY <> route_equiv def
+R3881:3891 Lost_in_NY <> route_equiv def
+R3969:3981 Lost_in_NY <> route_compose thm
+R3969:3981 Lost_in_NY <> route_compose thm
+R3969:3981 Lost_in_NY <> route_compose thm
+R3969:3981 Lost_in_NY <> route_compose thm
+R3969:3981 Lost_in_NY <> route_compose thm
+R3969:3981 Lost_in_NY <> route_compose thm
+def 4026:4028 <> Ex3
+binder 4039:4039 <> r:29
+R4069:4073 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R4047:4048 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4042:4046 Lost_in_NY <> North constr
+R4053:4054 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4049:4052 Lost_in_NY <> East constr
+R4060:4061 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4055:4059 Lost_in_NY <> South constr
+R4066:4067 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4062:4065 Lost_in_NY <> West constr
+R4068:4068 Lost_in_NY <> r:29 var
+R4074:4074 Lost_in_NY <> r:29 var
+R4125:4135 Lost_in_NY <> route_equiv def
+R4138:4146 Lost_in_NY <> translate def
+def 4187:4189 <> Ex4
+binder 4200:4200 <> r:30
+binder 4202:4203 <> r':31
+R4214:4234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4207:4211 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R4206:4206 Lost_in_NY <> r:30 var
+R4212:4213 Lost_in_NY <> r':31 var
+R4262:4266 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R4240:4241 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4235:4239 Lost_in_NY <> North constr
+R4246:4247 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4242:4245 Lost_in_NY <> East constr
+R4253:4254 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4248:4252 Lost_in_NY <> South constr
+R4259:4260 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4255:4258 Lost_in_NY <> West constr
+R4261:4261 Lost_in_NY <> r:30 var
+R4267:4268 Lost_in_NY <> r':31 var
+R4305:4307 Lost_in_NY <> Ex3 ex
+R4305:4307 Lost_in_NY <> Ex3 ex
+R4305:4307 Lost_in_NY <> Ex3 ex
+def 4324:4326 <> Ex5
+binder 4337:4337 <> r:32
+binder 4339:4340 <> r':33
+R4376:4380 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R4345:4347 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4344:4344 Lost_in_NY <> r:32 var
+R4353:4354 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4348:4352 Lost_in_NY <> North constr
+R4359:4360 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4355:4358 Lost_in_NY <> East constr
+R4366:4367 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4361:4365 Lost_in_NY <> South constr
+R4372:4373 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4368:4371 Lost_in_NY <> West constr
+R4374:4375 Lost_in_NY <> r':33 var
+R4382:4383 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4381:4381 Lost_in_NY <> r:32 var
+R4384:4385 Lost_in_NY <> r':33 var
+R4420:4422 Lost_in_NY <> Ex3 ex
+R4420:4422 Lost_in_NY <> Ex3 ex
+R4420:4422 Lost_in_NY <> Ex3 ex
+prf 4438:4451 <> translate_comm
+binder 4462:4463 <> dx:34
+binder 4465:4466 <> dy:35
+binder 4468:4470 <> dx':36
+binder 4472:4474 <> dy':37
+binder 4476:4476 <> P:38
+R4520:4526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4483:4491 Lost_in_NY <> translate def
+R4493:4494 Lost_in_NY <> dx:34 var
+R4496:4497 Lost_in_NY <> dy:35 var
+R4500:4508 Lost_in_NY <> translate def
+R4510:4512 Lost_in_NY <> dx':36 var
+R4514:4516 Lost_in_NY <> dy':37 var
+R4518:4518 Lost_in_NY <> P:38 var
+R4527:4535 Lost_in_NY <> translate def
+R4537:4539 Lost_in_NY <> dx':36 var
+R4541:4543 Lost_in_NY <> dy':37 var
+R4546:4554 Lost_in_NY <> translate def
+R4556:4557 Lost_in_NY <> dx:34 var
+R4559:4560 Lost_in_NY <> dy:35 var
+R4562:4562 Lost_in_NY <> P:38 var
+R4582:4590 Lost_in_NY <> translate def
+prf 4636:4649 <> move_translate
+binder 4660:4660 <> r:39
+binder 4662:4662 <> P:40
+binder 4664:4665 <> dx:41
+binder 4667:4668 <> dy:42
+R4698:4748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4672:4675 Lost_in_NY <> move def
+R4677:4677 Lost_in_NY <> r:39 var
+R4680:4688 Lost_in_NY <> translate def
+R4690:4691 Lost_in_NY <> dx:41 var
+R4693:4694 Lost_in_NY <> dy:42 var
+R4696:4696 Lost_in_NY <> P:40 var
+R4749:4757 Lost_in_NY <> translate def
+R4759:4760 Lost_in_NY <> dx:41 var
+R4762:4763 Lost_in_NY <> dy:42 var
+R4766:4769 Lost_in_NY <> move def
+R4771:4771 Lost_in_NY <> r:39 var
+R4773:4773 Lost_in_NY <> P:40 var
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+R4882:4895 Lost_in_NY <> translate_comm thm
+prf 4917:4925 <> move_comm
+binder 4936:4936 <> r:43
+binder 4938:4939 <> r':44
+binder 4941:4941 <> P:45
+R4964:5002 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4946:4949 Lost_in_NY <> move def
+R4951:4951 Lost_in_NY <> r:43 var
+R4954:4957 Lost_in_NY <> move def
+R4959:4960 Lost_in_NY <> r':44 var
+R4962:4962 Lost_in_NY <> P:45 var
+R5003:5006 Lost_in_NY <> move def
+R5008:5009 Lost_in_NY <> r':44 var
+R5012:5015 Lost_in_NY <> move def
+R5017:5017 Lost_in_NY <> r:43 var
+R5019:5019 Lost_in_NY <> P:45 var
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+R5114:5127 Lost_in_NY <> move_translate thm
+prf 5160:5167 <> app_comm
+binder 5178:5178 <> r:46
+binder 5180:5181 <> r':47
+R5189:5194 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R5185:5186 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5184:5184 Lost_in_NY <> r:46 var
+R5187:5188 Lost_in_NY <> r':47 var
+R5197:5198 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5195:5196 Lost_in_NY <> r':47 var
+R5199:5199 Lost_in_NY <> r:46 var
+R5239:5251 Lost_in_NY <> route_compose thm
+R5260:5268 Lost_in_NY <> move_comm thm
+R5239:5251 Lost_in_NY <> route_compose thm
+R5239:5251 Lost_in_NY <> route_compose thm
+R5239:5251 Lost_in_NY <> route_compose thm
+R5239:5251 Lost_in_NY <> route_compose thm
+R5239:5251 Lost_in_NY <> route_compose thm
+R5260:5268 Lost_in_NY <> move_comm thm
+prf 5356:5373 <> route_equiv_Origin
+binder 5384:5384 <> r:48
+binder 5386:5387 <> r':49
+R5398:5442 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5391:5395 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R5390:5390 Lost_in_NY <> r:48 var
+R5396:5397 Lost_in_NY <> r':49 var
+R5457:5460 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5443:5446 Lost_in_NY <> move def
+R5448:5448 Lost_in_NY <> r:48 var
+R5450:5456 Lost_in_NY <> Point_O def
+R5461:5464 Lost_in_NY <> move def
+R5466:5467 Lost_in_NY <> r':49 var
+R5469:5475 Lost_in_NY <> Point_O def
+R5544:5552 Lost_in_NY <> translate def
+R5555:5561 Lost_in_NY <> Point_x proj
+R5567:5573 Lost_in_NY <> Point_y proj
+R5578:5584 Lost_in_NY <> Point_O def
+R5544:5552 Lost_in_NY <> translate def
+R5555:5561 Lost_in_NY <> Point_x proj
+R5567:5573 Lost_in_NY <> Point_y proj
+R5578:5584 Lost_in_NY <> Point_O def
+R5608:5621 Lost_in_NY <> move_translate thm
+R5608:5621 Lost_in_NY <> move_translate thm
+R5608:5621 Lost_in_NY <> move_translate thm
+R5608:5621 Lost_in_NY <> move_translate thm
+R5608:5621 Lost_in_NY <> move_translate thm
+R5608:5621 Lost_in_NY <> move_translate thm
+R5679:5687 Lost_in_NY <> translate def
+def 5715:5723 <> route_eqb
+binder 5725:5725 <> r:50
+binder 5727:5728 <> r':51
+R5732:5735 Coq.Init.Datatypes <> bool ind
+R5743:5751 Lost_in_NY <> Point_eqb def
+R5754:5757 Lost_in_NY <> move def
+R5759:5759 Lost_in_NY <> r:50 var
+R5761:5767 Lost_in_NY <> Point_O def
+R5771:5774 Lost_in_NY <> move def
+R5776:5777 Lost_in_NY <> r':51 var
+R5779:5785 Lost_in_NY <> Point_O def
+prf 5851:5868 <> route_equiv_equivb
+binder 5879:5879 <> r:52
+binder 5881:5882 <> r':53
+R5901:5945 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5885:5895 Lost_in_NY <> route_equiv def
+R5897:5897 Lost_in_NY <> r:52 var
+R5899:5900 Lost_in_NY <> r':53 var
+R5960:5962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5946:5954 Lost_in_NY <> route_eqb def
+R5956:5956 Lost_in_NY <> r:52 var
+R5958:5959 Lost_in_NY <> r':53 var
+R5963:5966 Coq.Init.Datatypes <> true constr
+R5999:6016 Lost_in_NY <> route_equiv_Origin thm
+R6028:6036 Lost_in_NY <> route_eqb def
+R6046:6062 Lost_in_NY <> Point_eqb_correct thm
+R5999:6016 Lost_in_NY <> route_equiv_Origin thm
+R5999:6016 Lost_in_NY <> route_equiv_Origin thm
+R6046:6062 Lost_in_NY <> Point_eqb_correct thm
+R6046:6062 Lost_in_NY <> Point_eqb_correct thm
+R6106:6123 Lost_in_NY <> route_equiv_equivb thm
+def 6196:6199 <> Ex1'
+R6238:6242 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R6207:6208 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6203:6206 Lost_in_NY <> East constr
+R6214:6215 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6209:6213 Lost_in_NY <> North constr
+R6220:6221 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6216:6219 Lost_in_NY <> West constr
+R6227:6228 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6222:6226 Lost_in_NY <> South constr
+R6233:6234 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6229:6232 Lost_in_NY <> East constr
+R6235:6237 Coq.Init.Datatypes <> nil constr
+R6247:6248 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6243:6246 Lost_in_NY <> East constr
+R6249:6251 Coq.Init.Datatypes <> nil constr
+prf 6287:6299 <> north_south_0
+binder 6310:6310 <> r:54
+R6328:6333 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R6318:6319 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6313:6317 Lost_in_NY <> North constr
+R6325:6326 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6320:6324 Lost_in_NY <> South constr
+R6327:6327 Lost_in_NY <> r:54 var
+R6334:6334 Lost_in_NY <> r:54 var
+R6385:6390 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R6362:6362 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6380:6383 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6368:6369 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6363:6367 Lost_in_NY <> North constr
+R6375:6376 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6370:6374 Lost_in_NY <> South constr
+R6377:6379 Coq.Init.Datatypes <> nil constr
+R6385:6390 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R6362:6362 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6380:6383 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6368:6369 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6363:6367 Lost_in_NY <> North constr
+R6375:6376 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6370:6374 Lost_in_NY <> South constr
+R6377:6379 Coq.Init.Datatypes <> nil constr
+R6417:6420 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6412:6416 Lost_in_NY <> North constr
+R6426:6429 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6421:6425 Lost_in_NY <> South constr
+R6430:6432 Coq.Init.Datatypes <> nil constr
+R6443:6445 Coq.Init.Datatypes <> nil constr
+R6447:6455 Lost_in_NY <> direction ind
+R6417:6420 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6412:6416 Lost_in_NY <> North constr
+R6426:6429 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6421:6425 Lost_in_NY <> South constr
+R6430:6432 Coq.Init.Datatypes <> nil constr
+R6443:6445 Coq.Init.Datatypes <> nil constr
+R6447:6455 Lost_in_NY <> direction ind
+prf 6504:6520 <> north_south_simpl
+binder 6531:6531 <> r:55
+binder 6533:6534 <> r':56
+R6557:6562 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R6538:6540 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6537:6537 Lost_in_NY <> r:55 var
+R6546:6547 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6541:6545 Lost_in_NY <> North constr
+R6553:6554 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6548:6552 Lost_in_NY <> South constr
+R6555:6556 Lost_in_NY <> r':56 var
+R6564:6565 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R6563:6563 Lost_in_NY <> r:55 var
+R6566:6567 Lost_in_NY <> r':56 var
+R6629:6641 Lost_in_NY <> north_south_0 thm
+R6629:6641 Lost_in_NY <> north_south_0 thm
+R6629:6641 Lost_in_NY <> north_south_0 thm
+def 6831:6838 <> opposite
+R6846:6854 Lost_in_NY <> direction ind
+binder 6841:6841 <> d:57
+binder 6843:6844 <> d':58
+R6867:6868 Lost_in_NY <> d':58 var
+R6865:6865 Lost_in_NY <> d:57 var
+R6886:6890 Lost_in_NY <> North constr
+R6892:6896 Lost_in_NY <> South constr
+R6901:6904 Coq.Init.Logic <> True ind
+R6916:6920 Lost_in_NY <> South constr
+R6923:6927 Lost_in_NY <> North constr
+R6932:6935 Coq.Init.Logic <> True ind
+R6947:6950 Lost_in_NY <> East constr
+R6953:6956 Lost_in_NY <> West constr
+R6961:6964 Coq.Init.Logic <> True ind
+R6976:6979 Lost_in_NY <> West constr
+R6982:6985 Lost_in_NY <> East constr
+R6990:6993 Coq.Init.Logic <> True ind
+R7013:7017 Coq.Init.Logic <> False ind
+ind 7037:7052 <> Useless_steps_in
+constr 7074:7082 <> Useless_i
+R7057:7061 Lost_in_NY <> route def
+binder 7055:7055 <> r:61
+binder 7092:7093 <> r0:64
+binder 7095:7096 <> r1:65
+binder 7098:7099 <> r2:66
+binder 7101:7101 <> d:67
+binder 7103:7104 <> d1:68
+R7133:7170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7109:7111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7108:7108 Lost_in_NY <> r:61 var
+R7114:7115 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7112:7113 Lost_in_NY <> r0:64 var
+R7116:7116 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7122:7125 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7132:7132 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7118:7119 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7117:7117 Lost_in_NY <> d:67 var
+R7120:7121 Lost_in_NY <> r1:65 var
+R7128:7129 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7126:7127 Lost_in_NY <> d1:68 var
+R7130:7131 Lost_in_NY <> r2:66 var
+R7184:7221 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7171:7178 Lost_in_NY <> opposite def
+R7180:7180 Lost_in_NY <> d:67 var
+R7182:7183 Lost_in_NY <> d1:68 var
+R7222:7237 Lost_in_NY <> Useless_steps_in:62 ind
+R7239:7239 Lost_in_NY <> r:61 var
+prf 7249:7261 <> opposite_cons
+binder 7272:7272 <> d:69
+binder 7274:7275 <> d1:70
+binder 7277:7277 <> r:71
+R7293:7296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7280:7287 Lost_in_NY <> opposite def
+R7289:7289 Lost_in_NY <> d:69 var
+R7291:7292 Lost_in_NY <> d1:70 var
+R7305:7309 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R7299:7300 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7297:7298 Lost_in_NY <> d1:70 var
+R7302:7303 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7301:7301 Lost_in_NY <> d:69 var
+R7304:7304 Lost_in_NY <> r:71 var
+R7310:7310 Lost_in_NY <> r:71 var
+R7417:7425 Lost_in_NY <> translate def
+prf 7467:7476 <> cons2_comm
+binder 7487:7487 <> d:72
+binder 7489:7490 <> d':73
+binder 7492:7492 <> r:74
+R7503:7507 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R7496:7497 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7495:7495 Lost_in_NY <> d:72 var
+R7500:7501 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7498:7499 Lost_in_NY <> d':73 var
+R7502:7502 Lost_in_NY <> r:74 var
+R7510:7511 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7508:7509 Lost_in_NY <> d':73 var
+R7513:7514 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7512:7512 Lost_in_NY <> d:72 var
+R7515:7515 Lost_in_NY <> r:74 var
+R7571:7575 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R7549:7549 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7556:7558 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7551:7552 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7553:7555 Coq.Init.Datatypes <> nil constr
+R7559:7559 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7567:7569 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7562:7563 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7564:7566 Coq.Init.Datatypes <> nil constr
+R7576:7576 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7584:7586 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7579:7580 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7581:7583 Coq.Init.Datatypes <> nil constr
+R7587:7587 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7594:7596 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7589:7590 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7591:7593 Coq.Init.Datatypes <> nil constr
+R7571:7575 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R7549:7549 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7556:7558 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7551:7552 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7553:7555 Coq.Init.Datatypes <> nil constr
+R7559:7559 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7567:7569 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7562:7563 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7564:7566 Coq.Init.Datatypes <> nil constr
+R7576:7576 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7584:7586 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7579:7580 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7581:7583 Coq.Init.Datatypes <> nil constr
+R7587:7587 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7594:7596 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7589:7590 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7591:7593 Coq.Init.Datatypes <> nil constr
+R7619:7625 Coq.Lists.List <> app_ass syndef
+R7619:7625 Coq.Lists.List <> app_ass syndef
+R7619:7625 Coq.Lists.List <> app_ass syndef
+R7619:7625 Coq.Lists.List <> app_ass syndef
+R7619:7625 Coq.Lists.List <> app_ass syndef
+R7638:7645 Lost_in_NY <> app_comm thm
+R7650:7653 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7654:7656 Coq.Init.Datatypes <> nil constr
+R7662:7663 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7664:7666 Coq.Init.Datatypes <> nil constr
+R7638:7645 Lost_in_NY <> app_comm thm
+R7650:7653 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7654:7656 Coq.Init.Datatypes <> nil constr
+R7662:7663 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7664:7666 Coq.Init.Datatypes <> nil constr
+R7638:7645 Lost_in_NY <> app_comm thm
+R7650:7653 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7654:7656 Coq.Init.Datatypes <> nil constr
+R7662:7663 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7664:7666 Coq.Init.Datatypes <> nil constr
+prf 7696:7716 <> Useless_steps_shorter
+R7721:7725 Lost_in_NY <> route def
+binder 7719:7719 <> r:75
+R7750:7753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7732:7747 Lost_in_NY <> Useless_steps_in ind
+R7749:7749 Lost_in_NY <> r:75 var
+R7754:7754 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R7757:7759 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R7765:7767 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R7806:7806 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R7760:7764 Lost_in_NY <> route def
+binder 7755:7756 <> r':76
+R7776:7779 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7769:7773 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R7768:7768 Lost_in_NY <> r:75 var
+R7774:7775 Lost_in_NY <> r':76 var
+R7790:7792 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7781:7786 Coq.Init.Datatypes <> length def
+R7788:7789 Lost_in_NY <> r':76 var
+R7793:7798 Coq.Init.Datatypes <> length def
+R7800:7800 Lost_in_NY <> r:75 var
+R7874:7877 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7880:7883 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7874:7877 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7880:7883 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7921:7924 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7925:7925 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7933:7937 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7927:7930 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7940:7943 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7965:7968 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7969:7969 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7984:7989 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8003:8003 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7970:7970 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7977:7981 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7972:7973 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7974:7976 Coq.Init.Datatypes <> nil constr
+R7990:7990 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7998:8000 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7993:7994 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7995:7997 Coq.Init.Datatypes <> nil constr
+R7921:7924 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7925:7925 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7933:7937 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7927:7930 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7940:7943 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7965:7968 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7969:7969 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7984:7989 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8003:8003 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7970:7970 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7977:7981 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7972:7973 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7974:7976 Coq.Init.Datatypes <> nil constr
+R7990:7990 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7998:8000 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7993:7994 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7995:7997 Coq.Init.Datatypes <> nil constr
+R8035:8050 Lost_in_NY <> app_route_Proper inst
+R8035:8050 Lost_in_NY <> app_route_Proper inst
+R8084:8090 Coq.Lists.List <> app_ass syndef
+R8084:8090 Coq.Lists.List <> app_ass syndef
+R8084:8090 Coq.Lists.List <> app_ass syndef
+R8104:8119 Lost_in_NY <> app_route_Proper inst
+R8104:8119 Lost_in_NY <> app_route_Proper inst
+R8156:8156 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8164:8167 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8173:8173 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8159:8160 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8161:8163 Coq.Init.Datatypes <> nil constr
+R8169:8170 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8156:8156 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8164:8167 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8173:8173 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8159:8160 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8161:8163 Coq.Init.Datatypes <> nil constr
+R8169:8170 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8190:8197 Lost_in_NY <> app_comm thm
+R8190:8197 Lost_in_NY <> app_comm thm
+R8190:8197 Lost_in_NY <> app_comm thm
+R8233:8245 Lost_in_NY <> opposite_cons thm
+R8233:8245 Lost_in_NY <> opposite_cons thm
+R8233:8245 Lost_in_NY <> opposite_cons thm
+R8233:8245 Lost_in_NY <> opposite_cons thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+R8313:8322 Coq.Lists.List <> app_length thm
+inst 8391:8395 <> Route
+R8399:8405 EMonoid <> EMonoid class
+R8429:8431 Coq.Init.Datatypes <> nil constr
+R8421:8423 Coq.Init.Datatypes <> app def
+R8407:8417 Lost_in_NY <> route_equiv def
+R8457:8473 Lost_in_NY <> route_equiv_Equiv inst
+R8457:8473 Lost_in_NY <> route_equiv_Equiv inst
+R8484:8499 Lost_in_NY <> app_route_Proper inst
+R8484:8499 Lost_in_NY <> app_route_Proper inst
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8535:8547 Lost_in_NY <> route_compose thm
+R8590:8602 Lost_in_NY <> route_compose thm
+R8590:8602 Lost_in_NY <> route_compose thm
+R8590:8602 Lost_in_NY <> route_compose thm
+R8590:8602 Lost_in_NY <> route_compose thm
+R8644:8656 Lost_in_NY <> route_compose thm
+R8644:8656 Lost_in_NY <> route_compose thm
+R8644:8656 Lost_in_NY <> route_compose thm
+R8644:8656 Lost_in_NY <> route_compose thm
+def 8682:8684 <> Ex6
+binder 8695:8695 <> n:77
+R8726:8730 Lost_in_NY <> ::type_scope:x_'=r='_x not
+R8698:8703 EMonoid <> Epower def
+R8725:8725 Lost_in_NY <> n:77 var
+R8711:8712 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8706:8710 Lost_in_NY <> South constr
+R8718:8719 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8713:8717 Lost_in_NY <> North constr
+R8720:8722 Coq.Init.Datatypes <> nil constr
+R8731:8733 Coq.Init.Datatypes <> nil constr
+inst 8844:8855 <> AbelianRoute
+R8859:8873 EMonoid <> Abelian_EMonoid class
+R8875:8879 Lost_in_NY <> Route inst
+R8899:8906 Lost_in_NY <> app_comm thm
+R8899:8906 Lost_in_NY <> app_comm thm
