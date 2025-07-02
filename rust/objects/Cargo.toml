@@ -1,0 +1,12 @@
+[package]
+name = "objects"
+version = "0.1.0"
+authors = ["Jake Goulding <jake.goulding@gmail.com>"]
+
+[dependencies]
+libc = "*"
+good_memory_allocator = "0.1.7"
+
+[lib]
+name = "objects"
+crate-type = ["cdylib"]
