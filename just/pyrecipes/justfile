@@ -1,0 +1,43 @@
+set unstable := true
+set positional-arguments := true
+set script-interpreter := ['uv', 'run', '--script']
+
+# list all recipes
+default:
+    @just --list
+
+# basic test of recipe arguments (index_from: int, index_until: int)
+hello0 index_from index_until:
+    @echo {{index_from}}  {{index_until}}
+
+# test of recipe arguments with shebang-based Python/uv recipe (index_from: int, index_until: int)
+hello1 index_from index_until:
+    #!/usr/bin/env -S uv run --script
+    import sys
+    print(sys.argv)
+
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("index_from", type=int)
+    parser.add_argument("index_until", type=int)
+    args = parser.parse_args()
+
+    for i in range(int(args.index_from), int(args.index_until)):
+        print(f'Hello from python: {i}')
+
+# test of recipe arguments with script-based Python/uv recipe (index_from: int, index_until: int)
+[script]
+hello2 index_from index_until:
+    import sys
+    print(sys.argv)
+
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("index_from", type=int)
+    parser.add_argument("index_until", type=int)
+    args = parser.parse_args()
+
+    for i in range(int(args.index_from), int(args.index_until)):
+        print(f'Hello from python: {i}')

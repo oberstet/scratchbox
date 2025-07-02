@@ -1,0 +1,62 @@
+set unstable := true
+set positional-arguments := true
+set script-interpreter := ['uv', 'run', '--script']
+
+# Liste aller Rezepte
+default:
+    @just --list
+
+# P=1, Q=-1 erzeugt die klassischen Fibonacci-Zahlen (U_n) und Lucas-Zahlen (V_n)
+[script]
+fibonacci_lucas n:
+    import argparse
+    from itertools import islice
+    from lucas import LucasSequence
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("n", type=int)
+    args = parser.parse_args()
+
+    fibonacci_lucas_gen = LucasSequence(P=1, Q=-1)
+
+    print("n \tU_n (Fib) \tV_n (Lucas)")
+    print("-" * 30)
+    for i, (u, v) in enumerate(islice(fibonacci_lucas_gen, args.n)):
+        print(f"{i} \t{u} \t\t{v}")
+
+# P=2, Q=-1 erzeugt die Pell-Zahlen (U_n) und Pell-Lucas-Zahlen (V_n)
+[script]
+pell_lucas n:
+    import argparse
+    from itertools import islice
+    from lucas import LucasSequence
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("n", type=int)
+    args = parser.parse_args()
+
+    pell_gen = LucasSequence(P=2, Q=-1)
+
+    print("n \tU_n (Pell) \tV_n (Pell-Lucas)")
+    print("-" * 35)
+    for i, (u, v) in enumerate(islice(pell_gen, args.n)):
+        print(f"{i} \t{u} \t\t{v}")
+
+# P=1, Q=-2 erzeugt die Jacobsthal-Zahlen
+[script]
+jacobsthal n:
+    import argparse
+    from itertools import islice
+    from lucas import LucasSequence
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("n", type=int)
+    args = parser.parse_args()
+
+    jacobsthal_gen = LucasSequence(P=1, Q=-2)
+
+    print("n \tU_n (Jacobsthal)")
+    print("-" * 25)
+    for i, (u, v) in enumerate(islice(jacobsthal_gen, args.n)):
+        # Wir geben hier nur die U-Folge aus
+        print(f"{i} \t{u}")
